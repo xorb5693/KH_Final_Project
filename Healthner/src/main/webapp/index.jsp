@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>Welcome</h1>
+	<a href="notice.do">공지사항가기</a>
 </body>
 </html>
