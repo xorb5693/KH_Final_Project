@@ -92,7 +92,7 @@
 						class="nav-link">About</a></li>
 					<li class="nav-item"><a href="coaches.html" class="nav-link">Trainers</a></li>
 					<li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
-					<li class="nav-item"><a href="notice.do?req=1" class="nav-link">Blog</a></li>
+					<li class="nav-item"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Shop</a></li>
 				</ul>
 			</div>
