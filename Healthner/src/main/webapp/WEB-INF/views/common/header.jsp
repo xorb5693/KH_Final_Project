@@ -63,21 +63,21 @@ prefix="c"%>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item active"><a href="about.html" class="nav-link">About</a></li>
-	        	<li class="nav-item"><a href="coaches.html" class="nav-link">Trainers</a></li>
-						<li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
-						<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Shop</a></li>
+	        	<li class="nav-item active"><a href="/about.do" class="nav-link">About</a></li>
+	        	<li class="nav-item"><a href="/trainer.do" class="nav-link">Trainers</a></li>
+						<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
+						<li class="nav-item"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
+	          <li class="nav-item"><a href="/shop.do" class="nav-link">Shop</a></li>
 	        </ul>
 	      </div>
 	    </div>
 	  </nav>
     <!-- END nav -->
 
-    <section class="hero-wrap js-fullheight" style="background-image: url('/resources/images/bg_2.jpg');">
+    <section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
       <div class="overlay"></div>
       <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
             <h1 class="mb-3 bread">Place title here</h1>
             <p class="breadcrumbs"><span class="mr-2"><a href="index.html">링크</a></span> <span>링크</span></p>
