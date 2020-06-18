@@ -43,9 +43,12 @@ prefix="c"%>
                         </div>
                         <div class="col-md pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-person_outline"></span></div>
-						    <span class="text">
-                                <a href="/login.do">Login</a>
-                            </span>
+						    <c:if test="${empty sessionScope.member }">
+								<span class="text"> <a href="/login.do">Login</a></span>
+							</c:if>
+							<c:if test="${not empty sessionScope.member }">
+								<span class="text"><a href="/mypage.do">마이페이지</a></span>
+							</c:if>
 					    </div>
 				    </div>
 			    </div>
