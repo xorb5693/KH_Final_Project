@@ -66,7 +66,7 @@ prefix="c"%>
 	        	<li class="nav-item active"><a href="/about.do" class="nav-link">About</a></li>
 	        	<li class="nav-item"><a href="/trainer.do" class="nav-link">Trainers</a></li>
 						<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
-						<li class="nav-item"><a href="/blog.do" class="nav-link">Blog</a></li>
+						<li class="nav-item"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="/shop.do" class="nav-link">Shop</a></li>
 	        </ul>
 	      </div>
