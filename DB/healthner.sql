@@ -163,6 +163,7 @@ CREATE TABLE PRODUCT
     category     NUMBER            NOT NULL, 
     category2    NUMBER            NOT NULL, 
     category3    NUMBER            NOT NULL, 
+    thumbnail    VARCHAR2(200)     NOT NULL,
     CONSTRAINT PRODUCT_PK PRIMARY KEY (pno)
 )
 /
