@@ -35,7 +35,7 @@ prefix="c"%>
 	
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">
+	      <a class="navbar-brand" href="/">
               <span><i class="left-bar"></i>너는 내가 책임 GYM<i class="right-bar"></i></span>
         </a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,12 +61,14 @@ prefix="c"%>
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
           
-          
+				<!-- Login -->
+
+
 <!-- 			<div class="d-flex justify-content-center h-100 disabled" id="section-counter">
 				<div class="card"> -->
 	
 					<div class="card-body">
-						<form>
+						<form action="/healthner/member/login.do" method="POST">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="icon-person_outline"></i></span>
@@ -81,7 +83,10 @@ prefix="c"%>
 								<input type="password" class="form-control" placeholder="password">
 							</div>
 							<div class="row align-items-center remember">
-								<input type="checkbox">Remember Me
+								<label>
+									<input type="checkbox" class="" id="remember">
+									Remember Me
+								</label>
 							</div>
 							<div class="form-group">
 								<input type="submit" value="Login" class="btn btn-primary btn-outline-white">
