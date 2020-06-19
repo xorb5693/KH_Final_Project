@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,8 +67,12 @@
 								class="icon mr-2 d-flex justify-content-center align-items-center">
 								<span class="icon-person_outline"></span>
 							</div>
-							<span class="text"> <a href="/login.do">Login</a>
-							</span>
+							<c:if test="${empty sessionScope.member }">
+								<span class="text"> <a href="/healthner/member/loginFrm.do">Login</a></span>
+							</c:if>
+							<c:if test="${not empty sessionScope.member }">
+								<span class="text"><a href="/mypage.do">마이페이지</a></span>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -88,12 +93,12 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a href="about.html"
+					<li class="nav-item active"><a href="/about.do"
 						class="nav-link">About</a></li>
-					<li class="nav-item"><a href="coaches.html" class="nav-link">Trainers</a></li>
-					<li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+					<li class="nav-item"><a href="/trainer.do" class="nav-link">Trainers</a></li>
+					<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
 					<li class="nav-item"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="contact.html" class="nav-link">Shop</a></li>
+					<li class="nav-item"><a href="/shop.do" class="nav-link">Shop</a></li>
 				</ul>
 			</div>
 		</div>
