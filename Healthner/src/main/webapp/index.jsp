@@ -68,7 +68,7 @@ prefix="c"%>
 								<span class="icon-person_outline"></span>
 							</div>
 							<c:if test="${empty sessionScope.member }">
-								<span class="text"> <a href="/login.do">Login</a></span>
+								<span class="text"> <a href="/healthner/member/loginFrm.do">Login</a></span>
 							</c:if>
 							<c:if test="${not empty sessionScope.member }">
 								<span class="text"><a href="/mypage.do">마이페이지</a></span>
