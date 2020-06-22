@@ -23,5 +23,18 @@ public class MemberDaoImpl {
 		return session.selectOne("member.checkId", m);
 	}
 	
+
+	@Autowired
+	SqlSessionTemplate sqlSession;
 	
+	public Member selectAduino(String cardNo) {
+		
+		return sqlSession.selectOne("member.selectAduino", cardNo);
+	}
+
+	public int aduinoAttendance(int memberNo) {
+		
+		return sqlSession.insert("attendance.insertAttendance", memberNo);
+	}
+
 }
