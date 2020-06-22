@@ -19,9 +19,10 @@
 </head>
 <body>
 
-	<div>${sessionScope.img}</div>
-	<div>${sessionScope.title }</div>
-	테스트트트트트트
-
+	
+	<div>글 제목입니다 : ${sessionScope.title }</div>
+	<div>글 내용입니다 : ${sessionScope.content }</div>
+	<div><a href="noticeList.do?reqPage=1">게시판목록으로</a></div>
+	
 </body>
 </html>

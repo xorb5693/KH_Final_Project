@@ -124,11 +124,22 @@ prefix="c"%>
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+		<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
+          <br><br>
+            <h1 class="mb-3 bread">TRAINERS</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
 	
 	<!-- 트레이너 인트로 -->
 	
-	<!-- 가입된 트레이너 정보 가져오기 -->
+	<!-- 가입된 트레이너 정보 가져오기
 	<section class="ftco-section bg-light">
 		<div class="container-fluid px-4">
 			<c:forEach items="${list }" var="list">
@@ -148,9 +159,9 @@ prefix="c"%>
 			</c:forEach>
 		</div>
 	</section>
-	
+	 -->
 	<section class="ftco-section bg-light">
-    	<div class="container-fluid px-4">
+    	<div class="container px-4">
     		<div class="row justify-content-center mb-5">
           <div class="col-md-7 heading-section text-center ftco-animate">
           	<h3 class="subheading">Shape Your Body</h3>

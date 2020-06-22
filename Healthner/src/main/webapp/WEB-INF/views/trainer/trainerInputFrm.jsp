@@ -30,14 +30,27 @@ prefix="c"%>
 <link rel="stylesheet" href="/resources/css/icomoon.css">
 <link rel="stylesheet" href="/resources/css/style.css">
 </head>
-	
-	
+<style>	
+	select.form-control>option{
+		font-size: 1.2em;
+	}
 </style>
 <body>
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+		<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
+          <br><br>
+            <h1 class="mb-3 bread">TRAINERS</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
 	
 	<!-- 트레이너 정보 입력 수정 -->
 	<!--
@@ -47,7 +60,7 @@ prefix="c"%>
 	
 	<section class="ftco-appointment">
 			<div class="overlay"></div>
-    	<div class="container col-md-6 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+    	<div class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
 
 	    			<h3 class="mb-3">Trainer Information Input</h3>
 	    			<form action="#" class="appointment-form">
@@ -59,6 +72,7 @@ prefix="c"%>
 	    						<div class="mr-2">
 	    							<label for="catFirst">주특기1</label>
 			    					<select class="form-control">
+			    						<option></option>
 			    						<option>다이어트</option>
 			    						<option>보디빌딩</option>
 			    					</select>
@@ -66,6 +80,7 @@ prefix="c"%>
 		    					<div class="ml-2">
 	    							<label for="catSecond">주특기2</label>
 			    					<select class="form-control">
+			    						<option></option>
 			    						<option>다이어트</option>
 			    						<option>보디빌딩</option>
 			    					</select>
@@ -73,6 +88,7 @@ prefix="c"%>
 			    				<div class="ml-2">
 	    							<label for="catThird">주특기3</label>
 			    					<select class="form-control">
+			    						<option></option>
 			    						<option>다이어트</option>
 			    						<option>보디빌딩</option>
 			    					</select>

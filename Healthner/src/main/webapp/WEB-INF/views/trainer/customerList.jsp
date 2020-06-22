@@ -43,7 +43,18 @@ prefix="c"%>
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
+          <br><br>
+            <h1 class="mb-3 bread">TRAINERS</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
 	
 	<!-- 트레이너 인트로 -->
 	
@@ -68,14 +79,13 @@ prefix="c"%>
 		</div>
 	</section>
 	 -->
-	<!-- DataTales Example -->
-	<section class="ftco-section bg-light">
-          <div class="container mb-4 ftco-animate">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">회원목록</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
+	<!--회원목록 테이블 -->
+	<section class="ftco-appointment">
+			<div class="overlay"></div>
+    	<div class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+
+	    			<h3 class="mb-3">Customer List</h3>
+	<div class="table-responsive">
                 <table class="table2 table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
@@ -101,10 +111,7 @@ prefix="c"%>
                   </tbody>
                 </table>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-5">
+              <div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
 		              <ul>
@@ -118,8 +125,11 @@ prefix="c"%>
 		              </ul>
 		            </div>
 		          </div>
-		        </div>
-	</section>
+		 </div> 
+	</div>
+	   			
+  
+    </section>
 		        
 		        
         <!-- /.container-fluid -->
