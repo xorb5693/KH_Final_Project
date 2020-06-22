@@ -7,5 +7,7 @@
 	<typeAliases>
 		<typeAlias type="kr.co.healthner.member.model.vo.Member" alias="member"/>
 		<typeAlias type="kr.co.healthner.notice.model.vo.Notice" alias="notice"/>
+		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceVO" alias="attend"/>
+		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceAvgtimeVO" alias="attendAvg"/>
 	</typeAliases>
 </configuration>
