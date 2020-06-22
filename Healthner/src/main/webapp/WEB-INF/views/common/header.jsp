@@ -68,7 +68,7 @@ prefix="c"%>
 	        <ul class="navbar-nav ml-auto">
 	        	<li class="nav-item active"><a href="/healthner/member/about.do" class="nav-link">About</a></li>
 	        	<li class="nav-item active"><a href="/healthner/trainer/trainer.do" class="nav-link">Trainers</a></li>
-						<li class="nav-item"><a href="/healthner/member/pricing.do" class="nav-link">Pricing</a></li>
+						<li class="nav-item active"><a href="/healthner/member/pricing.do" class="nav-link">Pricing</a></li>
 						<li class="nav-item active"><a href="/healthner/notice/notice.do?reqPage=1" class="nav-link">Blog</a></li>
 	          <li class="nav-item active"><a href="/healthner/member/shop.do" class="nav-link">Shop</a></li>
 	        </ul>

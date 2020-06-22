@@ -5,7 +5,7 @@ prefix="c"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Customer List</title>
+<title>Trainer Intro</title>
  <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -30,20 +30,11 @@ prefix="c"%>
 <link rel="stylesheet" href="/resources/css/icomoon.css">
 <link rel="stylesheet" href="/resources/css/style.css">
 </head>
-<style>
-	.table2>td {
-	    padding: 0.75rem;
-	    vertical-align: middle;
-	    border-top: 1px solid #dee2e6;
-	}
-	
-
-</style>
 <body>
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
+		<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -79,64 +70,40 @@ prefix="c"%>
 		</div>
 	</section>
 	 -->
-	<!--회원목록 테이블 -->
-	<section class="ftco-appointment">
-			<div class="overlay"></div>
-    	<div class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
-
-	    			<h3 class="mb-3">Customer List</h3>
-	<div class="table-responsive">
-                <table class="table2 table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>번호</th>
-                      <th>회원이름</th>
-                      <th>회원 사진</th>
-                      <th colspan="2">PT횟수</th>
-                      <th>이용권만기일</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table2">
-                    <tr>
-                      <td rowspan="2">순서대로 번호</td>
-                      <td rowspan="2">김기창</td>
-                      <td rowspan="2">김기창 사진</td>
-                      <td rowspan="2">2/10</td>
-                      <td width="70px;">
-                		<input type="submit" value="횟수증가" class="btn btn-primary py-1 px-1"><br>
-                		<input type="submit" value="횟수차감" class="btn btn-primary py-1 px-1">
-                      </td>
-                      <td rowspan="2">만기일</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="row mt-5">
-		          <div class="col text-center">
-		            <div class="block-27">
-		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
-		              </ul>
-		            </div>
-		          </div>
-		 </div> 
-	</div>
-	   			
-  
+	<section class="ftco-section bg-light">
+    	<div class="container px-4">
+    		<div class="row justify-content-center mb-5">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+          	<h3 class="subheading">Shape Your Body</h3>
+            <h2 class="mb-1">[${member.memberName }]님의 정보</h2>
+          </div>
+        </div>
+    		<div class="row">
+    			<div class="col-lg-3 d-flex">
+    				<div class="coach align-items-stretch">
+	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">사진</a>
+	    				<div class="text pt-3 ftco-animate">
+	    					식단
+	    				</div>
+	    			</div>
+	    			<div class="coach align-items-stretch">
+	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">사진</a>
+	    				<div class="text pt-3 ftco-animate">
+	    					식단
+	    				</div>
+	    			</div>
+	    			<div class="coach align-items-stretch">
+	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">사진</a>
+	    				<div class="text pt-3 ftco-animate">
+	    					식단
+	    				</div>
+	    			</div>
+    			</div>
+    		</div>
+    	</div>
     </section>
-		        
-		        
-        <!-- /.container-fluid -->
 
-      </div>
-      <!-- End of Main Content -->
-	
+
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/js/popper.min.js"></script>
