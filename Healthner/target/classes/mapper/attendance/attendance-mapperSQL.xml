@@ -4,4 +4,32 @@
 	<insert id="insertAttendance" parameterType="_int">
 		insert into ATTENDANCE values(#{_parameter}, to_date(to_char(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS'))
 	</insert>
+	<select id="lastDayAttendanceList" resultType="_int">
+		 <![CDATA[ select DISTINCT member_no from Attendance
+		where 
+		    ATTEND_DATE <= to_date(to_char(SYSDATE + (INTERVAL '-1' DAY), 'YYYY-MM-DD')||' 23:59:59', 'YYYY-MM-DD HH24:MI:SS') and 
+		    ATTEND_DATE > TRUNC(SYSDATE + (INTERVAL '-1' DAY), 'DD')]]>
+	</select>
+	<select id="selectAttendanceCount" parameterType="_int" resultType="_int">
+		<![CDATA[select count(*) from attendance
+		where
+			ATTEND_DATE <= to_date(to_char(SYSDATE + (INTERVAL '-1' DAY), 'YYYY-MM-DD')||' 23:59:59', 'YYYY-MM-DD HH24:MI:SS') and 
+		    ATTEND_DATE > TRUNC(SYSDATE + (INTERVAL '-1' DAY), 'DD')
+		    and member_no = #{_parameter}]]>
+	</select>
+	<insert id="insertLastAttendance" parameterType="_int">
+		insert into ATTENDANCE values(#{_parameter}, 
+		to_date(to_char(SYSDATE + (INTERVAL '-1' DAY), 'YYYY-MM-DD')||' 23:59:59', 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	<select id="selectAttendanceList" parameterType="_int" resultType="attend">
+		<![CDATA[select member_no as memberNo, to_char(attend_date, 'YYYY-MM-DD HH24:MI:SS') as strAttendDate from attendance
+		where 
+			ATTEND_DATE <= to_date(to_char(SYSDATE + (INTERVAL '-1' DAY), 'YYYY-MM-DD')||' 23:59:59', 'YYYY-MM-DD HH24:MI:SS') and 
+		    ATTEND_DATE > TRUNC(SYSDATE + (INTERVAL '-1' DAY), 'DD')
+		    and member_no = #{_parameter}
+		order by attend_date]]>
+	</select>
+	<insert id="insertAvg" parameterType="_int">
+		insert into ATTENDANCE_AVGTIME values(TRUNC(SYSDATE + (INTERVAL '-1' DAY), 'DD'), #{_parameter})
+	</insert>
 </mapper>

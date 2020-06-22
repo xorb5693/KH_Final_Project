@@ -8,5 +8,6 @@ import lombok.Data;
 public class AttendanceVO {
 
 	private int memberNo;
-	private Date attentDate;
+	private Date attendDate;
+	private String strAttendDate;
 }

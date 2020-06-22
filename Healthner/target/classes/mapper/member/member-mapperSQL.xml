@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
+	<select id="selectMember" resultType="member" parameterType="member">
+		select
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			member_nick as memberNick,
+			zip,
+			road_addr as roadAddr,
+			det_addr as detAddr,
+			card,
+			enroll_date as enrollDate,
+			member_level as memberLevel,
+			gender,
+			age,
+			member_profile as memberProfile,
+			email,
+			expire_date as expireDate,
+			phone,
+			email_verification as emailVerification
+		from member where member_id = #{memberId} and member_pw = #{memberPw}
+	</select>
+	<insert id="insertMember" parameterType="member">
+		insert into member values(
+			member_seq.nextval,
+			#{memberId},
+			#{memberPw},
+			#{memberName},
+			#{zip},
+			#{roadAddr},
+			#{detAddr},
+			#{card},
+			sysdate,
+			#{gender},
+			#{age},
+			#{memberProfile},
+			#{email},
+			#{expireDate},
+			#{phone},
+			0
+			)
+	</insert>
+	<select id="checkId" parameterType="member" resultType="String">
+		select count(*) from member where member_id like #{memberId}
+	</select>
 	<select id="selectAduino" parameterType="string" resultType="member">
 		select 
 			member_no as memberNo, 
