@@ -42,12 +42,26 @@ prefix="c"%>
 						    <p class="mb-0 register-link"><span>Open hours:</span> <span>Monday - Sunday</span> <span>8:00AM - 9:00PM</span></p>
                         </div>
                         <div class="col-md pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-person_outline"></span></div>
-						    <c:if test="${empty sessionScope.member }">
-								<span class="text active"> <a href="/healthner/member/loginFrm.do">Login</a></span>
+					    	<c:if test="${empty sessionScope.member }">
+								<div
+									class="icon mr-2 d-flex justify-content-center align-items-center">
+									<span class="icon-person_outline"></span> <span class="text">
+										<a href="/healthner/member/loginFrm.do">Login</a>
+									</span>
+								</div>
 							</c:if>
 							<c:if test="${not empty sessionScope.member }">
-								<span class="text"><a href="/healthner/member/mypage.do">마이페이지</a></span>
+								<div
+									class="icon mr-2 d-flex justify-content-center align-items-center">
+									<span class="icon-person_outline"></span>
+									<span class="text"><a
+										href="/healthner/member/mypageFrm.do">마이페이지</a></span>
+								</div>
+								<div
+									class="icon mr-2 d-flex justify-content-center align-items-center">
+									<span class="icon-lock"></span> <span class="text"><a
+										href="/healthner/member/logout.do">로그아웃</a></span>
+								</div>
 							</c:if>
 					    </div>
 				    </div>
@@ -66,11 +80,11 @@ prefix="c"%>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item active"><a href="/about.do" class="nav-link">About</a></li>
-	        	<li class="nav-item active"><a href="/trainer.do" class="nav-link">Trainers</a></li>
-						<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
-						<li class="nav-item active"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
-	          <li class="nav-item active"><a href="/shop.do" class="nav-link">Shop</a></li>
+	        	<li class="nav-item active"><a href="/healthner/member/about.do" class="nav-link">About</a></li>
+	        	<li class="nav-item active"><a href="/healthner/trainer/trainer.do" class="nav-link">Trainers</a></li>
+						<li class="nav-item active"><a href="/healthner/member/pricing.do" class="nav-link">Pricing</a></li>
+						<li class="nav-item active"><a href="/healthner/notice/notice.do?reqPage=1" class="nav-link">Blog</a></li>
+	          <li class="nav-item active"><a href="/healthner/member/shop.do" class="nav-link">Shop</a></li>
 	        </ul>
 	      </div>
 	    </div>
