@@ -31,10 +31,8 @@ public class MemberServiceImpl {
 
 	public String checkId(Member m) {
 		return dao.checkId(m);
+	}
 	
-	@Autowired
-	@Qualifier("memberDao")
-	MemberDaoImpl dao;
 
 	@Transactional
 	public AttendanceData aduinoAttendance(String cardNo) {
