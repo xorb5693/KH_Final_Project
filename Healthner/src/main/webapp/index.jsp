@@ -103,7 +103,7 @@ prefix="c"%>
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a href="/about.do"
 						class="nav-link">About</a></li>
-					<li class="nav-item"><a href="/healthner/trainer/trainerFrm.do" class="nav-link">Trainers</a></li>
+					<li class="nav-item"><a href="/healthner/trainer/trainerIntro.do" class="nav-link">Trainers</a></li>
 					<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
 					<li class="nav-item"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="/shop.do" class="nav-link">Shop</a></li>

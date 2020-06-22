@@ -67,7 +67,7 @@ prefix="c"%>
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	        	<li class="nav-item active"><a href="/about.do" class="nav-link">About</a></li>
-	        	<li class="nav-item active"><a href="/trainer.do" class="nav-link">Trainers</a></li>
+	        	<li class="nav-item active"><a href="/trainerIntro.do" class="nav-link">Trainers</a></li>
 						<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
 						<li class="nav-item active"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
 	          <li class="nav-item active"><a href="/shop.do" class="nav-link">Shop</a></li>

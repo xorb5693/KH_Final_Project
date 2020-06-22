@@ -7,17 +7,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
 
-
-
 @Controller
 @RequestMapping("/healthner/trainer")
 public class TrainerController {
 	@Autowired
-	@Qualifier("trainerSerivce")
+	@Qualifier("trainerService")
 	private TrainerServiceImpl service;
 	
-	@RequestMapping("/trainerIntroFrm.do")
-	public String trainerIntroFrm() {
-		return "trainer/trainerIntroFrm";
+	@RequestMapping("/trainerIntro.do")
+	public String trainerIntro() {
+		return "trainer/trainerIntro";
+	}
+	
+	@RequestMapping("/trainerInputFrm.do")
+	public String trainerInputFrm() {
+		return "trainer/trainerInputFrm";
+	}
+	
+	@RequestMapping("/customerList.do")
+	public String customerList() {
+		return "trainer/customerList";
 	}
 }
