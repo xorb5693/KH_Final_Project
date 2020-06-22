@@ -23,7 +23,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="kr.co.healthner" />
-	<resources location="/smarteditor" mapping="/smarteditor/**"></resources>
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	
 	
 	

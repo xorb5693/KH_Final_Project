@@ -9,7 +9,7 @@
 </head>
 <style>
 	.content{
-		height:500px;
+		
 	}
 </style>
 <body>
