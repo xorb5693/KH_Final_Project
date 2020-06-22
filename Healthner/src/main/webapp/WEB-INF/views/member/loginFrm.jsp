@@ -29,7 +29,11 @@ prefix="c"%>
 <link rel="stylesheet" href="/resources/css/flaticon.css">
 <link rel="stylesheet" href="/resources/css/icomoon.css">
 <link rel="stylesheet" href="/resources/css/style.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
+<script>
+	
+</script>
 <body>
 
 	
@@ -73,14 +77,14 @@ prefix="c"%>
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="icon-person_outline"></i></span>
 								</div>
-								<input type="text" class="form-control" placeholder="username">
+								<input type="text" name="memberId" class="form-control" placeholder="username">
 								
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="icon-key"></i></span>
 								</div>
-								<input type="password" class="form-control" placeholder="password">
+								<input type="password" name="memberPw" class="form-control" placeholder="password">
 							</div>
 							<div class="row align-items-center remember">
 								<label>
