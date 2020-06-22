@@ -19,9 +19,9 @@ prefix="c"%>
           data: {memberId : memberId},
           success: function(data){
             if(data == "0"){
-              $(this).next().val("사용가능")
+              $(this).next().html("사용가능")
             }else{
-              $(this).next().val("이미 사용중인 아이디")
+              $(this).next().html("이미 사용중인 아이디")
             }
           }
         });

@@ -51,8 +51,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/selectId.do")
-	public int checkId(Member m) {
-		int result = service.checkId(m);
+	public String checkId(Member m) {
+		String result = service.checkId(m);
 		return result;
 	}
 	

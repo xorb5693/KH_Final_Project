@@ -19,7 +19,7 @@ public class MemberDaoImpl {
 		return session.insert("member.insertMember", m);
 	}
 
-	public int checkId(Member m) {
+	public String checkId(Member m) {
 		return session.selectOne("member.checkId", m);
 	}
 	

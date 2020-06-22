@@ -43,7 +43,7 @@
 			0
 			)
 	</insert>
-	<select id="checkId" parameterType="member" resultType="int">
+	<select id="checkId" parameterType="member" resultType="String">
 		select count(*) from member where member_id like #{memberId}
 	</select>
 </mapper>
