@@ -44,10 +44,10 @@ prefix="c"%>
                         <div class="col-md pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-person_outline"></span></div>
 						    <c:if test="${empty sessionScope.member }">
-								<span class="text"> <a href="/healthner/member/loginFrm.do">Login</a></span>
+								<span class="text active"> <a href="/healthner/member/loginFrm.do">Login</a></span>
 							</c:if>
 							<c:if test="${not empty sessionScope.member }">
-								<span class="text"><a href="/mypage.do">마이페이지</a></span>
+								<span class="text"><a href="/healthner/member/mypage.do">마이페이지</a></span>
 							</c:if>
 					    </div>
 				    </div>
@@ -57,7 +57,7 @@ prefix="c"%>
     </div>
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">
+	      <a class="navbar-brand" href="/">
               <span><i class="left-bar"></i>너는 내가 책임 GYM<i class="right-bar"></i></span>
         </a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,11 +66,11 @@ prefix="c"%>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item active"><a href="/about.do" class="nav-link">About</a></li>
-	        	<li class="nav-item"><a href="/trainer.do" class="nav-link">Trainers</a></li>
-						<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
-						<li class="nav-item"><a href="/notice.do?reqPage=1" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="/shop.do" class="nav-link">Shop</a></li>
+	        	<li class="nav-item active"><a href="/healthner/member/about.do" class="nav-link">About</a></li>
+	        	<li class="nav-item active"><a href="/healthner/trainer/trainer.do" class="nav-link">Trainers</a></li>
+						<li class="nav-item"><a href="/healthner/member/pricing.do" class="nav-link">Pricing</a></li>
+						<li class="nav-item active"><a href="/healthner/notice/notice.do?reqPage=1" class="nav-link">Blog</a></li>
+	          <li class="nav-item active"><a href="/healthner/member/shop.do" class="nav-link">Shop</a></li>
 	        </ul>
 	      </div>
 	    </div>
