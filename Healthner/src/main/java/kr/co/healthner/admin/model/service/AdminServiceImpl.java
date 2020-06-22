@@ -14,8 +14,8 @@ import kr.co.healthner.member.model.vo.Member;
 public class AdminServiceImpl {
 	
 	@Autowired
-	@Qualifier("AdminDao")
-	AdminDaoImpl dao;
+	@Qualifier("adminDao")
+	private AdminDaoImpl dao;
 
 
 }

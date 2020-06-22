@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="/admin/css/style.css">
   </head>
     <!--혜진_200622_기존 템플릿 이외에 스타일 추가-->
     <style>
@@ -44,9 +44,9 @@
 	src="http://code.jquery.com/jquery-3.3.1.js"></script>
   <body>
 		<div class="container d-flex align-items-stretch">
-			<nav id="sidebar" class="img" style="background-image: url(images/admin_main_column.jpg);">
+			<nav id="sidebar" class="img" style="background-image: url(/admin/images/admin_main_column.jpg);">
 				<div class="p-4">
-                    <h1><a href="index.html" class="logo"><img src="images/Picture4.png" class="main-logo"></a><a href="index.html" class="logo"><span style="float:right;" id="logout"> [Admin]&nbsp;Logout</span></a></h1>
+                    <h1><a href="/adminMain.do" class="logo"><img src="/admin/images/Picture4.png" class="main-logo"></a><a href="index.html" class="logo"><span style="float:right;" id="logout"> [Admin]&nbsp;Logout</span></a></h1>
 	        <ul class="list-unstyled components mb-5 main-list" >
 	          <li>
 	            <a href="#" style="margin-top:55px;"><span class="fa fa-user mr-3"></span> <span></span>회원 관리</a>

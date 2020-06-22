@@ -1,4 +1,4 @@
-package kr.co.healthner.admincontroller;
+package kr.co.healthner.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
 
 @Controller
-@RequestMapping("/healthner/admin")
+//@RequestMapping("/healthner/admin")
 public class AdminController {
 	@Autowired
 	@Qualifier("adminService")

@@ -10,7 +10,7 @@ import kr.co.healthner.member.model.vo.Member;
 public class AdminDaoImpl {
 
 	@Autowired
-	SqlSessionTemplate sqlSession;
+	private SqlSessionTemplate sqlSession;
 
 
 }
