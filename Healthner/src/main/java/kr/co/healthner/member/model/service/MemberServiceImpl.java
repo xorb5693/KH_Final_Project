@@ -14,9 +14,6 @@ import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.Member;
 
-import kr.co.healthner.member.model.dao.MemberDaoImpl;
-import kr.co.healthner.member.model.vo.Member;
-
 @Service("memberService")
 public class MemberServiceImpl {
 	@Autowired
@@ -99,7 +96,11 @@ public class MemberServiceImpl {
 			}
 		}
 		
-		int avg = sum / list.size();
-		dao.insertAvg(avg);
+		if (list.size() != 0) {
+			int avg = sum / list.size();
+			dao.insertAvg(avg);
+		} else {
+			dao.insertAvg(0);
+		}
 	}
 }
