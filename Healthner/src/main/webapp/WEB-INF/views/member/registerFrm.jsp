@@ -19,9 +19,10 @@ prefix="c"%>
           data: {memberId : memberId},
           success: function(data){
             if(data == "0"){
-              $(this).next().html("사용가능")
+              $("input[name=memberId]").next("span").html("사용가능");
+              console.log(this);
             }else{
-              $(this).next().html("이미 사용중인 아이디")
+              $("input[name=memberId]").next("span").html("이미 사용중인 아이디");
             }
           }
         });
@@ -30,19 +31,19 @@ prefix="c"%>
   </script>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
-	<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-          <br><br>
-            <h1 class="mb-3 bread">hello</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">링크</a></span> <span>링크</span></p>
-          </div>
+	<section class="hero-wrap" style="background-image: url('/resources/images/bg_02.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
+        <br><br>
+          <h1 class="mb-3 bread">Registration</h1>
+          <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
         </div>
       </div>
-    </section>
-	
+    </div>
+  </section>
+
   <section class="hero-wrap">
     <form action="/healthner/member/join.do" method="get">
       아이디: <input type="text" name="memberId" id="" class="input-group-text" required><span></span><br>

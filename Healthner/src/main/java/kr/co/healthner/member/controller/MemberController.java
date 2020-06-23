@@ -77,8 +77,12 @@ public class MemberController {
 	
 	@RequestMapping("/selectId.do")
 	public String checkId(Member m) {
-		String result = service.checkId(m);
-		return result;
+		Member member = service.checkId(m);
+		if(member!=null) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 		
 	@ResponseBody
@@ -98,6 +102,7 @@ public class MemberController {
 		}
 	}
 	
+
 	@RequestMapping("/mypageFrm.do")
 	public String myPage() {
 		return "member/mypage";
