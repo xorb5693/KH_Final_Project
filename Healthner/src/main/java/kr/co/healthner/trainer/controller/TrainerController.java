@@ -19,9 +19,9 @@ public class TrainerController {
 	@Qualifier("trainerService")
 	private TrainerServiceImpl service;
 	
-	@RequestMapping("/trainerIntro.do")
-	public String trainerIntro() {
-		return "trainer/trainerIntro";
+	@RequestMapping("/trainer.do")
+	public String trainer() {
+		return "trainer/trainer";
 	}
 	
 	@RequestMapping("/trainerInputFrm.do")
@@ -39,7 +39,7 @@ public class TrainerController {
 		return "trainer/customerInfo";
 	}
 	
-//	@RequestMapping("/trainerIntro.do")
+//	@RequestMapping("/trainer.do")
 //	public String trainerIntro(Model model) {
 //		List<Member> list = service.selectAllTrainers();
 //		model.addAttribute("list", list);

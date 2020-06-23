@@ -102,7 +102,7 @@ body::-webkit-scrollbar {
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html"><span><i
+			<a class="navbar-brand" href="/"><span><i
 					class="left-bar"></i>너는 내가 책임GYM<i class="right-bar"></i></span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
@@ -114,7 +114,7 @@ body::-webkit-scrollbar {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a href="/about.do"
 						class="nav-link">About</a></li>
-					<li class="nav-item"><a href="/healthner/trainer/trainerIntro.do" class="nav-link">Trainers</a></li>
+					<li class="nav-item"><a href="/healthner/trainer/trainer.do" class="nav-link">Trainers</a></li>
 					<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
 					<li class="nav-item"><a href="/notice.do?reqPage=1"
 						class="nav-link">Blog</a></li>
