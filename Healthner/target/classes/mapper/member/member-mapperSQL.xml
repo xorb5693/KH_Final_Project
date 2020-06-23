@@ -49,7 +49,8 @@
 	<select id="selectAduino" parameterType="string" resultType="member">
 		select 
 			member_no as memberNo, 
-			member_id as memberId 
+			member_id as memberId,
+			expire_date as expireDate
 		from member 
 		where card = #{_parameter} 
 	</select>

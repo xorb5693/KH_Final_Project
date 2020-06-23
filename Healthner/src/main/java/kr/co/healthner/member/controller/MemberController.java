@@ -1,15 +1,19 @@
 package kr.co.healthner.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.healthner.common.CardHandler;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
+import kr.co.healthner.member.model.vo.AttendanceAvgData;
 import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.Member;
 
@@ -97,5 +101,16 @@ public class MemberController {
 	@RequestMapping("/mypageFrm.do")
 	public String myPage() {
 		return "member/mypage";
+	}
+	
+	@RequestMapping("/attendanceRead.do")
+	public String attendanceRead(HttpSession session, Model model) {
+		
+		Member member = (Member)session.getAttribute("member");
+		ArrayList<AttendanceAvgData> list = service.attendanceRead(member.getMemberNo());
+		
+		model.addAttribute("list", list);
+		
+		return "member/attendanceRead";
 	}
 }
