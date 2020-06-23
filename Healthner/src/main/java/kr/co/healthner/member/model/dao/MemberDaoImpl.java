@@ -22,7 +22,7 @@ public class MemberDaoImpl {
 		return session.insert("member.insertMember", m);
 	}
 
-	public String checkId(Member m) {
+	public Member checkId(Member m) {
 		return session.selectOne("member.checkId", m);
 	}
 	

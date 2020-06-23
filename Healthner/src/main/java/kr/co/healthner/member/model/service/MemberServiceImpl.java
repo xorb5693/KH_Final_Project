@@ -34,7 +34,7 @@ public class MemberServiceImpl {
 	}
 
 
-	public String checkId(Member m) {
+	public Member checkId(Member m) {
 		return dao.checkId(m);
 	}
 	
