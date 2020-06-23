@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.healthner.common.CardHandler;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
-import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.member.model.vo.AttendanceData;
+import kr.co.healthner.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/healthner/member")
@@ -76,9 +76,7 @@ public class MemberController {
 		String result = service.checkId(m);
 		return result;
 	}
-	
-	
-	
+		
 	@ResponseBody
 	@RequestMapping("/arduinoAttendance.do")
 	public String arduinoAttendance(String card) {
@@ -94,5 +92,10 @@ public class MemberController {
 		} else {
 			return "$not found";
 		}
+	}
+	
+	@RequestMapping("/mypageFrm.do")
+	public String myPage() {
+		return "member/mypage";
 	}
 }
