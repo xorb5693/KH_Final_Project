@@ -23,7 +23,7 @@ public class MemberPwEncAdvice {
 	
 	@Before("encPwPointcut()")
 	public void passwordEnc(JoinPoint jp) throws Exception{
-		String methodName = jp.getSignature().getName();
+//		String methodName = jp.getSignature().getName();
 //		System.out.println(methodName+"() 메소드 pw 암호화");
 		Object[] args = jp.getArgs();
 		Member m = (Member)args[0];
