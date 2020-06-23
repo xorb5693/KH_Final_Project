@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
     
-    <section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
+    <section class="hero-wrap" style="background-image: url('/resources/images/bg_02.jpg');">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
