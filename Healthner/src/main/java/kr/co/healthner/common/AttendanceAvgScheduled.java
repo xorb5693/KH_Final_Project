@@ -14,7 +14,7 @@ public class AttendanceAvgScheduled {
 	@Qualifier("memberService")
 	private MemberServiceImpl service;
 	
-	@Scheduled(cron = "30 25 15 * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void attendanceAvg() {
 		service.insertLastAttendance();
 		service.attendanceAvg();
