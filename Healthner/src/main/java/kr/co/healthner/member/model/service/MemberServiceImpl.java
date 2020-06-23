@@ -14,12 +14,30 @@ import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.Member;
 
+import kr.co.healthner.member.model.dao.MemberDaoImpl;
+import kr.co.healthner.member.model.vo.Member;
+
 @Service("memberService")
 public class MemberServiceImpl {
-	
 	@Autowired
 	@Qualifier("memberDao")
 	MemberDaoImpl dao;
+	
+	
+	public Member selectMember(Member m) {
+		return dao.selectMember(m);
+	}
+
+
+	public int insertMember(Member m) {
+		return dao.insertMember(m);
+	}
+
+
+	public String checkId(Member m) {
+		return dao.checkId(m);
+	}
+	
 
 	@Transactional
 	public AttendanceData aduinoAttendance(String cardNo) {
