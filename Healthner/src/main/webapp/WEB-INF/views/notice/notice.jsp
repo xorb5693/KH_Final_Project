@@ -30,11 +30,13 @@
     </section>
 		<div class="container">
 			<div class="content">
-				<a href="/noticeWriteFrm.do">게시판글쓰기</a>
+				<a href="/noticeWriteFrm.do">공지사항 글쓰기</a><br>
+				<a href="/boardWriteFrm.do">자유게시판 글쓰기</a><br>
+				<a href="#">트레이너게시판 글쓰기</a><hr>
 				<table>
-					<tr><td><a href="noticeList.do?reqPage=1">게시글목록보기</td></tr>
-					<tr><td>게시글</td></tr>
-					<tr><td>게시글</td></tr>
+					<tr><td><a href="noticeList.do?reqPage=1">공지사항 목록보기</td></tr>
+					<tr><td><a href="#">자유게시판 목록보기</a></td></tr>
+					<tr><td><a href="#">트레이너게시판 목록보기</a></td></tr>
 				</table>
 			</div>
 		</div>
