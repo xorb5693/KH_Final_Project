@@ -1,4 +1,4 @@
-package kr.co.healthner.vo;
+package kr.co.healthner.member.model.vo;
 
 import java.sql.Date;
 

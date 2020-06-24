@@ -11,7 +11,7 @@
             <h1 class="mb-3 bread">MY PAGE</h1>
             <p class="breadcrumbs">
             	<span class="mr-2"><a href="/healthner/member/mypageFrm.do">My Info</a></span>
-            	<span class="mr-2"><a href="#">My Eat</a></span>
+            	<span class="mr-2"><a href="/healthner/member/myEat.do">My Eat</a></span>
             	<span class="mr-2"><a href="#">My Trainer</a></span>
             	<span class="mr-2"><a href="/healthner/member/attendanceRead.do">My Attendance</a></span>
             </p>

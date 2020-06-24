@@ -1,53 +1,66 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>My Attendance</title>
 <style>
-    .icon-check-circle:hover {
-        color: green;
-    }
-    
-    [data-tooltip-text]:hover {
-	   position: relative;
-    }
-    
-    [data-tooltip-text]:hover:after {
-        content: attr(data-tooltip-text);
+.icon-check-circle:hover {
+	color: green;
+}
 
-        position: absolute;
-        bottom: 100%;
-        left: 0;
+[data-tooltip-text]:hover {
+	position: relative;
+}
 
-        background-color: rgba(0, 0, 0, 0.8);
-        color: #FFFFFF;
-        font-size: 12px;
-        padding: 10px;
-        width: 60px;
-        text-align: center;
-
-        z-index: 9999;
-    }
+[data-tooltip-text]:hover:after {
+	content: attr(data-tooltip-text);
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #FFFFFF;
+	font-size: 12px;
+	padding: 10px;
+	width: 60px;
+	text-align: center;
+	z-index: 9999;
+}
 </style>
 </head>
 <!-- 차트 링크 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <body>
 
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
-    <section class="ftco-section ftco-about">
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<jsp:include page="/WEB-INF/views/common/headerForMember.jsp" />
+	<section class="ftco-section ftco-about">
 		<div class="container">
-            <span class="icon-check-circle" data-tooltip-text="단위:분" style="float: right"></span>
-            <!--  그래프  -->
-            <canvas id="myChart"></canvas>
-            <br><br>
-            <div class="row">
-                <div class="col-md-6 ftco-animate fadeInUp ftco-animated">
-<!--
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center fadeInUp ftco-animated">
+                    <span class="subheading">
+                        <small>
+                            <i class="left-bar"></i>
+                            ${sessionScope.member.memberName}
+                            <i class="right-bar"></i>
+                        </small>
+                    </span>
+                    <h2 class="mb-1">
+                        MY ATTENDANCE
+                    </h2>
+                </div>
+            </div>
+			<span class="icon-check-circle" data-tooltip-text="단위:분"
+				style="float: right"></span>
+			<!--  그래프  -->
+			<canvas id="myChart"></canvas>
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-md-6 ftco-animate fadeInUp ftco-animated">
+					<!--
                     <div class="block-7">
                         <div class="text-center">
                             <span class="price">
@@ -57,16 +70,15 @@
                         </div>
                     </div>
 -->
-                    <div class="text pt-4 pt-md-0">
-                        <div class="heading-section mb-4">
-                            <h3 class="mb-1">
-                                마지막                         
-                                <span>출석일</span>
-                            </h3>
-                        </div>
-                        <p>${data.lastAttd}</p>
-                    </div>
-<!--
+					<div class="text pt-4 pt-md-0">
+						<div class="heading-section mb-4">
+							<h3 class="mb-1">
+								마지막 <span>출석일</span>
+							</h3>
+						</div>
+						<p>${data.lastAttd}</p>
+					</div>
+					<!--
                     <div class="text pt-4 pt-md-0">
                         <div class="heading-section mb-4">
                             <h2 class="mb-1">
@@ -77,9 +89,9 @@
                         <p>${data.lastAttd}</p>
                     </div>
 -->
-                </div>
-                <div class="col-md-6 ftco-animate fadeInUp ftco-animated">
-<!--
+				</div>
+				<div class="col-md-6 ftco-animate fadeInUp ftco-animated">
+					<!--
                     <div class="block-7">
                         <div class="text-center">
                             <span class="price">
@@ -89,16 +101,15 @@
                         </div>
                     </div>
 -->
-                    <div class="text pt-4 pt-md-0">
-                        <div class="heading-section mb-4">
-                            <h3 class="mb-1">
-                                마지막                         
-                                <span>운동시간</span>
-                            </h3>
-                        </div>
-                        <p>${data.lastTime}분</p>
-                    </div>
-<!--
+					<div class="text pt-4 pt-md-0">
+						<div class="heading-section mb-4">
+							<h3 class="mb-1">
+								마지막 <span>운동시간</span>
+							</h3>
+						</div>
+						<p>${data.lastTime}분</p>
+					</div>
+					<!--
                     <div class="text pt-4 pt-md-0">
                         <div class="heading-section mb-4">
                             <h2 class="mb-1">
@@ -109,12 +120,12 @@
                         <p>${data.lastTime}분</p>
                     </div>
 -->
-                </div>
-            </div>
+				</div>
+			</div>
 		</div>
 	</section>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-    <script>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<script>
         $(function() {
             const colors = ['#c3e6cb', '#566270', '#791E94'];
             var chBar = document.getElementById("myChart"); 

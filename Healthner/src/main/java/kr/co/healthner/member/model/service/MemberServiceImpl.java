@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +16,9 @@ import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
 import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.AttendanceVO;
+import kr.co.healthner.member.model.vo.EatLogVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.NutritionTableVO;
 
 @Service("memberService")
 public class MemberServiceImpl {
@@ -156,5 +159,18 @@ public class MemberServiceImpl {
 		data.setMyData(myData);
 		
 		return data;
+	}
+
+
+	public ArrayList<NutritionTableVO> selectMenuList(String keyword) {
+		
+		List<NutritionTableVO> list = dao.selectMenuList(keyword);
+		return (ArrayList<NutritionTableVO>)list;
+	}
+
+
+	public int insertEatLog(EatLogVO eat) {
+		
+		return dao.insertEatLog(eat);
 	}
 }

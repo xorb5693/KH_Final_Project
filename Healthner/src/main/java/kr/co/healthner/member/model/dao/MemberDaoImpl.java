@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
 import kr.co.healthner.member.model.vo.AttendanceVO;
+import kr.co.healthner.member.model.vo.EatLogVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.NutritionTableVO;
 
 @Repository("memberDao")
 public class MemberDaoImpl {
@@ -84,6 +86,16 @@ public class MemberDaoImpl {
 	public String lastAtt(int memberNo) {
 		
 		return sqlSession.selectOne("attendance.lastAtt", memberNo);
+	}
+
+	public List<NutritionTableVO> selectMenuList(String keyword) {
+		
+		return sqlSession.selectList("eat.selectMenuList", keyword);
+	}
+
+	public int insertEatLog(EatLogVO eat) {
+		
+		return sqlSession.insert("eat.insertEatLog", eat);
 	}
 
 }

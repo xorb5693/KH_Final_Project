@@ -1,4 +1,4 @@
-package kr.co.healthner.vo;
+package kr.co.healthner.member.model.vo;
 
 import lombok.Data;
 
@@ -6,5 +6,5 @@ import lombok.Data;
 public class NutritionTableVO {
 	
 	private String foodName;
-	private int kcal;
+	private float kcal;
 }
