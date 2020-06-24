@@ -43,8 +43,8 @@
 			0
 			)
 	</insert>
-	<select id="checkId" parameterType="member" resultType="String">
-		select count(*) from member where member_id like #{memberId}
+	<select id="checkId" parameterType="member" resultType="member">
+		select member_id from member where member_id like #{memberId}
 	</select>
 	<select id="selectAduino" parameterType="string" resultType="member">
 		select 
