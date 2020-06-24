@@ -1,23 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <link rel="stylesheet" href="resources/ckeditor/contents.css">
 
 <script type="text/javascript" src="resources/ckeditor/ckeditor.js"
 	charset="utf-8"></script>
 </head>
-<style>
-.content {
-	padding: 50px;
-}
-</style>
 <body>
 	<div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -39,7 +31,7 @@
 			</div>
 		</section>
 		<div class="content">
-			<form action="noticeUp.do" method="post">
+			<form action="boardUp.do" method="post">
 				<h2>공지사항 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
 				제목 : <input type="text" name="noticeTitle"><br>
@@ -55,10 +47,5 @@
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
-
 </body>
-
 </html>
-
-
-

@@ -1,25 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-
+    pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link rel="stylesheet" href="resources/ckeditor/contents.css">
-
-<script type="text/javascript" src="resources/ckeditor/ckeditor.js"
-	charset="utf-8"></script>
 </head>
-<style>
-.content {
-	padding: 50px;
-}
-</style>
 <body>
-	<div class="wraper">
+<div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<section class="hero-wrap"
 			style="background-image: url('/resources/images/bg_1.jpg');">
@@ -39,26 +28,28 @@
 			</div>
 		</section>
 		<div class="content">
-			<form action="noticeUp.do" method="post">
-				<h2>공지사항 글쓰기</h2>
-				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
-				제목 : <input type="text" name="noticeTitle"><br>
-				<textarea id="ck4" name="noticeContent"></textarea>
-				<script>
-					CKEDITOR.replace('ck4', {
-						filebrowserUploadUrl : '/imageUpload.do'
-					});
-				</script>
-				<input type="submit" value="작성">
-			</form>
+			<table>
+				<tr>
+					<th>번호</th>
+					<th>글제목</th>
+					<th>작성일</th>
+				</tr>
+				<c:forEach items="${list }" var = "n">
+					<tr>
+						<td>${n.noticeNo }</td>
+						<td><a href="/noticeView.do?noticeNo=${n.noticeNo}">${n.noticeTitle }</a></td>
+						<td>${n.noticeDate }</td>
+					</tr>
+				</c:forEach>
+				
+			</table>
+			<div id="pageNavi">
+				${navi }
+			</div>
+			
 		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
-
 </body>
-
 </html>
-
-
-

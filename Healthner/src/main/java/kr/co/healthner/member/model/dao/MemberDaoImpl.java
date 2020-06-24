@@ -1,11 +1,13 @@
 package kr.co.healthner.member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.Member;
 
@@ -22,7 +24,7 @@ public class MemberDaoImpl {
 		return session.insert("member.insertMember", m);
 	}
 
-	public String checkId(Member m) {
+	public Member checkId(Member m) {
 		return session.selectOne("member.checkId", m);
 	}
 	
@@ -67,6 +69,21 @@ public class MemberDaoImpl {
 	public int insertAvg(int avg) {
 		
 		return sqlSession.insert("attendance.insertAvg", avg);
+	}
+
+	public List<AttendanceAvgtimeVO> selectWeekAttendAvg() {
+		
+		return sqlSession.selectList("attendance.selectWeekAttendAvg");
+	}
+
+	public List<AttendanceVO> selectAttendanceTimeList(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectList("attendance.selectAttendanceTimeList", map);
+	}
+
+	public String lastAtt(int memberNo) {
+		
+		return sqlSession.selectOne("attendance.lastAtt", memberNo);
 	}
 
 }

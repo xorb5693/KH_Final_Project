@@ -102,7 +102,7 @@ body::-webkit-scrollbar {
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html"><span><i
+			<a class="navbar-brand" href="/"><span><i
 					class="left-bar"></i>너는 내가 책임GYM<i class="right-bar"></i></span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"

@@ -1151,3 +1151,10 @@ COMMENT ON COLUMN ban_list.member_no IS '회원번호'
 
 COMMENT ON COLUMN ban_list.ban_date IS '정지날짜'
 /
+
+---------------------------------------------------
+------------------- 테이블 수정 ---------------------
+---------------------------------------------------
+ALTER TABLE Nutrition_table MODIFY(food_name VARCHAR2(200));
+ALTER TABLE Eat_log MODIFY(food_name VARCHAR2(200));
+ALTER TABLE Eat_log DROP CONSTRAINT FK_Eat_log_food_name_Nutrition;

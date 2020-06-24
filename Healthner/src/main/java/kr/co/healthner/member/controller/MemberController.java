@@ -5,13 +5,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.healthner.common.CardHandler;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
-import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.member.model.vo.AttendanceData;
+import kr.co.healthner.member.model.vo.AttendancePrintData;
+import kr.co.healthner.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/healthner/member")
@@ -73,12 +75,14 @@ public class MemberController {
 	
 	@RequestMapping("/selectId.do")
 	public String checkId(Member m) {
-		String result = service.checkId(m);
-		return result;
+		Member member = service.checkId(m);
+		if(member!=null) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
-	
-	
-	
+		
 	@ResponseBody
 	@RequestMapping("/arduinoAttendance.do")
 	public String arduinoAttendance(String card) {
@@ -94,5 +98,27 @@ public class MemberController {
 		} else {
 			return "$not found";
 		}
+	}
+	
+
+	@RequestMapping("/mypageFrm.do")
+	public String myPage() {
+		return "member/mypage";
+	}
+	
+	@RequestMapping("/attendanceRead.do")
+	public String attendanceRead(HttpSession session, Model model) {
+		
+		Member member = (Member)session.getAttribute("member");
+		AttendancePrintData data = service.attendanceRead(member.getMemberNo());
+		
+//		System.out.println(data.getLastAttd());
+//		System.out.println(data.getLastTime());
+		System.out.println(data.getLabels());
+		System.out.println(data.getAvgData());
+		System.out.println(data.getMyData());
+		model.addAttribute("data", data);
+		
+		return "member/attendanceRead";
 	}
 }
