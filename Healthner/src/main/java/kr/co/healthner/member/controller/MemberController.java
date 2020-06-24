@@ -1,7 +1,5 @@
 package kr.co.healthner.member.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.healthner.common.CardHandler;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
-import kr.co.healthner.member.model.vo.AttendanceAvgData;
 import kr.co.healthner.member.model.vo.AttendanceData;
+import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.Member;
 
 @Controller
@@ -112,9 +110,14 @@ public class MemberController {
 	public String attendanceRead(HttpSession session, Model model) {
 		
 		Member member = (Member)session.getAttribute("member");
-		ArrayList<AttendanceAvgData> list = service.attendanceRead(member.getMemberNo());
+		AttendancePrintData data = service.attendanceRead(member.getMemberNo());
 		
-		model.addAttribute("list", list);
+//		System.out.println(data.getLastAttd());
+//		System.out.println(data.getLastTime());
+		System.out.println(data.getLabels());
+		System.out.println(data.getAvgData());
+		System.out.println(data.getMyData());
+		model.addAttribute("data", data);
 		
 		return "member/attendanceRead";
 	}

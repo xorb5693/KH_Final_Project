@@ -81,4 +81,9 @@ public class MemberDaoImpl {
 		return sqlSession.selectList("attendance.selectAttendanceTimeList", map);
 	}
 
+	public String lastAtt(int memberNo) {
+		
+		return sqlSession.selectOne("attendance.lastAtt", memberNo);
+	}
+
 }

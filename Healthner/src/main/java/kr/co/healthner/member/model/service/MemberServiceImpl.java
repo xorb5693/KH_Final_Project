@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.healthner.member.model.dao.MemberDaoImpl;
-import kr.co.healthner.member.model.vo.AttendanceAvgData;
 import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
 import kr.co.healthner.member.model.vo.AttendanceData;
+import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.Member;
 
@@ -84,7 +84,7 @@ public class MemberServiceImpl {
 			int memberNo = list.get(i);
 			
 			ArrayList<AttendanceVO> attList = (ArrayList<AttendanceVO>)dao.selectAttendanceList(memberNo);
-			System.out.println(memberNo + " : " + attList.size());
+//			System.out.println(memberNo + " : " + attList.size());
 			
 			for (int j = 0; j < attList.size(); j += 2) {
 				try {
@@ -107,21 +107,24 @@ public class MemberServiceImpl {
 		}
 	}
 
-	public ArrayList<AttendanceAvgData> attendanceRead(int memberNo) {
+	public AttendancePrintData attendanceRead(int memberNo) {
 		
 		ArrayList<AttendanceAvgtimeVO> avgs = (ArrayList<AttendanceAvgtimeVO>)dao.selectWeekAttendAvg();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("memberNo", memberNo);
 		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		ArrayList<AttendanceAvgData> list = new ArrayList<AttendanceAvgData>();
+		AttendancePrintData data = new AttendancePrintData();
+		String labels = "";
+		String avgData = "";
+		String myData = "";
 		
 		for (int i = 0; i < 7; i++) {
 			map.put("start", i);
 			map.put("end", (i + 1));
 			ArrayList<AttendanceVO> attList = (ArrayList<AttendanceVO>)dao.selectAttendanceTimeList(map);
-			System.out.println(avgs.get(i).getAvgTime());
 			int sum = 0;
 			
+			//해당 날짜별 운동 시간
 			for (int j = 0; j < attList.size(); j += 2) {
 				try {
 					long time = (fm.parse(attList.get(j + 1).getStrAttendDate()).getTime() - fm.parse(attList.get(j).getStrAttendDate()).getTime()) / 1000 / 60;
@@ -131,13 +134,27 @@ public class MemberServiceImpl {
 				}
 				
 			}
+			if (i == 0) {
+				data.setLastTime(sum);
+			} else {
+				labels = ", " + labels;
+				avgData = ", " + avgData;
+				myData = ", " + myData;
+			}
 			
-			AttendanceAvgData data = new AttendanceAvgData();
-			data.setAvg(avgs.get(i));
-			data.setMyTime(sum);
-			list.add(data);
+			labels = "'" + avgs.get(i).getAvgDate().toString() + "'" + labels;
+			avgData = avgs.get(i).getAvgTime() + avgData;
+			myData = sum + myData;
 		}
 		
-		return list;
+		//그래프 그리기용 데이터 클래스
+		//저장되는 정보는 위에서 만들어진 AttendanceAvgData의 list와 해당 계정의 마지막 출결일이다.
+		String lastAttd = dao.lastAtt(memberNo);
+		data.setLastAttd(lastAttd);
+		data.setLabels(labels);
+		data.setAvgData(avgData);
+		data.setMyData(myData);
+		
+		return data;
 	}
 }

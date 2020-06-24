@@ -45,4 +45,8 @@
 		    and member_no = #{memberNo}
 		order by attend_date]]>
 	</select>
+	<select id="lastAtt" parameterType="_int" resultType="string">
+		select * from (select to_char(ATTEND_DATE, 'YYYY-MM-DD HH24:MI:SS') from ATTENDANCE where MEMBER_NO = #{_parameter}
+		order by ATTEND_DATE desc) where rownum = 1
+	</select>
 </mapper>
