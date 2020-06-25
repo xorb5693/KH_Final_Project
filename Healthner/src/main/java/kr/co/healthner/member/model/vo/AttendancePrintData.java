@@ -10,4 +10,5 @@ public class AttendancePrintData {
 	private String myData;
 	private String lastAttd;
 	private int lastTime;
+	private String memberName;
 }
