@@ -54,4 +54,7 @@
 		from member 
 		where card = #{_parameter} 
 	</select>
+	<select id="selectMemberName" parameterType="_int" resultType="string">
+		select member_name from member where member_no = #{_parameter}
+	</select>
 </mapper>
