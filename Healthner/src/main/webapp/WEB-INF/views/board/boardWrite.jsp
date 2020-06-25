@@ -31,17 +31,18 @@
 			</div>
 		</section>
 		<div class="content">
-			<form action="boardUp.do" method="post">
-				<h2>공지사항 글쓰기</h2>
+			<form action="/boardUp.do" method="post">
+				<h2>자유게시판 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
-				제목 : <input type="text" name="noticeTitle"><br>
-				<textarea id="ck4" name="noticeContent"></textarea>
+				제목 : <input type="text" name="boardTitle"><br>
+				<textarea id="ck4" name="boardContent"></textarea>
 				<script>
 					CKEDITOR.replace('ck4', {
 						filebrowserUploadUrl : '/imageUpload.do'
 					});
 				</script>
 				<input type="submit" value="작성">
+				<a href="/boardTest.do">보드테스트</a>
 			</form>
 		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />

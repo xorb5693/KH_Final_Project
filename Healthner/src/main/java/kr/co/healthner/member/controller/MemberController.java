@@ -1,5 +1,7 @@
 package kr.co.healthner.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import kr.co.healthner.common.CardHandler;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
 import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
+import kr.co.healthner.member.model.vo.EatLogVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.NutritionTableVO;
 
 @Controller
 @RequestMapping("/healthner/member")
@@ -120,5 +126,26 @@ public class MemberController {
 		model.addAttribute("data", data);
 		
 		return "member/attendanceRead";
+	}
+	
+	@RequestMapping("/myEat.do")
+	public String myEat(HttpSession session, Model model) {
+		
+		return "member/myEat";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/menuList.do", produces = "application/json; charset=utf-8")
+	public String menuList(String keyword) {
+//		NutritionTableVO menu
+		ArrayList<NutritionTableVO> list = service.selectMenuList(keyword);
+		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping("/eatLogInsert.do")
+	public String eatLogInsert(EatLogVO eat) {
+		
+		service.insertEatLog(eat);
+		return "redirect:/healthner/member/myEat.do"; 
 	}
 }

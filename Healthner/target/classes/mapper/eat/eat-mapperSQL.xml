@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="eat">
+	<select id="selectMenuList" parameterType="string" resultType="menu">
+		select 
+			food_name as foodName,
+			kcal
+		from NUTRITION_TABLE
+		where food_name like '%'||#{_parameter}||'%'
+		order by food_name
+	</select>
+	<insert id="insertEatLog" parameterType="eatLog">
+		insert into eat_log values(eat_log_seq.nextval, #{foodName}, #{eatDate}, #{eatTime}, #{memberNo}, #{kcal})
+	</insert>
+</mapper>

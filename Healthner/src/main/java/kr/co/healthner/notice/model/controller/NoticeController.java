@@ -96,5 +96,10 @@ public class NoticeController {
 		}
 		return "redirect:/noticeList.do?reqPage=1";	
 	}
+	
+	
+	@RequestMapping(value="/boardWriteFrm") public String boardWriteFrm() {
+		return "board/boardWrite"; }
+	 
 
 }
