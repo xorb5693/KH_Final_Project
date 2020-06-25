@@ -11,6 +11,6 @@ public class AdminDaoImpl {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
 
 }
