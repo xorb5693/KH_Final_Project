@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.co.healthner.admin.model.vo.MemberSearch;
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
 import kr.co.healthner.member.model.vo.Member;
 
@@ -73,11 +74,24 @@ public class AdminController {
 	}
 
 	// 혜진_200624_관리자 페이지_회원관리 메뉴_검색 조건에 따라 회원 조회
+	// 혜진_200625_VO추가하여 mapper에 전달할 값 정리
 	@RequestMapping("/memberList.do")
 	@ResponseBody
-	public String memberList(String searchWord, String checkbox1, String checkbox2 ) {
+	public ArrayList<Member> memberList(String searchWord, String checkbox1, String checkbox2 ) {
 		ArrayList<Member> list = new ArrayList<Member>();
-		list = service.memberList(searchWord, checkbox1, checkbox2);
+		MemberSearch ms = new MemberSearch();
+		ms.setSearchWord(searchWord);
+		if(checkbox1!=null) {
+			ms.setCheckbox1(1);
+		}else {
+			ms.setCheckbox1(0);
+		}
+		if(checkbox2!=null) {
+			ms.setCheckbox1(1);
+		}else {
+			ms.setCheckbox1(0);
+		}
+		list = service.memberList(ms);
 		return list;
 	}
 }

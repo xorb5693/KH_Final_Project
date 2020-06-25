@@ -17,5 +17,8 @@
 		<typeAlias type="kr.co.healthner.member.model.vo.NutritionTableVO" alias="menu"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.EatLogVO" alias="eatLog"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.MenuCommentVO" alias="menuComment"/>
+		
+		<!-- 혜진_20200625_관리자 페이지_회원검색용 VO -->
+		<typeAlias type="kr.co.healthner.admin.model.vo.MemberSearch" alias="memberSearch"/>
 	</typeAliases>
 </configuration>
