@@ -1,5 +1,7 @@
 package kr.co.healthner.admin.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,10 @@ public class AdminServiceImpl {
 	@Autowired
 	@Qualifier("adminDao")
 	private AdminDaoImpl dao;
+
+	public ArrayList<Member> memberList(String searchWord, String checkbox1, String checkbox2) {
+		return dao.memberList(searchWord, checkbox1, checkbox2);
+	}
 
 
 }
