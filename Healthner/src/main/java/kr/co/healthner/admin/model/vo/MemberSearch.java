@@ -1,4 +1,4 @@
-package kh.co.healthner.admin.model.vo;
+package kr.co.healthner.admin.model.vo;
 
 import lombok.Data;
 
