@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
@@ -59,12 +60,27 @@ public class TrainerController {
 		Member member = new Member();
 		member = (Member)session.getAttribute("member");
 		int trainerNo = member.getMemberNo();
-		
 		//트레이너번호로 매칭된 회원 정보 가져오기
 		List<MemberMappingInfoVO> list = service.selectMapperInfo(trainerNo);
 		System.out.println("회원 정보 : " + list);
 		model.addAttribute("list", list);
 		return "trainer/customerList";
+	}
+	
+	//트레이너가 회원 PT 카운트 증가감소 시키기
+	@RequestMapping(value="/customerCntUpdate.do")
+	public String customerCntUpdate(MemberMappingVO mmv) {
+		int trainingCnt = mmv.getTrainingCnt();
+		int memberNo = mmv.getMemberNo();
+		System.out.println(trainingCnt);
+		System.out.println(memberNo);
+		int result = service.customerCntUpdate(mmv);
+		if(result > 0) {
+			System.out.println("수정 성공");
+		} else {
+			System.out.println("수정 실패");
+		}	
+		return "redirect:/healthner/trainer/customerList.do";
 	}
 	
 	@RequestMapping("/customerInfo.do")

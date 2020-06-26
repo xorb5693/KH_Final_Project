@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
@@ -47,6 +48,11 @@ public class TrainerDaoImpl {
 	public List<MemberMappingInfoVO> selectMapperInfo(int trainerNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("trainer.selectMapperInfo", trainerNo);
+	}
+
+	public int customerCntUpdate(MemberMappingVO mmv) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("trainer.customerCntUpdate", mmv);
 	}
 
 //	public List<Member> selectCustomerList() {

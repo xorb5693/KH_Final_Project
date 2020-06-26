@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.dao.TrainerDaoImpl;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
@@ -47,6 +48,11 @@ public class TrainerServiceImpl {
 	public List<MemberMappingInfoVO> selectMapperInfo(int trainerNo) {
 		// TODO Auto-generated method stub
 		return dao.selectMapperInfo(trainerNo);
+	}
+
+	public int customerCntUpdate(MemberMappingVO mmv) {
+		// TODO Auto-generated method stub
+		return dao.customerCntUpdate(mmv);
 	}
 
 //	public List<Member> selectCustomerList() {

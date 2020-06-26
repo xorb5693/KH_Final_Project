@@ -73,35 +73,35 @@
 			#{metabolism}
 		)
 	</insert>
-	<select id="selectMapperInfo" parameterType="trainer" resultType="memberInfo">
-		select
-			mapping_seq as mappingSeq,
-			a.member_no as memberNo,
-			trainer_no as trainerNo,
-			training_cnt as trainerCnt,
-			training_maxcnt as trainingMaxcnt,
-			member_id as memberId,
-			member_pw as memberPw,
-			member_name as memberName,
-			member_nick as memberNick,
-			zip,
-			road_addr as roadAddr,
-			det_addr as detAddr,
-			card,
-			enroll_date as enrollDate,
-			member_level as memberLevel,
-			gender,
-			age,
-			member_profile as memberProfile,
-			email,
-			expire_date as expireDate,
-			phone,
-			email_verification as emailVerification
-		from member_mapping a
-		join member m on(a.member_no = m.member_no)
-		where trainer_no=#{trainerNo}
+	<select id="selectMapperInfo" parameterType="trainer" resultType="memberInfo">			
+		select * 
+			from(
+			    select rownum as rnum, m.*
+			    from (
+			        select
+			            mapping_seq as mappingSeq,
+			            member.member_no as memberNo,
+			            training_cnt as trainingCnt, 
+			            training_maxcnt as trainingMaxCnt, 
+			            member_name as memberName, 
+			            member_nick as memberNick,
+			            gender, 
+			            age, 
+			            member_profile as memberProfile, 
+			            email, 
+			            expire_date as expireDate, 
+			            phone
+			        from member_mapping
+			        join member on(member.member_no = member_mapping.member_no)
+			        where trainer_no = 10
+			        order by mapping_seq desc
+			    ) m
+			) where rnum between 1 and 10	
 	</select>
-	<!-- <select id="selectCustomerList" parameterType="trainer">
-		select 
-	</select> -->
+	<update id="customerCntUpdate" parameterType="memberMapping">
+		update member_mapping 
+		set
+			training_cnt = #{trainingCnt}
+		where member_no = #{memberNo}
+	</update>
 </mapper>

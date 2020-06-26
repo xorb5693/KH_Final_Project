@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%><%@ taglib uri="http://java.sun.com/jsp/jstl/core"
-prefix="c"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Customer List</title>
- <link
+<link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
 
@@ -31,66 +31,80 @@ prefix="c"%>
 <link rel="stylesheet" href="/resources/css/style.css">
 </head>
 <style>
-	.table2>td {
-	    padding: 0.75rem;
-	    vertical-align: middle;
-	    border-top: 1px solid #dee2e6;
-	}
-	
-
+.table2>td {
+	padding: 0.75rem;
+	vertical-align: middle;
+	border-top: 1px solid #dee2e6;
+}
 </style>
 <body>
 
-	
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-          <br><br>
-            <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
-	
+
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<section class="hero-wrap"
+		style="background-image: url('/resources/images/bg_2.jpg');">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
+					<br>
+					<br>
+					<h1 class="mb-3 bread">TRAINERS</h1>
+					<p class="breadcrumbs">
+						<span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span
+							class="mr-2"><a href="customerList.do">My Customer </a></span> <span
+							class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!--회원목록 테이블 -->
 	<section class="ftco-appointment">
-			<div class="overlay"></div>
-    	<div class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+		<div class="overlay"></div>
+		<div
+			class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
 
-	    			<h3 class="mb-3">Customer List</h3>
-	<div class="table-responsive">
-                <table class="table2 table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>번호</th>
-                      <th>회원이름</th>
-                      <th>회원 사진</th>
-                      <th colspan="2">PT횟수</th>
-                      <th>이용권만기일</th>
-                    </tr>
-                  </thead>
-                  <c:forEach items="${list}" var="memberList">
-                  <tbody class="table2">                
-                    <tr>
-                      <td rowspan="2">순서번호</td>
-                      <td rowspan="2">${memberList.memberName}</td>
-                      <td rowspan="2">${memberList.memberProfile}</td>
-                      <td rowspan="2"><span class="num">${memberList.trainingCnt }/</span><span>${memberList.trainingMaxcnt }</span></td>
-                      <td width="70px;">
-                		<input type="button" value="횟수증가" class="btn btn-primary py-1 px-1 increaseBtn"><br>
-                		<input type="button" value="횟수차감" class="btn btn-primary py-1 px-1 decreaseBtn">
-                      </td>
-                     <td rowspan="2">${memberList.expireDate}</td>
-                    </tr>                   
-                  </tbody>
-                 </c:forEach>
-                </table>
-              </div>
-              <!-- 
+			<h3 class="mb-3">Customer List</h3>
+				<div class="table-responsive">
+					<table class="table2 table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<tr>
+								<th>번호</th>
+								<th>회원이름</th>
+								<th>회원 사진</th>
+								<th colspan="2">PT횟수</th>
+								<th>이용권만기일</th>
+							</tr>
+						<c:forEach items="${list}" var="memberList" varStatus="status">						
+							<tbody class="table2">							
+								<tr>								
+									<td rowspan="2">${status.count }</td>
+									<td rowspan="2">${memberList.memberName}</td>
+									<td rowspan="2">${memberList.memberProfile}</td>
+									<td rowspan="2">
+										<!-- training_cnt -->
+										<form action="customerCntUpdate.do" class="appointment-form" name="customerCntUpdate">
+											<input type="hidden" name="trainingCnt" value="${memberList.trainingCnt }">
+											<input type="hidden" name="memberNo" value="${memberList.memberNo }">
+											${memberList.trainingCnt }/${memberList.trainingMaxcnt }											
+										</form>
+									</td>								
+									<td width="70px;">								
+										<!-- 버튼 script로 submit -->
+										<input type="button" value="횟수증가"
+										class="btn btn-primary py-1 px-1" name="increaseBtn"><br>
+										<input type="button" value="횟수차감"
+										class="btn btn-primary py-1 px-1" name="decreaseBtn"></td>									
+									<td rowspan="2">${memberList.expireDate}</td>
+								</tr>								
+							</tbody>
+						</c:forEach>
+					</table>
+				</div>
+			
+			<!-- 
               <div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
@@ -106,26 +120,11 @@ prefix="c"%>
 		            </div>
 		          </div>
 		 </div> -->
-	</div>
-	   			
-  
-    </section>
+		</div>
 
-	<script>
-		$(function(){
-			$(".increaseBtn").click(function(){
-				var n = $(".increaseBtn").index(this);
-				var num = $(".num:eq("+n+")").val();
-				num = $(".num:eq("+n+")").val(num*1+1);
-			});
-			$(".decreaseBtn").click(function(){
-				var n = $('.bt_down').index(this);
-			    var num = $(".num:eq("+n+")").val();
-			    num = $(".num:eq("+n+")").val(num*1-1);
-			});
-		});
+
+	</section>
 	
-	</script>
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/js/popper.min.js"></script>
@@ -144,6 +143,27 @@ prefix="c"%>
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="/resources/js/google-map.js"></script>
 	<script src="/resources/js/main.js"></script>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<
+	<script>
+		$(function() {
+			$("input[name=increaseBtn]").click(function() {
+				var plusNum = Number($(this).parent().prev().children().children().val())+1;	
+				var plusNum2 = Number($(this).parent().prev().children().children().next().val());
+				$(this).parent().prev().children().children().val(plusNum);
+				$(this).parent().prev().children().children().next().val(plusNum2);
+				var form = $(this).parent().prev().children();
+				form.submit();
+			});
+			$("input[name=decreaseBtn]").click(function() {
+				var minusNum = Number($(this).parent().prev().children().children().val())-1;
+				var minusNum2 = Number($(this).parent().prev().children().children().next().val());
+				$(this).parent().prev().children().children().val(minusNum);
+				$(this).parent().prev().children().children().next().val(minusNum2);
+				var form = $(this).parent().prev().children();
+				form.submit();
+			});
+		});
+	</script>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
