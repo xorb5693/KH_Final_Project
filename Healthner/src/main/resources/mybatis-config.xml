@@ -11,9 +11,9 @@
 
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceVO" alias="attend"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceAvgtimeVO" alias="attendAvg"/>
-		<!-- 
-		<typeAlias type="kr.co.healthner.trainer.model.vo.Trainer" alias="trainer"/>
-		 -->
+		
+		<typeAlias type="kr.co.healthner.trainer.model.vo.TrainerVO" alias="trainer"/>
+		
 		<typeAlias type="kr.co.healthner.member.model.vo.NutritionTableVO" alias="menu"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.EatLogVO" alias="eatLog"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.MenuCommentVO" alias="menuComment"/>

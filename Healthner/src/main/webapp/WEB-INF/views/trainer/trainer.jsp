@@ -131,7 +131,7 @@ prefix="c"%>
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
           <br><br>
             <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span><span class="mr-2"><a href="customerInfo.do">회원정보(수정해야함)</a></span></p>
           </div>
         </div>
       </div>
@@ -139,28 +139,8 @@ prefix="c"%>
 	
 	<!-- 트레이너 인트로 -->
 	
-	<!-- 가입된 트레이너 정보 가져오기
-	<section class="ftco-section bg-light">
-		<div class="container-fluid px-4">
-			<c:forEach items="${list }" var="list">
-				<div class="col-lg-3 d-flex">
-    				<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);"></a>
-	    				</div>
-	    				<div class="text pt-3 ftco-animate">
-	    					<h3>${list.memberName }</a></h3>
-	    					<p>${list.catFirst }</p><br>
-	    					<p>${list.catSecond }</p><br>
-	    					<p>${list.catThird }</p><br>
-	    					<p></p>
-	    				</div>
-	    			</div>
-    			</div>
-			</c:forEach>
-		</div>
-	</section>
-	 -->
-	<section class="ftco-section bg-light">
+	<!-- 가입된 트레이너 정보 가져오기  -->
+		<section class="ftco-section bg-light">
     	<div class="container px-4">
     		<div class="row justify-content-center mb-5">
           <div class="col-md-7 heading-section text-center ftco-animate">
@@ -169,20 +149,24 @@ prefix="c"%>
           </div>
         </div>
     		<div class="row">
+    		 <c:forEach items="${list }" var="list">
     			<div class="col-lg-3 d-flex">
     				<div class="coach align-items-stretch">
 	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">클릭</a>
 	    				<div class="text pt-3 ftco-animate">
-	    					<span class="subheading">Owner / Head Coach</span>
-	    					<h3><a href="#">Mark Brook</a></h3>
-	    					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+	    					<h3>${list.memberName }</h3>
+	    					<p>${list.catFirst }</p>
+	    					<p>${list.catSecond }</p>
+	    					<p>${list.catThird }</p>
 	    					<p></p>
 	    				</div>
 	    			</div>
     			</div>
-    		</div>
+    			</c:forEach>
+    		</div>	
     	</div>
     </section>
+
 	
 	
 	<!-- Trigger the Modal -->

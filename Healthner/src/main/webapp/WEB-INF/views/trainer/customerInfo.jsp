@@ -46,64 +46,65 @@ prefix="c"%>
         </div>
       </div>
     </section>
-	
-	<!-- 트레이너 인트로 -->
-	
-	<!-- 가입된 트레이너 정보 가져오기
+
+<!-- Promotion section -->
 	<section class="ftco-section bg-light">
-		<div class="container-fluid px-4">
-			<c:forEach items="${list }" var="list">
-				<div class="col-lg-3 d-flex">
-    				<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);"></a>
-	    				</div>
-	    				<div class="text pt-3 ftco-animate">
-	    					<h3>${list.memberName }</a></h3>
-	    					<p>${list.catFirst }</p><br>
-	    					<p>${list.catSecond }</p><br>
-	    					<p>${list.catThird }</p><br>
-	    					<p></p>
-	    				</div>
-	    			</div>
-    			</div>
-			</c:forEach>
-		</div>
-	</section>
-	 -->
-	<section class="ftco-section bg-light">
-    	<div class="container px-4">
-    		<div class="row justify-content-center mb-5">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<h3 class="subheading">Shape Your Body</h3>
-            <h2 class="mb-1">[${member.memberName }]님의 정보</h2>
-          </div>
-        </div>
-    		<div class="row">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8 text-center">
+					<div class="heading-section mb-5">
+						<span class="subheading"><small><i class="left-bar"></i>Services<i
+								class="right-bar"></i></small></span>
+						<h2 class="mb-1">
+							[${member.memberName }]님의 정보
+						</h2>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
     			<div class="col-lg-3 d-flex">
     				<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">사진</a>
-	    				<div class="text pt-3 ftco-animate">
-	    					식단
-	    				</div>
+	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" id="myImg" width="300" height="200">{member.memberProfile}</a>
 	    			</div>
-	    			<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">사진</a>
-	    				<div class="text pt-3 ftco-animate">
-	    					식단
-	    				</div>
-	    			</div>
-	    			<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">사진</a>
-	    				<div class="text pt-3 ftco-animate">
-	    					식단
-	    				</div>
-	    			</div>
-    			</div>
-    		</div>
-    	</div>
-    </section>
-
-
+	    		</div>
+	    	</div>
+	    	<br>
+	    		
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-3">
+					<div class="services text-center ftco-animate">
+						<a href="#" class="icon d-flex justify-content-center align-items-center">
+							<span class="flaticon-ruler"></span>
+						</a>
+						<a href="#" class="text px-md-2">
+							<h3>식단</h3>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="services text-center ftco-animate">
+						<a href="inbodyList.do" class="icon d-flex justify-content-center align-items-center">
+							<span class="flaticon-gym"></span>
+						</a>
+						<a href="inbodyList.do" class="text px-md-2">
+							<h3>인바디</h3>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="services text-center ftco-animate">
+						<a href="#" class="icon d-flex justify-content-center align-items-center">
+							<span class="flaticon-tools-and-utensils"></span>
+						</a>
+						<a href="#" class="text px-md-2">
+							<h3>그래프</h3>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/js/popper.min.js"></script>
