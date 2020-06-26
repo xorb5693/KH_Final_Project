@@ -98,13 +98,18 @@
 			    ) m
 			) where rnum between 1 and 10	
 	</select>
+<<<<<<< HEAD
 	<update id="customerCntUpdate" parameterType="memberMapping">
 		update member_mapping 
 		set
 			training_cnt = #{trainingCnt}
 		where member_no = #{memberNo}
 	</update>
-
+=======
+	
+	<!-- <select id="selectCustomerList" parameterType="trainer">
+		select 
+	</select> -->
 	<select id="selectTrainerInfo" parameterType="_int" resultType="trainer">
 		select
 			t.member_no as memberNo,
@@ -124,4 +129,5 @@
 			category_name as categoryName
 		from Professional_category
 	</select>
+>>>>>>> master
 </mapper>
