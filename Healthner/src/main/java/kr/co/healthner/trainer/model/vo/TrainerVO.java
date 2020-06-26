@@ -10,4 +10,7 @@ public class TrainerVO {
 	private int catFirst;
 	private int catSecond;
 	private int catThrid;
+	private String catFirstName;
+	private String catSecondName;
+	private String catThirdName;
 }

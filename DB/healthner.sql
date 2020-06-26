@@ -1165,3 +1165,5 @@ ALTER TABLE menu_comment
         REFERENCES member (member_no)
 	on delete cascade
 /
+ALTER TABLE Member_Mapping ADD (training_postscript VARCHAR2(2000));
+COMMENT ON COLUMN MEMBER_MAPPING.TRAINING_POSTSCRIPT IS '트레이닝 후기';
