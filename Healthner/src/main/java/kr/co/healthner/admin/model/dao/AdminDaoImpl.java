@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.co.healthner.admin.model.vo.MemberSearch;
+import kr.co.healthner.admin.model.vo.MemberSearch;
 
 @Repository("adminDao")
 public class AdminDaoImpl {

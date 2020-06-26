@@ -11,11 +11,10 @@
 		card
 	from member
 	<if test="searchWord!=null">
-	where member_id=#{searchWord} or member_name=#{searchWord} or member_nickname=#{searchWord}
-		</if>
-		<if test = "checkbox1==1">
-		
-			
-		</if>
+		where member_id=#{searchWord} or member_name=#{searchWord} or member_nickname=#{searchWord}
+	</if>
+	<if test = "checkbox1==1">
+		 expire_date=null
+	</if>
 	</select>
 </mapper>
