@@ -19,7 +19,8 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/admin/css/style.css">
 </head>
-
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <style>
 body{
 	font-family: 'Nanum Gothic', sans-serif;
@@ -36,6 +37,7 @@ body{
 	<div id="content" class="p-4 p-md-5 pt-5">
 		<h6>전체 회원 관리</h6>
 		<!-- 혜진_200624_회원 검색 조회 box_아이디/이름/닉네임 입력, 이용권 미등록 찾기, 카드키 미등록 찾기, 검색버튼  -->
+		<form action="/memberList" method="post" id="memberList">
 		<div class="search-box">
 			<!-- (1) 아이디/이름/닉네임 입력 -->
 			<input type="text" id="searchWord" placeholder="아이디/이름/닉네임을 입력하세요.">
@@ -43,8 +45,9 @@ body{
 			이용권 미등록<input type="checkbox" value="expire" name="expire">
 			카드키 미등록<input type="checkbox" value="card" name="card">
 			<!-- (4)검색 버튼 -->
-			<input type="button" value="검  색" class="admin-btn" onclick="show_memberlist();">
+			<input type="submit" value="검  색" class="admin-btn">
 		</div>
+		</form>
 		<div class="memberTB">
 		<table border="1">
 			<tr class="titleRow">
@@ -56,6 +59,8 @@ body{
 				<th>이용권 만료일</th>
 				<th>카드키 정보</th>
 			</tr>
+			<tr class="contentsRow">
+			</tr>
 		</table>
 		</div>
 	</div>
@@ -64,16 +69,8 @@ body{
 		//혜진_200624_ajax로 DB에서 회원 데이터 불러오기
 		function show_memberlist(){
 			var searchWord = $("#searchWord").val();
-			if($("input[name=expire]").prop("checked")){
-				var checkbox1 = 1;
-			}else{
-				var checkbox1 = 0;
-			}
-			if($("input[name=card]").prop("checked")){
-				var checkbox2 = 1;
-			}else{
-				var checkbox2 = 0;
-			}
+			var checkbox1 = $("input[name=expire]").val();
+			var checkbox2 = $("input[name=card]").val();
 			var param = {searchWord:searchWord, checkbox1:checkbox1, checkbox2:checkbox2};
 			$.ajax({
 				url:"/memberList.do",
@@ -84,7 +81,6 @@ body{
 					 $(".contentsRow").html("");
 		               var html = "";
 		               for(var i=0; i<data.length;i++){
-		            	  html += "<tr class='contentsRow'>"
 		                  html += "<td>"+i+"</td>";
 		                  html += "<td>"+data[i].memberProfile+"</td>";
 		                  html += "<td>"+data[i].memberId+"</td>";
@@ -96,29 +92,29 @@ body{
 		                	html += "<td></td>";
 		                  }
 		                  if(data[i].card!=null){
-		                  	html += "<td onclick=window.open('addCard')>"+data[i].card+"</td>";
+		                  	html += "<td>"+data[i].card+"</td>";
 		                  }else{
-		                	html += "<td onclick=window.open('addCard')></td>";
+		                	html += "<td></td>";
 		                  }
-		                  html += "</tr>"
 		               }
-		               $("table").children("tbody").append(html);
+		               $(".contentsRow").append(html);
 		            },
 		            error: function(){
 		               console.log("데이터 불러오기 실패.")
 		            }
 		         });
 		}
-	
-	//혜진_200626_페이지를 로드 하자마자 list 보여주기
-	$(function(){
-		show_memberlist();
-	});
-	
-	//혜진_200626_카드 공란을 클릭하면 카드키 조정 가능
-
+		$(function(){
+	         $("form").submit(function(){
+	        	 show_memberlist();
+	            return false;
+	         });
+	      });
 	</script>
-	<script type="text/javascript"
-	src="http://code.jquery.com/jquery-3.3.1.js"></script>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>

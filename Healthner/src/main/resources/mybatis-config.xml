@@ -13,17 +13,12 @@
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceAvgtimeVO" alias="attendAvg"/>
 		
 		<typeAlias type="kr.co.healthner.trainer.model.vo.TrainerVO" alias="trainer"/>
-<<<<<<< HEAD
 		<typeAlias type="kr.co.healthner.trainer.model.vo.MemberMappingInfoVO" alias="memberInfo"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.MemberMappingVO" alias="memberMapping"/>
-=======
-		<typeAlias type="kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO" alias="category"/>
->>>>>>> master
 		
 		<typeAlias type="kr.co.healthner.member.model.vo.NutritionTableVO" alias="menu"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.EatLogVO" alias="eatLog"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.MenuCommentVO" alias="menuComment"/>
-		<typeAlias type="kr.co.healthner.member.model.vo.MemberMappingVO" alias="mapping"/>
 		
 		<!-- 혜진_20200625_관리자 페이지_회원검색용 VO -->
 		<typeAlias type="kr.co.healthner.admin.model.vo.MemberSearch" alias="memberSearch"/>

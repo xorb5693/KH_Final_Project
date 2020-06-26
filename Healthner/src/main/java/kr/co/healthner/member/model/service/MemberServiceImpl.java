@@ -18,13 +18,9 @@ import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.EatLogData;
 import kr.co.healthner.member.model.vo.EatLogVO;
-import kr.co.healthner.member.model.vo.MappingTrainerData;
 import kr.co.healthner.member.model.vo.Member;
-import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
-import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
-import kr.co.healthner.trainer.model.vo.TrainerVO;
 
 @Service("memberService")
 public class MemberServiceImpl {
@@ -262,41 +258,5 @@ public class MemberServiceImpl {
 	public int modifyMenuComment(MenuCommentVO comment) {
 		
 		return dao.modifyMenuComment(comment);
-	}
-
-
-	public ArrayList<MappingTrainerData> myTrainer(int memberNo) {
-		
-		ArrayList<MemberMappingVO> mappings = (ArrayList<MemberMappingVO>)dao.selectMappingList(memberNo);
-		ArrayList<MappingTrainerData> list = new ArrayList<MappingTrainerData>();
-		ArrayList<ProfessionalCategoryVO> categorys = (ArrayList<ProfessionalCategoryVO>)dao.selectCategoryList();
-		HashMap<Integer, String> categoryMap = new HashMap<Integer, String>();
-		
-		for (ProfessionalCategoryVO category : categorys) {
-			
-			categoryMap.put(category.getCategoryNo(), category.getCategoryName());
-		}
-		
-		for (MemberMappingVO mapping : mappings) {
-			
-			TrainerVO trainer = dao.selectTrainerInfo(mapping.getTrainerNo());
-			trainer.setCatFirstName(categoryMap.get(trainer.getCatFirst()));
-			trainer.setCatSecondName(categoryMap.get(trainer.getCatSecond()));
-			trainer.setCatThirdName(categoryMap.get(trainer.getCatThird()));
-			
-			MappingTrainerData data = new MappingTrainerData();
-			data.setMapping(mapping);
-			data.setTrainer(trainer);
-			
-			list.add(data);
-		}
-		
-		return list;
-	}
-
-
-	public int insertPostscript(MemberMappingVO mapping) {
-		
-		return dao.insertPostscript(mapping);
 	}
 }

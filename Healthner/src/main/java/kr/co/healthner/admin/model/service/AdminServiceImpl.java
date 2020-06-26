@@ -17,11 +17,7 @@ public class AdminServiceImpl {
 	@Qualifier("adminDao")
 	private AdminDaoImpl dao;
 
-	public ArrayList<Member> memberList(String searchWord, int checkbox1, int checkbox2) {
-		MemberSearch ms = new MemberSearch();
-		ms.setSearchWord(searchWord);
-		ms.setCheckbox1(checkbox1);
-		ms.setCheckbox2(checkbox2);
+	public ArrayList<Member> memberList(MemberSearch ms) {
 		return (ArrayList<Member>)dao.memberList(ms);
 	}
 
