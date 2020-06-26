@@ -11,7 +11,7 @@
 			member_name as memberName
 		from trainer t
 		join member m  on (t.member_no = m.member_no) 
-		where member_level = 1
+		where member_level = 3
 	</select>
 	<select id="selectOneTrainer" parameterType="string" resultType="trainer">
 		select
@@ -73,7 +73,7 @@
 			#{metabolism}
 		)
 	</insert>
-	<select id="selectMapperInfo" parameterType="trainer" resultType="member">
+	<select id="selectMapperInfo" parameterType="trainer" resultType="memberInfo">
 		select
 			mapping_seq as mappingSeq,
 			a.member_no as memberNo,

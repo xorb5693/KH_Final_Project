@@ -73,8 +73,8 @@ prefix="c"%>
                       <th>이용권만기일</th>
                     </tr>
                   </thead>
-                  <tbody class="table2">
                   <c:forEach items="${list}" var="memberList">
+                  <tbody class="table2">                
                     <tr>
                       <td rowspan="2">순서번호</td>
                       <td rowspan="2">${memberList.memberName}</td>
@@ -85,9 +85,9 @@ prefix="c"%>
                 		<input type="button" value="횟수차감" class="btn btn-primary py-1 px-1 decreaseBtn">
                       </td>
                      <td rowspan="2">${memberList.expireDate}</td>
-                    </tr>
-                    </c:forEach>
+                    </tr>                   
                   </tbody>
+                 </c:forEach>
                 </table>
               </div>
               <!-- 

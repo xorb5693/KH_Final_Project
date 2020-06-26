@@ -58,7 +58,7 @@ public class TrainerController {
 	public String customerList(Model model, HttpSession session) {
 		//트레이너번호를 가져오기위한 세션
 		Member member = new Member();
-		member = (Member)session.getAttribute("member");		
+		member = (Member)session.getAttribute("member");
 		int trainerNo = member.getMemberNo();
 		
 		//트레이너번호로 매칭된 회원 정보 가져오기
