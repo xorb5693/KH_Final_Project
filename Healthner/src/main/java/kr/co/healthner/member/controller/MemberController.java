@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +20,9 @@ import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.EatLogData;
 import kr.co.healthner.member.model.vo.EatLogVO;
+import kr.co.healthner.member.model.vo.MappingTrainerData;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
 
@@ -194,5 +197,21 @@ public class MemberController {
 		
 		int result = service.modifyMenuComment(comment);
 		return String.valueOf(result);
+	}
+	
+	@RequestMapping("/myTrainer.do")
+	public String myTrainer(HttpSession session, Model model) {
+		
+		Member member = (Member)session.getAttribute("member");
+		ArrayList<MappingTrainerData> list = service.myTrainer(member.getMemberNo());
+		model.addAttribute("list", list);
+		return "member/myTrainer";
+	}
+	
+	@RequestMapping("/insertPostscript.do")
+	public String insertPostscript(MemberMappingVO mapping) {
+		
+		service.insertPostscript(mapping);		
+		return "redirect:/healthner/member/myTrainer.do";
 	}
 }

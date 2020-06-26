@@ -77,21 +77,8 @@ public class AdminController {
 	// 혜진_200625_VO추가하여 mapper에 전달할 값 정리
 	@RequestMapping("/memberList.do")
 	@ResponseBody
-	public ArrayList<Member> memberList(String searchWord, String checkbox1, String checkbox2 ) {
-		ArrayList<Member> list = new ArrayList<Member>();
-		MemberSearch ms = new MemberSearch();
-		ms.setSearchWord(searchWord);
-		if(checkbox1!=null) {
-			ms.setCheckbox1(1);
-		}else {
-			ms.setCheckbox1(0);
-		}
-		if(checkbox2!=null) {
-			ms.setCheckbox1(1);
-		}else {
-			ms.setCheckbox1(0);
-		}
-		list = service.memberList(ms);
+	public ArrayList<Member> memberList(String searchWord, int checkbox1, int checkbox2) {
+		ArrayList<Member> list =  service.memberList(searchWord, checkbox1, checkbox2);
 		return list;
 	}
 }
