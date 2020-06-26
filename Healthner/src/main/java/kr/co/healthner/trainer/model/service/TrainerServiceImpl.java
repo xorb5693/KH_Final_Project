@@ -1,7 +1,5 @@
 package kr.co.healthner.trainer.model.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +13,6 @@ import kr.co.healthner.trainer.model.dao.TrainerDaoImpl;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
-import kr.co.healthner.vo.MemberMappingVO;
 
 @Service("trainerService")
 public class TrainerServiceImpl {

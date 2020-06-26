@@ -17,7 +17,6 @@ import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
-import kr.co.healthner.vo.MemberMappingVO;
 
 @Controller
 @SessionAttributes("id")
