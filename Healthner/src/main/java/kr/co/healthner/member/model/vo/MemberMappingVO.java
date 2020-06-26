@@ -11,5 +11,4 @@ public class MemberMappingVO {
 	private int trainingCnt;
 	private int trainingMaxcnt;
 	private String trainingPostscript;
-	private String trainerName;
 }

@@ -14,4 +14,5 @@ public class TrainerVO {
 	private String catFirstName;
 	private String catSecondName;
 	private String catThirdName;
+	private String memberProfile;
 }
