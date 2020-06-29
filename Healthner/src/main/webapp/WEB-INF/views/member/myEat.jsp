@@ -229,7 +229,7 @@
 						</select>
 						음식 이름
                         <div class="input-area">
-                            <div style="width: 400px">
+                            <div style="width: 380px">
                                 <input type="text" class="form-control" id="foodName" name="foodName" placeholder="음식 이름을 입력하세요" required>
                             </div>
                             <button type="button" id="search" class="btn btn-outline-primary">검색</button>
