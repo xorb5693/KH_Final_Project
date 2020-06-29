@@ -32,6 +32,7 @@ public class NoticeController {
 	@RequestMapping(value="/noticeUp.do")
 	public String noticeWrite(HttpSession session  , String ck4 , Notice n) {
 		session.setAttribute("img",ck4 );
+		
 		Notice m = new Notice();
 		m.setNoticeTitle(n.getNoticeTitle());
 		m.setNoticeContent(n.getNoticeContent());
@@ -86,6 +87,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="/noticeDelete.do")
 	public String noticeDelete(int noticeNo , Notice m) {
+		
 		m.setNoticeNo(noticeNo);
 		int result = service.noticeDelete(m);
 		if(result>0) {
