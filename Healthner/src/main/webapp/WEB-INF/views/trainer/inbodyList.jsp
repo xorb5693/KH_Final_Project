@@ -29,16 +29,10 @@ prefix="c"%>
 <link rel="stylesheet" href="/resources/css/flaticon.css">
 <link rel="stylesheet" href="/resources/css/icomoon.css">
 <link rel="stylesheet" href="/resources/css/style.css">
-</head>
-<style>
-	.table2>td {
-	    padding: 0.75rem;
-	    vertical-align: middle;
-	    border-top: 1px solid #dee2e6;
-	}
-	
 
-</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
 <body>
 
 	
@@ -60,37 +54,35 @@ prefix="c"%>
 	<section class="ftco-appointment">
 			<div class="overlay"></div>
     	<div class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
-
-	    			<h3 class="mb-3">Customer List</h3>
-	<div class="table-responsive">
-                <table class="table2 table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>번호</th>
-                      <th>회원이름</th>
-                      <th>회원 사진</th>
-                      <th colspan="2">PT횟수</th>
-                      <th>이용권만기일</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table2">
-                  <c:forEach items="${list}" var="memberList">
-                    <tr>
-                      <td rowspan="2">순서번호</td>
-                      <td rowspan="2">${memberList.memberName}</td>
-                      <td rowspan="2">${memberList.memberProfile}</td>
-                      <td rowspan="2"><span class="num">${memberList.trainingCnt }/</span><span>${memberList.trainingMaxcnt }</span></td>
-                      <td width="70px;">
-                		<input type="button" value="횟수증가" class="btn btn-primary py-1 px-1 increaseBtn"><br>
-                		<input type="button" value="횟수차감" class="btn btn-primary py-1 px-1 decreaseBtn">
-                      </td>
-                     <td rowspan="2">${memberList.expireDate}</td>
-                    </tr>
-                    </c:forEach>
-                  </tbody>
-                </table>
-              </div>
-              <!-- 
+			<div class="row justify-content-center">
+	    		<div class="col-md-8 text-center">
+					<div class="heading-section mb-5">
+						<span class="subheading"><small><i class="left-bar"></i>Services<i
+								class="right-bar"></i></small></span>
+						<h2 class="mb-1">
+							[${member.memberName }]님의 인바디
+						</h2>
+					</div>
+				</div>
+			</div> 
+			<input type="button" value="글쓰기" class="btn btn-secondary py-1 px-3 mr-2" style="display:block; float: right;">            
+		 <table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">No.</th>
+		      <th scope="col">인바디</th>
+		      <th scope="col">측정날짜</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">넘버와야함</th>
+		      <td><a href="#" style="color: black; font-weight: bold;">넘버 + 번째 인바디</a></td>
+		      <td>${bmi.measrueDate}</td>
+		    </tr>
+		  </tbody>
+		</table>
+            <!-- 
               <div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
@@ -105,27 +97,18 @@ prefix="c"%>
 		              </ul>
 		            </div>
 		          </div>
-		 </div> -->
-	</div>
-	   			
-  
+		 		</div> -->
+	</div>   			
     </section>
-
+	               
 	<script>
 		$(function(){
-			$(".increaseBtn").click(function(){
-				var n = $(".increaseBtn").index(this);
-				var num = $(".num:eq("+n+")").val();
-				num = $(".num:eq("+n+")").val(num*1+1);
-			});
-			$(".decreaseBtn").click(function(){
-				var n = $('.bt_down').index(this);
-			    var num = $(".num:eq("+n+")").val();
-			    num = $(".num:eq("+n+")").val(num*1-1);
+			$(".btn").click(function(){
+				location.href="inbodyInputFrm.do";
 			});
 		});
-	
 	</script>
+      
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/js/popper.min.js"></script>
@@ -144,6 +127,11 @@ prefix="c"%>
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="/resources/js/google-map.js"></script>
 	<script src="/resources/js/main.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

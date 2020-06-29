@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="member">
-	<select id="selectAllTrainers" resultType="member">
-		select 
+<mapper namespace="trainer">
+	<select id="allTrainerList" resultType="trainer">
+		select
+			t.member_no as memberNo,
+			trainer_intro as trainerIntro,
+			cat_first as catFirst,
+			cat_second as catSecond,
+			cat_third as catThird,
+			member_name as memberName
+		from trainer t
+		join member m  on (t.member_no = m.member_no) 
+		where member_level = 1
+	</select>
+	<select id="selectOneTrainer" parameterType="string" resultType="trainer">
+		select
+			t.member_no as memberNo,
+			trainer_intro as trainerIntro,
+			cat_first as catFirst,
+			cat_second as catSecond,
+			cat_third as catThird,
+			member_name as memberName
+		from trainer t
+		join member m  on (t.member_no = m.member_no) 
+		where member_id= #{id}
+	</select>
+	<select id="selectMember" resultType="member" parameterType="member">
+		select
 			member_no as memberNo,
 			member_id as memberId,
 			member_pw as memberPw,
@@ -21,7 +45,83 @@
 			expire_date as expireDate,
 			phone,
 			email_verification as emailVerification
-		from member
-		where member_level = 3;
+		from member where member_id = #{memberId} and member_pw = #{memberPw}
+	</select>
+	<update id="updateTrainerInfo" parameterType="trainer">
+		update trainer 
+		set 
+			trainer_intro = #{trainerIntro},
+			cat_first = #{catFirst},
+			cat_second = #{catSecond},
+			cat_third = #{catThird}
+		where member_no = #{memberNo}
+	</update>
+	<insert id="insertBmi" parameterType="trainer">
+		insert into bmi values(
+			bmi_seq.nextval,
+			#{memberNo},
+			sysdate,
+			#{weight},
+			#{bone},
+			#{bodyfat},
+			#{bodywater},
+			#{protein},
+			#{mineral},
+			#{bmi},
+			#{bodyfatPer},
+			#{abfatPer},
+			#{metabolism}
+		)
+	</insert>
+	<select id="selectMapperInfo" parameterType="trainer" resultType="member">
+		select
+			mapping_seq as mappingSeq,
+			a.member_no as memberNo,
+			trainer_no as trainerNo,
+			training_cnt as trainerCnt,
+			training_maxcnt as trainingMaxcnt,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			member_nick as memberNick,
+			zip,
+			road_addr as roadAddr,
+			det_addr as detAddr,
+			card,
+			enroll_date as enrollDate,
+			member_level as memberLevel,
+			gender,
+			age,
+			member_profile as memberProfile,
+			email,
+			expire_date as expireDate,
+			phone,
+			email_verification as emailVerification
+		from member_mapping a
+		join member m on(a.member_no = m.member_no)
+		where trainer_no=#{trainerNo}
+	</select>
+	
+	<!-- <select id="selectCustomerList" parameterType="trainer">
+		select 
+	</select> -->
+	<select id="selectTrainerInfo" parameterType="_int" resultType="trainer">
+		select
+			t.member_no as memberNo,
+			trainer_intro as trainerIntro,
+			cat_first as catFirst,
+			cat_second as catSecond,
+			cat_third as catThird,
+			member_name as memberName,
+			member_profile as memberProfile
+		from trainer t
+		join member m  on (t.member_no = m.member_no) 
+		where t.member_no= #{_parameter}
+	</select>
+	<select id="selectCategoryList" resultType="category">
+		select 
+			category_no as categoryNo,
+			category_name as categoryName
+		from Professional_category
 	</select>
 </mapper>

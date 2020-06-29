@@ -32,6 +32,120 @@
         .menu-area>div>p {
             margin: 0;
         }
+        
+        .span.span-primary {
+            background: #fcd307;
+            border: 1px solid #fcd307;
+            color: #fff;
+        }
+        
+        .span {
+            -webkit-border-radius: 40px;
+            -moz-border-radius: 40px;
+            -ms-border-radius: 40px;
+            border-radius: 40px;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            font-size: 14px;
+            -webkit-border-radius: 40px;
+            -moz-border-radius: 40px;
+            -ms-border-radius: 40px;
+            border-radius: 40px;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            font-size: 14px;
+            display: inline-block;
+            font-weight: 400;
+            color: #212529;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: transparent;
+            border: 1px solid transparent;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; 
+        }
+        
+        .span, .btn {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        
+        .pageNavi {
+            text-align: center;
+        }
+        
+        .comment-area {
+            width: 100%;
+        }
+        
+        .comment-area p {
+            margin: 0;
+        }
+        
+        .comment-info {
+            overflow: hidden;
+        }
+        
+        .comment-info>div {
+            float: left;
+        }
+        
+        .comment-info>div:first-child {
+            width: 70%;
+            text-align: left;
+            padding-left: 20px;
+            font-weight: bolder;
+            font-size: 0.9em;
+        }
+        
+        .comment-info>div:not(:first-child) {
+            width: 9.9%;
+            text-align: right;
+            padding-right: 10px;
+            font-size: 0.8em;
+        }
+        
+        .comment-content {
+            padding-right: 10px;
+            padding-left: 10px;
+            font-weight: 400;
+            font-size: 0.9em;
+        }
+        
+        .click {
+            text-decoration: none;
+            color: #566270;
+        }
+        
+        .commentWrite {
+            overflow: hidden;
+        }
+        
+        .commentWrite>div {
+            float: left;
+        }
+        
+        .form-control {
+            margin: 10px;
+            resize: none;
+        }
+        
+        .commentWrite>div>.btn {
+            margin-left: 30px;
+            margin-top: 30px;
+        }
+        
     </style>
 <script src="/resources/datepicker/js/bootstrap-datepicker.js"></script>
 <!--한국어  달력 쓰려면 추가 로드-->
@@ -47,7 +161,7 @@
                     <span class="subheading">
                         <small>
                             <i class="left-bar"></i>
-                            ${sessionScope.member.memberName}
+                            ${memberName}
                             <i class="right-bar"></i>
                         </small>
                     </span>
@@ -57,19 +171,36 @@
                 </div>
             </div>
             <button type="button" id="modal" class="btn btn-primary ftco-animate fadeInUp ftco-animated" data-toggle="modal" data-target="#myModal">
-                Open modal
+                	식단 입력
             </button>
             <br><br>
             <table class="table ftco-animate fadeInUp ftco-animated">
                 <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Handle</th>
+                      <th scope="col">음식이름</th>
+                      <th scope="col">칼로리(kcal)</th>
+                      <th scope="col">식사 날짜</th>
+                      <th scope="col">식사 시간</th>
+                      <th scope="col">댓글</th>
                     </tr>
                 </thead>
+                <tbody>
+                	<c:forEach items="${list }" var="eat">
+					    <tr>
+					      <td>${eat.foodName }</td>
+					      <td>${eat.kcal }</td>
+					      <td>${eat.eatDate }</td>
+					      <td>${eat.eatTime }</td>
+					      <td>
+					      	<button class="btn btn-primary" onclick='openComment(this, ${eat.menuNo}, ${eat.memberNo})'>댓글 보기</button>
+					      </td>
+					    </tr>
+				    </c:forEach>
+  				</tbody>
             </table>
+            <div class="pageNavi">
+                ${pageNavi}
+            </div>
 		</div>
 	</section>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
@@ -104,7 +235,7 @@
                             <button type="button" id="search" class="btn btn-outline-primary">검색</button>
                         </div>
                        	 칼로리
-                        <input type="number" name="kcal" class="form-control" placeholder="kcal" required>
+                        <input type="number" name="kcal" class="form-control" placeholder="kcal" step="any" required>
                         <div class="menu-area">
                         </div>
 	                </div>
@@ -193,6 +324,148 @@
             $("input[name=foodName]").val(foodName);
             $("input[name=kcal]").val(kcal);
         };
+//        <div class="comment">
+//            <div class="comment-info">
+//                <div>아이디</div>
+//                <div>날짜</div>
+//                <div><a class="click" href="javascript:void(0)" onclick="commentModify()">댓글수정</a></div>
+//                <div><a class="click" href="javascript:void(0)" onclick="commentDelate()">댓글삭제</a></div>
+//            </div>
+//            <div class="comment-content">
+//                댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용
+//            </div>
+//        </div>
+        function openComment(btn, menuNo, memberNo) {
+            var tr = $("<tr style='display: none'></tr>");
+            var td = $("<td colspan='5'></td>");
+            var div = $("<div class='comment-area'></div>");
+            
+            td.append(div);
+            tr.append(td);
+            $(btn).parent().parent().after(tr);
+            $(btn).attr("onclick", "closeComment(this, " + menuNo + ", " + memberNo + ")");
+            $(btn).html("댓글 닫기");
+            
+            var table = $("<table class='table'></table>");
+            
+            $.ajax({
+                url: "/healthner/member/commentList.do",
+                data: {menuNo: menuNo},
+                type: "get",
+                success: function(data) {
+//                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var trComment = $("<tr></tr>");            
+                        var tdComment = $("<td></td>");
+                        var html = "<div class='comment'>";
+                        html += "<div class='comment-info'>";
+                        html += "<div>" + data[i]["memberNick"] + "</div>";
+                        html += "<div>" + data[i]["cmtDate"] + "</div>";
+                        html += "<div>";
+                        
+                        if (data[i]["writerNo"] == ${sessionScope.member.memberNo}) {
+                            html += "<a class='click' href='javascript:void(0)' onclick='commentModify(this, " + data[i]["cmtNo"] + ")'>댓글수정</a>";
+                        }
+                        
+                        html += "</div><div>";
+                        
+                        if (data[i]["writerNo"] == ${sessionScope.member.memberNo}) {
+                            html += "<a class='click' href='javascript:void(0)' onclick='commentDelate(this, " + data[i]["cmtNo"] + ")'>댓글삭제</a>";
+                        }
+                        
+                        html += "</div></div>";
+                        html += "<div class='comment-content'><p>" + data[i]["cmtContent"] + "</p>";
+//                        if (data[i]["writerNo"] == ${sessionScope.member.memberNo}) {
+//                            html += "<textarea style='display: none' class='form-control' name='cmtContent'>" + data[i]["cmtContent"] + "</textarea>";
+//                        }
+                        html += "</div></div>";
+                        tdComment.append($(html));
+                        trComment.append(tdComment);
+                        table.append(trComment);
+                    }
+            
+                    var trComment = $("<tr></tr>");            
+                    var tdComment = $("<td></td>");
+                    var form = $("<form action='/healthner/member/insertMenuComment.do?memberNo=" + memberNo + " method='post'></form>");
+                    var textDiv = $("<div class='commentWrite'></div>");
+                    var textArea = $("<div style='width: 85%;'><input type='hidden' name='menuNo' value='" + menuNo + "'><textarea class='form-control' name='cmtContent'></textarea></div>");
+                    var textBtn = $("<div><input type='submit' class='btn btn-primary' value='댓글 입력'></div>");
+                    textDiv.append(textArea);
+                    textDiv.append(textBtn);
+                    form.append(textDiv);
+                    tdComment.append(form);
+                    trComment.append(tdComment);
+                    table.append(trComment);
+                    div.append(table);
+                    tr.fadeToggle(500);
+                }
+            });
+        }
+        
+        function closeComment(btn, menuNo, memberNo) {
+            $(btn).parent().parent().next().remove();
+            $(btn).attr("onclick", "openComment(this, " + menuNo + ", " + memberNo + ")");
+            $(btn).html("댓글 보기");
+        }
+        
+        function commentModify(btn, cmtNo) {
+            $(btn).html("수정완료");
+            $(btn).attr("onclick", "commentModifyComplte(this, " + cmtNo + ")");
+            $(btn).parent().next().children().html("수정취소");
+            $(btn).parent().next().children().attr("onclick", "commentModifyCancle(this, " + cmtNo + ")");
+            
+            var commentDiv = $(btn).parent().parent().next();
+            var comment = $(commentDiv).children().html();
+            $(commentDiv).children().toggle();
+            $(commentDiv).append($("<textarea class='form-control' name='cmtContent'>" + comment + "</textarea>"));
+        }
+        
+        function commentDelate(btn, cmtNo) {
+            if (confirm("댓글을 삭제하시겠습니까?")) {
+                $.ajax({
+                    url: "/healthner/member/commentDelete.do",
+                    data: {cmtNo: cmtNo},
+                    type: "get",
+                    success: function(data) {
+                        alert("댓글을 삭제하였습니다.");
+                        $(btn).parent().parent().parent().parent().remove();
+                    }
+                });
+            }
+        }
+        
+        function commentModifyCancle(btn, cmtNo) {
+            $(btn).html("댓글삭제");
+            $(btn).attr("onclick", "commentDelate(this, " + cmtNo + ")");
+            $(btn).parent().prev().children().html("댓글수정");
+            $(btn).parent().prev().children().attr("onclick", "commentModify(this, " + cmtNo + ")");
+            var commentDiv = $(btn).parent().parent().next();
+            $(commentDiv).children().eq(1).remove();
+            $(commentDiv).children().toggle();
+        }
+        
+        function commentModifyComplte(btn, cmtNo) {
+            var commentDiv = $(btn).parent().parent().next();
+            var comment = $(commentDiv).children("textarea").val();
+//            console.log(comment);
+            
+            $.ajax({
+                url: "/healthner/member/commentModify.do",
+                data: {cmtNo: cmtNo, cmtContent: comment},
+                type: "post",
+                success: function(data) {
+                    alert("댓글을 수정하였습니다.");
+                    $(btn).html("댓글수정");
+                    $(btn).attr("onclick", "commentModify(this, " + cmtNo + ")");
+                    $(btn).parent().next().children().html("댓글삭제");
+                    $(btn).parent().next().children().attr("onclick", "commentDelate(this, " + cmtNo + ")");
+                    commentDiv.children("textarea").remove();
+                    commentDiv.children().toggle();
+                    commentDiv.children().html(comment);
+                }
+            });
+            
+        }
 	</script>
 </body>
 </html>

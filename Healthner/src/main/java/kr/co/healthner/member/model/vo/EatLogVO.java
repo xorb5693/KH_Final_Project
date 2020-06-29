@@ -10,5 +10,5 @@ public class EatLogVO {
 	private String eatDate;
 	private String eatTime;
 	private int memberNo;
-	private int kcal;
+	private float kcal;
 }

@@ -16,9 +16,15 @@ import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
 import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.AttendanceVO;
+import kr.co.healthner.member.model.vo.EatLogData;
 import kr.co.healthner.member.model.vo.EatLogVO;
+import kr.co.healthner.member.model.vo.MappingTrainerData;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
+import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
+import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
+import kr.co.healthner.trainer.model.vo.TrainerVO;
 
 @Service("memberService")
 public class MemberServiceImpl {
@@ -151,16 +157,16 @@ public class MemberServiceImpl {
 		}
 		
 		//그래프 그리기용 데이터 클래스
-		//저장되는 정보는 위에서 만들어진 AttendanceAvgData의 list와 해당 계정의 마지막 출결일이다.
 		String lastAttd = dao.lastAtt(memberNo);
+		String memberName = dao.selectMemberName(memberNo);
 		data.setLastAttd(lastAttd);
 		data.setLabels(labels);
 		data.setAvgData(avgData);
 		data.setMyData(myData);
+		data.setMemberName(memberName);
 		
 		return data;
 	}
-
 
 	public ArrayList<NutritionTableVO> selectMenuList(String keyword) {
 		
@@ -168,9 +174,129 @@ public class MemberServiceImpl {
 		return (ArrayList<NutritionTableVO>)list;
 	}
 
-
 	public int insertEatLog(EatLogVO eat) {
 		
 		return dao.insertEatLog(eat);
+	}
+
+
+	public EatLogData selectEatLogList(int memberNo, int reqPage) {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("memberNo", memberNo);
+		
+		//한 페이지당 식사 기록 수
+		int numPerPage = 10;
+		
+		//총 식사 기룩
+		int totalCount = dao.selectEatLogCount(map);
+		//총 페이지 수
+		int totalPage;
+		if (totalCount % numPerPage == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		
+		int start = (reqPage - 1) * numPerPage + 1;
+		int end = reqPage * numPerPage;
+		map.put("start", start);
+		map.put("end", end);
+		ArrayList<EatLogVO> list = (ArrayList<EatLogVO>)dao.selectEatLogList(map);
+		
+		StringBuffer pageNavi = new StringBuffer();
+		int pageNaviSize = 10;
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		
+		if (pageNo != 1) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/member/myEat.do?memberNo=" + memberNo + "&reqPage=" + (pageNo - 1) + "'>이전</a>");
+		}
+		
+		for (int i = 0; i < pageNaviSize; i++) {
+			
+			if (pageNo == reqPage) {
+				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
+			} else {
+				pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/member/myEat.do?memberNo=" + memberNo + "&reqPage=" + pageNo + "'>" + pageNo + "</a>");
+			}
+			
+			pageNo++;
+			
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		
+		if (pageNo <= totalPage) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/member/myEat.do?memberNo=" + memberNo + "&reqPage=" + pageNo + "'>다음</a>");
+		}
+		
+		EatLogData data = new EatLogData();
+		String memberName = dao.selectMemberName(memberNo);
+		data.setList(list);
+		data.setPageNavi(pageNavi.toString());
+		data.setMemberName(memberName);
+		
+		return data;
+	}
+
+
+	public int insertMenuComment(MenuCommentVO comment) {
+		
+		return dao.insertMenuComment(comment);
+	}
+
+
+	public ArrayList<MenuCommentVO> menuCommentList(int menuNo) {
+		
+		return (ArrayList<MenuCommentVO>)dao.menuCommentList(menuNo);
+	}
+
+
+	public int deleteMenuComment(int cmtNo) {
+		
+		return dao.deleteMenuComment(cmtNo);
+	}
+
+
+	public int modifyMenuComment(MenuCommentVO comment) {
+		
+		return dao.modifyMenuComment(comment);
+	}
+
+
+	public ArrayList<MappingTrainerData> myTrainer(int memberNo) {
+		
+		ArrayList<MemberMappingVO> mappings = (ArrayList<MemberMappingVO>)dao.selectMappingList(memberNo);
+		ArrayList<MappingTrainerData> list = new ArrayList<MappingTrainerData>();
+		ArrayList<ProfessionalCategoryVO> categorys = (ArrayList<ProfessionalCategoryVO>)dao.selectCategoryList();
+		HashMap<Integer, String> categoryMap = new HashMap<Integer, String>();
+		
+		for (ProfessionalCategoryVO category : categorys) {
+			
+			categoryMap.put(category.getCategoryNo(), category.getCategoryName());
+		}
+		
+		for (MemberMappingVO mapping : mappings) {
+			
+			TrainerVO trainer = dao.selectTrainerInfo(mapping.getTrainerNo());
+			trainer.setCatFirstName(categoryMap.get(trainer.getCatFirst()));
+			trainer.setCatSecondName(categoryMap.get(trainer.getCatSecond()));
+			trainer.setCatThirdName(categoryMap.get(trainer.getCatThird()));
+			
+			MappingTrainerData data = new MappingTrainerData();
+			data.setMapping(mapping);
+			data.setTrainer(trainer);
+			
+			list.add(data);
+		}
+		
+		return list;
+	}
+
+
+	public int insertPostscript(MemberMappingVO mapping) {
+		
+		return dao.insertPostscript(mapping);
 	}
 }

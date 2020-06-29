@@ -1,11 +1,16 @@
 package kr.co.healthner.admin.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
+import kr.co.healthner.admin.model.vo.MemberSearch;
+import kr.co.healthner.member.model.vo.Member;
 
 @Controller
 //@RequestMapping("/healthner/admin")
@@ -13,7 +18,7 @@ public class AdminController {
 	@Autowired
 	@Qualifier("adminService")
 	private AdminServiceImpl service;
-
+	
 	// 혜진_200622_관리자 메인 페이지로 이동(홈에서 이동)
 	@RequestMapping("/adminMain.do")
 	public String trainerIntro() {
@@ -68,4 +73,12 @@ public class AdminController {
 		return "admin/inquiryMgt";
 	}
 
+	// 혜진_200624_관리자 페이지_회원관리 메뉴_검색 조건에 따라 회원 조회
+	// 혜진_200625_VO추가하여 mapper에 전달할 값 정리
+	@RequestMapping("/memberList.do")
+	@ResponseBody
+	public ArrayList<Member> memberList(String searchWord, int checkbox1, int checkbox2) {
+		ArrayList<Member> list =  service.memberList(searchWord, checkbox1, checkbox2);
+		return list;
+	}
 }

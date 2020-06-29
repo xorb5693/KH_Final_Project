@@ -43,7 +43,7 @@
                     <span class="subheading">
                         <small>
                             <i class="left-bar"></i>
-                            ${sessionScope.member.memberName}
+                            ${data.memberName}
                             <i class="right-bar"></i>
                         </small>
                     </span>
@@ -104,7 +104,7 @@
 					<div class="text pt-4 pt-md-0">
 						<div class="heading-section mb-4">
 							<h3 class="mb-1">
-								마지막 <span>운동시간</span>
+								전날 <span>운동시간</span>
 							</h3>
 						</div>
 						<p>${data.lastTime}분</p>

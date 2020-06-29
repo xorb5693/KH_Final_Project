@@ -54,4 +54,22 @@
 		from member 
 		where card = #{_parameter} 
 	</select>
+	<select id="selectMemberName" parameterType="_int" resultType="string">
+		select member_name from member where member_no = #{_parameter}
+	</select>
+	<select id="selectMappingList" parameterType="_int" resultType="mapping">
+		select 
+			mapping_seq as mappingSeq,
+			member_no as memberNo,
+			trainer_no as trainerNo,
+			training_cnt as trainingCnt, 
+			training_maxcnt as trainingMaxcnt,
+			training_postscript as trainingPostscript
+		from member_mapping
+		where member_no = #{_parameter}
+		order by MAPPING_SEQ desc
+	</select>
+	<update id="insertPostscript" parameterType="mapping">
+		update member_mapping set training_postscript = #{trainingPostscript} where mapping_seq = #{mappingSeq}
+	</update>
 </mapper>
