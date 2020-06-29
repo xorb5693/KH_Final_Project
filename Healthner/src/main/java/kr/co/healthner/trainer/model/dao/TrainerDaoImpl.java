@@ -40,9 +40,9 @@ public class TrainerDaoImpl {
 		return sqlSession.update("trainer.updateTrainerInfo", tUpdate);
 	}
 
-	public int insertBmi(BmiVO bmi) {
+	public int insertInbody(BmiVO bmi) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("trainer.insertBmi",bmi);
+		return sqlSession.insert("trainer.insertInbody",bmi);
 	}
 
 	public List<MemberMappingInfoVO> selectMapperInfo(int trainerNo) {

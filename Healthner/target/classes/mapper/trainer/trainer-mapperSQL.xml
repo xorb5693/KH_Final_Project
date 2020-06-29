@@ -56,7 +56,7 @@
 			cat_third = #{catThird}
 		where member_no = #{memberNo}
 	</update>
-	<insert id="insertBmi" parameterType="trainer">
+	<insert id="insertInbody" parameterType="bmi">
 		insert into bmi values(
 			bmi_seq.nextval,
 			#{memberNo},

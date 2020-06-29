@@ -23,7 +23,6 @@ public class TrainerServiceImpl {
 	
 	public List<TrainerVO> selectAllTrainers() {
 		return dao.selectAllTrainers();
-		//return (ArrayList<TrainerVO>) list;
 	}
 
 	public TrainerVO selectOneTrainer(String id) {
@@ -40,9 +39,9 @@ public class TrainerServiceImpl {
 		return dao.updateTrainerInfo(tUpdate);
 	}
 
-	public int insertBmi(BmiVO bmi) {
+	public int insertInbody(BmiVO bmi) {
 		// TODO Auto-generated method stub
-		return dao.insertBmi(bmi);
+		return dao.insertInbody(bmi);
 	}
 
 	public List<MemberMappingInfoVO> selectMapperInfo(int trainerNo) {

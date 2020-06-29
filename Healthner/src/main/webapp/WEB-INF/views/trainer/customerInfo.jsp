@@ -65,7 +65,7 @@ prefix="c"%>
 			<div class="row">
     			<div class="col-lg-3 d-flex">
     				<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" id="myImg" width="300" height="200">{member.memberProfile}</a>
+	    				<div class="img" style="background-image: url(/resources/images/trainer-1.jpg);  width: 100px; height: 100px;" id="myImg"></div>
 	    			</div>
 	    		</div>
 	    	</div>

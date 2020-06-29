@@ -152,12 +152,12 @@ prefix="c"%>
     		 <c:forEach items="${list }" var="list">
     			<div class="col-lg-3 d-flex">
     				<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">클릭</a>
+	    				<div class="img" style="background-image: url(/resources/prifile/trainer-1.jpg); width: 200px; height: 300px;" alt="imgDetail" id="myImg"></div>
 	    				<div class="text pt-3 ftco-animate">
 	    					<h3>${list.memberName }</h3>
-	    					<p>${list.catFirst }</p>
-	    					<p>${list.catSecond }</p>
-	    					<p>${list.catThird }</p>
+	    					<p>${list.catFirstName }</p>
+	    					<p>${list.catSecondName }</p>
+	    					<p>${list.catThirdName }</p>
 	    					<p></p>
 	    				</div>
 	    			</div>
@@ -167,50 +167,6 @@ prefix="c"%>
     	</div>
     </section>
 
-	
-	
-	<!-- Trigger the Modal -->
-<!-- 
-<img id="myImg" src="img_fjords.jpg" alt="imgDetail" width="300" height="200">
- -->
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- The Close Button -->
-  <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-
-  <!-- Modal Content (The Image) -->
- <img class="modal-content" id="img01">
-
-  <!-- Modal Caption (Image Text) -->
-  <div id="caption">bbbbbbbbbb</div>
-</div>
-
-
-	<script>
-	// Get the modal
-	var modal = document.getElementById('myModal');
-
-	// Get the image and insert it inside the modal - use its "alt" text as a caption
-	var img = document.getElementById('myImg');
-	var modalImg = document.getElementById("img01");
-	var captionText = document.getElementById("caption");
-	img.onclick = function(){
-	    modal.style.display = "block";
-	    modalImg.src = this.src;
-	    modalImg.alt = this.alt;
-	    captionText.innerHTML = this.alt;
-	}
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	  modal.style.display = "none";
-	}
-	</script>
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/js/popper.min.js"></script>
@@ -230,5 +186,43 @@ prefix="c"%>
 	<script src="/resources/js/google-map.js"></script>
 	<script src="/resources/js/main.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+		
+
+            <div class="modal" id="myModal">
+            	<!-- 닫기버튼 -->
+      			<span class="close" onclick="document.getElementById('myModal').style.display='none'">×</span>
+        
+                <!-- 모달 이미지,내용 -->
+                <div class="img" style="background-image: url(/resources/prifile/trainer-1.jpg); width: 500px; height: 600px;" alt="imgDetail" id="myImg" ></div>
+                <div id="caption"></div>    
+            </div>
+    
+    <script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var imgem = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    imgem.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onClick = function() {
+        modal.style.display = "none";
+    }
+    </script>
+	
+	
+	
+	
+	
 </body>
 </html>

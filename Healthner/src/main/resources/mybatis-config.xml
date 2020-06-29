@@ -15,6 +15,7 @@
 		<typeAlias type="kr.co.healthner.trainer.model.vo.TrainerVO" alias="trainer"/>
 		<typeAlias type="kr.co.healthner.trainer.model.vo.MemberMappingInfoVO" alias="memberInfo"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.MemberMappingVO" alias="memberMapping"/>
+		<typeAlias type="kr.co.healthner.trainer.model.vo.BmiVO" alias="bmi"/>
 		
 		<typeAlias type="kr.co.healthner.member.model.vo.NutritionTableVO" alias="menu"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.EatLogVO" alias="eatLog"/>

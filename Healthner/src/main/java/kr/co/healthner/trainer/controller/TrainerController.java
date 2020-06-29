@@ -36,6 +36,28 @@ public class TrainerController {
 		String id = member.getMemberId();
 		System.out.println("세션아이디 : "+id);
 		TrainerVO list = service.selectOneTrainer(id);
+		if(list.getCatFirst()==1) {
+			list.setCatFirstName("다이어트");
+		} else if(list.getCatFirst()==2) {
+			list.setCatFirstName("보디빌딩");
+		} else if(list.getCatFirst()==3) {
+			list.setCatFirstName("교정");
+		} 
+		if(list.getCatSecond()==1) {
+			list.setCatSecondName("다이어트");
+		} else if(list.getCatSecond()==2) {
+			list.setCatSecondName("보디빌딩");
+		} else if(list.getCatSecond()==3) {
+			list.setCatSecondName("교정");
+		}
+		if(list.getCatThird()==1) {
+			list.setCatThirdName("다이어트");
+		} else if(list.getCatThird()==2) {
+			list.setCatThirdName("보디빌딩");
+		} else if(list.getCatThird()==3) {
+			list.setCatThirdName("교정");
+		}
+		
 		System.out.println(list);
 		model.addAttribute("list", list);
 		return "trainer/trainerInputFrm";
@@ -96,14 +118,19 @@ public class TrainerController {
 	
 	//인바디 글쓰기
 	@RequestMapping("/inbodyInputFrm.do")
-	public String inbodyInputFrm(BmiVO bmi) {
-		int result = service.insertBmi(bmi);
+	public String inbodyInputFrm() {
+		return "trainer/inbodyInputFrm";
+	}
+	
+	@RequestMapping("/insertInbody.do")
+	public String insertInbody(BmiVO bmi) {
+		int result = service.insertInbody(bmi);
 		if(result > 0) {
 			System.out.println("수정 성공");
 		} else {
 			System.out.println("수정 실패");
 		}
-		return "trainer/inbodyInputFrm";
+		return "trainer/inbodyList";
 	}
 	
 	//트레이너intro를 위한 모든 트레이너 정보 가져오기

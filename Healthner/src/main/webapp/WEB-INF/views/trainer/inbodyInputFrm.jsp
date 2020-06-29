@@ -5,7 +5,7 @@ prefix="c"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Trainer Info Input</title>
+<title>Inbody Input</title>
  <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -64,22 +64,22 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	
 	<section class="ftco-appointment">
 			<div class="overlay"></div>
-    	<div class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+    	<div class="container col-md-6 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
 	    						<div class="row justify-content-center">
 	    		<div class="col-md-8 text-center">
 					<div class="heading-section mb-5">
 						<span class="subheading"><small><i class="left-bar"></i>Services<i
 								class="right-bar"></i></small></span>
 						<h2 class="mb-1">
-							[${member.memberName }]님의 인바디 입력
+							[${member.memberName }]님의 인바디
 						</h2>
 					</div>
 				</div>
 			</div> 
 			
-			<form action="trainerInput.do" class="appointment-form">
+			<form action="insertInbody.do" class="appointment-form">
 	    				<div class="form-group">		
-	    					<label>측정 날짜</label><span>오늘날짜</span>
+	    					<label>측정 날짜&nbsp&nbsp&nbsp</label><span id="dateShow"></span>	    					
 	    				</div>
 	    				<input type="hidden" name="memberNo" value="${member.memberNo }">
 	    				<div class="form-group">
@@ -243,5 +243,20 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<script>
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1;
+	var yy = today.getFullYear() - 2000;
+	if (dd < 10) {
+	  dd = '0' + dd;
+	} 
+	if (mm < 10) {
+	  mm = '0' + mm;
+	} 
+	var today = yy+'/'+mm+'/'+dd;
+	
+	document.getElementById ('dateShow').innerHTML = today;
+	</script>
 </body>
 </html>
