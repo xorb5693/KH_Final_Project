@@ -7,5 +7,9 @@ public class MemberSearch {
 	private String searchWord;
 	private int checkbox1;
 	private int checkbox2;
-	
+	private int start;
+	private int end;
+	private String phone;
+	private String email;
+	private String profile;
 }
