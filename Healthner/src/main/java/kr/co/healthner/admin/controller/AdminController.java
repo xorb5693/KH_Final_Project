@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,7 +19,7 @@ public class AdminController {
 	@Autowired
 	@Qualifier("adminService")
 	private AdminServiceImpl service;
-	
+
 	// 혜진_200622_관리자 메인 페이지로 이동(홈에서 이동)
 	@RequestMapping("/adminMain.do")
 	public String trainerIntro() {
@@ -73,12 +74,31 @@ public class AdminController {
 		return "admin/inquiryMgt";
 	}
 
+	// 혜진_200626_관리자 페이지_회원관리 메뉴_카드 웹소켓용 팝업 이동
+	@RequestMapping("/addCard.do")
+	public String memberList(String memberId, Model model) {
+		model.addAttribute("memberId", memberId);
+		return "admin/memberDetail";
+	}
+
+//---------------------------------------------------------------------------------------- (상단)이동/(하단)function
+
 	// 혜진_200624_관리자 페이지_회원관리 메뉴_검색 조건에 따라 회원 조회
 	// 혜진_200625_VO추가하여 mapper에 전달할 값 정리
+	// 혜진_200629_더보기 기능을 위해 vo 객체 추가, start 전달
 	@RequestMapping("/memberList.do")
 	@ResponseBody
-	public ArrayList<Member> memberList(String searchWord, int checkbox1, int checkbox2) {
-		ArrayList<Member> list =  service.memberList(searchWord, checkbox1, checkbox2);
+	public ArrayList<Member> memberList(String searchWord, int checkbox1, int checkbox2, int start) {
+		ArrayList<Member> list = service.memberList(searchWord, checkbox1, checkbox2, start);
 		return list;
 	}
+	
+	// 혜진_200629_회원관리 페이지_팝업창_회원 ID를 매개변수로 전달하고 해당 ID의 정보들을 가져옴
+	@RequestMapping("/oneMemberSearch.do")
+	@ResponseBody
+	public Member oneMemberSearch(String memberId) {
+		Member m = service.oneMemberSearch(memberId);
+		return m;
+	}
+
 }
