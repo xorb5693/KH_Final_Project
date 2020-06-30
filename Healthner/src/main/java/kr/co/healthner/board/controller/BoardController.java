@@ -43,7 +43,7 @@ public class BoardController {
 		int result = service.boardInsert(bv);
 		if(result >0) {
 			System.out.println("자게글쓰기성공");
-			return "notice/notice";
+			return "redirect:/boardList.do?reqPage=1";
 		}else {
 			System.out.println("자게글쓰기실패");
 			return "notice/notice";
@@ -94,6 +94,14 @@ public class BoardController {
 		}
 		return "redirect:/boardList.do?reqPage=1";
 	}
+	@RequestMapping(value="commentDelete.do")
+	public String DeleteComment(int commentNo,int ref ) {
+		
+		BoardCommentVO b = new BoardCommentVO();
+		b.setCommentNo(commentNo);
+		int result = service.deleteComment(b);
+		return "redirect:/boardView.do?boardNo="+ref;
+	}
 	
 	@RequestMapping(value="/boardCommentInsert.do")
 	public String boardCommentInsert(BoardCommentVO bc, int boardNo) {
@@ -110,6 +118,19 @@ public class BoardController {
 			System.out.println("댓글작성실패");
 		}
 		return "redirect:/boardView.do?boardNo="+boardNo;
+	}
+	
+	@RequestMapping(value="commentUpdate.do")
+	public String CommentUpdate(BoardCommentVO bc) {
+		int boardNo = bc.getRef();
+		System.out.println("댓글수정 테스트");
+		System.out.println(boardNo);
+		
+		int result = service.commentUpdate(bc);
+		
+		
+		return "redirect:/boardView.do?boardNo="+boardNo;
+		
 	}
 	
 	

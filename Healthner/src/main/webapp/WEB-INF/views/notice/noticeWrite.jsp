@@ -39,10 +39,11 @@
 			</div>
 		</section>
 		<div class="content">
-			<form action="noticeUp.do" method="post">
+			<form action="noticeUp.do" method="post" enctype="multipart/form-data">
 				<h2>공지사항 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
 				제목 : <input type="text" name="noticeTitle"><br>
+				<!-- 썸네일 : <input type="file" id="noticeFilename" name="noticeFilename"> -->
 				<textarea id="ck4" name="noticeContent"></textarea>
 				<script>
 					CKEDITOR.replace('ck4', {
