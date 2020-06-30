@@ -24,6 +24,16 @@ public class AdminDaoImpl {
 	public Member oneMemberSearch(String memberId) {
 		return sqlSession.selectOne("admin.oneMemberSearch",memberId);
 	}
+
+	// 혜진_200629_회원관리 페이지_팝업창_전체 회원 리스트의 수를 세어옴
+	public int totalCount(MemberSearch ms) {
+		return sqlSession.selectOne("admin.totalCount", ms);
+	}
+	
+	// 혜진_200630_회원관리 페이지_팝업창_카드 정보를 수정함
+	public int cardModify(Member m) {
+		return sqlSession.update("admin.cardModify", m);
+	}
 	
 
 }

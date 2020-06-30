@@ -9,8 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
 import kr.co.healthner.admin.model.vo.MemberSearch;
+import kr.co.healthner.admin.model.vo.totalpageList;
 import kr.co.healthner.member.model.vo.Member;
 
 @Controller
@@ -86,11 +89,11 @@ public class AdminController {
 	// 혜진_200624_관리자 페이지_회원관리 메뉴_검색 조건에 따라 회원 조회
 	// 혜진_200625_VO추가하여 mapper에 전달할 값 정리
 	// 혜진_200629_더보기 기능을 위해 vo 객체 추가, start 전달
-	@RequestMapping("/memberList.do")
+	@RequestMapping(value="/memberList.do", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public ArrayList<Member> memberList(String searchWord, int checkbox1, int checkbox2, int start) {
-		ArrayList<Member> list = service.memberList(searchWord, checkbox1, checkbox2, start);
-		return list;
+	public String memberList(String searchWord, int checkbox1, int checkbox2, int start) {
+		totalpageList tl = service.memberList(searchWord, checkbox1, checkbox2, start);
+		return new Gson().toJson(tl);
 	}
 	
 	// 혜진_200629_회원관리 페이지_팝업창_회원 ID를 매개변수로 전달하고 해당 ID의 정보들을 가져옴
@@ -101,4 +104,10 @@ public class AdminController {
 		return m;
 	}
 
+	@RequestMapping("/cardModify.do")
+	@ResponseBody
+	public String cardModify(String memberId, String card) {
+		service.cardModify(memberId, card);
+		return card;
+	}
 }
