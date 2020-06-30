@@ -35,7 +35,7 @@
 				$("#expireDate").html(data.expireDate);
 				$("#phone").html(data.phone);
 				$("#email").html(data.email);
-				$("#card").html(data.card);
+				$("#card").val(data.card);
 				if(data.profile ==null){
 					$("#profile").html("<img src='/resources/profile/noprofile.png' class='small-img'>");
 				}else{
@@ -47,8 +47,40 @@
 			}
 		});
 	}
+	
+// 혜진_200630_저장 버튼 클릭 시 카드키 정보 수정 반영
+	$(function(){
+		$("input[type=submit]").click(function(){
+			cardModify();
+		});
+	});
+	
+// 혜진_200630_카드키 정보 수정 ajax
+	function cardModify(){
+		var memberId = $("#memberId").html();
+		var card = $("#card").val();
+		var param = {memberId:memberId, card:card}
+		$.ajax({
+			url: "/cardModify.do",
+			type: "post",
+			data: param,
+			success: function(data){
+				$("#card").val(data);
+				alert("성공");
+			},
+			error: function(data){
+				consol.log("데이터 전송 실패")
+			}
+		});
+	}
+// 혜진_200630_삭제 버튼 클릭 시 카드키 창 내용 삭제
+	function inputDelete(){
+		$("#card").val("");
+	}
+	
 </script>
 	<h5>회원 정보 상세 보기</h5>
+<!-- 혜진_200630_삭제 버튼, 저장 버튼 클릭 시 카드키 정보 수정 -->
 	<table border="1">
 		<tr>
 			<th colspan="2">프로필 이미지</th>
@@ -78,12 +110,13 @@
 		</tr>
 		<tr>
 			<th>카드키</th>
-			<td colspan="2" id="card"></td>
-			<td><input type="button" value="삭  제"></td>
+			<td colspan="2"><input type="text" id="card"></td>
+			<td><input type="reset" value="삭  제" onclick="inputDelete();"class="pop-up-btn"></td>
 		</tr>
 	</table>
-	<button >저  장</button>
-	<button>닫  기</button>
+	<input type="submit" value="저  장" class="pop-up-btn">
+<!-- 혜진_200630_닫기 버튼 기능 활성화 -->
+	<input type="button" value="닫  기" onclick = "window.close();" class="pop-up-btn">
 		
 </body>
 </html>
