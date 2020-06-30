@@ -103,11 +103,49 @@ public class AdminController {
 		Member m = service.oneMemberSearch(memberId);
 		return m;
 	}
-
+	
+	// 혜진_200630_회원관리 페이지_팝업창_카드 정보 수정 반영
 	@RequestMapping("/cardModify.do")
 	@ResponseBody
 	public String cardModify(String memberId, String card) {
 		service.cardModify(memberId, card);
 		return card;
 	}
+	
+	// 혜진_200630_트레이너 페이지_전체 리스트 조회
+	@RequestMapping(value="/trainerlist.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String trainerList(String searchWord, int memberType, int start) {
+		totalpageList tl = service.trainerList(searchWord, memberType, start);
+		return new Gson().toJson(tl);
+	}
+	
+	// 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 멤버 타입 변환
+	@RequestMapping(value="/approveTrainer.do", produces = "text/html;charset=utf-8")
+	@ResponseBody
+	public String approveTrainer(String memberId) {
+		int result = service.approveTrainer(memberId);
+		System.out.println("result"+result);
+		System.out.println("memberId"+memberId);
+		if(result>0) {
+			return "승인되었습니다";
+		}else {
+			return "실패하였습니다";
+		}
+	}
+	
+	// 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 회원 삭제
+	@RequestMapping(value="/rejectTrainer.do", produces = "text/html;charset=utf-8")
+	@ResponseBody
+	public String rejectTrainer(String memberId) {
+		int result = service.rejectTrainer(memberId);
+		System.out.println("result"+result);
+		System.out.println("memberId"+memberId);
+		if(result>0) {
+		return "삭제하였습니다";
+		}else {
+			return "실패하였습니다";
+		}
+	}
+	
 }

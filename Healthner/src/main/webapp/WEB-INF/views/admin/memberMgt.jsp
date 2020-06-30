@@ -105,7 +105,6 @@ table tr:hover {
 						success : function(data) {
 							$(".contentsRow").html("");
 							var html = "";
-							console.log(data);
 							for (var i = 0; i < data.list.length; i++) {
 								html += "<tr class='contentsRow' onclick='addCard(this);'>"
 								html += "<td id='cnt'>" + (i + 1) + "</td>";
