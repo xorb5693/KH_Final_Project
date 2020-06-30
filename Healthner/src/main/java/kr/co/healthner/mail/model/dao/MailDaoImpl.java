@@ -1,5 +1,6 @@
 package kr.co.healthner.mail.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -38,5 +39,40 @@ public class MailDaoImpl {
 	public int insertMail(MailVO mail) {
 		
 		return sqlSession.insert("mail.insertMail", mail);
+	}
+
+	public int selectTotalReciveCount(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectOne("mail.selectTotalReciveCount", map);
+	}
+
+	public List<MailVO> selectReceiveMailList(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectList("mail.selectReceiveMailList", map);
+	}
+
+	public int readMailUpdate(int mailNo) {
+		
+		return sqlSession.update("mail.readMailUpdate", mailNo);
+	}
+
+	public MailVO readMail(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectOne("mail.readMail", map);
+	}
+
+	public int deleteMail(int[] deleteNo) {
+		
+		return sqlSession.delete("mail.deleteMail", deleteNo);
+	}
+
+	public int selectTotalSendCount(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectOne("mail.selectTotalSendCount", map);
+	}
+
+	public List<MailVO> selectSendMailList(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectList("mail.selectSendMailList", map);
 	}
 }
