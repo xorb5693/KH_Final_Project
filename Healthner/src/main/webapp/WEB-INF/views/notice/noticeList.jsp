@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	
+</style>
 <body>
 <div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -37,6 +40,7 @@
 				<c:forEach items="${list }" var = "n">
 					<tr>
 						<td>${n.noticeNo }</td>
+						<%-- <td><img src="${n.noticeFilename }"></td> --%>
 						<td><a href="/noticeView.do?noticeNo=${n.noticeNo}">${n.noticeTitle }</a></td>
 						<td>${n.noticeDate }</td>
 					</tr>

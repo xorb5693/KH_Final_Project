@@ -103,6 +103,16 @@ public class BoardService {
 		List list = dao.commentSelect(map);
 		return list;
 	}
+
+	public int deleteComment(BoardCommentVO b) {
+		// TODO Auto-generated method stub
+		return dao.deleteComment(b);
+	}
+
+	public int commentUpdate(BoardCommentVO bc) {
+		// TODO Auto-generated method stub
+		return dao.commentUpdate(bc);
+	}
 	
 	
 }

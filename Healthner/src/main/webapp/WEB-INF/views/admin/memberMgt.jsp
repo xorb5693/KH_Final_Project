@@ -19,7 +19,8 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/admin/css/style.css">
 </head>
-
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <style>
 body {
 	font-family: 'Nanum Gothic', sans-serif;
@@ -47,6 +48,7 @@ table tr:hover {
 	<div id="content" class="p-4 p-md-5 pt-5">
 		<h6>전체 회원 관리</h6>
 		<!-- 혜진_200624_회원 검색 조회 box_아이디/이름/닉네임 입력, 이용권 미등록 찾기, 카드키 미등록 찾기, 검색버튼  -->
+		<form action="/memberList" method="post" id="memberList">
 		<div class="search-box">
 			<!-- (1) 아이디/이름/닉네임 입력 -->
 			<input type="text" id="searchWord" placeholder="아이디/이름/닉네임을 입력하세요.">
@@ -55,8 +57,9 @@ table tr:hover {
 			카드키 미등록<input type="checkbox" value="card" name="card">
 			<!-- (4)검색 버튼 -->
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"
-				onclick="show_memberlist(1);">
+				onclick="show_memberlist(1,1);">
 		</div>
+		</form>
 		<div class="memberTB">
 			<table border="1">
 				<tr class="titleRow">
@@ -77,7 +80,7 @@ table tr:hover {
 
 	<script>
 		//혜진_200624_ajax로 DB에서 회원 데이터 불러오기
-		function show_memberlist(start) {
+		function show_memberlist(start, btnNum) {
 			$(".more-btn").attr("currentCount", 0);
 			var searchWord = $("#searchWord").val();
 			if ($("input[name=expire]").prop("checked")) {
@@ -96,14 +99,16 @@ table tr:hover {
 				checkbox2 : checkbox2,
 				start : start
 			};
-			$
-					.ajax({
+			$.ajax({
 						url : "/memberList.do",
 						type : "post",
 						data : param,
 						dataType : "json",
 						success : function(data) {
+							//혜진_200701_검색 클릭 시에만 초기화 설정
+							if(btnNum==1){
 							$(".contentsRow").html("");
+							}
 							var html = "";
 							for (var i = 0; i < data.list.length; i++) {
 								html += "<tr class='contentsRow' onclick='addCard(this);'>"
@@ -152,10 +157,10 @@ table tr:hover {
 		
 		//혜진_200626_페이지를 로드 하자마자 list 보여주기
 		$(function() {
-			show_memberlist(1);
+			show_memberlist(1,1);
 				$(".more-btn").click(function() {
 					var val = $(this).val();
-					show_memberlist(val);
+					show_memberlist(val,2);
 				});
 		});
 

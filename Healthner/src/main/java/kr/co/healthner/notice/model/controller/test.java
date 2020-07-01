@@ -90,7 +90,7 @@ public class test {
 			}
 		}
 
-		return "notice/su";
+		return "notice/noticeList";
 	}
 
 	/**

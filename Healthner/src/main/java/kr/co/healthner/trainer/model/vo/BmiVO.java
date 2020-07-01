@@ -20,4 +20,5 @@ public class BmiVO {
 	private float bodyfatPer;
 	private float abfatPer;
 	private float metabolism;
+	private String memberName;
 }

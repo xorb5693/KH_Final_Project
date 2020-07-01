@@ -111,10 +111,10 @@
 
 			</div>
 		</nav>
-		<script src="/admin/js/jquery.min.js"></script>
-		<script src="/admin/js/popper.js"></script>
-		<script src="/admin/js/bootstrap.min.js"></script>
-		<script src="/admin/js/main.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/main.js"></script>
 </body>
 
 <script>

@@ -55,4 +55,14 @@ public class BoardDao {
 		return sqlSession.selectList("comment.commentSelect",map);
 	}
 
+	public int deleteComment(BoardCommentVO b) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("comment.commentDelete",b);
+	}
+
+	public int commentUpdate(BoardCommentVO bc) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("comment.commentUpdate",bc);
+	}
+
 }

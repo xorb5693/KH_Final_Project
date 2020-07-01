@@ -116,7 +116,8 @@
 	</table>
 	<input type="submit" value="저  장" class="pop-up-btn">
 <!-- 혜진_200630_닫기 버튼 기능 활성화 -->
-	<input type="button" value="닫  기" onclick = "window.close();" class="pop-up-btn">
+<!-- 혜진_200101_부모창 새로고침 기능 추가 -->
+	<input type="button" value="닫  기" onclick = "window.close(); opener.parent.location.reload();" class="pop-up-btn">
 		
 </body>
 </html>

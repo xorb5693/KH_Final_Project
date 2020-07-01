@@ -29,95 +29,102 @@ prefix="c"%>
 <link rel="stylesheet" href="/resources/css/flaticon.css">
 <link rel="stylesheet" href="/resources/css/icomoon.css">
 <link rel="stylesheet" href="/resources/css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 </head>
-<style>
-	/* Style the Image Used to Trigger the Modal */
-#myImg {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+<style>	
+	* {
+  margin: 0;
+  padding: 0;
 }
 
-#myImg:hover {opacity: 0.7;}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+body {
+  margin: 100px;
 }
 
-/* Modal Content (Image) */
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
+.pop-layer .pop-container {
+  padding: 20px 25px;
 }
 
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
+.pop-layer p.ctxt {
+  color: #666;
+  line-height: 25px;
 }
 
-/* Add Animation - Zoom in the Modal */
-.modal-content, #caption {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
+.pop-layer .btn-r {
+  width: 100%;
+  margin: 10px 0 20px;
+  padding-top: 10px;
+  border-top: 1px solid #DDD;
+  text-align: right;
 }
 
-@-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)}
-    to {-webkit-transform:scale(1)}
+.pop-layer {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 410px;
+  height: auto;
+  background-color: #fff;
+  border: 5px solid #3571B5;
+  z-index: 10;
 }
 
-@keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
+.dim-layer {
+  display: none;
+  position: fixed;
+  _position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
 }
 
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
+.dim-layer .dimBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .5;
+  filter: alpha(opacity=50);
 }
 
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
+.dim-layer .pop-layer {
+  display: block;
 }
 
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
+a.btn-layerClose {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #3f5a9d;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
 }
-	
+
+a.btn-layerClose:hover {
+  border: 1px solid #091940;
+  background-color: #1f326a;
+  color: #fff;
+}
+.displayNone{
+	display: block;
+	display: none;
+}
+.img{
+	border: none;
+}
+.profileImg{
+	width: 500px;
+	heigth: 600px;
+}
 	
 </style>
 <body>
@@ -131,7 +138,7 @@ prefix="c"%>
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
           <br><br>
             <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span><span class="mr-2"><a href="customerInfo.do">회원정보(수정해야함)</a></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
           </div>
         </div>
       </div>
@@ -148,17 +155,22 @@ prefix="c"%>
             <h2 class="mb-1">Our Coaches</h2>
           </div>
         </div>
+        
     		<div class="row">
     		 <c:forEach items="${list }" var="list">
     			<div class="col-lg-3 d-flex">
     				<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);" alt="imgDetail" id="myImg" width="300" height="200">클릭</a>
+	    				<div class="img ftco-animate" style="width: 200px; height: 300px;" 
+	    				id="myImg" data-toggle="modal" data-target="#readPostscript" onclick="readPostscript(this)">
+	    					<input type="image" src="/resources/prifile/${list.memberProfile }" style="width: 200px; height: 300px;" value="${list.memberProfile }">
+	    				</div>
+	    				<button type="button" class="btn displayNone"></button>
 	    				<div class="text pt-3 ftco-animate">
 	    					<h3>${list.memberName }</h3>
-	    					<p>${list.catFirst }</p>
-	    					<p>${list.catSecond }</p>
-	    					<p>${list.catThird }</p>
-	    					<p></p>
+	    					<p>주특기 1 : ${list.catFirstName }</p>
+	    					<p>주특기 2 : ${list.catSecondName }</p>
+	    					<p>주특기 3 : ${list.catThirdName }</p>
+	    					<input type="hidden" value="${list.trainerIntro }">
 	    				</div>
 	    			</div>
     			</div>
@@ -166,51 +178,37 @@ prefix="c"%>
     		</div>	
     	</div>
     </section>
+    
+<!-- The Read Modal -->
+    <div class="modal" id="readPostscript">
+        <div class="modal-dialog">
+            <div class="modal-content">        
+                <!-- Modal body -->
+                <div class="modal-body" id="readImage">
+                	<input id="readImage2" class="d-flex align-items-center" type="image" style="width: 350px; height: 500px;">
+                </div>
+                <div class="col-md-6 text pt-4 pt-md-0" id="readArea">
+                </div>
+                
+        
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
-	
-	
-	<!-- Trigger the Modal -->
-<!-- 
-<img id="myImg" src="img_fjords.jpg" alt="imgDetail" width="300" height="200">
- -->
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- The Close Button -->
-  <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-
-  <!-- Modal Content (The Image) -->
- <img class="modal-content" id="img01">
-
-  <!-- Modal Caption (Image Text) -->
-  <div id="caption">bbbbbbbbbb</div>
-</div>
-
-
-	<script>
-	// Get the modal
-	var modal = document.getElementById('myModal');
-
-	// Get the image and insert it inside the modal - use its "alt" text as a caption
-	var img = document.getElementById('myImg');
-	var modalImg = document.getElementById("img01");
-	var captionText = document.getElementById("caption");
-	img.onclick = function(){
-	    modal.style.display = "block";
-	    modalImg.src = this.src;
-	    modalImg.alt = this.alt;
-	    captionText.innerHTML = this.alt;
-	}
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	  modal.style.display = "none";
-	}
-	</script>
+            
+            
+            
+            
+            
+            
+            
+            
+            
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/js/popper.min.js"></script>
@@ -230,5 +228,27 @@ prefix="c"%>
 	<script src="/resources/js/google-map.js"></script>
 	<script src="/resources/js/main.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	
+    <script>
+    function readPostscript(btn) {
+    	$("#readArea").html($(btn).next().next().children("input[type=hidden]").val());
+    	var imagePlace = $(btn).children().val();
+    	console.log(imagePlace);
+    	$("#readImage2").attr("src","/resources/prifile/" + imagePlace);
+    	
+
+    }
+    
+    function closeModal(btn) {
+        $("#modifyTextarea").val($("#readArea").html());
+        $(btn).next().click();
+    }
+    
+    </script>
+	
+	
+	
+	
+	
 </body>
 </html>

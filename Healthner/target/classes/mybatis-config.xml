@@ -9,17 +9,21 @@
 		<typeAlias type="kr.co.healthner.notice.model.vo.Notice" alias="notice"/>
 		<typeAlias type="kr.co.healthner.vo.BoardVO" alias="board"/>
 		<typeAlias type="kr.co.healthner.vo.BoardCommentVO" alias="comment"/>
+		<typeAlias type="kr.co.healthner.vo.ReportVO" alias="report"/>
 
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceVO" alias="attend"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceAvgtimeVO" alias="attendAvg"/>
 		
 		<typeAlias type="kr.co.healthner.trainer.model.vo.TrainerVO" alias="trainer"/>
 		<typeAlias type="kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO" alias="category"/>
+		<typeAlias type="kr.co.healthner.trainer.model.vo.MemberMappingInfoVO" alias="memberInfo"/>
+		<typeAlias type="kr.co.healthner.member.model.vo.MemberMappingVO" alias="memberMapping"/>
+		<typeAlias type="kr.co.healthner.member.model.vo.MemberMappingVO" alias="mapping"/>
+		<typeAlias type="kr.co.healthner.trainer.model.vo.BmiVO" alias="bmi"/>
 		
 		<typeAlias type="kr.co.healthner.member.model.vo.NutritionTableVO" alias="menu"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.EatLogVO" alias="eatLog"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.MenuCommentVO" alias="menuComment"/>
-		<typeAlias type="kr.co.healthner.member.model.vo.MemberMappingVO" alias="mapping"/>
 		
 		<!-- 혜진_20200625_관리자 페이지_회원검색용 VO -->
 		<typeAlias type="kr.co.healthner.admin.model.vo.MemberSearch" alias="memberSearch"/>

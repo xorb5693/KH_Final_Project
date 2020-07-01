@@ -30,5 +30,11 @@
   NVL(comment_ref, 0) as commentRef
 from board_comment where ref = #{ref}
 	</select>
+	<delete id="commentDelete" parameterType="comment">
+		delete from board_comment where comment_no = #{commentNo} 
+	</delete>
+	<update id="commentUpdate" parameterType="comment">
+		update board_comment set comment_content = #{commentContent} where comment_no = #{commentNo}  
+	</update>
   
 </mapper>

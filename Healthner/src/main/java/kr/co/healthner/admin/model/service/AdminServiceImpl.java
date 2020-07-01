@@ -19,6 +19,7 @@ public class AdminServiceImpl {
 	@Qualifier("adminDao")
 	private AdminDaoImpl dao;
 
+
 	// 혜진_200629_start 전달, end 계산하여 함께 전달
 	public totalpageList memberList(String searchWord, int checkbox1, int checkbox2, int start) {
 		// 전체 게시글 갯수 카운트
