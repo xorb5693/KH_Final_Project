@@ -17,6 +17,7 @@ public class ReportController {
 	
 	@RequestMapping(value="/insertReport.do")
 	public String insertReport(ReportVO rv) {
+		System.out.println(rv.getWriteType());
 		int result = service.insertReport(rv);
 		int boardNo = rv.getWriteNo();
 		if(result>0) {

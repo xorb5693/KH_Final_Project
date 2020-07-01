@@ -138,7 +138,7 @@
 
 									</c:if>
 									<button type="button"
-										onclick="reportBoard('2','${nc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
+										onclick="reportComment('2','${nc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
 										class="btn" data-toggle="modal" style="border: 1px solid #999"
 										data-target="#exampleModal" data-whatever="@mdo">신고하기</button>
 								</c:if></li>
@@ -164,7 +164,7 @@
 										<a href="javascript:void(0)"
 											onclick="deleteComment('${ncc.commentNo}','${ncc.ref}')">삭제</a>
 										<button type="button"
-											onclick="reportBoard('2','${ncc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
+											onclick="reportComment('2','${ncc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
 											class="btn" data-toggle="modal"
 											style="border: 1px solid #999" data-target="#exampleModal"
 											data-whatever="@mdo">신고하기</button>
@@ -334,6 +334,28 @@
 					"<input type='hidden' name='memberNo' value='"+memberNo+"'>");
             
 		}
+		
+		
+		
+		function reportComment(commentType,commentNo,commentWriter,memberNo){
+			var modal = $("#modal-content");
+			modal.find("p").remove();
+			modal.append("<p>신고 글 타입 : "+commentType+"</p>");
+            modal.append("<p>신고 글 번호 : "+commentNo+"</p>");
+            modal.append("<p>해당 글쓴이 : "+commentWriter+"</p>");
+            modal.append("<p>신고 하는사람 : "+memberNo+"</p>");
+            $("#report-ability-wrapper").append(
+					"<input type='hidden' name='writeType' value='"+commentType+"'>");
+            $("#report-ability-wrapper").append(
+					"<input type='hidden' name='writeNo' value='"+commentNo+"'>");
+            $("#report-ability-wrapper").append(
+					"<input type='hidden' name='reportedNo' value='"+commentWriter+"'>");
+            $("#report-ability-wrapper").append(
+					"<input type='hidden' name='memberNo' value='"+memberNo+"'>");
+            
+		}
+		
+		
 		
 			
 		
