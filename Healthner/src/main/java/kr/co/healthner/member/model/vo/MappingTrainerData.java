@@ -8,5 +8,5 @@ public class MappingTrainerData {
 
 	private TrainerVO trainer;
 	private MemberMappingVO mapping;
-	
+
 }

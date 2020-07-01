@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
 import kr.co.healthner.admin.model.vo.MemberSearch;
+import kr.co.healthner.admin.model.vo.totalpageList;
 import kr.co.healthner.member.model.vo.Member;
 
 @Controller
@@ -18,7 +22,7 @@ public class AdminController {
 	@Autowired
 	@Qualifier("adminService")
 	private AdminServiceImpl service;
-	
+
 	// 혜진_200622_관리자 메인 페이지로 이동(홈에서 이동)
 	@RequestMapping("/adminMain.do")
 	public String trainerIntro() {
@@ -73,12 +77,75 @@ public class AdminController {
 		return "admin/inquiryMgt";
 	}
 
+	// 혜진_200626_관리자 페이지_회원관리 메뉴_카드 웹소켓용 팝업 이동
+	@RequestMapping("/addCard.do")
+	public String memberList(String memberId, Model model) {
+		model.addAttribute("memberId", memberId);
+		return "admin/memberDetail";
+	}
+
+//---------------------------------------------------------------------------------------- (상단)이동/(하단)function
+
 	// 혜진_200624_관리자 페이지_회원관리 메뉴_검색 조건에 따라 회원 조회
 	// 혜진_200625_VO추가하여 mapper에 전달할 값 정리
-	@RequestMapping("/memberList.do")
+	// 혜진_200629_더보기 기능을 위해 vo 객체 추가, start 전달
+	@RequestMapping(value="/memberList.do", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public ArrayList<Member> memberList(String searchWord, int checkbox1, int checkbox2) {
-		ArrayList<Member> list =  service.memberList(searchWord, checkbox1, checkbox2);
-		return list;
+	public String memberList(String searchWord, int checkbox1, int checkbox2, int start) {
+		totalpageList tl = service.memberList(searchWord, checkbox1, checkbox2, start);
+		return new Gson().toJson(tl);
 	}
+	
+	// 혜진_200629_회원관리 페이지_팝업창_회원 ID를 매개변수로 전달하고 해당 ID의 정보들을 가져옴
+	@RequestMapping("/oneMemberSearch.do")
+	@ResponseBody
+	public Member oneMemberSearch(String memberId) {
+		Member m = service.oneMemberSearch(memberId);
+		return m;
+	}
+	
+	// 혜진_200630_회원관리 페이지_팝업창_카드 정보 수정 반영
+	@RequestMapping("/cardModify.do")
+	@ResponseBody
+	public String cardModify(String memberId, String card) {
+		service.cardModify(memberId, card);
+		return card;
+	}
+	
+	// 혜진_200630_트레이너 페이지_전체 리스트 조회
+	@RequestMapping(value="/trainerlist.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String trainerList(String searchWord, int memberType, int start) {
+		totalpageList tl = service.trainerList(searchWord, memberType, start);
+		return new Gson().toJson(tl);
+	}
+	
+	// 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 멤버 타입 변환
+	@RequestMapping(value="/approveTrainer.do", produces = "text/html;charset=utf-8")
+	@ResponseBody
+	public String approveTrainer(String memberId) {
+		int result = service.approveTrainer(memberId);
+		System.out.println("result"+result);
+		System.out.println("memberId"+memberId);
+		if(result>0) {
+			return "승인되었습니다";
+		}else {
+			return "실패하였습니다";
+		}
+	}
+	
+	// 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 회원 삭제
+	@RequestMapping(value="/rejectTrainer.do", produces = "text/html;charset=utf-8")
+	@ResponseBody
+	public String rejectTrainer(String memberId) {
+		int result = service.rejectTrainer(memberId);
+		System.out.println("result"+result);
+		System.out.println("memberId"+memberId);
+		if(result>0) {
+		return "삭제하였습니다";
+		}else {
+			return "실패하였습니다";
+		}
+	}
+	
 }

@@ -136,24 +136,24 @@ public class MemberDaoImpl {
 		
 		return sqlSession.update("eat.modifyMenuComment", comment);
 	}
-
+	
 	public List<MemberMappingVO> selectMappingList(int memberNo) {
-		
+
 		return sqlSession.selectList("member.selectMappingList", memberNo);
 	}
 
 	public TrainerVO selectTrainerInfo(int trainerNo) {
-		
+
 		return sqlSession.selectOne("trainer.selectTrainerInfo", trainerNo);
 	}
 
 	public List<ProfessionalCategoryVO> selectCategoryList() {
-		
+
 		return sqlSession.selectList("trainer.selectCategoryList");
 	}
 
 	public int insertPostscript(MemberMappingVO mapping) {
-		
+
 		return sqlSession.update("member.insertPostscript", mapping);
 	}
 

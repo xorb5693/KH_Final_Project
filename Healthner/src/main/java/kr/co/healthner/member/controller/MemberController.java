@@ -198,19 +198,19 @@ public class MemberController {
 		int result = service.modifyMenuComment(comment);
 		return String.valueOf(result);
 	}
-	
+
 	@RequestMapping("/myTrainer.do")
 	public String myTrainer(HttpSession session, Model model) {
-		
+
 		Member member = (Member)session.getAttribute("member");
 		ArrayList<MappingTrainerData> list = service.myTrainer(member.getMemberNo());
 		model.addAttribute("list", list);
 		return "member/myTrainer";
 	}
-	
+
 	@RequestMapping("/insertPostscript.do")
 	public String insertPostscript(MemberMappingVO mapping) {
-		
+
 		service.insertPostscript(mapping);		
 		return "redirect:/healthner/member/myTrainer.do";
 	}

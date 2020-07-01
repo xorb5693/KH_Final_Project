@@ -1,25 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
+<!-- 혜진_200626_아작스에서 memberlist를 가져오는 sql문 작성 -->
+<!-- 혜진_200629_더보기 기능 추가하여 memberlist sql문 작성 -->
+<!-- 태규_200630_NVL처리 -->
 	<select id="memberList" parameterType="memberSearch"
 		resultType="member">
-		select
-		member_no as memberNo,
-		member_profile as memberProfile,
-		member_id as memberId,
-		member_name as memberName,
-		member_nick as memberNick,
-		expire_date as expireDate,
-		member_level as memberLevel,
-		card
-		from member
-		where member_level='1'
-		<if test="checkbox1==1">
-			and expire_date is null
-		</if>
-		<if test="checkbox2==1">
-			and card is null
-		</if>
-		and (member_id like '%'||#{searchWord}||'%' or member_name like '%'||#{searchWord}||'%' or member_nick like '%'||#{searchWord}||'%')
+		select *
+		from(
+			select rownum as rnum, m.*
+			from(
+				select
+					member_no as memberNo,
+					NVL(member_Profile, ' ') as memberProfile,
+					member_id as memberId,
+					member_name as memberName,
+					member_nick as memberNick,
+					expire_date as expireDate,
+					member_level as memberLevel,
+					NVL(card, ' ') as card
+				from member
+				where member_level='1'
+				<if test="checkbox1==1">
+					and expire_date is null
+				</if>
+				<if test="checkbox2==1">
+					and card is null
+				</if>
+				and (
+					member_id like '%'||#{searchWord}||'%' 
+					or member_name like '%'||#{searchWord}||'%' 
+					or member_nick like '%'||#{searchWord}||'%')
+			)m
+		) where (rnum between #{start} and #{end})
 	</select>
+<!-- 혜진_200629_팝업창에 memberId를 매개변수로 해당 회원 정보를 조회 -->	
+	<select id="oneMemberSearch" parameterType="string" resultType="member">
+		select
+			member_no as memberNo,
+			member_profile as memberProfile,
+			member_id as memberId,
+			member_name as memberName,
+			member_nick as memberNick,
+			expire_date as expireDate,
+			member_level as memberLevel,
+			phone,
+			email,
+			member_profile as profile,
+			card
+		from member where member_id = #{_parameter}
+	</select>
+<!-- 혜진_200629_회원관리 페이지_팝업창_전체 회원 리스트의 수를 세어옴 -->	
+	<select id="totalCount" parameterType="memberSearch" resultType="_int">
+		select count(member_no) from member
+				<if test="memberType!=0">
+				where member_level=#{memberType}
+				</if>
+				<if test="memberType==0">
+				where member_level='2' or member_level='3'
+				</if>
+				<if test="checkbox1==1">
+					and expire_date is null
+				</if>
+				<if test="checkbox2==1">
+					and card is null
+				</if>
+				and (member_id like '%'||#{searchWord}||'%' or member_name like '%'||#{searchWord}||'%' or member_nick like '%'||#{searchWord}||'%')			
+	</select>
+	<!-- 혜진_200630_회원관리 페이지_팝업창_카드 정보를 수정함 -->
+	<update id="cardModify" parameterType="member">
+		update member set card=#{card} where member_id=#{memberId}
+	</update>
+	<!-- 혜진_200630_트레이너 관리 페이지_트레이너 정보 조회 -->
+	<select id="trainerList" parameterType="memberSearch"
+		resultType="member">
+		select *
+		from(
+			select rownum as rnum, m.*
+			from(
+				select
+					member_no as memberNo,
+					NVL(member_Profile, ' ') as memberProfile,
+					member_id as memberId,
+					member_name as memberName,
+					member_nick as memberNick,
+					age,
+					phone,
+					email,
+					road_addr as roadAddr,
+					det_addr as detAddr,
+					enroll_date as enrollDate,
+					member_level as memberLevel
+				from member
+				<if test="memberType!=0">
+				where member_level=#{memberType}
+				</if>
+				<if test="memberType==0">
+				where member_level='2' or member_level='3'
+				</if>
+				<if test="checkbox1==1">
+					and expire_date is null
+				</if>
+				<if test="checkbox2==1">
+					and card is null
+				</if>
+				and (
+					member_id like '%'||#{searchWord}||'%' 
+					or member_name like '%'||#{searchWord}||'%' 
+					or member_nick like '%'||#{searchWord}||'%')
+			)m
+		) where (rnum between #{start} and #{end})
+	</select>
+	<!-- 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 멤버 타입 변환 -->
+	<update id="trainerApprove" parameterType="string">
+		update member set member_level = '3' where member_id = #{_parameter}
+	</update>
+	<!-- 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 회원 삭제 -->
+	<delete id="trainerReject" parameterType="string">
+		delete member where member_id = #{_parameter}
+	</delete>
 </mapper>

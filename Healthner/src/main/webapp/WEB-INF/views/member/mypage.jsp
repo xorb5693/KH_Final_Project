@@ -6,6 +6,7 @@ prefix="c"%>
 <head>
 <meta charset="UTF-8">
 <title>MY PAGE</title>
+	<link rel="icon" href="/resources/images/favicon.png">
 </head>
 <body>
 

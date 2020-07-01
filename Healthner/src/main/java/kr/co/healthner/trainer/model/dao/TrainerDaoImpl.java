@@ -1,5 +1,6 @@
 package kr.co.healthner.trainer.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
+import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
 
 @Repository("trainerDao")
@@ -39,19 +42,53 @@ public class TrainerDaoImpl {
 		return sqlSession.update("trainer.updateTrainerInfo", tUpdate);
 	}
 
-	public int insertBmi(BmiVO bmi) {
+	public int insertInbody(BmiVO bmi) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("trainer.insertBmi",bmi);
+		return sqlSession.insert("trainer.insertInbody",bmi);
 	}
 
-	public List<MemberMappingInfoVO> selectMapperInfo(int trainerNo) {
+	public List<MemberMappingInfoVO> selectMapperInfo(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("trainer.selectMapperInfo", trainerNo);
+		return sqlSession.selectList("trainer.selectMapperInfo", map);
 	}
 
+	public int customerCntUpdate(MemberMappingVO mmv) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("trainer.customerCntUpdate", mmv);
+	}
+
+	public List<ProfessionalCategoryVO> selectCategoryList() {
+		
+		return sqlSession.selectList("trainer.selectCategoryList");
+	}
 //	public List<Member> selectCustomerList() {
 //		// TODO Auto-generated method stub
 //		return sqlSession.selectList("trainer.selectCustomerList");
 //	}
+
+	public Member selectOneMember(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.selectOneMember", memberNo);
+	}
+
+	public List<BmiVO> selectOneMemberBmi(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("trainer.selectOneMemberBmi", memberNo);
+	}
+
+	public int selectMapperInfoCount(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.selectMapperInfoCount", map);
+	}
+
+	public BmiVO selectBmi(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.selectBmi", memberNo);
+	}
+
+	public BmiVO selectPrevBmi(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.selectPrevBmi", memberNo);
+	}
 
 }

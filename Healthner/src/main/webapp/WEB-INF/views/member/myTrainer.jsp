@@ -33,7 +33,7 @@
                 <c:forEach items="${list }" var="data">
                 	<div class="col-lg-3 d-flex">
 	                    <div class="coach align-items-stretch">
-	                        <div class="img" style="background-image: url(/resources/prifile/${data.trainer.memberProfile});">
+	                        <div class="img" style="background-image: url(/resources/profile/${data.trainer.memberProfile});">
 	                        </div>
 	                        <div class="text pt-3 ftco-animate fadeInUp ftco-animated">
 	                            <span class="subheading">${data.trainer.catFirstName } / ${data.trainer.catSecondName } / ${data.trainer.catThirdName }</span>
