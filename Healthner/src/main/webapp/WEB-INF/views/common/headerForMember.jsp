@@ -12,7 +12,7 @@
             <p class="breadcrumbs">
             	<span class="mr-2"><a href="/healthner/member/mypageFrm.do">My Info</a></span>
             	<span class="mr-2"><a href="/healthner/member/myEat.do?memberNo=${sessionScope.member.memberNo }&reqPage=1">My Eat</a></span>
-            	<span class="mr-2"><a href="#">My Trainer</a></span>
+            	<span class="mr-2"><a href="/healthner/member/myTrainer.do">My Trainer</a></span>
             	<span class="mr-2"><a href="/healthner/member/attendanceRead.do?memberNo=${sessionScope.member.memberNo }">My Attendance</a></span>
             	<span class="mr-2"><a href="/healthner/mail/receiveList.do?reqPage=1">Receive My Mail</a></span>
             	<span class="mr-2"><a href="/healthner/mail/sendList.do?reqPage=1">Send My Mail</a></span>
