@@ -35,8 +35,8 @@
 				<a href="#">트레이너게시판 글쓰기</a><hr>
 				<table>
 					<tr><td><a href="noticeList.do?reqPage=1">공지사항 목록보기</td></tr>
-					<tr><td><a href="#">자유게시판 목록보기</a></td></tr>
-					<tr><td><a href="#">트레이너게시판 목록보기</a></td></tr>
+					<tr><td><a href="boardList.do?reqPage=1">자유게시판 목록보기</a></td></tr>
+					<tr><td><a href="boardList.do?reqPage=1">트레이너게시판 목록보기</a></td></tr>
 				</table>
 			</div>
 		</div>

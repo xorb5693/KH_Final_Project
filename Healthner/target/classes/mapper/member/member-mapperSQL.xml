@@ -21,7 +21,10 @@
 			expire_date as expireDate,
 			phone,
 			email_verification as emailVerification
-		from member where member_id = #{memberId} and member_pw = #{memberPw}
+		from member where member_id = #{memberId}
+		<if test="memberPw != null and !memberPw.equals('')">
+			and member_pw = #{memberPw}
+		</if> 
 	</select>
 	<insert id="insertMember" parameterType="member">
 		insert into member values(
@@ -56,5 +59,47 @@
 	</select>
 	<select id="selectMemberName" parameterType="_int" resultType="string">
 		select member_name from member where member_no = #{_parameter}
+	</select>
+	<select id="selectMemberNick" parameterType="_int" resultType="member">
+		select member_no as memberNo, member_nick as memberNick from member where member_no = #{_parameter}
+	</select>
+	<select id="selectAdmin" resultType="member">
+		select 
+			member_no as memberNo, 
+			member_nick as memberNick 
+		from member 
+		where member_level = 4
+	</select>
+	<select id="selectMappingList" parameterType="_int" resultType="mapping">
+		select 
+			mapping_seq as mappingSeq,
+			member_no as memberNo,
+			trainer_no as trainerNo,
+			training_cnt as trainingCnt, 
+			training_maxcnt as trainingMaxcnt,
+			training_postscript as trainingPostscript
+		from member_mapping
+		where member_no = #{_parameter}
+		order by MAPPING_SEQ desc
+	</select>
+	<update id="insertPostscript" parameterType="mapping">
+		update member_mapping set training_postscript = #{trainingPostscript} where mapping_seq = #{mappingSeq}
+	</update>
+	<select id="selectMappingMemberNoList" parameterType="member" resultType="_int">
+		select
+			<if test="memberLevel == 1">
+				trainer_no
+			</if>
+			<if test="memberLevel == 3">
+				member_no
+			</if>
+		from member_mapping
+		where training_cnt != training_maxcnt
+		<if test="memberLevel == 1">
+			and member_no = #{memberNo}
+		</if>
+		<if test="memberLevel == 3">
+			and trainer_no = #{memberNo}
+		</if>
 	</select>
 </mapper>

@@ -1,4 +1,4 @@
-package kr.co.healthner.vo;
+package kr.co.healthner.mail.model.vo;
 
 import lombok.Data;
 
@@ -11,4 +11,6 @@ public class MailVO {
 	private String mailContent;
 	private String writeDate;
 	private int readCount;
+	private String memberNick;
+	private String memberId;
 }

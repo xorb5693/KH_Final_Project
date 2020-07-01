@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
     <section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
       <div class="overlay"></div>
@@ -14,6 +14,7 @@
             	<span class="mr-2"><a href="/healthner/member/myEat.do?memberNo=${sessionScope.member.memberNo }&reqPage=1">My Eat</a></span>
             	<span class="mr-2"><a href="#">My Trainer</a></span>
             	<span class="mr-2"><a href="/healthner/member/attendanceRead.do?memberNo=${sessionScope.member.memberNo }">My Attendance</a></span>
+            	<span class="mr-2"><a href="/healthner/mail/receiveList.do?reqPage=1">My Mail</a></span>
             </p>
           </div>
         </div>

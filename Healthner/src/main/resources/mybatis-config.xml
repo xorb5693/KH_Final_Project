@@ -8,6 +8,7 @@
 		<typeAlias type="kr.co.healthner.member.model.vo.Member" alias="member"/>
 		<typeAlias type="kr.co.healthner.notice.model.vo.Notice" alias="notice"/>
 		<typeAlias type="kr.co.healthner.vo.BoardVO" alias="board"/>
+		<typeAlias type="kr.co.healthner.vo.BoardCommentVO" alias="comment"/>
 
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceVO" alias="attend"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceAvgtimeVO" alias="attendAvg"/>
@@ -23,5 +24,7 @@
 		
 		<!-- 혜진_20200625_관리자 페이지_회원검색용 VO -->
 		<typeAlias type="kr.co.healthner.admin.model.vo.MemberSearch" alias="memberSearch"/>
+		
+		<typeAlias type="kr.co.healthner.mail.model.vo.MailVO" alias="mail"/>
 	</typeAliases>
 </configuration>
