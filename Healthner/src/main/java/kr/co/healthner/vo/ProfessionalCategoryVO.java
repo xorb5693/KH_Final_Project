@@ -1,4 +1,4 @@
-package kr.co.healthner.trainer.model.vo;
+package kr.co.healthner.vo;
 
 import lombok.Data;
 

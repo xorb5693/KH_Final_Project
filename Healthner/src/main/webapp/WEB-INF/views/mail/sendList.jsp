@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Receive Mail List</title>
+<title>Send Mail List</title>
 	<style>
         form>button {
             float: right;
@@ -103,12 +103,12 @@
                         </small>
                     </span>
                     <h2 class="mb-1">
-                        RECEIVE MAIL LIST
+                        SEND MAIL LIST
                     </h2>
                 </div>
             </div>
             <form action="/healthner/mail/deleteMail.do" method="get">
-                <input type="hidden" value="0" name="readType">
+                <input type="hidden" value="1" name="readType">
                 <button type="button" id="modal" class="btn btn-primary ftco-animate fadeInUp ftco-animated" data-toggle="modal" data-target="#myModal">
                     쪽지 쓰기
                 </button>
@@ -122,7 +122,7 @@
                             <th scope="col" style="width: 10%">삭제</th>
                             <th scope="col" style="width: 10%">읽음</th>
                             <th scope="col" style="width: 50%">내용</th>
-                            <th scope="col" style="width: 14.5%">작성자</th>
+                            <th scope="col" style="width: 14.5%">수신자</th>
                             <th scope="col" style="width: 14.5%">날짜</th>
                         </tr>
                     </thead>
@@ -158,7 +158,7 @@
             <div class="modal-content">
 
 				<form action="/healthner/mail/insert.do" method="post">
-                    <input type="hidden" value="0" name="readType">
+                    <input type="hidden" value="1" name="readType">
 	                <!-- Modal Header -->
 	                <div class="modal-header">
 	                    <h4 class="modal-title">쪽지 쓰기</h4>
@@ -220,7 +220,6 @@
 	
                 <!-- Modal footer -->
                 <div class="modal-footer">
-				    <button type="button" class="btn btn-primary" id="answer">답장</button>
 	                <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -305,29 +304,14 @@
             
             $.ajax({
                 url: "/healthner/mail/readMail.do",
-                data: {mailNo: mailNo, readType: 0},
+                data: {mailNo: mailNo, readType: 1},
                 type: "get",
-                success: function(data) {
-                    console.log(data);
-                    $(obj).parent().prev().html("<span class='icon-envelope-open'></span>");
-                    
+                success: function(data) {                    
                     $("#writer").html(data['memberNick']);
                     $("#writeDate").html(data['writeDate']);
                     $("#mailContent").html(data['mailContent']);
-                    $("#answer").attr("onclick", "answer('" + data['memberId'] + "')")
                 }
             });
-        }
-        
-        function answer(memberId) {
-            $("#close").click();
-            $("#modal").click();
-            $("select[name=receiver]>option:last-child").prop("selected", true);
-            $("select[name=receiver]>option:last-child").val("0");
-            selectOption();
-            $("input[name=memberId]").val(memberId);
-            $("input[name=memberId]").blur();
-            $("textarea[name=mailContent]").val("");
         }
     </script>
 </body>

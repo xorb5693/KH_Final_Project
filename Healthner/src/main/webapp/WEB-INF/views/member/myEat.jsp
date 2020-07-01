@@ -146,6 +146,9 @@
             margin-top: 30px;
         }
         
+        .table {
+            table-layout: fixed;
+        }
     </style>
 <script src="/resources/datepicker/js/bootstrap-datepicker.js"></script>
 <!--한국어  달력 쓰려면 추가 로드-->

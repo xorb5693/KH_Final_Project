@@ -80,34 +80,37 @@ select.form-control>option {
 			</div>
 			<form action="trainerInput.do" class="appointment-form">
 				<div class="form-group">
-					<label for="height">Name</label><span>${list.memberName }</span>
+					<label for="height">Name&nbsp&nbsp</label><span>${list.memberName }</span>
 				</div>
 				<input type="hidden" name="memberNo" value="${list.memberNo }">
-				<input type="hidden" name="memberName" value="${list.memberName }">
+				<input type="hidden" name="memberName" id="memberName" value="${list.memberName }">
 				<div class="form-group">
 					<div class="d-flex">
 						<div class="mr-2">
-							<label for="catFirst">주특기1</label> <select class="form-control"
-								name="catFirst" id="catFirst">
-								<option>${list.catFirst }</option>
+							<label for="catFirst">주특기1</label> 
+							<select class="form-control" name="catFirst" id="catFirst">
+								<option>주특기를 선택해 주세요</option>
 								<option value="1">다이어트</option>
 								<option value="2">보디빌딩</option>
+								<option value="3">교정</option>
 							</select>
 						</div>
 						<div class="ml-2">
-							<label for="catSecond">주특기2</label> <select class="form-control"
-								name="catSecond" id="catSecond">
-								<option>${list.catSecond }</option>
+							<label for="catSecond">주특기2</label> 
+							<select class="form-control" name="catSecond" id="catSecond">
+								<option>주특기를 선택해 주세요</option>
 								<option value="1">다이어트</option>
 								<option value="2">보디빌딩</option>
+								<option value="3">교정</option>
 							</select>
 						</div>
 						<div class="ml-2">
-							<label for="catThird">주특기3</label> <select class="form-control"
-								name="catThird" id="catThird">
-								<option>${list.catThird }</option>
+							<label for="catThird">주특기3</label> 
+							<select class="form-control" name="catThird" id="catThird">
+								<option>주특기를 선택해 주세요</option>
 								<option value="1">다이어트</option>
 								<option value="2">보디빌딩</option>
+								<option value="3">교정</option>
 							</select>
 						</div>
 					</div>
@@ -147,6 +150,7 @@ select.form-control>option {
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="/resources/js/google-map.js"></script>
 	<script src="/resources/js/main.js"></script>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
+
 </body>
 </html>
