@@ -81,8 +81,16 @@
 							<tbody class="table2">							
 								<tr>								
 									<td rowspan="2">${status.count }</td>
-									<td rowspan="2">${memberList.memberName}</td>
-									<td rowspan="2">${memberList.memberProfile}</td>
+									<td rowspan="2">
+										<form action="customerInfo.do" class="appointment-form">
+											<input type="hidden" name="memberNo" value="${memberList.memberNo }">
+											<input type="hidden" name="memberName" value ="${memberList.memberName }">
+											<input type="submit" value="${memberList.memberName}" style="border: none; background-color: white;">
+										</form>
+									</td>
+									<td rowspan="2" style="text-align: center;">
+										<img src="/resources/prifile/${memberList.memberProfile}" width="80px;" height="80px;">
+									</td>
 									<td rowspan="2">
 										<!-- training_cnt -->
 										<form action="customerCntUpdate.do" class="appointment-form" name="customerCntUpdate">
@@ -103,14 +111,13 @@
 						</c:forEach>
 					</table>
 				</div>
-			
-			<!-- 
+				
               <div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
 		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
+		                <li><a href="">&lt;</a></li>
+		                <li class="active"><span>${pageNavi }</span></li>
 		                <li><a href="#">2</a></li>
 		                <li><a href="#">3</a></li>
 		                <li><a href="#">4</a></li>
@@ -119,7 +126,7 @@
 		              </ul>
 		            </div>
 		          </div>
-		 </div> -->
+		 </div>
 		</div>
 
 

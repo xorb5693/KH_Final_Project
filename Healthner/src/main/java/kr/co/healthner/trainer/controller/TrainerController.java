@@ -16,7 +16,7 @@ import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
 import kr.co.healthner.trainer.model.vo.BmiVO;
-import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
+import kr.co.healthner.trainer.model.vo.CustomerData;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
 
 @Controller
@@ -77,15 +77,24 @@ public class TrainerController {
 	
 	//회원 리스트 가져오기
 	@RequestMapping("/customerList.do")
-	public String customerList(Model model, HttpSession session) {
+	public String customerList(HttpSession session, HttpServletRequest request) {
+		int reqPage = 0;
+		try {
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		} catch (Exception e) {
+			reqPage = 1;
+		}
 		//트레이너번호를 가져오기위한 세션
 		Member member = new Member();
 		member = (Member)session.getAttribute("member");
 		int trainerNo = member.getMemberNo();
+		
+		CustomerData data = service.selectMapperInfo(trainerNo, reqPage);
+		
+		request.setAttribute("list", data.getList());
+		request.setAttribute("pageNavi", data.getPageNavi());
 		//트레이너번호로 매칭된 회원 정보 가져오기
-		List<MemberMappingInfoVO> list = service.selectMapperInfo(trainerNo);
-		System.out.println("회원 정보 : " + list);
-		model.addAttribute("list", list);
+		System.out.println("회원 정보 : " + data.getList());
 		return "trainer/customerList";
 	}
 	
@@ -94,8 +103,8 @@ public class TrainerController {
 	public String customerCntUpdate(MemberMappingVO mmv) {
 		int trainingCnt = mmv.getTrainingCnt();
 		int memberNo = mmv.getMemberNo();
-		System.out.println(trainingCnt);
-		System.out.println(memberNo);
+		System.out.println("트레이너 카운트 : " + trainingCnt);
+		System.out.println("회원 번호 : " + memberNo);
 		int result = service.customerCntUpdate(mmv);
 		if(result > 0) {
 			System.out.println("수정 성공");
@@ -105,14 +114,25 @@ public class TrainerController {
 		return "redirect:/healthner/trainer/customerList.do";
 	}
 	
+	//해당 회원 정보로 이동
 	@RequestMapping("/customerInfo.do")
-	public String customerInfo() {
+	public String customerInfo(Model model, int memberNo) {
+		Member member = new Member();
+		member = service.selectOneMember(memberNo);
+		System.out.println(member);
+		model.addAttribute("member", member);
+		System.out.println("회원번호 " + memberNo + "의 customerInfo 페이지");
 		return "trainer/customerInfo";
+		 
 	}
 	
 	//인바디목록으로 보내기
 	@RequestMapping("/inbodyList.do")
-	public String inbodyList() {
+	public String inbodyList(Model model, int memberNo) {
+		List<BmiVO> bmi = service.selectOneMemberBmi(memberNo);
+		System.out.println(bmi);
+		model.addAttribute("bmi", bmi);
+		System.out.println("회원번호 " + memberNo + "의 inbodyList 페이지");
 		return "trainer/inbodyList";
 	}
 	
@@ -137,8 +157,17 @@ public class TrainerController {
 	@RequestMapping("/trainer.do")
 	public String trainers(Model model) {
 		List<TrainerVO> list = service.selectAllTrainers();
+		System.out.println(list);
 		model.addAttribute("list", list);
 		return "trainer/trainer";
 	}
 	
+	@RequestMapping("/customerGraph.do")
+	public String customerGraph(Model model, int memberNo) {
+		List<BmiVO> bmi = service.selectOneMemberBmi(memberNo);
+//		BmiVO b = service.selectBmi(memberNo);
+		System.out.println(bmi);
+		model.addAttribute("bmi", bmi);
+		return "trainer/customerGraph";
+	}
 }

@@ -30,6 +30,12 @@ prefix="c"%>
 <link rel="stylesheet" href="/resources/css/icomoon.css">
 <link rel="stylesheet" href="/resources/css/style.css">
 </head>
+<style>
+	.btnNone{
+		border: none;
+		background-color: white;
+	}
+</style>
 <body>
 
 	
@@ -47,7 +53,6 @@ prefix="c"%>
       </div>
     </section>
 
-<!-- Promotion section -->
 	<section class="ftco-section bg-light">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -74,9 +79,13 @@ prefix="c"%>
 			<div class="row justify-content-center align-items-center">
 				<div class="col-md-3">
 					<div class="services text-center ftco-animate">
-						<a href="#" class="icon d-flex justify-content-center align-items-center">
+						<form action="myEat.do">
+							<input type="hidden" value="${member.memberNo }" name="memberNo">
+						<button type="submit" class="icon d-flex justify-content-center align-items-center btnNone">
 							<span class="flaticon-ruler"></span>
-						</a>
+						</button>
+						</form>
+						
 						<a href="#" class="text px-md-2">
 							<h3>식단</h3>
 						</a>
@@ -84,19 +93,25 @@ prefix="c"%>
 				</div>
 				<div class="col-md-3">
 					<div class="services text-center ftco-animate">
-						<a href="inbodyList.do" class="icon d-flex justify-content-center align-items-center">
+						<form action="inbodyList.do">
+							<input type="hidden" value="${member.memberNo }" name="memberNo">
+						<button type="submit" class="icon d-flex justify-content-center align-items-center btnNone">
 							<span class="flaticon-gym"></span>
-						</a>
-						<a href="inbodyList.do" class="text px-md-2">
+						</button>
+						</form>
+						<a href="#" class="text px-md-2">
 							<h3>인바디</h3>
 						</a>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="services text-center ftco-animate">
-						<a href="#" class="icon d-flex justify-content-center align-items-center">
+						<form action="customerGraph.do">
+							<input type="hidden" value="${member.memberNo }" name="memberNo">
+							<button type="submit" class="icon d-flex justify-content-center align-items-center btnNone">
 							<span class="flaticon-tools-and-utensils"></span>
-						</a>
+						</button>
+						</form>
 						<a href="#" class="text px-md-2">
 							<h3>그래프</h3>
 						</a>

@@ -60,7 +60,7 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 						<span class="subheading"><small><i class="left-bar"></i>Services<i
 								class="right-bar"></i></small></span>
 						<h2 class="mb-1">
-							[${member.memberName }]님의 인바디
+							인바디 리스트
 						</h2>
 					</div>
 				</div>
@@ -74,10 +74,12 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 		    </tr>
 		  </thead>
 		  <tbody>
+		  <c:forEach items="${bmi }" var="bmi"  varStatus="status">
 		    <tr>
 		      <th scope="row">${status.count }</th>
-		      <td><a href="#" style="color: black; font-weight: bold;">${bmi.measrueDate} 인바디</a></td>
+		      <td><a href="#" style="color: black; font-weight: bold;">${bmi.measureDate} 인바디</a></td>
 		    </tr>
+		   </c:forEach>
 		  </tbody>
 		</table>
             <!-- 
@@ -129,7 +131,7 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	<script>
 		$(function(){
 			$("#btn").click(function(){
-				location.href="inbodyInputFrm.do";
+				location.href="inbodyInputFrm.do?memberNo=18";
 			});
 		});
 	</script>
