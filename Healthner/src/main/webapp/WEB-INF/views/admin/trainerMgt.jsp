@@ -43,7 +43,7 @@ body {
 				<option value=2>가입 미승인</option>
 			</select>
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"
-				onclick="show_trainerlist(1);">
+				onclick="show_trainerlist(1,1);">
 		</div>
 		<div class="memberTB">
 			<table border="1">
@@ -70,7 +70,7 @@ body {
 
 	<script>
 		//혜진_200630_ajax로 DB에서 트레이너 데이터 불러오기
-		function show_trainerlist(start) {
+		function show_trainerlist(start, btnNum) {
 			$(".more-btn").attr("currentCount", 0);
 			var searchWord = $("#searchWord").val();
 			var memberType = $("select[name=memberType]").val();
@@ -86,7 +86,10 @@ body {
 						data : param,
 						dataType : "json",
 						success : function(data) {
-							$(".contentsRow").html("");
+							//혜진_200701_검색 클릭 시에만 초기화 설정
+							if(btnNum==1){
+								$(".contentsRow").html("");
+								}
 							var html = "";
 							for (var i = 0; i < data.list.length; i++) {
 								html += "<tr class='contentsRow' onclick='addCard(this);'>"
@@ -139,10 +142,10 @@ body {
 		
 		//혜진_200630_페이지를 로드 하자마자 list 보여주기
 		$(function() {
-			show_trainerlist(1);
+			show_trainerlist(1,1);
 				$(".more-btn").click(function() {
 					var val = $(this).val();
-					show_trainerlist(val);
+					show_trainerlist(val,2);
 				});
 		});
 
