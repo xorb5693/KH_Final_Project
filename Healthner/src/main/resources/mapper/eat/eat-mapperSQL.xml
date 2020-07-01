@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="eat">
+	<select id="selectMenuList" parameterType="string" resultType="menu">
+		select 
+			food_name as foodName,
+			kcal
+		from NUTRITION_TABLE
+		where food_name like '%'||#{_parameter}||'%'
+		order by food_name
+	</select>
+	<insert id="insertEatLog" parameterType="eatLog">
+		insert into eat_log values(eat_log_seq.nextval, #{foodName}, #{eatDate}, #{eatTime}, #{memberNo}, #{kcal})
+	</insert>
+	<select id="selectEatLogCount" parameterType="map" resultType="_int">
+		select count(*) from eat_log where member_no = #{memberNo}
+	</select>
+	<select id="selectEatLogList" parameterType="map" resultType="eatLog">
+		select * from(
+		    select rownum as rnum, S.*
+		    from(
+		        select
+		            menu_no as menuNo,
+		            food_name as foodName,
+		            eat_date as eatDate,
+		            eat_time as eatTime,
+		            member_no as memberNo,
+		            kcal
+		        from eat_log
+		        where member_no = #{memberNo}
+		        order by EAT_DATE desc, 
+		        (case eat_time 
+		        when '아침' then 3 
+		        when '점심' then 2
+		        when '저녁' then 1
+		        end)
+		    ) S
+		) where rnum between #{start} and #{end}
+	</select>
+	<insert id="insertMenuComment" parameterType="menuComment">
+		insert into menu_comment values(menu_comment_seq.nextval, #{menuNo}, sysdate, #{cmtContent}, #{writerNo})
+	</insert>
+	<select id="menuCommentList" parameterType="_int" resultType="menuComment">
+		select
+		    cmt_no as cmtNo,
+		    menu_no as menuNo,
+		    cmt_date as cmtDate,
+		    cmt_content as cmtContent,
+		    writer_no as writerNo,
+		    member_nick as memberNick
+		from menu_comment
+		join member on (member.MEMBER_NO = menu_comment.WRITER_NO)
+		where menu_no = #{_parameter}
+		order by cmt_date
+	</select>
+	<delete id="menuCommentDelete" parameterType="_int">
+		delete from menu_comment where cmt_no = #{_parameter}
+	</delete>
+	<update id="modifyMenuComment" parameterType="menuComment">
+		update menu_comment set cmt_content = #{cmtContent} where cmt_no = #{cmtNo}
+	</update>
+</mapper>

@@ -9,5 +9,10 @@ public class TrainerVO {
 	private String trainerIntro;
 	private int catFirst;
 	private int catSecond;
-	private int catThrid;
+	private int catThird;
+	private String memberName;
+	private String catFirstName;
+	private String catSecondName;
+	private String catThirdName;
+	private String memberProfile;
 }

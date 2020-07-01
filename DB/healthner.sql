@@ -1151,3 +1151,20 @@ COMMENT ON COLUMN ban_list.member_no IS '회원번호'
 
 COMMENT ON COLUMN ban_list.ban_date IS '정지날짜'
 /
+
+---------------------------------------------------
+------------------- 테이블 수정 ---------------------
+---------------------------------------------------
+ALTER TABLE Nutrition_table MODIFY(food_name VARCHAR2(200));
+ALTER TABLE Eat_log MODIFY(food_name VARCHAR2(200));
+ALTER TABLE Eat_log DROP CONSTRAINT FK_Eat_log_food_name_Nutrition;
+ALTER TABLE menu_comment ADD (writer_no NUMBER not null);
+COMMENT ON COLUMN menu_comment.writer_no IS '작성자 번호';
+ALTER TABLE menu_comment
+    ADD CONSTRAINT FK_menu_comment_writer_no FOREIGN KEY (writer_no)
+        REFERENCES member (member_no)
+	on delete cascade
+/
+ALTER TABLE Member_Mapping ADD (training_postscript VARCHAR2(2000));
+COMMENT ON COLUMN MEMBER_MAPPING.TRAINING_POSTSCRIPT IS '트레이닝 후기';
+ALTER TABLE BOARD_COMMENT MODIFY COMMENT_REF NULL;

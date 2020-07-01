@@ -1,4 +1,4 @@
-package kr.co.healthner.vo;
+package kr.co.healthner.member.model.vo;
 
 import lombok.Data;
 
@@ -10,5 +10,5 @@ public class EatLogVO {
 	private String eatDate;
 	private String eatTime;
 	private int memberNo;
-	private int kcal;
+	private float kcal;
 }

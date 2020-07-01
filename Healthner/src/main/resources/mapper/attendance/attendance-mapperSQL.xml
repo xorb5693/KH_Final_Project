@@ -32,4 +32,21 @@
 	<insert id="insertAvg" parameterType="_int">
 		insert into ATTENDANCE_AVGTIME values(TRUNC(SYSDATE + (INTERVAL '-1' DAY), 'DD'), #{_parameter})
 	</insert>
+	<select id="selectWeekAttendAvg" resultType="attendAvg">
+		<![CDATA[select avg_time as avgTime, avg_date as avgDate from ATTENDANCE_AVGTIME 
+		where avg_date < TRUNC(SYSDATE, 'DD') and avg_date >= TRUNC(SYSDATE + (INTERVAL '-7' DAY), 'DD')
+		order by avg_date desc]]>
+	</select>
+	<select id="selectAttendanceTimeList" parameterType="map" resultType="attend">
+		<![CDATA[select member_no as memberNo, to_char(attend_date, 'YYYY-MM-DD HH24:MI:SS') as strAttendDate from attendance
+		where 
+			ATTEND_DATE <= TRUNC(SYSDATE - #{start}, 'DD') and 
+		    ATTEND_DATE > TRUNC(SYSDATE - #{end}, 'DD')
+		    and member_no = #{memberNo}
+		order by attend_date]]>
+	</select>
+	<select id="lastAtt" parameterType="_int" resultType="string">
+		select * from (select to_char(ATTEND_DATE, 'YYYY-MM-DD HH24:MI:SS') from ATTENDANCE where MEMBER_NO = #{_parameter}
+		order by ATTEND_DATE desc) where rownum = 1
+	</select>
 </mapper>

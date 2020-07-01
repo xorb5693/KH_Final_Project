@@ -56,29 +56,6 @@ prefix="c"%>
       </div>
     </section>
 	
-	<!-- 트레이너 인트로 -->
-	
-	<!-- 가입된 트레이너 정보 가져오기
-	<section class="ftco-section bg-light">
-		<div class="container-fluid px-4">
-			<c:forEach items="${list }" var="list">
-				<div class="col-lg-3 d-flex">
-    				<div class="coach align-items-stretch">
-	    				<a class="img" style="background-image: url(images/trainer-1.jpg);"></a>
-	    				</div>
-	    				<div class="text pt-3 ftco-animate">
-	    					<h3>${list.memberName }</a></h3>
-	    					<p>${list.catFirst }</p><br>
-	    					<p>${list.catSecond }</p><br>
-	    					<p>${list.catThird }</p><br>
-	    					<p></p>
-	    				</div>
-	    			</div>
-    			</div>
-			</c:forEach>
-		</div>
-	</section>
-	 -->
 	<!--회원목록 테이블 -->
 	<section class="ftco-appointment">
 			<div class="overlay"></div>
@@ -97,20 +74,23 @@ prefix="c"%>
                     </tr>
                   </thead>
                   <tbody class="table2">
+                  <c:forEach items="${list}" var="memberList">
                     <tr>
-                      <td rowspan="2">순서대로 번호</td>
-                      <td rowspan="2">김기창</td>
-                      <td rowspan="2">김기창 사진</td>
-                      <td rowspan="2">2/10</td>
+                      <td rowspan="2">순서번호</td>
+                      <td rowspan="2">${memberList.memberName}</td>
+                      <td rowspan="2">${memberList.memberProfile}</td>
+                      <td rowspan="2"><span class="num">${memberList.trainingCnt }/</span><span>${memberList.trainingMaxcnt }</span></td>
                       <td width="70px;">
-                		<input type="submit" value="횟수증가" class="btn btn-primary py-1 px-1"><br>
-                		<input type="submit" value="횟수차감" class="btn btn-primary py-1 px-1">
+                		<input type="button" value="횟수증가" class="btn btn-primary py-1 px-1 increaseBtn"><br>
+                		<input type="button" value="횟수차감" class="btn btn-primary py-1 px-1 decreaseBtn">
                       </td>
-                      <td rowspan="2">만기일</td>
+                     <td rowspan="2">${memberList.expireDate}</td>
                     </tr>
+                    </c:forEach>
                   </tbody>
                 </table>
               </div>
+              <!-- 
               <div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
@@ -125,18 +105,27 @@ prefix="c"%>
 		              </ul>
 		            </div>
 		          </div>
-		 </div> 
+		 </div> -->
 	</div>
 	   			
   
     </section>
-		        
-		        
-        <!-- /.container-fluid -->
 
-      </div>
-      <!-- End of Main Content -->
+	<script>
+		$(function(){
+			$(".increaseBtn").click(function(){
+				var n = $(".increaseBtn").index(this);
+				var num = $(".num:eq("+n+")").val();
+				num = $(".num:eq("+n+")").val(num*1+1);
+			});
+			$(".decreaseBtn").click(function(){
+				var n = $('.bt_down').index(this);
+			    var num = $(".num:eq("+n+")").val();
+			    num = $(".num:eq("+n+")").val(num*1-1);
+			});
+		});
 	
+	</script>
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/js/popper.min.js"></script>
