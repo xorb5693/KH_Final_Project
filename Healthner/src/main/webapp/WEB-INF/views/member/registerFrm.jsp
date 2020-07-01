@@ -57,9 +57,10 @@ prefix="c"%>
             $("input[name=memberPw]")
               .prev("span")
               .html("영어 대/소문자 특수문자 8~16자리");
+            $("input[name=memberPw]").attr('qualify','false');
           } else {
             $("input[name=memberPw]").prev().hide();
-            $("input[name=memberPW]").attr('qualify','true');
+            $("input[name=memberPw]").attr('qualify','true');
           }
         });
 
@@ -70,6 +71,7 @@ prefix="c"%>
           if (chkPw != memberPw) {
             $(this).prev("span").css("color", "red");
             $(this).prev("span").html("비밀번호가 일치하지 않습니다");
+            $("input[name=chkPw]").attr('qualify','false');
           } else {
             $(this).prev("span").hide();
             $("input[name=chkPw]").attr('qualify','true');
@@ -99,6 +101,7 @@ prefix="c"%>
                     .prev("span")
                     .css("color", "red")
                     .html("이미 사용중인 이름입니다");
+                  $("input[name=memberNick]").attr('qualify','false');
                 }
               },
             });
@@ -115,6 +118,7 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("나이를 숫자로 입력해주세요");
+            $("input[name=age]").attr('qualify','false');
           } else {
             $(this).prev().hide();
             $("input[name=age]").attr('qualify','true');
@@ -130,6 +134,7 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("01000000000 형식으로 입력해주세요");
+            $("input[name=phone]").attr('qualify','false');
           } else {
             $(this).prev().hide();
             $("input[name=phone]").attr('qualify','true');
@@ -145,6 +150,7 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("한글로 2~4글자를 입력하세요");
+            $("input[name=memberName]").attr('qualify','false');
           } else {
             $(this).prev().hide();
             $("input[name=memberName]").attr('qualify','true');
@@ -160,6 +166,7 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("이메일을 다시 확인해주세요");
+            $("input[name=email]").attr('qualify','false');
           } else {
             $(this).prev().hide();
             $("input[name=email]").attr('qualify','true');
@@ -217,6 +224,7 @@ prefix="c"%>
         var age = $('input[name=age]').attr('qualify');
         var phone = $('input[name=phone]').attr('qualify');
         var detAddr = $('input[name=detAddr]').val();
+        var zip = $('input[name=zip]').val();
         if(id != "true"){
           alert('아이디를 확인해주세요');
           return false;
@@ -247,6 +255,10 @@ prefix="c"%>
         }
         if(phone != "true"){
           alert('핸드폰 번호를 다시 확인해주세요');
+          return false;
+        }
+        if(zip == ""){
+          alert('우편번호를 입력해주세요');
           return false;
         }
         if(detAddr == ""){
@@ -287,7 +299,7 @@ prefix="c"%>
 
     <section class="hero-wrap">
       <div class="container">
-        <form action="/healthner/member/join.do" method="get" onsubmit="return FinalCheck()">
+        <form action="/healthner/member/join.do" method="post" onsubmit="return FinalCheck()" enctype="multipart/form-data">
           <div class="form-row">
             <div class="col-md-5"></div>
             <div class="col-md-2">
@@ -325,7 +337,6 @@ prefix="c"%>
                 name="memberId"
                 id=""
                 class="form-control"
-                required
               />
               <br />
             </div>
@@ -339,7 +350,6 @@ prefix="c"%>
                 name="memberPw"
                 id=""
                 class="form-control"
-                required
               />
               <br />
             </div>
@@ -351,7 +361,6 @@ prefix="c"%>
                 name="chkPw"
                 id=""
                 class="form-control"
-                required
               />
               <br />
             </div>
@@ -377,7 +386,6 @@ prefix="c"%>
                 name="memberName"
                 id=""
                 class="form-control"
-                required
               />
             </div>
             <div class="col">
@@ -388,7 +396,6 @@ prefix="c"%>
                 name="memberNick"
                 id=""
                 class="form-control"
-                required
               />
             </div>
           </div>
@@ -401,7 +408,6 @@ prefix="c"%>
                 name="age"
                 id=""
                 class="form-control"
-                required
               />
               <br />
             </div>
@@ -413,7 +419,6 @@ prefix="c"%>
                 name="phone"
                 id=""
                 class="form-control"
-                required
               />
               <br />
             </div>
@@ -476,14 +481,13 @@ prefix="c"%>
                 id=""
                 class="form-control"
                 placeholder="상세주소"
-                required
               /><br />
             </div>
           </div>
           <div class="form-row">
             <div class="col-md-5"></div>
             <div class="col-md-2">
-              <button type="button" class="btn btn-primary btn-bg">
+              <button type="submit" class="btn btn-primary btn-bg">
                 회원가입
               </button>
               <input

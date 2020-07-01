@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import kr.co.healthner.common.CardHandler;
+import kr.co.healthner.member.model.service.MemberMailServiceImpl;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
 import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
@@ -36,6 +37,10 @@ public class MemberController {
 	@Autowired
 	@Qualifier("cardHandler")
 	private CardHandler cardHandler;
+	
+	@Autowired
+	@Qualifier("memberMail")
+	private MemberMailServiceImpl mailService;
 	
 	@RequestMapping("/loginFrm.do")
 	public String loginFrm() {
@@ -79,7 +84,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String insertMember(Member m) {
+	public String insertMember(Member m,HttpServletRequest request) {
+		// send mail
+		mailService.sendMail(m,request);
+		
+		// upload profile Image
+		
+		// insert Member
 		int result = service.insertMember(m);
 		return "redirect:/";
 	}
@@ -227,4 +238,11 @@ public class MemberController {
 		service.insertPostscript(mapping);		
 		return "redirect:/healthner/member/myTrainer.do";
 	}
+	
+	@RequestMapping("/verifyMail.do")
+	public String verifyMail(String memberId) {
+		int result = service.verifyMail(memberId);
+		return null;
+	}
+	
 }

@@ -32,11 +32,18 @@
 			#{memberId},
 			#{memberPw},
 			#{memberName},
+			#{memberNick},
 			#{zip},
 			#{roadAddr},
 			#{detAddr},
 			#{card},
 			sysdate,
+			<if test="memberLevel == 2">
+				2,			
+			</if>
+			<if test="memberLevel == 1">
+				1,
+			</if>
 			#{gender},
 			#{age},
 			#{memberProfile},
@@ -59,6 +66,7 @@
 	</select>
 	<select id="selectNick" parameterType="member" resultType="member">
 		select member_nick as memberNick from member where member_nick = #{memberNick}
+	</select>
 	<select id="selectMemberName" parameterType="_int" resultType="string">
 		select member_name from member where member_no = #{_parameter}
 	</select>
@@ -104,4 +112,7 @@
 			and trainer_no = #{memberNo}
 		</if>
 	</select>
+	<update id="verifyMail" parameterType="String">
+		update member set email_verification = 1 where member_id = #{_parameter}
+	</update>
 </mapper>
