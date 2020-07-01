@@ -9,7 +9,5 @@ public class MemberSearch {
 	private int checkbox2;
 	private int start;
 	private int end;
-	private String phone;
-	private String email;
-	private String profile;
+	private int memberType;
 }

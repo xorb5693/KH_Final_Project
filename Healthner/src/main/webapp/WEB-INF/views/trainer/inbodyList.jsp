@@ -53,33 +53,33 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	<!--회원목록 테이블 -->
 	<section class="ftco-appointment">
 			<div class="overlay"></div>
-    	<div class="container col-md-9 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+    	<div class="container col-md-6 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
 			<div class="row justify-content-center">
 	    		<div class="col-md-8 text-center">
 					<div class="heading-section mb-5">
 						<span class="subheading"><small><i class="left-bar"></i>Services<i
 								class="right-bar"></i></small></span>
 						<h2 class="mb-1">
-							[${member.memberName }]님의 인바디
+							인바디 리스트
 						</h2>
 					</div>
 				</div>
 			</div> 
-			<input type="button" value="글쓰기" class="btn btn-secondary py-1 px-3 mr-2" style="display:block; float: right;">            
+			<input type="button" value="글쓰기" class="btn btn-secondary py-1 px-3 mr-2" id="btn" style="display:block; float: right;">            
 		 <table class="table">
 		  <thead>
 		    <tr>
 		      <th scope="col">No.</th>
 		      <th scope="col">인바디</th>
-		      <th scope="col">측정날짜</th>
 		    </tr>
 		  </thead>
 		  <tbody>
+		  <c:forEach items="${bmi }" var="bmi"  varStatus="status">
 		    <tr>
-		      <th scope="row">넘버와야함</th>
-		      <td><a href="#" style="color: black; font-weight: bold;">넘버 + 번째 인바디</a></td>
-		      <td>${bmi.measrueDate}</td>
+		      <th scope="row">${status.count }</th>
+		      <td><a href="#" style="color: black; font-weight: bold;">${bmi.measureDate} 인바디</a></td>
 		    </tr>
+		   </c:forEach>
 		  </tbody>
 		</table>
             <!-- 
@@ -100,14 +100,7 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 		 		</div> -->
 	</div>   			
     </section>
-	               
-	<script>
-		$(function(){
-			$(".btn").click(function(){
-				location.href="inbodyInputFrm.do";
-			});
-		});
-	</script>
+
       
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
@@ -133,5 +126,14 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	
+		               
+	<script>
+		$(function(){
+			$("#btn").click(function(){
+				location.href="inbodyInputFrm.do?memberNo=18";
+			});
+		});
+	</script>
 </body>
 </html>
