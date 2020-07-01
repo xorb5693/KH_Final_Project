@@ -71,7 +71,8 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/selectId.do")
+	@ResponseBody
+	@RequestMapping(value = "/selectId.do", produces = "html/text;charset=utf-8")
 	public String checkId(Member m) {
 		Member member = service.checkId(m);
 		if(member!=null) {
@@ -80,7 +81,19 @@ public class MemberController {
 			return "0";
 		}
 	}
-		
+	
+	@ResponseBody
+	@RequestMapping(value="/checkNick.do", produces = "html/text;charset=utf-8")
+	public String checkNick(Member m) {
+		System.out.println(m.getMemberNick());
+		Member member = service.checkNick(m);
+		if(member!=null) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping("/arduinoAttendance.do")
 	public String arduinoAttendance(String card) {

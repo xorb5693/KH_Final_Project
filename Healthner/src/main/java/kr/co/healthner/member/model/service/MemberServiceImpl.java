@@ -103,4 +103,9 @@ public class MemberServiceImpl {
 			dao.insertAvg(0);
 		}
 	}
+
+
+	public Member checkNick(Member m) {
+		return dao.checkNick(m);
+	}
 }

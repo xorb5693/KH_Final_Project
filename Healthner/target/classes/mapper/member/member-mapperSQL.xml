@@ -44,7 +44,7 @@
 			)
 	</insert>
 	<select id="checkId" parameterType="member" resultType="member">
-		select member_id from member where member_id like #{memberId}
+		select member_id as memberId from member where member_id like #{memberId}
 	</select>
 	<select id="selectAduino" parameterType="string" resultType="member">
 		select 
@@ -52,5 +52,8 @@
 			member_id as memberId 
 		from member 
 		where card = #{_parameter} 
+	</select>
+	<select id="selectNick" parameterType="member" resultType="member">
+		select member_nick as memberNick from member where member_nick = #{memberNick}
 	</select>
 </mapper>

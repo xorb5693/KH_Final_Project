@@ -69,4 +69,8 @@ public class MemberDaoImpl {
 		return sqlSession.insert("attendance.insertAvg", avg);
 	}
 
+	public Member checkNick(Member m) {
+		return sqlSession.selectOne("member.selectNick", m);
+	}
+
 }
