@@ -46,7 +46,7 @@ prefix="c"%>
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
           <br><br>
             <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span><span class="mr-2"><a href="customerInfo.do">회원정보(수정해야함)</a></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
           </div>
         </div>
       </div>
@@ -104,6 +104,18 @@ prefix="c"%>
                 type: 'bar', 
                 data: { labels: ['체수분', '단백질', '무기질', '체지방량'], 
                 datasets: [
+                	{
+                		data: [${bmi.bodywater}, ${bmi.protein}, ${bmi.mineral}, ${bmi.bodyFat}],
+                		backgroundColor: rgba(255, 99, 132, 0.2)
+                	}, 
+                	{
+                		data: [${bmi.weight}, ${bmi.bone}, ${bmi.bodyfat}],
+                		backgroundColor: rgba(255, 206, 86, 0.2)
+                	}
+                	{
+                		data: [${bmi.bmi}, ${bmi.bodyFatPer}, ${bmi.metabolism}],
+                		backgroundColor: rgba(153, 102, 255, 0.2)
+                	}
                 	{ 
                 		label: '체성분 분석', 
                 		label: '단백질',

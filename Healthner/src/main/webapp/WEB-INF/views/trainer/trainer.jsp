@@ -138,7 +138,7 @@ a.btn-layerClose:hover {
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
           <br><br>
             <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span><span class="mr-2"><a href="customerInfo.do">회원정보(수정해야함)</a></span></p>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
           </div>
         </div>
       </div>

@@ -138,19 +138,24 @@ public class TrainerController {
 	
 	//인바디 글쓰기
 	@RequestMapping("/inbodyInputFrm.do")
-	public String inbodyInputFrm() {
+	public String inbodyInputFrm(Model model, int memberNo) {
+		Member member = new Member();
+		member = service.selectOneMember(memberNo);
+		System.out.println(member);
+		model.addAttribute("member", member);
 		return "trainer/inbodyInputFrm";
 	}
 	
 	@RequestMapping("/insertInbody.do")
 	public String insertInbody(BmiVO bmi) {
+		int memberNo = bmi.getMemberNo();
 		int result = service.insertInbody(bmi);
 		if(result > 0) {
 			System.out.println("수정 성공");
 		} else {
 			System.out.println("수정 실패");
 		}
-		return "trainer/inbodyList";
+		return "redirect:/healthner/trainer/inbodyList.do?memberNo=" + memberNo;
 	}
 	
 	//트레이너intro를 위한 모든 트레이너 정보 가져오기
@@ -164,10 +169,10 @@ public class TrainerController {
 	
 	@RequestMapping("/customerGraph.do")
 	public String customerGraph(Model model, int memberNo) {
-		List<BmiVO> bmi = service.selectOneMemberBmi(memberNo);
-//		BmiVO b = service.selectBmi(memberNo);
-		System.out.println(bmi);
-		model.addAttribute("bmi", bmi);
+		//BmiVO prevBmi = service.selectPrevBmi(memberNo);
+		BmiVO recentBmi = service.selectBmi(memberNo);
+		//model.addAttribute("bmi", prevBmi);
+		model.addAttribute("recentBmi", recentBmi);
 		return "trainer/customerGraph";
 	}
 }

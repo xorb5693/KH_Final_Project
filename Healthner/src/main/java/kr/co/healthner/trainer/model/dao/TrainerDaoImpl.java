@@ -86,4 +86,9 @@ public class TrainerDaoImpl {
 		return sqlSession.selectOne("trainer.selectBmi", memberNo);
 	}
 
+	public BmiVO selectPrevBmi(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.selectPrevBmi", memberNo);
+	}
+
 }
