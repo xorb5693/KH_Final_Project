@@ -55,7 +55,7 @@ table tr:hover {
 			카드키 미등록<input type="checkbox" value="card" name="card">
 			<!-- (4)검색 버튼 -->
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"
-				onclick="show_memberlist(1);">
+				onclick="show_memberlist(1,1);">
 		</div>
 		<div class="memberTB">
 			<table border="1">
@@ -77,7 +77,7 @@ table tr:hover {
 
 	<script>
 		//혜진_200624_ajax로 DB에서 회원 데이터 불러오기
-		function show_memberlist(start) {
+		function show_memberlist(start, btnNum) {
 			$(".more-btn").attr("currentCount", 0);
 			var searchWord = $("#searchWord").val();
 			if ($("input[name=expire]").prop("checked")) {
@@ -96,14 +96,16 @@ table tr:hover {
 				checkbox2 : checkbox2,
 				start : start
 			};
-			$
-					.ajax({
+			$.ajax({
 						url : "/memberList.do",
 						type : "post",
 						data : param,
 						dataType : "json",
 						success : function(data) {
+							//혜진_200701_검색 클릭 시에만 초기화 설정
+							if(btnNum==1){
 							$(".contentsRow").html("");
+							}
 							var html = "";
 							for (var i = 0; i < data.list.length; i++) {
 								html += "<tr class='contentsRow' onclick='addCard(this);'>"
@@ -152,10 +154,10 @@ table tr:hover {
 		
 		//혜진_200626_페이지를 로드 하자마자 list 보여주기
 		$(function() {
-			show_memberlist(1);
+			show_memberlist(1,1);
 				$(".more-btn").click(function() {
 					var val = $(this).val();
-					show_memberlist(val);
+					show_memberlist(val,2);
 				});
 		});
 
