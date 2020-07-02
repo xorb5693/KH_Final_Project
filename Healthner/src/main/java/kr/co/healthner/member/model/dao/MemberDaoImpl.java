@@ -157,4 +157,14 @@ public class MemberDaoImpl {
 		return sqlSession.update("member.insertPostscript", mapping);
 	}
 
+	public int insertCard(HashMap<String, String> map) {
+		
+		return sqlSession.update("member.insertCard", map);
+	}
+
+	public int deleteCard(String memberId) {
+		
+		return sqlSession.update("member.deleteCard", memberId);
+	}
+
 }

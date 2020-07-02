@@ -54,7 +54,12 @@ public class MemberController {
 		String cardNo = card.replaceAll(" ", ".").substring(1);
 		System.out.println("Insert : " + cardNo);
 		try {
-			cardHandler.cardResponse(cardNo);
+			Member m = service.selectArduino(cardNo);
+			if (m == null) {
+				cardHandler.cardResponse(cardNo);
+			} else {
+				cardHandler.cardOverlap(cardNo, m.getMemberId());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -213,5 +218,23 @@ public class MemberController {
 
 		service.insertPostscript(mapping);		
 		return "redirect:/healthner/member/myTrainer.do";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/inserCard.do")
+	public String insertCard(String memberId, String card) {
+		
+		int result = service.insertCard(memberId, card);
+		
+		return String.valueOf(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteCard.do")
+	public String deleteCard(String memberId) {
+		
+		int result = service.deleteCard(memberId);
+		
+		return String.valueOf(result);
 	}
 }

@@ -298,4 +298,26 @@ public class MemberServiceImpl {
 
 		return dao.insertPostscript(mapping);
 	}
+
+
+	public Member selectArduino(String cardNo) {
+		
+		return dao.selectAduino(cardNo);
+	}
+
+
+	public int insertCard(String memberId, String card) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("memberId", memberId);
+		map.put("card", card);
+		
+		return dao.insertCard(map);
+	}
+
+
+	public int deleteCard(String memberId) {
+		
+		return dao.deleteCard(memberId);
+	}
 }

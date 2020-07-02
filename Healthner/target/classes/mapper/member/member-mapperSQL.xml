@@ -102,4 +102,10 @@
 			and trainer_no = #{memberNo}
 		</if>
 	</select>
+	<update id="insertCard" parameterType="map">
+		update member set card = #{card} where member_id = #{memberId}
+	</update>
+	<update id="deleteCard" parameterType="string">
+		update member set card = null where member_id = #{_parameter}
+	</update>
 </mapper>
