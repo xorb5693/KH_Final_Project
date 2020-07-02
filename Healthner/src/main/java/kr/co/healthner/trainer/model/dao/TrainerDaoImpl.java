@@ -91,4 +91,9 @@ public class TrainerDaoImpl {
 		return sqlSession.selectOne("trainer.selectPrevBmi", memberNo);
 	}
 
+	public BmiVO selectOneGraph(BmiVO bmi) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.selectOneGraph", bmi);
+	}
+
 }

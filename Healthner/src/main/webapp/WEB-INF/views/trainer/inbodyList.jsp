@@ -75,10 +75,16 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 		  </thead>
 		  <tbody>
 		  <c:forEach items="${bmi }" var="bmi"  varStatus="status">
-		  <form action = "/healthner/trainer/inbodyInputFrm.do"><input type="hidden" value="${bmi.memberNo }" name="memberNo"></form>
+		  <form action = "/healthner/trainer/inbodyInputFrm.do" id="inbodyInputFrm"><input type="hidden" name="memberNo" value="${bmi.memberNo }"></form>
 		    <tr>
 		      <th scope="row">${status.count }</th>
-		      <td><a href="#" style="color: black; font-weight: bold;">${bmi.measureDate} 인바디</a></td>
+		      <td>
+		      <form action="/healthner/trainer/inbodyGraph.do" id="beforeInbodyGraph">
+		      	<a href="#" style="color: black; font-weight: bold;" class="click">${bmi.measureDate} 인바디</a>
+		      	<input type="hidden" value="${bmi.inbodyNo }" name="inbodyNo">
+		      	<input type="hidden" value="${bmi.memberNo }" name="memberNo">
+		      </form>
+		      </td>
 		    </tr>
 		   </c:forEach>
 		  </tbody>
@@ -132,7 +138,12 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	<script>
 		$(function(){
 			$("#btn").click(function(){
-				$("form").submit();
+				$("#inbodyInputFrm").submit();
+			});
+			$(".click").click(function(){
+				var clickedOne = $(this).parent();
+
+				var clickedOne = $(this).parent().submit();
 			});
 		});
 	</script>
