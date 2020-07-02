@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.healthner.admin.model.dao.AdminDaoImpl;
 import kr.co.healthner.admin.model.vo.MemberSearch;
-import kr.co.healthner.admin.model.vo.totalpageList;
+import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.member.model.vo.Member;
 
 @Service("adminService")
@@ -21,7 +21,7 @@ public class AdminServiceImpl {
 
 
 	// 혜진_200629_start 전달, end 계산하여 함께 전달
-	public totalpageList memberList(String searchWord, int checkbox1, int checkbox2, int start) {
+	public TotalpageList memberList(String searchWord, int checkbox1, int checkbox2, int start) {
 		// 전체 게시글 갯수 카운트
 		MemberSearch ms = new MemberSearch();
 		ms.setSearchWord(searchWord);
@@ -42,7 +42,7 @@ public class AdminServiceImpl {
 				m.setExpireDate(" ");
 			}
 		}
-		totalpageList tl = new totalpageList();
+		TotalpageList tl = new TotalpageList();
 		tl.setList(list);
 		tl.setTotalCount(totalCount);
 		return tl;
@@ -62,7 +62,7 @@ public class AdminServiceImpl {
 	}
 
 	// 혜진_200630_트레이너 페이지_정보 조회
-	public totalpageList trainerList(String searchWord, int memberType, int start) {
+	public TotalpageList trainerList(String searchWord, int memberType, int start) {
 		// 전체 게시글 갯수 카운트
 		MemberSearch ms = new MemberSearch();
 		ms.setSearchWord(searchWord);
@@ -79,7 +79,7 @@ public class AdminServiceImpl {
 				m.setExpireDate(" ");
 			}
 		}
-		totalpageList tl = new totalpageList();
+		TotalpageList tl = new TotalpageList();
 		tl.setList(list);
 		tl.setTotalCount(totalCount);
 		return tl;
