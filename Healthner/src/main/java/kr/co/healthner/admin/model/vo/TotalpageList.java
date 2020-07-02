@@ -6,7 +6,7 @@ import kr.co.healthner.member.model.vo.Member;
 import lombok.Data;
 
 @Data
-public class totalpageList {
+public class TotalpageList {
 	private ArrayList<Member> list;
 	private int totalCount;
 }

@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
 import kr.co.healthner.admin.model.vo.MemberSearch;
-import kr.co.healthner.admin.model.vo.totalpageList;
+import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.member.model.vo.Member;
 
 @Controller
@@ -92,7 +92,7 @@ public class AdminController {
 	@RequestMapping(value="/memberList.do", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String memberList(String searchWord, int checkbox1, int checkbox2, int start) {
-		totalpageList tl = service.memberList(searchWord, checkbox1, checkbox2, start);
+		TotalpageList tl = service.memberList(searchWord, checkbox1, checkbox2, start);
 		return new Gson().toJson(tl);
 	}
 	
@@ -116,7 +116,7 @@ public class AdminController {
 	@RequestMapping(value="/trainerlist.do", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String trainerList(String searchWord, int memberType, int start) {
-		totalpageList tl = service.trainerList(searchWord, memberType, start);
+		TotalpageList tl = service.trainerList(searchWord, memberType, start);
 		return new Gson().toJson(tl);
 	}
 	
