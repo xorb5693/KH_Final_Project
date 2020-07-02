@@ -13,8 +13,8 @@ import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
+import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
-import kr.co.healthner.vo.ProfessionalCategoryVO;
 
 @Repository("trainerDao")
 public class TrainerDaoImpl {
@@ -84,6 +84,11 @@ public class TrainerDaoImpl {
 	public BmiVO selectBmi(int memberNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("trainer.selectBmi", memberNo);
+	}
+
+	public BmiVO selectPrevBmi(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.selectPrevBmi", memberNo);
 	}
 
 }

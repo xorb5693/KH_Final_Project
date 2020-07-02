@@ -11,8 +11,11 @@ import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.EatLogVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
+import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
+import kr.co.healthner.trainer.model.vo.TrainerVO;
 
 @Repository("memberDao")
 public class MemberDaoImpl {
@@ -74,6 +77,9 @@ public class MemberDaoImpl {
 		return sqlSession.insert("attendance.insertAvg", avg);
 	}
 
+	public Member checkNick(Member m) {
+		return sqlSession.selectOne("member.selectNick", m);
+	}
 	public List<AttendanceAvgtimeVO> selectWeekAttendAvg() {
 		
 		return sqlSession.selectList("attendance.selectWeekAttendAvg");
@@ -132,6 +138,40 @@ public class MemberDaoImpl {
 	public int modifyMenuComment(MenuCommentVO comment) {
 		
 		return sqlSession.update("eat.modifyMenuComment", comment);
+	}
+	
+	public List<MemberMappingVO> selectMappingList(int memberNo) {
+
+		return sqlSession.selectList("member.selectMappingList", memberNo);
+	}
+
+	public TrainerVO selectTrainerInfo(int trainerNo) {
+
+		return sqlSession.selectOne("trainer.selectTrainerInfo", trainerNo);
+	}
+
+	public List<ProfessionalCategoryVO> selectCategoryList() {
+
+		return sqlSession.selectList("trainer.selectCategoryList");
+	}
+
+	public int insertPostscript(MemberMappingVO mapping) {
+
+		return sqlSession.update("member.insertPostscript", mapping);
+	}
+
+	public int insertCard(HashMap<String, String> map) {
+		
+		return sqlSession.update("member.insertCard", map);
+	}
+
+	public int deleteCard(String memberId) {
+		
+		return sqlSession.update("member.deleteCard", memberId);
+    }
+    
+	public int verifyMail(String memberId) {
+		return sqlSession.update("member.verifyMail",memberId);
 	}
 
 }

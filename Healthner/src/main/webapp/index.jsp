@@ -5,11 +5,26 @@
 <html lang="en">
 <head>
 <title>헬트너</title>
-
+<script
+  type="text/javascript"
+  src="http://code.jquery.com/jquery-3.3.1.js"
+></script>
 <style>
-body::-webkit-scrollbar {
-	display: none;
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+	z-index: 1000;
 }
+.mail{
+	position: fixed;
+	bottom: 70px;
+	right: 25px;
+	display: block;
+	z-index: 1000;
+}
+
 </style>
 
 <meta name="viewport"
@@ -738,8 +753,34 @@ body::-webkit-scrollbar {
 			</div>
 		</div>
 	</section>
+	<c:if test="${not empty sessionScope.member }">
+		<a id="mail" href="#" class="btn btn-dark btn-lg mail">
+			<i class="icon-envelope-open"></i>
+			<!-- <i class="icon-envelope"></i> -->
+		</a>
 
-
+	</c:if>
+	<a id="back-to-top" href="#" class="btn btn-dark btn-lg back-to-top"
+	role="button"><i class="icon-arrow-up"></i></a>
+	
+<script>
+	$(document).ready(function() {
+		$(window).scroll(function() {
+			if ($(this).scrollTop() > 50) {
+				$('#back-to-top').fadeIn();
+			} else {
+				$('#back-to-top').fadeOut();
+			}
+		});
+		// scroll body to 0px on click
+		$('#back-to-top').click(function() {
+			$('body,html').animate({
+				scrollTop : 0
+			}, 400);
+			return false;
+		});
+	});
+</script>
 
 
 

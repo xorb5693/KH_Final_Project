@@ -79,7 +79,7 @@ prefix="c"%>
 			<div class="row justify-content-center align-items-center">
 				<div class="col-md-3">
 					<div class="services text-center ftco-animate">
-						<form action="myEat.do">
+						<form action="/healthner/member/myEat.do?"+${member.memberNo}>
 							<input type="hidden" value="${member.memberNo }" name="memberNo">
 						<button type="submit" class="icon d-flex justify-content-center align-items-center btnNone">
 							<span class="flaticon-ruler"></span>

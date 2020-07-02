@@ -8,18 +8,22 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
 import kr.co.healthner.common.CardHandler;
+import kr.co.healthner.member.model.service.MemberMailServiceImpl;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
 import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.EatLogData;
 import kr.co.healthner.member.model.vo.EatLogVO;
+import kr.co.healthner.member.model.vo.MappingTrainerData;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
 
@@ -33,6 +37,10 @@ public class MemberController {
 	@Autowired
 	@Qualifier("cardHandler")
 	private CardHandler cardHandler;
+	
+	@Autowired
+	@Qualifier("memberMail")
+	private MemberMailServiceImpl mailService;
 	
 	@RequestMapping("/loginFrm.do")
 	public String loginFrm() {
@@ -51,7 +59,12 @@ public class MemberController {
 		String cardNo = card.replaceAll(" ", ".").substring(1);
 		System.out.println("Insert : " + cardNo);
 		try {
-			cardHandler.cardResponse(cardNo);
+			Member m = service.selectArduino(cardNo);
+			if (m == null) {
+				cardHandler.cardResponse(cardNo);
+			} else {
+				cardHandler.cardOverlap(cardNo, m.getMemberId());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,12 +89,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String insertMember(Member m) {
+	public String insertMember(Member m,HttpServletRequest request) {
+		// send mail
+		mailService.sendMail(m,request);
+		
+		// upload profile Image
+		
+		// insert Member
 		int result = service.insertMember(m);
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/selectId.do")
+	@ResponseBody
+	@RequestMapping(value = "/selectId.do", produces = "html/text;charset=utf-8")
 	public String checkId(Member m) {
 		Member member = service.checkId(m);
 		if(member!=null) {
@@ -90,7 +110,19 @@ public class MemberController {
 			return "0";
 		}
 	}
-		
+	
+	@ResponseBody
+	@RequestMapping(value="/checkNick.do", produces = "html/text;charset=utf-8")
+	public String checkNick(Member m) {
+		System.out.println(m.getMemberNick());
+		Member member = service.checkNick(m);
+		if(member!=null) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping("/arduinoAttendance.do")
 	public String arduinoAttendance(String card) {
@@ -195,4 +227,49 @@ public class MemberController {
 		int result = service.modifyMenuComment(comment);
 		return String.valueOf(result);
 	}
+	
+	@RequestMapping("/myTrainer.do")
+	public String myTrainer(HttpSession session, Model model) {
+		
+		Member member = (Member)session.getAttribute("member");
+		ArrayList<MappingTrainerData> list = service.myTrainer(member.getMemberNo());
+		model.addAttribute("list", list);
+		return "member/myTrainer";
+	}
+	
+	@RequestMapping("/insertPostscript.do")
+	public String insertPostscript(MemberMappingVO mapping) {
+		
+		service.insertPostscript(mapping);		
+		return "redirect:/healthner/member/myTrainer.do";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/inserCard.do")
+	public String insertCard(String memberId, String card) {
+		
+		int result = service.insertCard(memberId, card);
+		
+		return String.valueOf(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteCard.do")
+	public String deleteCard(String memberId) {
+		
+		int result = service.deleteCard(memberId);
+		
+		return String.valueOf(result);
+	}
+
+	@RequestMapping("/verifyMail.do")
+	public String verifyMail(String memberId) {
+		int result = service.verifyMail(memberId);
+		if(result>0) {
+			return "member/verifyDone";
+		}else {
+			return "member/verifyFail";
+		}
+	}
+	
 }

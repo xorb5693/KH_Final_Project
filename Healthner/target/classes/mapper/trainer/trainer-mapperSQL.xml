@@ -102,13 +102,26 @@
 			    ) m
 			) where rnum between 1 and 10	
 	</select>
+	<select id="selectTrainerInfo" parameterType="_int" resultType="trainer">
+		select
+			t.member_no as memberNo,
+			trainer_intro as trainerIntro,
+			cat_first as catFirst,
+			cat_second as catSecond,
+			cat_third as catThird,
+			member_name as memberName,
+			member_profile as memberProfile
+		from trainer t
+		join member m  on (t.member_no = m.member_no) 
+		where t.member_no= #{_parameter}
+	</select>
 	<update id="customerCntUpdate" parameterType="memberMapping">
 		update member_mapping 
 		set
 			training_cnt = #{trainingCnt}
 		where member_no = #{memberNo}
 	</update>
-		<select id="selectOneMember" parameterType="int" resultType="member">
+	<select id="selectOneMember" parameterType="int" resultType="member">
 		select
 			member_name as memberName,
 			member_no as memberNo
@@ -156,5 +169,11 @@
 			(select member_name from member where member_no=#{memberNo}) as memberName
 		from bmi b
 		where member_no=#{memberNo}
+	</select>
+	<select id="selectCategoryList" resultType="category">
+		select 
+			category_no as categoryNo,
+			category_name as categoryName
+		from Professional_category
 	</select>
 </mapper>

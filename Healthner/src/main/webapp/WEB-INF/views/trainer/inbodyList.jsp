@@ -75,6 +75,7 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 		  </thead>
 		  <tbody>
 		  <c:forEach items="${bmi }" var="bmi"  varStatus="status">
+		  <form action = "/healthner/trainer/inbodyInputFrm.do"><input type="hidden" value="${bmi.memberNo }" name="memberNo"></form>
 		    <tr>
 		      <th scope="row">${status.count }</th>
 		      <td><a href="#" style="color: black; font-weight: bold;">${bmi.measureDate} 인바디</a></td>
@@ -131,7 +132,7 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	<script>
 		$(function(){
 			$("#btn").click(function(){
-				location.href="inbodyInputFrm.do?memberNo=18";
+				$("form").submit();
 			});
 		});
 	</script>
