@@ -91,7 +91,8 @@ public class MemberController {
 	@RequestMapping("/join.do")
 	public String insertMember(Member m,HttpServletRequest request) {
 		// send mail
-		mailService.sendMail(m,request);
+		long timeout = System.currentTimeMillis()/1000;
+		mailService.sendMail(m,request,timeout);
 		
 		// upload profile Image
 		
@@ -263,12 +264,18 @@ public class MemberController {
 	}
 
 	@RequestMapping("/verifyMail.do")
-	public String verifyMail(String memberId) {
-		int result = service.verifyMail(memberId);
-		if(result>0) {
-			return "member/verifyDone";
+	public String verifyMail(String memberId,long timeout,Model model) {
+		long endtime = System.currentTimeMillis()/1000;
+		if(endtime-timeout<24*60*60) {
+			int result = service.verifyMail(memberId);			
+			if(result>0) {
+				return "member/verifyDone";
+			}else {
+				return "member/verifyFail";
+			}
 		}else {
-			return "member/verifyFail";
+			model.addAttribute("memberId", memberId);
+			return "member/timeout";
 		}
 	}
 	
