@@ -77,6 +77,9 @@ public class MemberDaoImpl {
 		return sqlSession.insert("attendance.insertAvg", avg);
 	}
 
+	public Member checkNick(Member m) {
+		return sqlSession.selectOne("member.selectNick", m);
+	}
 	public List<AttendanceAvgtimeVO> selectWeekAttendAvg() {
 		
 		return sqlSession.selectList("attendance.selectWeekAttendAvg");
@@ -165,6 +168,10 @@ public class MemberDaoImpl {
 	public int deleteCard(String memberId) {
 		
 		return sqlSession.update("member.deleteCard", memberId);
+    }
+    
+	public int verifyMail(String memberId) {
+		return sqlSession.update("member.verifyMail",memberId);
 	}
 
 }

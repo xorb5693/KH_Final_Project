@@ -116,6 +116,11 @@ public class MemberServiceImpl {
 		}
 	}
 
+
+	public Member checkNick(Member m) {
+		return dao.checkNick(m);
+	}
+	
 	public AttendancePrintData attendanceRead(int memberNo) {
 		
 		ArrayList<AttendanceAvgtimeVO> avgs = (ArrayList<AttendanceAvgtimeVO>)dao.selectWeekAttendAvg();
@@ -319,5 +324,8 @@ public class MemberServiceImpl {
 	public int deleteCard(String memberId) {
 		
 		return dao.deleteCard(memberId);
+    }
+        public int verifyMail(String memberId) {
+		return dao.verifyMail(memberId);
 	}
 }
