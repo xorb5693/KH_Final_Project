@@ -27,6 +27,7 @@
 		
 		<!-- 혜진_20200625_관리자 페이지_회원검색용 VO -->
 		<typeAlias type="kr.co.healthner.admin.model.vo.MemberSearch" alias="memberSearch"/>
+		<typeAlias type="kr.co.healthner.admin.model.vo.PTmapping" alias="pt"/>
 		
 		<typeAlias type="kr.co.healthner.mail.model.vo.MailVO" alias="mail"/>
 	</typeAliases>
