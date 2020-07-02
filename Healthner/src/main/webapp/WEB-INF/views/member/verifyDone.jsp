@@ -29,8 +29,11 @@ prefix="c"%>
     </section>
 
     <section class="hero-wrap">
-        <h1>이메일 인증이 완료되었습니다</h1>
-        <h2></h2>
+        <div class="container">
+            <h1 class="mb-3 bread">이메일 인증이 완료되었습니다</h1>
+            <h2 class="mb-2 bread">환영합니다</h2>
+
+        </div>
 
     </section>
 
