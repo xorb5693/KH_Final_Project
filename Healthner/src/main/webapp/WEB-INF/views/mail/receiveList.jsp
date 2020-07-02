@@ -90,7 +90,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/headerForMail.jsp"/>
 	<section class="ftco-section ftco-about">
 		<div class="container">
             <div class="row justify-content-center mb-5 pb-3">
