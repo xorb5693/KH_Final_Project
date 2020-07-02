@@ -30,9 +30,12 @@ prefix="c"%>
 
     <section class="hero-wrap">
         <div class="container">
-            <h1 class="mb-3 bread">이메일 인증이 완료되었습니다</h1>
-            <h2 class="mb-2 bread">환영합니다</h2>
-
+            <h1 class="mb-3 bread">시간이 만료 되었습니다</h1>
+            <h2 class="mb-2 bread">
+              <a href="/healthner/member/resend.do?memberId=${memberId}">
+                다시인증 하기
+              </a>
+            </h2>
         </div>
 
     </section>
