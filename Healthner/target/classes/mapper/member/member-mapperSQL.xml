@@ -32,11 +32,18 @@
 			#{memberId},
 			#{memberPw},
 			#{memberName},
+			#{memberNick},
 			#{zip},
 			#{roadAddr},
 			#{detAddr},
 			#{card},
 			sysdate,
+			<if test="memberLevel == 2">
+				2,			
+			</if>
+			<if test="memberLevel == 1">
+				1,
+			</if>
 			#{gender},
 			#{age},
 			#{memberProfile},
@@ -47,7 +54,7 @@
 			)
 	</insert>
 	<select id="checkId" parameterType="member" resultType="member">
-		select member_id from member where member_id like #{memberId}
+		select member_id as memberId from member where member_id like #{memberId}
 	</select>
 	<select id="selectAduino" parameterType="string" resultType="member">
 		select 
@@ -56,6 +63,9 @@
 			expire_date as expireDate
 		from member 
 		where card = #{_parameter} 
+	</select>
+	<select id="selectNick" parameterType="member" resultType="member">
+		select member_nick as memberNick from member where member_nick = #{memberNick}
 	</select>
 	<select id="selectMemberName" parameterType="_int" resultType="string">
 		select member_name from member where member_no = #{_parameter}
@@ -102,4 +112,13 @@
 			and trainer_no = #{memberNo}
 		</if>
 	</select>
+	<update id="insertCard" parameterType="map">
+		update member set card = #{card} where member_id = #{memberId}
+	</update>
+	<update id="deleteCard" parameterType="string">
+		update member set card = null where member_id = #{_parameter}
+    </update>
+	<update id="verifyMail" parameterType="String">
+		update member set email_verification = 1 where member_id = #{_parameter}
+	</update>
 </mapper>

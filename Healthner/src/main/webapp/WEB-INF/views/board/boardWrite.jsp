@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,24 @@
 				<h2>자유게시판 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
 				제목 : <input type="text" name="boardTitle"><br>
+				<input type="hidden" name="boardType" value="0"><br>
+				<textarea id="ck4" name="boardContent"></textarea>
+				<script>
+					CKEDITOR.replace('ck4', {
+						filebrowserUploadUrl : '/imageUpload.do'
+					});
+				</script>
+				<c:if test="${sessionScope.member.memberLevel eq 0 }">회원일경우출력</c:if>
+				<input type="submit" value="작성">
+			</form>
+			
+			
+			<c:if test="${sessionScope.member.memberLevel eq 1 }">트레이너일경우출력</c:if>
+			<form action="/boardUp.do" method="post">
+				<h2>트레이너게시판 글쓰기</h2>
+				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
+				제목 : <input type="text" name="boardTitle"><br>
+				<input type="hidden" name="boardType" value="1"><br>
 				<textarea id="ck4" name="boardContent"></textarea>
 				<script>
 					CKEDITOR.replace('ck4', {
@@ -42,8 +61,10 @@
 					});
 				</script>
 				<input type="submit" value="작성">
-				<a href="/boardTest.do">보드테스트</a>
 			</form>
+			
+			
+			
 		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>

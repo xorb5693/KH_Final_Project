@@ -77,6 +77,9 @@ public class MemberDaoImpl {
 		return sqlSession.insert("attendance.insertAvg", avg);
 	}
 
+	public Member checkNick(Member m) {
+		return sqlSession.selectOne("member.selectNick", m);
+	}
 	public List<AttendanceAvgtimeVO> selectWeekAttendAvg() {
 		
 		return sqlSession.selectList("attendance.selectWeekAttendAvg");
@@ -155,6 +158,20 @@ public class MemberDaoImpl {
 	public int insertPostscript(MemberMappingVO mapping) {
 
 		return sqlSession.update("member.insertPostscript", mapping);
+	}
+
+	public int insertCard(HashMap<String, String> map) {
+		
+		return sqlSession.update("member.insertCard", map);
+	}
+
+	public int deleteCard(String memberId) {
+		
+		return sqlSession.update("member.deleteCard", memberId);
+    }
+    
+	public int verifyMail(String memberId) {
+		return sqlSession.update("member.verifyMail",memberId);
 	}
 
 }

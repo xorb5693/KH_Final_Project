@@ -1,12 +1,20 @@
 package kr.co.healthner.notice.model.controller;
 
+import java.io.File;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import kr.co.healthner.notice.model.service.NoticeService;
 import kr.co.healthner.notice.model.vo.Notice;
@@ -29,17 +37,24 @@ public class NoticeController {
 		return "notice/noticeWrite";
 	}
 	
-	@RequestMapping(value="/noticeUp.do")
-	public String noticeWrite(HttpSession session  , String ck4 , Notice n) {
-		session.setAttribute("img",ck4 );
+	@RequestMapping(value="/noticeUp.do") // 공지사항글쓰기
+	public String noticeWrite(HttpSession session  , String ck4 , Notice n ) {
+//		session.setAttribute("img",ck4 );
+//		String fileTag = "noticeFilename";
+//		String filePath = "/resources/upload/";
+//		MultipartFile file = mtf.getFile(fileTag);
+//		String fileName = file.getOriginalFilename();
+//		file.transferTo(new File(filePath + fileName));
+//		System.out.println("썸네일파일확인 : " + fileName);
 		
 		Notice m = new Notice();
 		m.setNoticeTitle(n.getNoticeTitle());
 		m.setNoticeContent(n.getNoticeContent());
-		m.setNoticeFilename(ck4);
+		m.setNoticeFilename("테스트");
+		System.out.println("썸네일용 검사 "+m.getNoticeFilename());
 		int result = service.noticeInsert(m);
 		if(result >0) {
-			return "notice/notice";
+			return "redirect:/noticeList.do?reqPage=1";
 		}else {
 			return "notice/notice";
 		}
@@ -101,7 +116,11 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value="/boardWriteFrm") public String boardWriteFrm() {
-		return "board/boardWrite"; }
+		return "board/boardWrite"; 
+		}
+	
+	
+	
 	 
 
 }

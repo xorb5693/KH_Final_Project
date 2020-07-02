@@ -32,7 +32,7 @@
 		<div class="content">
 		<!-- 보드타입 0 일경우 자유게시판 1일경우 트레이너 게시판 따로 출력할것 -->
 		
-		<c:if test="${member.memberLevel}=='1'">
+		<c:if test="${sessionScope.member.memberLevel eq 1}">
 			
 		</c:if>
 			<table>
