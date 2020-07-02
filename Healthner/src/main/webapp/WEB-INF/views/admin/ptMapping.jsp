@@ -46,7 +46,7 @@ body {
 			<!-- (1) 아이디/이름/닉네임 입력 -->
 			<input type="text" id="searchWord" placeholder="아이디/이름/닉네임을 입력하세요.">
 			<!-- (2) 이용권 미등록 찾기, 카드키 미등록 -->
-			이용권 미등록<input type="checkbox" value="expire" name="expire">
+			PT 미등록 조회<input type="checkbox" value="expire" name="expire">
 			PT 잔여순 정렬<input type="checkbox" value="card" name="card">
 			<!-- (3)검색 버튼 -->
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"

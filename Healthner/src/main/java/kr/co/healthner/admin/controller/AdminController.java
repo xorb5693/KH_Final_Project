@@ -149,4 +149,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/ptTrainerList.do", produces = "text/html;charset=utf-8")
+	@ResponseBody
+	public String ptTrainerList() {
+		return null;
+	}
 }
