@@ -243,11 +243,10 @@ public class MemberController {
 	public String verifyMail(String memberId) {
 		int result = service.verifyMail(memberId);
 		if(result>0) {
-			return "member/";
+			return "member/verifyDone";
 		}else {
-			
+			return "member/verifyFail";
 		}
-		return null;
 	}
 	
 }
