@@ -70,7 +70,7 @@ prefix="c"%>
 			<div class="row">
     			<div class="col-lg-3 d-flex">
     				<div class="coach align-items-stretch">
-	    				<div class="img" style="background-image: url(/resources/images/trainer-1.jpg);  width: 100px; height: 100px;" id="myImg"></div>
+	    				<div class="img" style="background-image: url(/resources/profile/${member.memberProfile});  width: 100px; height: 100px;" id="myImg"></div>
 	    			</div>
 	    		</div>
 	    	</div>

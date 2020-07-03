@@ -1,8 +1,7 @@
-package kr.co.healthner.mail.model.dao;
+package kr.co.healthner.mail.model.vo;
 
 import java.util.ArrayList;
 
-import kr.co.healthner.mail.model.vo.MailVO;
 import lombok.Data;
 
 @Data

@@ -124,6 +124,7 @@
 	<select id="selectOneMember" parameterType="int" resultType="member">
 		select
 			member_name as memberName,
+			member_profile as memberProfile,
 			member_no as memberNo
 		from member
 		where member_no= #{memberNo}
@@ -152,9 +153,76 @@
 	select count(*) from member_mapping where trainer_no = #{trainerNo}
 	</select>
 	<select id="selectBmi" parameterType="int" resultType="bmi">
+		select rownum, b.*
+		from
+			(select 
+				inbody_no as inbodyNo,
+				b.member_no as memberNo,
+				measure_date as measureDate,
+				weight,
+				bone,
+				bodyfat,
+				bodywater,
+				protein,
+				mineral,
+				bmi,
+				bodyfat_per as bodyfatPer,
+				abfat_per as abfatPer,
+				metabolism,
+				(select member_name from member where member_no=#{memberNo}) as memberName
+			from bmi b
+			where member_no=#{memberNo}
+			order by measure_date desc)
+			b
+		where rownum = 1
+	</select>
+	<select id="selectPrevBmi" parameterType="int" resultType="bmi">
+		select
+				inbody_no as inbodyNo,
+				member_no as memberNo,
+				measure_date as measureDate,
+				weight,
+				bone,
+				bodyfat,
+				bodywater,
+				protein,
+				mineral,
+				bmi,
+				bodyfat_per as bodyfatPer,
+				abfat_per as abfatPer,
+				metabolism,
+                (select member_name from member where member_no=18) as memberName     
+			from
+				(select 
+					inbody_no,
+					member_no,
+					measure_date,
+					weight,
+					bone,
+					bodyfat,
+					bodywater,
+					protein,
+					mineral,
+					bmi,
+					bodyfat_per,
+					abfat_per,
+					metabolism,
+					(select member_name from member where member_no=#{memberNo}) as memberName,
+					rank() over (order by measure_date desc) as rk
+				from bmi
+				where member_no=#{memberNo})
+			where rk = 2
+	</select>
+	<select id="selectCategoryList" resultType="category">
+		select 
+			category_no as categoryNo,
+			category_name as categoryName
+		from Professional_category
+	</select>
+	<select id="selectOneGraph" parameterType="bmi" resultType="bmi">
 		select 
 			inbody_no as inbodyNo,
-			b.member_no as memberNo,
+			member_no as memberNo,
 			measure_date as measureDate,
 			weight,
 			bone,
@@ -164,16 +232,10 @@
 			mineral,
 			bmi,
 			bodyfat_per as bodyfatPer,
-			abfat_per as abfatPer,
+			abfat_per as abfatPer,				
 			metabolism,
 			(select member_name from member where member_no=#{memberNo}) as memberName
-		from bmi b
-		where member_no=#{memberNo}
-	</select>
-	<select id="selectCategoryList" resultType="category">
-		select 
-			category_no as categoryNo,
-			category_name as categoryName
-		from Professional_category
+		from bmi where inbody_no = #{inbodyNo}
+			
 	</select>
 </mapper>

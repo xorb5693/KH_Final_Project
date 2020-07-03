@@ -169,10 +169,20 @@ public class TrainerController {
 	
 	@RequestMapping("/customerGraph.do")
 	public String customerGraph(Model model, int memberNo) {
-		//BmiVO prevBmi = service.selectPrevBmi(memberNo);
+		BmiVO prevBmi = service.selectPrevBmi(memberNo);
 		BmiVO recentBmi = service.selectBmi(memberNo);
-		//model.addAttribute("bmi", prevBmi);
+		System.out.println(prevBmi);
+		System.out.println(recentBmi);
+		model.addAttribute("prevBmi", prevBmi);
 		model.addAttribute("recentBmi", recentBmi);
 		return "trainer/customerGraph";
+	}
+	
+	@RequestMapping(value="/inbodyGraph.do")
+	public String inbodyGraph(Model model, BmiVO bmi) {
+		BmiVO recentBmi = service.selectOneGraph(bmi);
+		System.out.println("그래프에 들어갈 내용 : " + recentBmi);
+		model.addAttribute("recentBmi", recentBmi);
+		return "trainer/inbodyGraph";
 	}
 }
