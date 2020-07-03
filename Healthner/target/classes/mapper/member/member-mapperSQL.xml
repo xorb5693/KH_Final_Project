@@ -97,18 +97,18 @@
 	</update>
 	<select id="selectMappingMemberNoList" parameterType="member" resultType="_int">
 		select
-			<if test="memberLevel == 1">
+			<if test="memberLevel == 1 or memberLevel == 4">
 				trainer_no
 			</if>
-			<if test="memberLevel == 3">
+			<if test="memberLevel == 3 or memberLevel == 2">
 				member_no
 			</if>
 		from member_mapping
 		where training_cnt != training_maxcnt
-		<if test="memberLevel == 1">
+		<if test="memberLevel == 1 or memberLevel == 4">
 			and member_no = #{memberNo}
 		</if>
-		<if test="memberLevel == 3">
+		<if test="memberLevel == 3 or memberLevel == 2">
 			and trainer_no = #{memberNo}
 		</if>
 	</select>

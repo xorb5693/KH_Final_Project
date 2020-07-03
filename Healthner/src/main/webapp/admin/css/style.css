@@ -8338,6 +8338,7 @@ a[data-toggle="collapse"] {
 .footer p {
   color: rgba(255, 255, 255, 0.5); }
 
+/*
 .form-control {
   height: 40px !important;
   background: #fff;
@@ -8346,7 +8347,9 @@ a[data-toggle="collapse"] {
   border-radius: 4px;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border: transparent; }
+  border: transparent; 
+  border: 1px solid #ced4da;}
+*/
   .form-control:focus, .form-control:active {
     border-color: #000; }
   .form-control::-webkit-input-placeholder {
@@ -8364,3 +8367,11 @@ a[data-toggle="collapse"] {
 
 .subscribe-form .form-control {
   background: rgba(255, 255, 255, 0.2); }
+
+.tg-black {
+    color: rgb(33, 37, 41)
+}
+
+.tg-gray {
+    color: rgb(191, 191, 191)
+}

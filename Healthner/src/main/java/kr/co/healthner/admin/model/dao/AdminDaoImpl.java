@@ -1,6 +1,7 @@
 package kr.co.healthner.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.healthner.admin.model.vo.MemberSearch;
+import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
 
 @Repository("adminDao")
@@ -47,6 +49,34 @@ public class AdminDaoImpl {
 	public int rejectTrainer(String memberId) {
 		return sqlSession.delete("admin.trainerReject",memberId);
 	}
-	
 
+	public int insertMail(MailVO mail) {
+		
+		return sqlSession.insert("mail.insertMail", mail);
+	}
+	
+	public int deleteMail(int[] deleteNo) {
+		
+		return sqlSession.delete("mail.deleteMail", deleteNo);
+	}
+
+	public int selectTotalReciveCount(HashMap<String, Integer> map) {
+
+		return sqlSession.selectOne("mail.selectTotalReciveCount", map);
+	}
+
+	public List<MailVO> selectReceiveMailList(HashMap<String, Integer> map) {
+
+		return sqlSession.selectList("mail.selectReceiveMailList", map);
+	}
+
+	public int selectTotalSendCount(HashMap<String, Integer> map) {
+
+		return sqlSession.selectOne("mail.selectTotalSendCount", map);
+	}
+
+	public List<MailVO> selectSendMailList(HashMap<String, Integer> map) {
+
+		return sqlSession.selectList("mail.selectSendMailList", map);
+	}
 }
