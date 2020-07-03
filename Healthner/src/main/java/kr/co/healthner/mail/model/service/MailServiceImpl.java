@@ -175,4 +175,9 @@ public class MailServiceImpl {
 		data.setPageNavi(pageNavi.toString());
 		return data;
 	}
+	
+	public int mailCheck(int memberNo) {
+		
+		return dao.mailCheck(memberNo);
+	}
 }

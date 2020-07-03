@@ -40,7 +40,7 @@
 	position: fixed;
 	bottom: 70px;
 	right: 25px;
-	display: block;
+	display: none;
 	z-index: 1000;
 }
 </style>
@@ -132,7 +132,7 @@
 <!-- END nav -->
 	<c:if test="${not empty sessionScope.member }">
 		<a id="mail" href="/healthner/mail/receiveList.do?reqPage=1" class="btn btn-dark btn-lg mail">
-			<i class="icon-envelope-open"></i>
+			<!--<i class="icon-envelope-open"></i> -->
 			<!-- <i class="icon-envelope"></i> -->
 		</a>
 	</c:if>
@@ -157,3 +157,46 @@
 		});
 	});
 </script>
+<c:if test="${not empty sessionScope.member }">
+	<script>
+        //로그인 된 상태면 웹소켓 연결
+        var ws;
+        
+        function mailConnect() {
+            ws = new WebSocket("ws://192.168.10.25/healthner/mail/mailCheck.do");
+            ws.onopen = function() {
+                console.log("웹소켓 연결");
+            }
+            
+            ws.onmessage = function(e) {
+                var msg = e.data;
+//                console.log(msg);
+                
+                if (msg == "memberNo") {
+                    var memberNo = ${sessionScope.member.memberNo};
+                    var sendMsg = {memberNo: memberNo};
+                    
+                    ws.send(JSON.stringify(sendMsg));
+                } else {
+//                    console.log(msg);
+                    if (msg == 0) {
+                        var icon = $("<i class='icon-envelope-open'></i>");
+                        $("#mail").html(icon); 
+                    } else {
+                        var icon = $("<i class='icon-envelope tg-yellow'></i>");
+                        $("#mail").html(icon);
+                    }
+                }
+            }
+            
+            ws.onclose = function() {
+                console.log("연결종료");
+            }
+        }
+        
+        $(function() {
+            mailConnect();
+            $(".mail").css("display", "block");
+        });
+    </script>
+</c:if>
