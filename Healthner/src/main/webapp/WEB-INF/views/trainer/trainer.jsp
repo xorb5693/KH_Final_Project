@@ -162,7 +162,7 @@ a.btn-layerClose:hover {
     				<div class="coach align-items-stretch">
 	    				<div class="img ftco-animate" style="width: 200px; height: 300px;" 
 	    				id="myImg" data-toggle="modal" data-target="#readPostscript" onclick="readPostscript(this)">
-	    					<input type="image" src="/resources/prifile/${list.memberProfile }" style="width: 200px; height: 300px;" value="${list.memberProfile }">
+	    					<input type="image" src="/resources/profile/${list.memberProfile }" style="width: 200px; height: 300px;" value="${list.memberProfile }">
 	    				</div>
 	    				<button type="button" class="btn displayNone"></button>
 	    				<div class="text pt-3 ftco-animate">
@@ -234,7 +234,7 @@ a.btn-layerClose:hover {
     	$("#readArea").html($(btn).next().next().children("input[type=hidden]").val());
     	var imagePlace = $(btn).children().val();
     	console.log(imagePlace);
-    	$("#readImage2").attr("src","/resources/prifile/" + imagePlace);
+    	$("#readImage2").attr("src","/resources/profile/" + imagePlace);
     	
 
     }

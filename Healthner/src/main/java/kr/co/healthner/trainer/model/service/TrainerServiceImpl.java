@@ -127,6 +127,11 @@ public class TrainerServiceImpl {
 		return dao.selectPrevBmi(memberNo);
 	}
 
+	public BmiVO selectOneGraph(BmiVO bmi) {
+		// TODO Auto-generated method stub
+		return dao.selectOneGraph(bmi);
+	}
+
 //	public List<Member> selectCustomerList() {
 //		// TODO Auto-generated method stub
 //		return dao.selectCustomerList();
