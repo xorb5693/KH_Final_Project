@@ -127,7 +127,7 @@
     	p.category_name as catFirst,
     	q.category_name as catSecond,
     	r.category_name as catThird,
-    	m.member_profile as memberProfile,
+    	NVL(m.member_profile,' ') as memberProfile,
     	m.member_name as memberName,
     	m.expire_date as expireDate,
     	(mp.training_maxcnt-mp.training_cnt) as trainingLeft
