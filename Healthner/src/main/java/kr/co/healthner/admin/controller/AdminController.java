@@ -148,9 +148,11 @@ public class AdminController {
 		}
 	}
 	
+	// 혜진_200703_PT Mapping 페이지_조회
 	@RequestMapping(value="/ptTrainerList.do", produces = "text/html;charset=utf-8")
 	@ResponseBody
-	public String ptTrainerList() {
-		return null;
+	public String ptTrainerList(String searchWord, int memberType, int start, int checkbox1) {
+		TotalpageList tl = service.ptMapping(searchWord, memberType, start, checkbox1);
+		return new Gson().toJson(tl);
 	}
 }

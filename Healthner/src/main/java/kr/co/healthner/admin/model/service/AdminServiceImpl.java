@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.healthner.admin.model.dao.AdminDaoImpl;
 import kr.co.healthner.admin.model.vo.MemberSearch;
+import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.member.model.vo.Member;
 
@@ -18,7 +19,6 @@ public class AdminServiceImpl {
 	@Autowired
 	@Qualifier("adminDao")
 	private AdminDaoImpl dao;
-
 
 	// 혜진_200629_start 전달, end 계산하여 함께 전달
 	public TotalpageList memberList(String searchWord, int checkbox1, int checkbox2, int start) {
@@ -95,4 +95,23 @@ public class AdminServiceImpl {
 		return dao.rejectTrainer(memberId);
 	}
 
+	// 혜진_200702_PT Mapping 페이지_Mapping조회
+	public TotalpageList ptMapping(String searchWord, int memberType, int start, int checkbox1) {
+		// 전체 게시글 갯수 카운트
+		PTmapping ms = new PTmapping();
+		ms.setSearchWord(searchWord);
+		ms.setMemberType(memberType);
+		ms.setCheckbox1(checkbox1);
+		int totalCount = dao.ptTotalCount(ms);
+		// 넘버링
+		int length = 5;
+		int end = start + length - 1;
+		ms.setStart(start);
+		ms.setEnd(end);
+		ArrayList<PTmapping> list = (ArrayList<PTmapping>) dao.ptMapping(ms);
+		TotalpageList tl = new TotalpageList();
+		tl.setListpt(list);
+		tl.setTotalCount(totalCount);
+		return tl;
+	}
 }
