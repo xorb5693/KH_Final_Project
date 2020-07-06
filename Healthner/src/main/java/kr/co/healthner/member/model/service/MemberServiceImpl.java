@@ -328,4 +328,15 @@ public class MemberServiceImpl {
         public int verifyMail(String memberId) {
 		return dao.verifyMail(memberId);
 	}
+
+
+		public Member retrieveId(Member m) {
+			Member member = dao.retrieveId(m);
+			return member;
+		}
+
+
+		public Member retrievePw(Member m) {
+			return dao.retrievePw(m);
+		}
 }

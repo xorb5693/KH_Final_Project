@@ -32,9 +32,16 @@ prefix="c"%>
             <h1 class="mb-3 bread">시간이 만료 되었습니다</h1>
             <h2 class="mb-2 bread">
               기간이 만료 되었습니다 
-              <a href="/healthner/member/resend.do?memberId=${memberId}">
-                다시 인증하기
-              </a>
+              <c:if test="${not empty resetPw }">
+					<a href="/healthner/member/resend.do?memberId=${memberId }&type=pw">
+						비밀번호 재설정
+					</a>              
+              </c:if>
+              <c:if test="${empty resetPw }">
+	              	<a href="/healthner/member/resend.do?memberId=${memberId}&type=email">
+				                다시 인증하기
+		             </a>
+              </c:if>
             </h2>
         </div>
     </section>

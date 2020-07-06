@@ -280,9 +280,52 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/retrievePw.do")
+	@RequestMapping("/retrieveFrm.do")
 	public String recoverFrm() {
-		return "member/retrieve";
+		return "member/retrieveFrm";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/retrieveId.do", produces="application/json; charset=utf-8")
+	public String retrieveId(String memberName, String email) {
+		Member m = new Member();
+		m.setEmail(email);
+		m.setMemberName(memberName);
+		Member member = service.retrieveId(m);
+		return new Gson().toJson(member);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/retrievePw.do", produces="application/json; charset=utf-8")
+	public String retrievePw(String memberId, String email, HttpServletRequest request) {
+		Member m = new Member();
+		m.setEmail(email);
+		m.setMemberId(memberId);
+		System.out.println(m.getEmail());
+		System.out.println(m.getMemberId());
+		Member member = service.retrievePw(m);
+		if(member != null) {
+			long timeout = System.currentTimeMillis()/1000;
+			mailService.resetPw(member,timeout, request);
+		}
+		return new Gson().toJson(member); 
+	}
+	
+	@RequestMapping("/resetPwFrm.do")
+	public String resetPwFrm(Member m, long timeout, Model model) {
+		long endTimeout = System.currentTimeMillis()/1000;
+		model.addAttribute("memberId");
+		System.out.println(endTimeout-timeout);
+		if(endTimeout-timeout>60*30) {
+			// Timedout
+			model.addAttribute("resetPw", "reset");
+			return "member/timeout";
+		}else {
+			
+			return "member/resetPwFrm";
+		}
+	}
+	
 	
 }

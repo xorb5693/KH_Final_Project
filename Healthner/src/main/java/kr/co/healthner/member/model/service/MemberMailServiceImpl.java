@@ -34,5 +34,21 @@ public class MemberMailServiceImpl {
 		}
 		
 	}
+
+	public void resetPw(Member member, long timeout, HttpServletRequest request ) {
+		MimeMessage mail = mailSender.createMimeMessage();
+		String msg = "<h2>안녕하세요 헬트너쉽입니다</h2><br><br>"
+				+"<h3>"+member.getMemberName()+"님</h3><p>비밀번호를 제설정 해주세요</p>:"
+				+"<a href='http://localhost/healthner/member/resetPwFrm.do?memberId="+member.getMemberId()+"&timeout="+timeout+"'>재설정 하기</a>";
+		try {
+			mail.setSubject("[비밀번호 재설정]"+member.getMemberName()+"님 헬트너쉽 비밀번호를 재설정 해주세요");
+			mail.setText(msg,"utf-8","html");
+			mail.addRecipient(RecipientType.TO, new InternetAddress(member.getEmail()));
+			mailSender.send(mail);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
