@@ -1,24 +1,23 @@
 package kr.co.healthner.notice.model.controller;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 import kr.co.healthner.notice.model.service.NoticeService;
 import kr.co.healthner.notice.model.vo.Notice;
 import kr.co.healthner.notice.model.vo.NoticePageDate;
+
 
 @Controller
 public class NoticeController {
@@ -50,7 +49,21 @@ public class NoticeController {
 		Notice m = new Notice();
 		m.setNoticeTitle(n.getNoticeTitle());
 		m.setNoticeContent(n.getNoticeContent());
-		m.setNoticeFilename("테스트");
+		m.setNoticeFilename(n.getNoticeFilename());
+		
+		System.out.println(n.getNoticeContent());
+	
+		//게시판 html 코드가 저장된 String을 html Document로 변환 후 img 태그 추출
+		Document doc = Jsoup.parseBodyFragment(n.getNoticeContent());
+		Elements img = doc.getElementsByTag("img");
+		System.out.println(img.size());
+		
+		//img의 size가 0 이상인 경우 즉, 이미지 태그가 하나라도 존재하는 경우
+		if (img.size() > 0) {
+			String src = img.get(0).attr("src");
+			System.out.println(src);
+			m.setNoticeFilename(src);
+		}
 		System.out.println("썸네일용 검사 "+m.getNoticeFilename());
 		int result = service.noticeInsert(m);
 		if(result >0) {
@@ -118,6 +131,16 @@ public class NoticeController {
 	@RequestMapping(value="/boardWriteFrm") public String boardWriteFrm() {
 		return "board/boardWrite"; 
 		}
+	
+	@RequestMapping(value="/noticeSearchTitle.do")
+	public String noticeSearchTitle(String searchTitle , Model model , int reqPage) {
+		NoticePageDate nd = service.noticeListSearch(reqPage,searchTitle);
+		
+		model.addAttribute("list",nd.getList());
+		model.addAttribute("keyword",searchTitle);
+		model.addAttribute("navi",nd.getPageNavi());
+		return "notice/noticeList";
+	}
 	
 	
 	

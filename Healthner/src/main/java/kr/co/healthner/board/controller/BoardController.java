@@ -1,5 +1,6 @@
 package kr.co.healthner.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.healthner.board.model.service.BoardService;
 import kr.co.healthner.board.model.vo.BoardPageDate;
+import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.notice.model.vo.Notice;
 import kr.co.healthner.notice.model.vo.NoticePageDate;
 import kr.co.healthner.vo.BoardCommentVO;
@@ -52,7 +54,8 @@ public class BoardController {
 	
 	@RequestMapping(value="/boardList.do") // 자유게시판 전체목록출력
 	public String boardList(int reqPage,Model model) {
-		BoardPageDate nd = service.boardList(reqPage);
+		BoardPageDate nd = service.boardList(reqPage);		
+		
 		System.out.println(nd.getPageNavi());
 		model.addAttribute("list",nd.getList());
 		model.addAttribute("navi",nd.getPageNavi());
@@ -143,9 +146,25 @@ public class BoardController {
 		BoardVO bb = service.boardView(b);
 		model.addAttribute("b",bb);
 		model.addAttribute("list",bcc);
-		System.out.println(bcc.get(0));
+		
 		return "board/boardView";
 	}
+	
+	@RequestMapping(value="/boardSearchList.do") // 자유게시판 전체목록출력
+	public String boardSearchList(int reqPage,Model model,String boardType , String searchString) {
+		System.out.println(boardType);
+		System.out.println(searchString);
+		BoardPageDate nd = service.boardSearchList(reqPage,boardType,searchString);
+		
+		
+//		System.out.println(nd.getPageNavi());
+		model.addAttribute("list",nd.getList());
+		model.addAttribute("keyword",searchString);
+		model.addAttribute("navi",nd.getPageNavi());
+		return "board/boardList";
+		
+	}
+	
 	
 	
 	

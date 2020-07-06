@@ -32,6 +32,7 @@
 			</div>
 		</section>
 		<div class="content">
+		<c:if test="${sessionScope.member.memberLevel eq 1 }">회원일경우출력</c:if>
 			<form action="/boardUp.do" method="post">
 				<h2>자유게시판 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
@@ -43,12 +44,12 @@
 						filebrowserUploadUrl : '/imageUpload.do'
 					});
 				</script>
-				<c:if test="${sessionScope.member.memberLevel eq 0 }">회원일경우출력</c:if>
+				
 				<input type="submit" value="작성">
 			</form>
 			
 			
-			<c:if test="${sessionScope.member.memberLevel eq 1 }">트레이너일경우출력</c:if>
+			<c:if test="${sessionScope.member.memberLevel eq 3 }">
 			<form action="/boardUp.do" method="post">
 				<h2>트레이너게시판 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
@@ -62,7 +63,7 @@
 				</script>
 				<input type="submit" value="작성">
 			</form>
-			
+			</c:if>
 			
 			
 		</div>
