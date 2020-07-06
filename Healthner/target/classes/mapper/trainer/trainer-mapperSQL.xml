@@ -243,4 +243,10 @@
 	<select id="selectOneMemberBmiCount" parameterType="map" resultType="_int">
 		select count(*) from bmi where member_no = #{memberNo}
 	</select>
+	<update id="customerUpgrade" parameterType="_int">
+		update member_mapping set training_cnt = training_cnt + 1 where mapping_seq = #{_parameter} 
+	</update>
+	<update id="customerDowngrade" parameterType="_int">
+		update member_mapping set training_cnt = training_cnt - 1 where mapping_seq = #{_parameter} 
+	</update>
 </mapper>
