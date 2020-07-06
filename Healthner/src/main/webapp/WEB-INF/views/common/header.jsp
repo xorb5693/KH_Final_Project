@@ -31,14 +31,14 @@
 <style>
 .back-to-top {
 	position: fixed;
-	bottom: 90px;
+	bottom: 145px;
 	right: 31px;
 	display: none;
 	z-index: 1000;
 }
 .mail{
 	position: fixed;
-	bottom: 145px;
+	bottom: 90px;
 	right: 31px;
 	display: none;
 	z-index: 1000;
