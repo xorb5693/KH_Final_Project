@@ -11,6 +11,7 @@ prefix="c"%>
   <head>
     <meta charset="UTF-8" />
     <title>Register</title>
+    <link rel="icon" href="/resources/images/favicon.png">
   </head>
   <body>
     <script>

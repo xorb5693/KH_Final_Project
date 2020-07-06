@@ -7,6 +7,7 @@ prefix="c"%>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="/resources/images/favicon.png">
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -33,12 +34,12 @@ prefix="c"%>
             <h2 class="mb-2 bread">
               기간이 만료 되었습니다 
               <c:if test="${not empty resetPw }">
-					<a href="/healthner/member/resend.do?memberId=${memberId }&type=pw">
+					<a href="/healthner/member/resend.do?memberId=${memberId }&type=pw&email=${email}">
 						비밀번호 재설정
 					</a>              
               </c:if>
               <c:if test="${empty resetPw }">
-	              	<a href="/healthner/member/resend.do?memberId=${memberId}&type=email">
+	              	<a href="/healthner/member/resend.do?memberId=${memberId}&type=email&email=${email}">
 				                다시 인증하기
 		             </a>
               </c:if>

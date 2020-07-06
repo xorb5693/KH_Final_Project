@@ -10,6 +10,7 @@ prefix="c"%>
 		  type="text/javascript"
 		  src="http://code.jquery.com/jquery-3.3.1.js"
 		></script>
+		<link rel="icon" href="/resources/images/favicon.png">
   </head>
 <script>
 	function retrieveId(){

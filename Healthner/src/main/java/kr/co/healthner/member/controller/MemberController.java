@@ -97,6 +97,10 @@ public class MemberController {
 		model.addAttribute("memberId", m.getMemberId());
 		// upload profile Image
 		
+		
+		
+		
+		
 		// insert Member
 		int result = service.insertMember(m);
 		return "redirect:/";
@@ -266,7 +270,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("/verifyMail.do")
-	public String verifyMail(String memberId,long timeout,Model model) {
+	public String verifyMail(String memberId,String email,long timeout,Model model) {
 		long endtime = System.currentTimeMillis()/1000;
 		if(endtime-timeout<24*60*60) {
 			int result = service.verifyMail(memberId);			
@@ -277,6 +281,7 @@ public class MemberController {
 			}
 		}else {
 			model.addAttribute("memberId", memberId);
+			model.addAttribute("email", email);
 			return "member/timeout";
 		}
 	}
@@ -321,17 +326,31 @@ public class MemberController {
 		if(endTimeout-timeout>60*30) {
 			// Timedout
 			model.addAttribute("resetPw", "reset");
+			model.addAttribute("memberId", m.getMemberId());
+			model.addAttribute("email", m.getEmail());
 			return "member/timeout";
 		}else {
-			
 			return "member/resetPwFrm";
 		}
 	}
 	
 	@RequestMapping("/resetPw.do")
 	public String resetPw(Member m,Model model) {
-		System.out.println(m.getMemberPw());
 		int result = service.resetPwMember(m);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/resend.do")
+	public String resend(String email, String memberId, String type,HttpServletRequest request) {
+		Member m = new Member();
+		m.setMemberId(memberId);
+		Member member = service.selectMember(m);
+		long timeout = System.currentTimeMillis()/1000;
+		if(type.equals("email")) {
+			mailService.sendMail(member,request,timeout);
+		}else {
+			mailService.resetPw(member,timeout,request);
+		}
 		return "redirect:/";
 	}
 	
