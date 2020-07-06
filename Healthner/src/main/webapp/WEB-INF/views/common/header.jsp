@@ -132,7 +132,7 @@
 <!-- END nav -->
 	<c:if test="${not empty sessionScope.member }">
 		<a id="mail" href="/healthner/mail/receiveList.do?reqPage=1" class="btn btn-dark btn-lg mail">
-			<!--<i class="icon-envelope-open"></i> -->
+			<i class="icon-envelope-open"></i>
 			<!-- <i class="icon-envelope"></i> -->
 		</a>
 	</c:if>
