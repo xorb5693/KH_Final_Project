@@ -316,7 +316,7 @@ public class MemberController {
 	@RequestMapping("/resetPwFrm.do")
 	public String resetPwFrm(Member m, long timeout, Model model) {
 		long endTimeout = System.currentTimeMillis()/1000;
-		model.addAttribute("memberId");
+		model.addAttribute("memberId",m.getMemberId());
 		System.out.println(endTimeout-timeout);
 		if(endTimeout-timeout>60*30) {
 			// Timedout
@@ -328,5 +328,11 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("/resetPw.do")
+	public String resetPw(Member m,Model model) {
+		System.out.println(m.getMemberPw());
+		int result = service.resetPwMember(m);
+		return "redirect:/";
+	}
 	
 }

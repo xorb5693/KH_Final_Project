@@ -339,4 +339,9 @@ public class MemberServiceImpl {
 		public Member retrievePw(Member m) {
 			return dao.retrievePw(m);
 		}
+
+
+		public int resetPwMember(Member m) {
+			return dao.resetPwMember(m);
+		}
 }
