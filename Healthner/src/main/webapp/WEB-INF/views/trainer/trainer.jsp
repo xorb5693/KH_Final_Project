@@ -77,7 +77,7 @@
 								data-toggle="modal" data-target="#readPostscript"
 								onclick="readPostscript(this)">
 								<input type="image"
-									src="/resources/profile/${list.memberProfile }"
+									src="/resources/profile/${list.memberProfile }" onError="this.src='/resources/profile/noprofile.png'"
 									style="width: 200px; height: 300px;"
 									value="${list.memberProfile }">
 							</div>

@@ -104,9 +104,13 @@ public class TrainerServiceImpl {
 		return data;		
 	}
 
-	public int customerCntUpdate(MemberMappingVO mmv) {
-		// TODO Auto-generated method stub
-		return dao.customerCntUpdate(mmv);
+	public int customerCntUpdate(int mappingSeq, String check) {
+		
+		if (check.equals("increase")) {
+			return dao.customerUpgrade(mappingSeq);
+		} else {
+			return dao.customerDowngrade(mappingSeq);
+		}
 	}
 
 	public Member selectOneMember(int memberNo) {

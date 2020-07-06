@@ -53,7 +53,17 @@ canvas {
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	<c:if test="${sessionScope.member.memberLevel eq 2 or sessionScope.member.memberLevel eq 3 }">
+		<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 1 }">
+		<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 4 }">
+		<script>
+			location.href = "/adminMain.do";
+		</script>
+	</c:if>
 	
 		<section class="ftco-section bg-light">
     	<div class="container px-4">
@@ -121,7 +131,15 @@ canvas {
 		options: { 
 			legend: { 
 				display: false 
-				} 
+				},
+			scales: {
+				yAxes: [{
+                    display: true,
+                    ticks: {
+                    	beginAtZero: true
+                    }
+                }]
+			}
 		} 
 	});
 	

@@ -79,12 +79,12 @@ public class TrainerController {
 	
 	//트레이너가 회원 PT 카운트 증가감소 시키기
 	@RequestMapping(value="/customerCntUpdate.do")
-	public String customerCntUpdate(MemberMappingVO mmv) {
-		int trainingCnt = mmv.getTrainingCnt();
-		int memberNo = mmv.getMemberNo();
-		System.out.println("트레이너 카운트 : " + trainingCnt);
-		System.out.println("회원 번호 : " + memberNo);
-		int result = service.customerCntUpdate(mmv);
+	public String customerCntUpdate(int mappingSeq, String check) {
+//		int trainingCnt = mmv.getTrainingCnt();
+//		int memberNo = mmv.getMemberNo();
+//		System.out.println("트레이너 카운트 : " + trainingCnt);
+//		System.out.println("회원 번호 : " + memberNo);
+		int result = service.customerCntUpdate(mappingSeq, check);
 		if(result > 0) {
 			System.out.println("수정 성공");
 		} else {

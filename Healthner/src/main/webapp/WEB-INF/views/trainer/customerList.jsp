@@ -43,6 +43,10 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
 
+    <form action="/healthner/trainer/customerCntUpdate.do" method="post" id="formArea">
+        <input type="hidden" name="mappingSeq">
+        <input type="hidden" name="check">
+    </form>
 	<!--회원목록 테이블 -->
 	<section class="ftco-appointment">
 		<div class="overlay"></div>
@@ -71,23 +75,18 @@
 										</form>
 									</td>
 									<td rowspan="2" style="text-align: center;">
-										<a href="#"><img onclick="imgClick(this)" class="img" src="/resources/profile/${memberList.memberProfile}" width="70px;" height="80px;"></a>
+										<a href="#"><img onclick="imgClick(this)" onError="this.src='/resources/profile/noprofile.png'" class="img" src="/resources/profile/${memberList.memberProfile}" width="70px;" height="80px;"></a>
 									</td>							
 									<td rowspan="2">
 										<!-- training_cnt -->
-										<form action="customerCntUpdate.do" class="appointment-form" name="customerCntUpdate">
-											<input type="hidden" name="trainingCnt" value="${memberList.trainingCnt }">
-											<input type="hidden" name="memberNo" value="${memberList.memberNo }">
-											<input type="hidden" name="trainingMaxcnt" value="${memberList.trainingMaxcnt }">
-											${memberList.trainingCnt }/${memberList.trainingMaxcnt }											
-										</form>
+								        ${memberList.trainingCnt }/${memberList.trainingMaxcnt }						
 									</td>								
 									<td width="70px;">								
 										<!-- 버튼 script로 submit -->
 										<input type="button" value="횟수증가"
-										class="btn btn-primary py-1 px-1" name="increaseBtn"><br>
+										class="btn btn-primary py-1 px-1" name="increaseBtn" onclick="increase(${memberList.mappingSeq}, ${memberList.trainingCnt }, ${memberList.trainingMaxcnt })"><br>
 										<input type="button" value="횟수차감"
-										class="btn btn-primary py-1 px-1" name="decreaseBtn"></td>									
+										class="btn btn-primary py-1 px-1" name="decreaseBtn" onclick="decrease(${memberList.mappingSeq}, ${memberList.trainingCnt }, ${memberList.trainingMaxcnt })"></td>		
 									<td rowspan="2">${memberList.expireDate}</td>
 								</tr>								
 							</tbody>
@@ -133,34 +132,58 @@
 			var imgClick = $(img).parent().parent().prev().children();
 			imgClick.submit();
 		}
+        
+        function increase(mappingSeq, trainingCnt, trainingMaxcnt) {
+            if (confirm("PT횟수를 증가시키겠습니까?")) {
+                if (trainingCnt == trainingMaxcnt) {
+                    alert("PT횟수를 모두 채웠습니다.");
+                } else {
+                    $("input[name=mappingSeq]").val(mappingSeq);
+                    $("input[name=check]").val("increase");
+                    $("#formArea").submit();
+                }
+            }
+        }
+        
+        function decrease(mappingSeq, trainingCnt, trainingMaxcnt) {
+            if (confirm("PT횟수를 감시키겠습니까?")) {
+                if (trainingCnt == 0) {
+                    alert("0 미만은 줄일 수 없습니다.");
+                } else {
+                    $("input[name=mappingSeq]").val(mappingSeq);
+                    $("input[name=check]").val("decrease");
+                    $("#formArea").submit();
+                }
+            }
+        }
 	
-		$(function() {				
-			$("input[name=increaseBtn]").click(function() {
-				var plusNum = Number($(this).parent().prev().children().children().val())+1;	
-				var plusNum2 = Number($(this).parent().prev().children().children().next().val());
-				$(this).parent().prev().children().children().eq(0).val(plusNum);
-				$(this).parent().prev().children().children().eq(1).val(plusNum2);
-				var form = $(this).parent().prev().children();
-				var maxCnt = Number($(this).parent().prev().children().children().eq(2).val());
-				if(plusNum <= maxCnt){
-					form.submit();
-				} else{
-					alert("PT횟수를 모두 채웠습니다.");
-				}
-			});
-			$("input[name=decreaseBtn]").click(function() {
-				var minusNum = Number($(this).parent().prev().children().children().val())-1;
-				var minusNum2 = Number($(this).parent().prev().children().children().next().val());
-				Number($(this).parent().prev().children().children().eq(0).val(minusNum));
-				$(this).parent().prev().children().children().eq(1).val(minusNum2);
-				var form = $(this).parent().prev().children();
-				if(minusNum > -1){
-					form.submit();
-				} else{
-					alert("0 미만은 줄일 수 없습니다.");
-				}
-			});	
-		});
+//		$(function() {				
+//			$("input[name=increaseBtn]").click(function() {
+//				var plusNum = Number($(this).parent().prev().children().children().val())+1;	
+//				var plusNum2 = Number($(this).parent().prev().children().children().next().val());
+//				$(this).parent().prev().children().children().eq(0).val(plusNum);
+//				$(this).parent().prev().children().children().eq(1).val(plusNum2);
+//				var form = $(this).parent().prev().children();
+//				var maxCnt = Number($(this).parent().prev().children().children().eq(2).val());
+//				if(plusNum <= maxCnt){
+//					form.submit();
+//				} else{
+//					alert("PT횟수를 모두 채웠습니다.");
+//				}
+//			});
+//			$("input[name=decreaseBtn]").click(function() {
+//				var minusNum = Number($(this).parent().prev().children().children().val())-1;
+//				var minusNum2 = Number($(this).parent().prev().children().children().next().val());
+//				Number($(this).parent().prev().children().children().eq(0).val(minusNum));
+//				$(this).parent().prev().children().children().eq(1).val(minusNum2);
+//				var form = $(this).parent().prev().children();
+//				if(minusNum > -1){
+//					form.submit();
+//				} else{
+//					alert("0 미만은 줄일 수 없습니다.");
+//				}
+//			});	
+//		});
 	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>

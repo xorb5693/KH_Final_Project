@@ -175,6 +175,7 @@ public class MemberController {
 		request.setAttribute("list", data.getList());
 		request.setAttribute("pageNavi", data.getPageNavi());
 		request.setAttribute("memberName", data.getMemberName());
+		request.setAttribute("eatMemberNo", memberNo);
 //		System.out.println(data.getPageNavi());
 		return "member/myEat";
 	}
@@ -195,13 +196,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/insertMenuComment.do")
-	public String insertMenuComment(HttpServletRequest request, MenuCommentVO comment) {
+	public String insertMenuComment(HttpServletRequest request, MenuCommentVO comment, int memberNo) {
 		
 		HttpSession session = request.getSession();
 		comment.setWriterNo(((Member)session.getAttribute("member")).getMemberNo());
 		int result = service.insertMenuComment(comment);
 		
-		return "redirect:/healthner/member/myEat.do?memberNo=" + comment.getWriterNo() + "&reqPage=1";
+		return "redirect:/healthner/member/myEat.do?memberNo=" + memberNo + "&reqPage=1";
 	}
 	
 	@ResponseBody
