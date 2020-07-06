@@ -1,6 +1,5 @@
 package kr.co.healthner.notice.model.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,16 +42,6 @@ public class NoticeDao {
 	public int noticeDelete(Notice m) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("notice.noticeDelete",m);
-	}
-
-	public List<Object> noticeSearch(String searchTitle) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("notice.noticeSearchTitle",searchTitle);
-	}
-
-	public int totalSearchNotice(String searchTitle) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("notice.noticeSearchCount",searchTitle);
 	}
 
 	

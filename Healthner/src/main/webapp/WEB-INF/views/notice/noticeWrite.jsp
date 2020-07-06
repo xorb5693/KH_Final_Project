@@ -40,7 +40,6 @@
 		</section>
 		<div class="content">
 			<form action="noticeUp.do" method="post" enctype="multipart/form-data">
-			<!-- <input type="hidden" name="noticeFilename">  -->
 				<h2>공지사항 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
 				제목 : <input type="text" name="noticeTitle"><br>
@@ -51,21 +50,11 @@
 						filebrowserUploadUrl : '/imageUpload.do'
 					});
 				</script>
-				<input type="submit" value="작성" onclick="return writeNotice()">
+				<input type="submit" value="작성">
 			</form>
 		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	
-	<script>
-		function writeNotice(){
-			var content = $("#ck4").val();
-			var img = $(content).find("img").eq(0);
-			var src = $(img).attr("src");
-			$("input[name=noticeFilename]").val(src);
-		}
-		
-	</script>
 
 
 </body>

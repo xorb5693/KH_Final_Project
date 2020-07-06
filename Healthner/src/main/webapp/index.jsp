@@ -118,7 +118,7 @@ body::-webkit-scrollbar {
 					<li class="nav-item"><a href="/pricing.do" class="nav-link">Pricing</a></li>
 					<li class="nav-item"><a href="/notice.do?reqPage=1"
 						class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="/shop.do?reqPage=1" class="nav-link">Shop</a></li>
+					<li class="nav-item"><a href="/shop.do" class="nav-link">Shop</a></li>
 				</ul>
 			</div>
 		</div>

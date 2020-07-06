@@ -11,8 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Board</title>
-<link rel="icon" href="/resources/images/favicon.png">
+<title>Insert title here</title>
 <style>
 .commentList {
 	width: 100%;

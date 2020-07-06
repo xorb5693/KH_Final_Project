@@ -10,9 +10,7 @@
 		<typeAlias type="kr.co.healthner.vo.BoardVO" alias="board"/>
 		<typeAlias type="kr.co.healthner.vo.BoardCommentVO" alias="comment"/>
 		<typeAlias type="kr.co.healthner.vo.ReportVO" alias="report"/>
-		<typeAlias type="kr.co.healthner.vo.ProductVO" alias="product"/>
-		<typeAlias type="kr.co.healthner.vo.Basket" alias="basket"/>
-		<typeAlias type="kr.co.healthner.vo.BasketVO" alias="basketVO"/>
+
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceVO" alias="attend"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceAvgtimeVO" alias="attendAvg"/>
 		

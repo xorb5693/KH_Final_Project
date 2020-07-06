@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="board">
 	<insert id="boardInsert" parameterType="board">
-		insert into board values(#{boardType},board_seq.nextval,#{boardWriter},#{boardTitle},#{boardContent},sysdate,#{boardFilename},0)
+		insert into board values(0,board_seq.nextval,#{boardWriter},#{boardTitle},#{boardContent},sysdate,#{boardFilename},0)
 	</insert>
 	<select id="totalCount" resultType="int">
 		select count(*) as cnt from board
@@ -10,8 +10,7 @@
 	<select id="boardList" parameterType="map" resultType="board">
 		select * from
 			(select rownum as rnum, n.* from
-				(select board_type as boardType,board_no as boardNo,board_writer as boardWriter, board_title as boardTitle, board_content as boardContent, board_date as boardDate , board_filename as boardFilename,report 
-				from board order by board_no desc)
+				(select board_type as boardType,board_no as boardNo,board_writer as boardWriter, board_title as boardTitle, board_content as boardContent, board_date as boardDate , board_filename as boardFilename,report from board order by board_no desc)
 				n)
 				where rnum between #{start} and #{end}
 	</select>
@@ -25,22 +24,6 @@
 	<delete id="boardDelete" parameterType="board">
 		delete from board where board_no = #{boardNo}
 	</delete>
-		
-	<select id="boardSearchList" parameterType="map" resultType="board">
-		select * from
-			(select rownum as rnum, n.* from
-				(select board_type as boardType,board_no as boardNo,board_writer as boardWriter, board_title as boardTitle, board_content as boardContent, board_date as boardDate , board_filename as boardFilename,report
-				from board where  ${boardType} like '%'||#{searchString}||'%' order by board_no desc)
-				n)
-		where rnum between #{start} and #{end} 
-	</select>
 	
-	
-	
-	<select id="totalSearchList" parameterType="map" resultType="int">
-		select count(*) as cnt from board where ${boardType} like '%'||#{searchString}||'%'
-	</select>
-	
-
   
 </mapper>
