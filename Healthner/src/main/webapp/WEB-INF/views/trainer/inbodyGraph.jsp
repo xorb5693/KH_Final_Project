@@ -35,22 +35,25 @@ prefix="c"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"  crossorigin="anonymous"></script> 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
 </head>
+<style>
+canvas {
+	width: 600px;
+}
+
+.appointment {
+	overflow: hidden;
+	text-align: center;
+}
+
+.appointment * {
+	margin: 0 auto;
+}
+</style>
 <body>
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-		<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-          <br><br>
-            <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
+	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
 	
 		<section class="ftco-section bg-light">
     	<div class="container px-4">
@@ -61,25 +64,14 @@ prefix="c"%>
           </div>
         </div>
 
-	    <div class="row d-md-flex align-items-center">
-		    <div class="col-md-6 appointment pl-md-5 py-md-5 ftco-animate">
+	    <div class="row d-md-flex align-items-center justify-content-center">
+		    
+		    <div class="col-md-12 appointment pl-md-5 py-md-5 ftco-animate">
 		    	<div class="coach align-items-stretch">
 	    			<span class="ftco-animate">측정 날짜 : ${recentBmi.measureDate }</span>
 	    		</div>
-	        	<div class="form-group ftco-animate" style="width: 400px;"> 
+	        	<div class="form-group ftco-animate" style="width: 100%;"> 
 	            	<canvas id="myChart"></canvas> 
-	        	</div>
-	        	<div class="form-group ftco-animate" style="width: 400px;"> 
-	            	<canvas id="myChart3"></canvas> 
-	        	</div> 	
-	        </div>
-	        <div class="col-md-6 appointment pl-md-5 py-md-5 ftco-animate">
-	        	<div class="form-group ftco-animate" style="width: 400px;"> 
-	            	<canvas id="myChart2"></canvas> 
-	        	</div>
-	        	<div class="form-group ftco-animate" style="width: 400px; height: 140px; display: hidden;"> 
-	        	설명 추가하자
-	            	<canvas id="myChart4"></canvas> 
 	        	</div>
 	        </div>
 		</div>
@@ -110,64 +102,15 @@ prefix="c"%>
 	const colors = ['rgba(255, 99, 132, 0.2)','rgba(54, 162, 235, 0.2)','rgba(255, 206, 86, 0.2)','rgba(75, 192, 192, 0.2)' ]; 
 	const borderColors = ['rgba(255, 99, 132, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)']
 	var chBar = document.getElementById("myChart"); 
-	var chartData = { labels: ["체수분", "단백질", "무기질", "체지방량"], 
+	var chartData = { labels: ["체수분", "단백질", "무기질", "체지방량", "체중", "골격근량", "BMI", "체지방률", "복부지방률"], 
 			datasets: [
 				{ 
-					data: [${recentBmi.bodywater}, ${recentBmi.protein}, ${recentBmi.mineral}, ${recentBmi.bodyfat}], 
+					data: [${recentBmi.bodywater}, ${recentBmi.protein}, ${recentBmi.mineral}, ${recentBmi.bodyfat}, ${recentBmi.weight}, ${recentBmi.bone}, ${recentBmi.bmi}, ${recentBmi.bodyfatPer}, ${recentBmi.abfatPer}], 
 					backgroundColor: colors[0],
 					borderColor: borderColors[0],
 					borderWidth: 1
 				}
 			]	
-	}; 
-	var myChart = new Chart(chBar, { 
-		// 챠트 종류를 선택 
-		type: 'bar', 
-		// 챠트를 그릴 데이타
-		data: chartData, 
-		// 옵션 
-		options: { 
-			legend: { 
-				display: false 
-				} 
-		} 
-	});
-
-	var chBar = document.getElementById("myChart2"); 
-	var chartData = { labels: ["체중", "골격근량", "체지방량"], 
-			datasets: [
-				{ 
-					data: [${recentBmi.weight}, ${recentBmi.bone}, ${recentBmi.bodyfat}], 
-					backgroundColor: colors[1],
-					borderColor: borderColors[1],
-					borderWidth: 1
-				}
-			] 
-	}; 
-	var myChart = new Chart(chBar, { 
-		// 챠트 종류를 선택 
-		type: 'bar', 
-		// 챠트를 그릴 데이타
-		data: chartData, 
-		// 옵션 
-		options: { 
-			legend: { 
-				display: false 
-				} 
-		} 
-	});
-	
-
-	var chBar = document.getElementById("myChart3"); 
-	var chartData = { labels: ["BMI", "체지방률", "복부지방률"], 
-			datasets: [
-				{ 
-					data: [${recentBmi.bmi}, ${recentBmi.bodyfatPer}, ${recentBmi.abfatPer}], 
-					backgroundColor: colors[2],
-					borderColor: borderColors[2],
-					borderWidth: 1
-				}
-			] 
 	}; 
 	var myChart = new Chart(chBar, { 
 		// 챠트 종류를 선택 

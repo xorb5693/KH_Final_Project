@@ -41,25 +41,7 @@
 
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<section class="hero-wrap"
-		style="background-image: url('/resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
-		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-center justify-content-center">
-				<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-					<br>
-					<br>
-					<h1 class="mb-3 bread">TRAINERS</h1>
-					<p class="breadcrumbs">
-						<span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span
-							class="mr-2"><a href="customerList.do">My Customer </a></span> <span
-							class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span>
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
+	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
 
 	<!--회원목록 테이블 -->
 	<section class="ftco-appointment">
@@ -82,20 +64,21 @@
 								<tr>								
 									<td rowspan="2">${status.count }</td>
 									<td rowspan="2">
-										<form action="customerInfo.do" class="appointment-form">
-											<input type="hidden" name="memberNo" value="${memberList.memberNo }">
-											<input type="hidden" name="memberName" value ="${memberList.memberName }">
-											<input type="submit" value="${memberList.memberName}" style="border: none; background-color: white;">
+										<form action="customerInfo.do" class="appointment-form" name="customer">							
+												<input type="hidden" name="memberNo" value="${memberList.memberNo }">
+												<input type="hidden" name="memberName" value ="${memberList.memberName }">
+												<input type="submit" value="${memberList.memberName}" style="border: none; background-color: white;">										
 										</form>
 									</td>
 									<td rowspan="2" style="text-align: center;">
-										<img src="/resources/profile/${memberList.memberProfile}" width="80px;" height="80px;">
-									</td>
+										<a href="#"><img onclick="imgClick(this)" class="img" src="/resources/profile/${memberList.memberProfile}" width="70px;" height="80px;"></a>
+									</td>							
 									<td rowspan="2">
 										<!-- training_cnt -->
 										<form action="customerCntUpdate.do" class="appointment-form" name="customerCntUpdate">
 											<input type="hidden" name="trainingCnt" value="${memberList.trainingCnt }">
 											<input type="hidden" name="memberNo" value="${memberList.memberNo }">
+											<input type="hidden" name="trainingMaxcnt" value="${memberList.trainingMaxcnt }">
 											${memberList.trainingCnt }/${memberList.trainingMaxcnt }											
 										</form>
 									</td>								
@@ -116,17 +99,12 @@
 		          <div class="col text-center">
 		            <div class="block-27">
 		              <ul>
-		                <li><a href="">&lt;</a></li>
-		                <li class="active"><span>${pageNavi }</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
+		               <li>${pageNavi }</li>
+
 		              </ul>
 		            </div>
 		          </div>
-		 </div>
+		 	   </div>
 		</div>
 
 
@@ -150,25 +128,38 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="/resources/js/google-map.js"></script>
 	<script src="/resources/js/main.js"></script>
-	<
 	<script>
-		$(function() {
+		function imgClick(img){
+			var imgClick = $(img).parent().parent().prev().children();
+			imgClick.submit();
+		}
+	
+		$(function() {				
 			$("input[name=increaseBtn]").click(function() {
 				var plusNum = Number($(this).parent().prev().children().children().val())+1;	
 				var plusNum2 = Number($(this).parent().prev().children().children().next().val());
-				$(this).parent().prev().children().children().val(plusNum);
-				$(this).parent().prev().children().children().next().val(plusNum2);
+				$(this).parent().prev().children().children().eq(0).val(plusNum);
+				$(this).parent().prev().children().children().eq(1).val(plusNum2);
 				var form = $(this).parent().prev().children();
-				form.submit();
+				var maxCnt = Number($(this).parent().prev().children().children().eq(2).val());
+				if(plusNum <= maxCnt){
+					form.submit();
+				} else{
+					alert("PT횟수를 모두 채웠습니다.");
+				}
 			});
 			$("input[name=decreaseBtn]").click(function() {
 				var minusNum = Number($(this).parent().prev().children().children().val())-1;
 				var minusNum2 = Number($(this).parent().prev().children().children().next().val());
-				$(this).parent().prev().children().children().val(minusNum);
-				$(this).parent().prev().children().children().next().val(minusNum2);
+				Number($(this).parent().prev().children().children().eq(0).val(minusNum));
+				$(this).parent().prev().children().children().eq(1).val(minusNum2);
 				var form = $(this).parent().prev().children();
-				form.submit();
-			});
+				if(minusNum > -1){
+					form.submit();
+				} else{
+					alert("0 미만은 줄일 수 없습니다.");
+				}
+			});	
 		});
 	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

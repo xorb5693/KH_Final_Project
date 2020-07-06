@@ -37,18 +37,7 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-          <br><br>
-            <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
+	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
 	
 	<!--회원목록 테이블 -->
 	<section class="ftco-appointment">
@@ -66,7 +55,10 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 				</div>
 			</div> 
 			<input type="button" value="글쓰기" class="btn btn-secondary py-1 px-3 mr-2" id="btn" style="display:block; float: right;">            
-		 <table class="table">
+		  <form action = "/healthner/trainer/inbodyInputFrm.do" id="inbodyInputFrm">
+		 	 <input type="hidden" name="memberNo" value="${memberNo}">
+		  </form>  
+		 <table class="table" style="text-align: center;">
 		  <thead>
 		    <tr>
 		      <th scope="col">No.</th>
@@ -74,37 +66,30 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 		    </tr>
 		  </thead>
 		  <tbody>
-		  <c:forEach items="${bmi }" var="bmi"  varStatus="status">
-		  <form action = "/healthner/trainer/inbodyInputFrm.do" id="inbodyInputFrm"><input type="hidden" name="memberNo" value="${bmi.memberNo }"></form>
+		  <c:forEach items="${list }" var="list"  varStatus="status">
 		    <tr>
 		      <th scope="row">${status.count }</th>
 		      <td>
 		      <form action="/healthner/trainer/inbodyGraph.do" id="beforeInbodyGraph">
-		      	<a href="#" style="color: black; font-weight: bold;" class="click">${bmi.measureDate} 인바디</a>
-		      	<input type="hidden" value="${bmi.inbodyNo }" name="inbodyNo">
-		      	<input type="hidden" value="${bmi.memberNo }" name="memberNo">
+		      	<a href="#" style="color: black; font-weight: bold;" class="click">${list.measureDate} 인바디</a>
+		      	<input type="hidden" value="${list.inbodyNo }" name="inbodyNo">
+		      	<input type="hidden" value="${list.memberNo }" name="memberNo">
 		      </form>
 		      </td>
 		    </tr>
 		   </c:forEach>
 		  </tbody>
 		</table>
-            <!-- 
               <div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
 		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
+		               <li>${pageNavi }</li>
+
 		              </ul>
 		            </div>
 		          </div>
-		 		</div> -->
+		 	   </div>
 	</div>   			
     </section>
 
@@ -142,7 +127,6 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 			});
 			$(".click").click(function(){
 				var clickedOne = $(this).parent();
-
 				var clickedOne = $(this).parent().submit();
 			});
 		});

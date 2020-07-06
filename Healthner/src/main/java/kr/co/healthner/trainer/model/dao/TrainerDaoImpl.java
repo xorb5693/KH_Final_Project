@@ -71,9 +71,9 @@ public class TrainerDaoImpl {
 		return sqlSession.selectOne("trainer.selectOneMember", memberNo);
 	}
 
-	public List<BmiVO> selectOneMemberBmi(int memberNo) {
+	public List<BmiVO> selectOneMemberBmi(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("trainer.selectOneMemberBmi", memberNo);
+		return sqlSession.selectList("trainer.selectOneMemberBmi", map);
 	}
 
 	public int selectMapperInfoCount(HashMap<String, Integer> map) {
@@ -95,5 +95,8 @@ public class TrainerDaoImpl {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("trainer.selectOneGraph", bmi);
 	}
-
+	
+	public int selectOneMemberBmiCount(HashMap<String, Integer> map) {
+		return sqlSession.selectOne("trainer.selectOneMemberBmiCount", map);
+	}
 }

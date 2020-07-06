@@ -39,25 +39,7 @@ select.form-control>option {
 
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<section class="hero-wrap"
-		style="background-image: url('/resources/images/bg_2.jpg');">
-		<div class="overlay"></div>
-		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-center justify-content-center">
-				<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-					<br>
-					<br>
-					<h1 class="mb-3 bread">TRAINERS</h1>
-					<p class="breadcrumbs">
-						<span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span
-							class="mr-2"><a href="customerList.do">My Customer </a></span> <span
-							class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span>
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
+	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
 
 	<!-- 트레이너 정보 입력 수정 -->
 	<!--
@@ -88,36 +70,36 @@ select.form-control>option {
 					<div class="d-flex">
 						<div class="mr-2">
 							<label for="catFirst">주특기1</label> 
-							<select class="form-control" name="catFirst" id="catFirst">
-								<option>주특기를 선택해 주세요</option>
+							<select class="form-control" name="catFirst" id="catFirst" required>
+								<option value="">주특기를 선택해 주세요</option>
 								<option value="1">다이어트</option>
-								<option value="2">보디빌딩</option>
-								<option value="3">교정</option>
+								<option value="2">헬스</option>
+								<option value="3">보디빌딩</option>
 							</select>
 						</div>
 						<div class="ml-2">
 							<label for="catSecond">주특기2</label> 
-							<select class="form-control" name="catSecond" id="catSecond">
-								<option>주특기를 선택해 주세요</option>
+							<select class="form-control" name="catSecond" id="catSecond" required>
+								<option value="">주특기를 선택해 주세요</option>
 								<option value="1">다이어트</option>
-								<option value="2">보디빌딩</option>
-								<option value="3">교정</option>
+								<option value="2">헬스</option>
+								<option value="3">보디빌딩</option>
 							</select>
 						</div>
 						<div class="ml-2">
 							<label for="catThird">주특기3</label> 
-							<select class="form-control" name="catThird" id="catThird">
-								<option>주특기를 선택해 주세요</option>
+							<select class="form-control" name="catThird" id="catThird" required>
+								<option value="">주특기를 선택해 주세요</option>
 								<option value="1">다이어트</option>
-								<option value="2">보디빌딩</option>
-								<option value="3">교정</option>
+								<option value="2">헬스</option>
+								<option value="3">보디빌딩</option>
 							</select>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<textarea name="trainerIntro" id="trainerIntro" cols="30" rows="7"
-						class="form-control" placeholder="자기소개를 입력하세요">${list.trainerIntro }</textarea>
+						class="form-control" placeholder="자기소개를 입력하세요" required>${list.trainerIntro }</textarea>
 				</div>
 				<div class="d-md-flex">
 					<div class="form-group d-flex">
@@ -151,6 +133,8 @@ select.form-control>option {
 	<script src="/resources/js/google-map.js"></script>
 	<script src="/resources/js/main.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
-
+	<script>
+	
+	</script>
 </body>
 </html>
