@@ -116,6 +116,11 @@ public class MemberServiceImpl {
 		}
 	}
 
+
+	public Member checkNick(Member m) {
+		return dao.checkNick(m);
+	}
+	
 	public AttendancePrintData attendanceRead(int memberNo) {
 		
 		ArrayList<AttendanceAvgtimeVO> avgs = (ArrayList<AttendanceAvgtimeVO>)dao.selectWeekAttendAvg();
@@ -298,4 +303,45 @@ public class MemberServiceImpl {
 
 		return dao.insertPostscript(mapping);
 	}
+
+
+	public Member selectArduino(String cardNo) {
+		
+		return dao.selectAduino(cardNo);
+	}
+
+
+	public int insertCard(String memberId, String card) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("memberId", memberId);
+		map.put("card", card);
+		
+		return dao.insertCard(map);
+	}
+
+
+	public int deleteCard(String memberId) {
+		
+		return dao.deleteCard(memberId);
+    }
+        public int verifyMail(String memberId) {
+		return dao.verifyMail(memberId);
+	}
+
+
+		public Member retrieveId(Member m) {
+			Member member = dao.retrieveId(m);
+			return member;
+		}
+
+
+		public Member retrievePw(Member m) {
+			return dao.retrievePw(m);
+		}
+
+
+		public int resetPwMember(Member m) {
+			return dao.resetPwMember(m);
+		}
 }

@@ -76,4 +76,8 @@
 			#{mailNo}
 		</foreach>
 	</delete>
+	<select id="mailCheck" parameterType="_int" resultType="_int">
+		select count(*) from mail
+		where receiver = #{_parameter} and read_count = 0
+	</select>
 </mapper>

@@ -1,20 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset="UTF-8">
-<title>Send Mail List</title>
-	<link rel="icon" href="/resources/images/favicon.png">
+<!doctype html>
+<html lang="en">
+
+<head>
+<title>관리자 페이지 - 송신 쪽지함</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/style.css">
 <style>
 form>button {
 	float: right;
 }
 
 .span.span-primary {
-	background: #fcd307;
-	border: 1px solid #fcd307;
+	background: #30e3ca;
+	border-color: #30e3ca;
+	border: 1px solid #30e3ca;
 	color: #fff;
 }
 
@@ -97,73 +111,67 @@ form>button {
 }
 </style>
 </head>
+
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/headerForMail.jsp" />
-	<section class="ftco-section ftco-about">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3">
-				<div
-					class="col-md-7 heading-section ftco-animate text-center fadeInUp ftco-animated">
-					<span class="subheading"> <small> <i
-							class="left-bar"></i> ${sessionScope.member.memberName} <i
-							class="right-bar"></i>
-					</small>
-					</span>
-					<h2 class="mb-1">SEND MAIL LIST</h2>
-				</div>
-			</div>
-			<form action="/healthner/mail/deleteMail.do" method="get">
-				<input type="hidden" value="1" name="readType">
-				<button type="button" id="modal" style="width: 120px;"
-					class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-					data-toggle="modal" data-target="#myModal">쪽지 쓰기</button>
-				<button type="submit" style="width: 120px;"
-					class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-					onclick="return checkDelete()">삭제</button>
-				<br>
-				<br>
-				<table class="table">
-					<thead>
+	<!-- 혜진_200624_메뉴바 삽입 -->
+	<jsp:include page="/WEB-INF/views/admin/menubar.jsp" />
+
+	<!-- Page Content  -->
+	<div id="content" class="p-4 p-md-5 pt-5">
+		<h5>
+			<a href="/mail.do?reqPage=1">Receive Mail List</a> / Send Mail List
+		</h5>
+		<h2 class="mb-4">Send Mail List</h2>
+		<form action="/adminDeleteMail.do" method="get">
+			<input type="hidden" name="readType" value="1">
+			<button type="button" id="modal"
+				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
+				data-toggle="modal" data-target="#myModal">쪽지 쓰기</button>
+			<button type="submit"
+				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
+				onclick="return checkDelete()">삭제</button>
+			<br>
+			<br>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col" style="width: 10%">삭제</th>
+						<th scope="col" style="width: 10%">읽음</th>
+						<th scope="col" style="width: 50%">내용</th>
+						<th scope="col" style="width: 14.5%">수신자</th>
+						<th scope="col" style="width: 14.5%">날짜</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${list }" var="mail">
 						<tr>
-							<th scope="col" style="width: 10%">삭제</th>
-							<th scope="col" style="width: 10%">읽음</th>
-							<th scope="col" style="width: 50%">내용</th>
-							<th scope="col" style="width: 14.5%">수신자</th>
-							<th scope="col" style="width: 14.5%">날짜</th>
+							<td style="width: 10%"><input type="checkbox"
+								name="deleteNo" value="${mail.mailNo }"></td>
+							<td style="width: 10%"><c:if test="${mail.readCount == 0 }">
+									<i class="icon-envelope tg-black"></i>
+								</c:if> <c:if test="${mail.readCount != 0 }">
+									<span class="icon-envelope-open tg-gray"></span>
+								</c:if></td>
+							<td style="width: 50%"><a class="tg-black"
+								href="javascript:void(0)" data-toggle="modal"
+								data-target="#readModal"
+								onclick="readMail(this, ${mail.mailNo})">${mail.mailContent }</a></td>
+							<td style="width: 14.5%">${mail.memberNick }</td>
+							<td style="width: 14.5%">${mail.writeDate }</td>
 						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${list }" var="mail">
-							<tr>
-								<td style="width: 10%"><input type="checkbox"
-									name="deleteNo" value="${mail.mailNo }"></td>
-								<td style="width: 10%"><c:if test="${mail.readCount == 0 }">
-										<i class="icon-envelope"></i>
-									</c:if> <c:if test="${mail.readCount != 0 }">
-										<span class="icon-envelope-open"></span>
-									</c:if></td>
-								<td style="width: 50%"><a class="tg-black"
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#readModal"
-									onclick="readMail(this, ${mail.mailNo })">${mail.mailContent }</a></td>
-								<td style="width: 14.5%">${mail.memberNick }</td>
-								<td style="width: 14.5%">${mail.writeDate }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</form>
-			<div class="pageNavi">${pageNavi}</div>
-		</div>
-	</section>
+					</c:forEach>
+				</tbody>
+			</table>
+		</form>
+		<div class="pageNavi">${pageNavi}</div>
+	</div>
 
 	<!-- The Modal -->
 	<div class="modal" id="myModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 
-				<form action="/healthner/mail/insert.do" method="post">
+				<form action="/adminInsertMail.do" method="post">
 					<input type="hidden" value="1" name="readType">
 					<!-- Modal Header -->
 					<div class="modal-header">
@@ -173,17 +181,12 @@ form>button {
 
 					<!-- Modal body -->
 					<div class="modal-body">
-						수신자 선택 <input type="hidden" name="sender"
-							value="${sessionScope.member.memberNo}"> <select
-							class="form-control" name="receiver" onchange="selectOption()">
-							<c:forEach items="${memberList }" var="memberList">
-								<option value=${memberList.memberNo }>${memberList.memberNick }</option>
-							</c:forEach>
-							<option value="0">직접입력</option>
-						</select>
-						<div id="writeIdArea" style="display: none">
-							직접입력 <input type="text" class="form-control" name="memberId"
-								placeholder="아이디를 입력하세요" disabled>
+						<input type="hidden" name="sender"
+							value="${sessionScope.member.memberNo}"> <input
+							type="hidden" name="receiver">
+						<div id="writeIdArea">
+							아이디 입력 <input type="text" class="form-control" name="memberId"
+								placeholder="아이디를 입력하세요" required>
 							<div class="invalid-feedback" id="checkId"></div>
 						</div>
 						내용
@@ -193,9 +196,9 @@ form>button {
 
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary btn-lg"
+						<button type="submit" class="btn btn-primary"
 							onclick="return checkId()">Write</button>
-						<button type="button" class="btn btn-secondary btn-lg"
+						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
 					</div>
 				</form>
@@ -231,9 +234,8 @@ form>button {
 			</div>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
-        var check = true;
+        var check = false;
         $("#checkId").css("display", "block");
         
         $(function() {
@@ -245,7 +247,7 @@ form>button {
                     data: {memberId: memberId},
                     type: "get",
                     success: function(data) {
-                        $("select[name=receiver] option:selected").val(data);
+                        $("input[name=receiver]").val(data);
                         if (data != "0") {
                             check = true;
                             $("#checkId").html("");
@@ -264,25 +266,6 @@ form>button {
             });
             
         });
-        
-        function selectOption() {
-            var select = $("select[name=receiver] option:selected").val();
-            
-            if (select == "0") {
-                $("#writeIdArea").css("display", "block");
-                $("input[name=memberId]").prop("disabled", false);
-                $("input[name=memberId]").prop("required", true);
-                check = false;
-            } else {
-                $("select[name=receiver] option:last-child").val("0")
-                $("#writeIdArea").css("display", "none");
-                $("input[name=memberId]").prop("disabled", true);
-                $("input[name=memberId]").prop("required", false);
-                check = true;
-                $("#checkId").html("");
-                $("input[name=memberId]").val("");
-            }
-        }
         
         function checkId() {
             if (!check) {
@@ -312,13 +295,27 @@ form>button {
                 url: "/healthner/mail/readMail.do",
                 data: {mailNo: mailNo, readType: 1},
                 type: "get",
-                success: function(data) {                    
+                success: function(data) {
+                    console.log(data);
+                    $(obj).parent().prev().html("<span class='icon-envelope-open tg-gray'></span>");
+                    
                     $("#writer").html(data['memberNick']);
                     $("#writeDate").html(data['writeDate']);
                     $("#mailContent").html(data['mailContent']);
                 }
             });
         }
+        
+        function answer(memberId) {
+            $("#close").click();
+            $("#modal").click();
+            $("input[name=memberId]").val(memberId);
+            $("input[name=memberId]").blur();
+            $("textarea[name=mailContent]").val("");
+        }
     </script>
 </body>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-3.3.1.js"></script>
+
 </html>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import kr.co.healthner.common.CardHandler;
+import kr.co.healthner.member.model.service.MemberMailServiceImpl;
 import kr.co.healthner.member.model.service.MemberServiceImpl;
 import kr.co.healthner.member.model.vo.AttendanceData;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
@@ -37,6 +38,10 @@ public class MemberController {
 	@Qualifier("cardHandler")
 	private CardHandler cardHandler;
 	
+	@Autowired
+	@Qualifier("memberMail")
+	private MemberMailServiceImpl mailService;
+	
 	@RequestMapping("/loginFrm.do")
 	public String loginFrm() {
 		return "member/loginFrm";
@@ -54,7 +59,12 @@ public class MemberController {
 		String cardNo = card.replaceAll(" ", ".").substring(1);
 		System.out.println("Insert : " + cardNo);
 		try {
-			cardHandler.cardResponse(cardNo);
+			Member m = service.selectArduino(cardNo);
+			if (m == null) {
+				cardHandler.cardResponse(cardNo);
+			} else {
+				cardHandler.cardOverlap(cardNo, m.getMemberId());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,12 +89,25 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String insertMember(Member m) {
+	public String insertMember(Member m,HttpServletRequest request,Model model) {
+		// send mail
+		long timeout = System.currentTimeMillis()/1000;
+		
+		mailService.sendMail(m,request,timeout);
+		model.addAttribute("memberId", m.getMemberId());
+		// upload profile Image
+		
+		
+		
+		
+		
+		// insert Member
 		int result = service.insertMember(m);
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/selectId.do")
+	@ResponseBody
+	@RequestMapping(value = "/selectId.do", produces = "html/text;charset=utf-8")
 	public String checkId(Member m) {
 		Member member = service.checkId(m);
 		if(member!=null) {
@@ -93,7 +116,19 @@ public class MemberController {
 			return "0";
 		}
 	}
-		
+	
+	@ResponseBody
+	@RequestMapping(value="/checkNick.do", produces = "html/text;charset=utf-8")
+	public String checkNick(Member m) {
+		System.out.println(m.getMemberNick());
+		Member member = service.checkNick(m);
+		if(member!=null) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping("/arduinoAttendance.do")
 	public String arduinoAttendance(String card) {
@@ -145,6 +180,7 @@ public class MemberController {
 		request.setAttribute("list", data.getList());
 		request.setAttribute("pageNavi", data.getPageNavi());
 		request.setAttribute("memberName", data.getMemberName());
+		request.setAttribute("eatMemberNo", memberNo);
 //		System.out.println(data.getPageNavi());
 		return "member/myEat";
 	}
@@ -165,13 +201,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/insertMenuComment.do")
-	public String insertMenuComment(HttpServletRequest request, MenuCommentVO comment) {
+	public String insertMenuComment(HttpServletRequest request, MenuCommentVO comment, int memberNo) {
 		
 		HttpSession session = request.getSession();
 		comment.setWriterNo(((Member)session.getAttribute("member")).getMemberNo());
 		int result = service.insertMenuComment(comment);
 		
-		return "redirect:/healthner/member/myEat.do?memberNo=" + comment.getWriterNo() + "&reqPage=1";
+		return "redirect:/healthner/member/myEat.do?memberNo=" + memberNo + "&reqPage=1";
 	}
 	
 	@ResponseBody
@@ -198,20 +234,124 @@ public class MemberController {
 		int result = service.modifyMenuComment(comment);
 		return String.valueOf(result);
 	}
-
+	
 	@RequestMapping("/myTrainer.do")
 	public String myTrainer(HttpSession session, Model model) {
-
+		
 		Member member = (Member)session.getAttribute("member");
 		ArrayList<MappingTrainerData> list = service.myTrainer(member.getMemberNo());
 		model.addAttribute("list", list);
 		return "member/myTrainer";
 	}
-
+	
 	@RequestMapping("/insertPostscript.do")
 	public String insertPostscript(MemberMappingVO mapping) {
-
+		
 		service.insertPostscript(mapping);		
 		return "redirect:/healthner/member/myTrainer.do";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/inserCard.do")
+	public String insertCard(String memberId, String card) {
+		
+		int result = service.insertCard(memberId, card);
+		
+		return String.valueOf(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteCard.do")
+	public String deleteCard(String memberId) {
+		
+		int result = service.deleteCard(memberId);
+		
+		return String.valueOf(result);
+	}
+
+	@RequestMapping("/verifyMail.do")
+	public String verifyMail(String memberId,String email,long timeout,Model model) {
+		long endtime = System.currentTimeMillis()/1000;
+		if(endtime-timeout<24*60*60) {
+			int result = service.verifyMail(memberId);			
+			if(result>0) {
+				return "member/verifyDone";
+			}else {
+				return "member/verifyFail";
+			}
+		}else {
+			model.addAttribute("memberId", memberId);
+			model.addAttribute("email", email);
+			return "member/timeout";
+		}
+	}
+	
+	@RequestMapping("/retrieveFrm.do")
+	public String recoverFrm() {
+		return "member/retrieveFrm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/retrieveId.do", produces="application/json; charset=utf-8")
+	public String retrieveId(String memberName, String email) {
+		Member m = new Member();
+		m.setEmail(email);
+		m.setMemberName(memberName);
+		Member member = service.retrieveId(m);
+		return new Gson().toJson(member);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/retrievePw.do", produces="application/json; charset=utf-8")
+	public String retrievePw(String memberId, String email, HttpServletRequest request) {
+		Member m = new Member();
+		m.setEmail(email);
+		m.setMemberId(memberId);
+		System.out.println(m.getEmail());
+		System.out.println(m.getMemberId());
+		Member member = service.retrievePw(m);
+		if(member != null) {
+			long timeout = System.currentTimeMillis()/1000;
+			mailService.resetPw(member,timeout, request);
+		}
+		return new Gson().toJson(member); 
+	}
+	
+	@RequestMapping("/resetPwFrm.do")
+	public String resetPwFrm(Member m, long timeout, Model model) {
+		long endTimeout = System.currentTimeMillis()/1000;
+		model.addAttribute("memberId",m.getMemberId());
+		System.out.println(endTimeout-timeout);
+		if(endTimeout-timeout>60*30) {
+			// Timedout
+			model.addAttribute("resetPw", "reset");
+			model.addAttribute("memberId", m.getMemberId());
+			model.addAttribute("email", m.getEmail());
+			return "member/timeout";
+		}else {
+			return "member/resetPwFrm";
+		}
+	}
+	
+	@RequestMapping("/resetPw.do")
+	public String resetPw(Member m,Model model) {
+		int result = service.resetPwMember(m);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/resend.do")
+	public String resend(String email, String memberId, String type,HttpServletRequest request) {
+		Member m = new Member();
+		m.setMemberId(memberId);
+		Member member = service.selectMember(m);
+		long timeout = System.currentTimeMillis()/1000;
+		if(type.equals("email")) {
+			mailService.sendMail(member,request,timeout);
+		}else {
+			mailService.resetPw(member,timeout,request);
+		}
+		return "redirect:/";
+	}
+	
 }

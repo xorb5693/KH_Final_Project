@@ -6,6 +6,7 @@ prefix="c"%>
 <head>
 <meta charset="UTF-8">
 <title>Trainer Intro</title>
+	<link rel="icon" href="/resources/images/favicon.png">
  <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -35,23 +36,27 @@ prefix="c"%>
 		border: none;
 		background-color: white;
 	}
+	
+	#btnArea button {
+		background-color: rgb(250, 250, 250);
+	}
+	
 </style>
 <body>
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-		<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-          <br><br>
-            <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
+	<c:if test="${sessionScope.member.memberLevel eq 2 or sessionScope.member.memberLevel eq 3 }">
+		<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 1 }">
+		<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 4 }">
+		<script>
+			location.href = "/adminMain.do";
+		</script>
+	</c:if>
 
 	<section class="ftco-section bg-light">
 		<div class="container">
@@ -70,13 +75,13 @@ prefix="c"%>
 			<div class="row">
     			<div class="col-lg-3 d-flex">
     				<div class="coach align-items-stretch">
-	    				<div class="img" style="background-image: url(/resources/images/trainer-1.jpg);  width: 100px; height: 100px;" id="myImg"></div>
+	    				<div class="img" style="background-image: url(/resources/profile/${member.memberProfile}), url(/resources/profile/noprofile.png);  width: 100px; height: 100px;" id="myImg"></div>
 	    			</div>
 	    		</div>
 	    	</div>
 	    	<br>
 	    		
-			<div class="row justify-content-center align-items-center">
+			<div class="row justify-content-center align-items-center" id="btnArea">
 				<div class="col-md-3">
 					<div class="services text-center ftco-animate">
 						<form action="/healthner/member/myEat.do?"+${member.memberNo}>
@@ -86,34 +91,34 @@ prefix="c"%>
 						</button>
 						</form>
 						
-						<a href="#" class="text px-md-2">
+						<a href="/healthner/member/myEat.do?"+${member.memberNo}" class="text px-md-2">
 							<h3>식단</h3>
 						</a>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="services text-center ftco-animate">
-						<form action="inbodyList.do">
+						<form action="/healthner/trainer/inbodyList.do">
 							<input type="hidden" value="${member.memberNo }" name="memberNo">
 						<button type="submit" class="icon d-flex justify-content-center align-items-center btnNone">
 							<span class="flaticon-gym"></span>
 						</button>
 						</form>
-						<a href="#" class="text px-md-2">
+						<a href="/healthner/trainer/inbodyList.do?memberNo=${member.memberNo }" class="text px-md-2">
 							<h3>인바디</h3>
 						</a>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="services text-center ftco-animate">
-						<form action="customerGraph.do">
+						<form action="/healthner/trainer/customerGraph.do">
 							<input type="hidden" value="${member.memberNo }" name="memberNo">
 							<button type="submit" class="icon d-flex justify-content-center align-items-center btnNone">
-							<span class="flaticon-tools-and-utensils"></span>
+							<span class="flaticon-heart"></span>
 						</button>
 						</form>
-						<a href="#" class="text px-md-2">
-							<h3>그래프</h3>
+						<a href="/healthner/trainer/customerGraph.do?memberNo=${member.memberNo }" class="text px-md-2">
+							<h3>이전 기록 비교 그래프</h3>
 						</a>
 					</div>
 				</div>

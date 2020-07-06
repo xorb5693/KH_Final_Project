@@ -6,6 +6,7 @@ prefix="c"%>
 <head>
 <meta charset="UTF-8">
 <title>Customer List</title>
+	<link rel="icon" href="/resources/images/favicon.png">
  <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -35,25 +36,23 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 </head>
 <body>
 
-	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-          <br><br>
-            <h1 class="mb-3 bread">TRAINERS</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
+	<c:if test="${sessionScope.member.memberLevel eq 2 or sessionScope.member.memberLevel eq 3 }">
+		<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 1 }">
+		<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 4 }">
+		<script>
+			location.href = "/adminMain.do";
+		</script>
+	</c:if>
 	
 	<!--회원목록 테이블 -->
 	<section class="ftco-appointment">
 			<div class="overlay"></div>
-    	<div class="container col-md-6 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+    	<div class="container col-md-10 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
 			<div class="row justify-content-center">
 	    		<div class="col-md-8 text-center">
 					<div class="heading-section mb-5">
@@ -65,40 +64,47 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 					</div>
 				</div>
 			</div> 
-			<input type="button" value="글쓰기" class="btn btn-secondary py-1 px-3 mr-2" id="btn" style="display:block; float: right;">            
-		 <table class="table">
+			<c:if test="${sessionScope.member.memberLevel eq 3 }">
+				<input type="button" value="글쓰기" class="btn btn-secondary py-1 px-3 mr-2" id="btn" style="display:block; float: right;">    
+			</c:if>        
+			<br><br>
+		  <form action = "/healthner/trainer/inbodyInputFrm.do" id="inbodyInputFrm">
+		 	 <input type="hidden" name="memberNo" value="${memberNo}">
+		  </form>  
+		 <table class="table" style="text-align: center;">
 		  <thead>
 		    <tr>
 		      <th scope="col">No.</th>
 		      <th scope="col">인바디</th>
+		      <th scope="col">날짜</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		  <c:forEach items="${bmi }" var="bmi"  varStatus="status">
-		  <form action = "/healthner/trainer/inbodyInputFrm.do"><input type="hidden" value="${bmi.memberNo }" name="memberNo"></form>
+		  <c:forEach items="${list }" var="list"  varStatus="status">
 		    <tr>
 		      <th scope="row">${status.count }</th>
-		      <td><a href="#" style="color: black; font-weight: bold;">${bmi.measureDate} 인바디</a></td>
+		      <td>
+		      <form action="/healthner/trainer/inbodyGraph.do" id="beforeInbodyGraph">
+		      	<a href="#" style="color: black; font-weight: bold;" class="click"> 인바디 확인하기</a>
+		      	<input type="hidden" value="${list.inbodyNo }" name="inbodyNo">
+		      	<input type="hidden" value="${list.memberNo }" name="memberNo">
+		      </form>
+		      </td>
+		      <td>${list.measureDate}</td>
 		    </tr>
 		   </c:forEach>
 		  </tbody>
 		</table>
-            <!-- 
               <div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
 		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
+		               <li>${pageNavi }</li>
+
 		              </ul>
 		            </div>
 		          </div>
-		 		</div> -->
+		 	   </div>
 	</div>   			
     </section>
 
@@ -132,7 +138,11 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 	<script>
 		$(function(){
 			$("#btn").click(function(){
-				$("form").submit();
+				$("#inbodyInputFrm").submit();
+			});
+			$(".click").click(function(){
+				var clickedOne = $(this).parent();
+				var clickedOne = $(this).parent().submit();
 			});
 		});
 	</script>

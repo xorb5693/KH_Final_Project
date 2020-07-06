@@ -5,39 +5,19 @@
 <html lang="en">
 <head>
 <title>헬트너</title>
-
+<script
+  type="text/javascript"
+  src="http://code.jquery.com/jquery-3.3.1.js"
+></script>
 <style>
-body::-webkit-scrollbar {
-	display: none;
-}
+
+
 </style>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
-	rel="stylesheet">
 
-<link rel="stylesheet"
-	href="/resources/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="/resources/css/animate.css">
-
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="/resources/css/magnific-popup.css">
-
-<link rel="stylesheet" href="/resources/css/aos.css">
-
-<link rel="stylesheet" href="/resources/css/ionicons.min.css">
-
-<link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="/resources/css/jquery.timepicker.css">
-
-
-<link rel="stylesheet" href="/resources/css/flaticon.css">
-<link rel="stylesheet" href="/resources/css/icomoon.css">
-<link rel="stylesheet" href="/resources/css/style.css">
 </head>
 
 <body>
@@ -123,6 +103,9 @@ body::-webkit-scrollbar {
 			</div>
 		</div>
 	</nav>
+
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 	<!-- END nav -->
 	<!-- Background Image -->
 	<section
@@ -738,12 +721,6 @@ body::-webkit-scrollbar {
 			</div>
 		</div>
 	</section>
-
-
-
-
-
-
 
 	<!--       footer -->
 	<footer class="ftco-footer ftco-section img">

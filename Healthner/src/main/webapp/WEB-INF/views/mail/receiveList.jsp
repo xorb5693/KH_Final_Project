@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Receive Mail List</title>
+	<link rel="icon" href="/resources/images/favicon.png">
 	<style>
         form>button {
             float: right;
@@ -90,7 +91,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/headerForMail.jsp"/>
 	<section class="ftco-section ftco-about">
 		<div class="container">
             <div class="row justify-content-center mb-5 pb-3">
@@ -109,11 +110,11 @@
             </div>
             <form action="/healthner/mail/deleteMail.do" method="get">
                 <input type="hidden" value="0" name="readType">
-                <button type="button" id="modal" class="btn btn-primary ftco-animate fadeInUp ftco-animated" data-toggle="modal" data-target="#myModal">
+                <button type="button" id="modal" style="width: 120px;" class="btn btn-primary ftco-animate fadeInUp ftco-animated" data-toggle="modal" data-target="#myModal">
                     쪽지 쓰기
                 </button>
-                <button type="submit" class="btn btn-primary ftco-animate fadeInUp ftco-animated" onclick="return checkDelete()">
-                    삭제
+                <button type="submit" style="width: 120px;" class="btn btn-primary ftco-animate fadeInUp ftco-animated" onclick="return checkDelete()">
+                    삭 제
                 </button>
                 <br><br>
                 <table class="table">
@@ -186,8 +187,8 @@
 	
 	                <!-- Modal footer -->
 	                <div class="modal-footer">
-						<button type="submit" class="btn btn-primary" onclick="return checkId()">Write</button>
-	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary btn-lg" onclick="return checkId()">Write</button>
+	                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
 	                </div>
 				</form>
             </div>
@@ -220,8 +221,8 @@
 	
                 <!-- Modal footer -->
                 <div class="modal-footer">
-				    <button type="button" class="btn btn-primary" id="answer">답장</button>
-	                <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				    <button type="button" style="width: 80px;" class="btn btn-primary btn-lg" id="answer">답장</button>
+	                <button id="close" style="width: 80px;" type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
