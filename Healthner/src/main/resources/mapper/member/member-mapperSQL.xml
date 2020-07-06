@@ -32,18 +32,11 @@
 			#{memberId},
 			#{memberPw},
 			#{memberName},
-			#{memberNick},
 			#{zip},
 			#{roadAddr},
 			#{detAddr},
 			#{card},
 			sysdate,
-			<if test="memberLevel == 2">
-				2,			
-			</if>
-			<if test="memberLevel == 1">
-				1,
-			</if>
 			#{gender},
 			#{age},
 			#{memberProfile},
@@ -54,7 +47,7 @@
 			)
 	</insert>
 	<select id="checkId" parameterType="member" resultType="member">
-		select member_id as memberId from member where member_id like #{memberId}
+		select member_id from member where member_id like #{memberId}
 	</select>
 	<select id="selectAduino" parameterType="string" resultType="member">
 		select 
@@ -63,9 +56,6 @@
 			expire_date as expireDate
 		from member 
 		where card = #{_parameter} 
-	</select>
-	<select id="selectNick" parameterType="member" resultType="member">
-		select member_nick as memberNick from member where member_nick = #{memberNick}
 	</select>
 	<select id="selectMemberName" parameterType="_int" resultType="string">
 		select member_name from member where member_no = #{_parameter}
@@ -97,37 +87,19 @@
 	</update>
 	<select id="selectMappingMemberNoList" parameterType="member" resultType="_int">
 		select
-			<if test="memberLevel == 1 or memberLevel == 4">
+			<if test="memberLevel == 1">
 				trainer_no
 			</if>
-			<if test="memberLevel == 3 or memberLevel == 2">
+			<if test="memberLevel == 3">
 				member_no
 			</if>
 		from member_mapping
 		where training_cnt != training_maxcnt
-		<if test="memberLevel == 1 or memberLevel == 4">
+		<if test="memberLevel == 1">
 			and member_no = #{memberNo}
 		</if>
-		<if test="memberLevel == 3 or memberLevel == 2">
+		<if test="memberLevel == 3">
 			and trainer_no = #{memberNo}
 		</if>
 	</select>
-	<update id="insertCard" parameterType="map">
-		update member set card = #{card} where member_id = #{memberId}
-	</update>
-	<update id="deleteCard" parameterType="string">
-		update member set card = null where member_id = #{_parameter}
-    </update>
-	<update id="verifyMail" parameterType="String">
-		update member set email_verification = 1 where member_id = #{_parameter}
-	</update>
-	<select id="retrieveId" parameterType="member" resultType="member">
-		select member_id as memberId from member where member_name = #{memberName} and email = #{email}
-	</select>
-	<select id="retrievePw" parameterType="member" resultType="member">
-		select email, member_name as memberName, member_id as memberId from member where member_id = #{memberId} and email = #{email}
-	</select>
-	<update id="resetPw" parameterType="member">
-		update member set member_pw=#{memberPw} where member_id = #{memberId}
-	</update>
 </mapper>

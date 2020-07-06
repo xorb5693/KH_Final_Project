@@ -2,8 +2,6 @@ package kr.co.healthner.admin.controller;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,9 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
-import kr.co.healthner.admin.model.vo.TotalpageList;
-import kr.co.healthner.mail.model.vo.MailData;
-import kr.co.healthner.mail.model.vo.MailVO;
+import kr.co.healthner.admin.model.vo.MemberSearch;
+import kr.co.healthner.admin.model.vo.totalpageList;
 import kr.co.healthner.member.model.vo.Member;
 
 @Controller
@@ -70,14 +67,7 @@ public class AdminController {
 
 	// 혜진_200624_관리자 페이지에서 7번 쪽지함 페이지로 이동
 	@RequestMapping("/mail.do")
-	public String mail(HttpSession session, Model model, int reqPage) {
-		
-		Member m = (Member)session.getAttribute("member");
-		
-		MailData data = service.receiveMailData(reqPage, m.getMemberNo());
-		model.addAttribute("list", data.getList());
-		model.addAttribute("pageNavi", data.getPageNavi());
-		
+	public String mail() {
 		return "admin/mail";
 	}
 
@@ -102,7 +92,7 @@ public class AdminController {
 	@RequestMapping(value="/memberList.do", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String memberList(String searchWord, int checkbox1, int checkbox2, int start) {
-		TotalpageList tl = service.memberList(searchWord, checkbox1, checkbox2, start);
+		totalpageList tl = service.memberList(searchWord, checkbox1, checkbox2, start);
 		return new Gson().toJson(tl);
 	}
 	
@@ -126,7 +116,7 @@ public class AdminController {
 	@RequestMapping(value="/trainerlist.do", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String trainerList(String searchWord, int memberType, int start) {
-		TotalpageList tl = service.trainerList(searchWord, memberType, start);
+		totalpageList tl = service.trainerList(searchWord, memberType, start);
 		return new Gson().toJson(tl);
 	}
 	
@@ -158,62 +148,4 @@ public class AdminController {
 		}
 	}
 	
-	// 혜진_200703_PT Mapping 페이지_조회
-	@RequestMapping(value="/ptTrainerList.do", produces = "text/html;charset=utf-8")
-	@ResponseBody
-	public String ptTrainerList(String searchWord, int memberType, int start, int checkbox1) {
-		TotalpageList tl = service.ptMapping(searchWord, memberType, start, checkbox1);
-		return new Gson().toJson(tl);
-	}
-	
-	//쪽지 관련 페이지 메소드들
-	@RequestMapping("/sendMail.do")
-	public String sendMail(HttpSession session, Model model, int reqPage) {
-		
-		Member m = (Member)session.getAttribute("member");
-		
-		MailData data = service.sendMailData(reqPage, m.getMemberNo());
-		model.addAttribute("list", data.getList());
-		model.addAttribute("pageNavi", data.getPageNavi());
-//		System.out.println(data.getPageNavi());
-
-		return "admin/sendMail";
-	}
-	
-	
-	@RequestMapping("/adminInsertMail.do")
-	public String insertMail(MailVO mail, int readType) {
-		
-		int result = service.insertMail(mail);
-		
-		if (result > 0) {
-			System.out.println("쪽지 전송");
-		} else {
-			System.out.println("전송 실패");
-		}
-		
-		if (readType == 0) {
-			return "redirect:/mail.do?reqPage=1";
-		} else {
-			return "redirect:/sendMail.do?reqPage=1";
-		}
-	}
-	
-	@RequestMapping("/adminDeleteMail.do")
-	public String deleteMail(int deleteNo[], int readType) {
-		
-		int result = service.deleteMail(deleteNo);
-		
-		if (result > 0) {
-			
-		} else {
-			
-		}
-		
-		if (readType == 0) {
-			return "redirect:/mail.do?reqPage=1";
-		} else {
-			return "redirect:/sendMail.do?reqPage=1";
-		}
-	}
 }

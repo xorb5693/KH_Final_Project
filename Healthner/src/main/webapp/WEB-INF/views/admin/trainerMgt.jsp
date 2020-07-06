@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <meta charset="utf-8">
 <!doctype html>
 <html lang="en">
   <head>
@@ -91,7 +92,7 @@ body {
 								}
 							var html = "";
 							for (var i = 0; i < data.list.length; i++) {
-								html += "<tr class='contentsRow'>"
+								html += "<tr class='contentsRow' onclick='addCard(this);'>"
 								html += "<td id='cnt'>" + (i + 1) + "</td>";
 								if (data.list[i].memberProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";

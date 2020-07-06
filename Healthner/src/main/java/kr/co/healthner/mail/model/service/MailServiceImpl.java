@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import kr.co.healthner.mail.model.dao.MailDaoImpl;
-import kr.co.healthner.mail.model.vo.MailData;
+import kr.co.healthner.mail.model.dao.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
 
@@ -74,12 +74,12 @@ public class MailServiceImpl {
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		
 		if (pageNo != 1) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/mail/receiveList.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href=/healthner/mail/receiveList.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
 		}
 		
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo != reqPage) {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/mail/receiveList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+				pageNavi.append("<a class='btn btn-outline-primary' href=/healthner/mail/receiveList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
 			} else {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			}
@@ -92,7 +92,7 @@ public class MailServiceImpl {
 		}
 		
 		if (pageNo <= totalPage) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/mail/receiveList.do?reqPage=" + pageNo + "'>다음</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href=/healthner/mail/receiveList.do?reqPage=" + pageNo + "'>다음</a>");
 		}
 		
 		///healthner/mail/receiveList.do?reqPage=1
@@ -148,12 +148,12 @@ public class MailServiceImpl {
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		
 		if (pageNo != 1) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/mail/sendList.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href=/healthner/mail/receiveList.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
 		}
 		
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo != reqPage) {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/mail/sendList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+				pageNavi.append("<a class='btn btn-outline-primary' href=/healthner/mail/receiveList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
 			} else {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			}
@@ -166,7 +166,7 @@ public class MailServiceImpl {
 		}
 		
 		if (pageNo <= totalPage) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/mail/sendList.do?reqPage=" + pageNo + "'>다음</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href=/healthner/mail/receiveList.do?reqPage=" + pageNo + "'>다음</a>");
 		}
 		
 		///healthner/mail/receiveList.do?reqPage=1
@@ -174,10 +174,5 @@ public class MailServiceImpl {
 		data.setList((ArrayList<MailVO>)list);
 		data.setPageNavi(pageNavi.toString());
 		return data;
-	}
-	
-	public int mailCheck(int memberNo) {
-		
-		return dao.mailCheck(memberNo);
 	}
 }

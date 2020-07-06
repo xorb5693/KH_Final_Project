@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kr.co.healthner.mail.model.dao.MailData;
 import kr.co.healthner.mail.model.service.MailServiceImpl;
-import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
 

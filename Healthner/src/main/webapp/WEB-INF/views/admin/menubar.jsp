@@ -21,7 +21,6 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/admin/css/style.css">
-<link rel="stylesheet" href="/resources/css/icomoon.css">
 </head>
 <!--혜진_200622_기존 템플릿 이외에 스타일 추가-->
 <style>
@@ -86,7 +85,7 @@
 						</ul></li>
 					<li id="6"><a href="/productMgt.do"><span
 							class="fa fa-shopping-cart mr-3"></span>상품 관리</a></li>
-					<li id="7"><a href="/mail.do?reqPage=1"><span class="fa fa-send-o mr-3"></span>쪽지함</a>
+					<li id="7"><a href="/mail.do"><span class="fa fa-send-o mr-3"></span>쪽지함</a>
 					</li>
 					<li id="8"><a href="/inquiryMgt.do"><span class="fa fa-calendar mr-3"></span>예약
 							목록 관리</a></li>
@@ -112,10 +111,10 @@
 
 			</div>
 		</nav>
-		<script src="/admin/js/jquery.min.js"></script>
-		<script src="/admin/js/popper.js"></script>
-		<script src="/admin/js/bootstrap.min.js"></script>
-		<script src="/admin/js/main.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/main.js"></script>
 </body>
 
 <script>
@@ -140,7 +139,7 @@
 			$("#5").addClass("active");
 		} else if (loc.includes('productMgt')) {
 			$("#6").addClass("active");
-		} else if (loc.includes('mail') || loc.includes('Mail')) {
+		} else if (loc.includes('mail')) {
 			$("#7").addClass("active");
 		} else if (loc.includes('inquiryMgt')) {
 			$("#8").addClass("active");

@@ -6,7 +6,6 @@ prefix="c"%>
 <head>
 <meta charset="UTF-8">
 <title>Inbody Input</title>
-	<link rel="icon" href="/resources/images/favicon.png">
  <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -44,7 +43,18 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 
 	
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+		<section class="hero-wrap" style="background-image: url('/resources/images/bg_2.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
+          <br><br>
+            <h1 class="mb-3 bread">TRAINERS</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="trainer.do">Trainer Intro</a></span> <span class="mr-2"><a href="customerList.do">My Customer </a></span> <span class="mr-2"><a href="trainerInputFrm.do">Edit Info</a></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
 	
 	<!-- 트레이너 정보 입력 수정 -->
 	<!--
@@ -147,7 +157,63 @@ integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9If
 		            </div>
 	    				</div>
 	    			</form>
-					
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- 
+	    			<form action="trainerInput.do" class="appointment-form">
+	    				<div class="form-group">		
+	    					<label for="height">Name</label><span>${list.memberName }</span>
+	    				</div>
+	    				<input type="hidden" name="memberNo" value="${list.memberNo }">
+	    				<input type="hidden" name="memberName" value="${list.memberName }">
+	    				<div class="form-group">
+	    					<div class="d-flex">
+	    						<div class="mr-2">
+	    							<label for="catFirst">주특기1</label>
+			    					<select class="form-control" name="catFirst" id="catFirst">
+			    						<option>${list.catFirst }</option>
+			    						<option value="1">다이어트</option>
+			    						<option value="2">보디빌딩</option>
+			    					</select>
+			    				</div>
+		    					<div class="ml-2">
+	    							<label for="catSecond">주특기2</label>
+			    					<select class="form-control" name="catSecond" id="catSecond">
+			    						<option>${list.catSecond }</option>
+			    						<option value="1">다이어트</option>
+			    						<option value="2">보디빌딩</option>
+			    					</select>
+			    				</div>
+			    				<div class="ml-2">
+	    							<label for="catThird">주특기3</label>
+			    					<select class="form-control" name="catThird" id="catThird">
+			    						<option>${list.catThird }</option>
+			    						<option value="1">다이어트</option>
+			    						<option value="2">보디빌딩</option>
+			    					</select>
+			    				</div>
+	    					</div>	
+	    				</div>
+	    				<div class="form-group">
+                				<textarea name="trainerIntro" id="trainerIntro" cols="30" rows="7" class="form-control" placeholder="자기소개를 입력하세요">${list.trainerIntro }</textarea>
+             				</div>
+	    				<div class="d-md-flex">
+		            <div class="form-group d-flex">
+		            	<input type="submit" value="확인" class="btn btn-secondary py-3 px-4 mr-2">
+		            </div>
+	    				</div>
+	    			</form>
+	    			-->
+	    			
 	    		</div>    			
   
     </section>

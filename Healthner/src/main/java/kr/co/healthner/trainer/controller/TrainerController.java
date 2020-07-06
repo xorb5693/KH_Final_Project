@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
-import kr.co.healthner.trainer.model.vo.BmiData;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.CustomerData;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
@@ -36,7 +35,29 @@ public class TrainerController {
 		member = (Member)session.getAttribute("member");
 		String id = member.getMemberId();
 		System.out.println("세션아이디 : "+id);
-		TrainerVO list = service.selectOneTrainer(id);		
+		TrainerVO list = service.selectOneTrainer(id);
+		if(list.getCatFirst()==1) {
+			list.setCatFirstName("다이어트");
+		} else if(list.getCatFirst()==2) {
+			list.setCatFirstName("보디빌딩");
+		} else if(list.getCatFirst()==3) {
+			list.setCatFirstName("교정");
+		} 
+		if(list.getCatSecond()==1) {
+			list.setCatSecondName("다이어트");
+		} else if(list.getCatSecond()==2) {
+			list.setCatSecondName("보디빌딩");
+		} else if(list.getCatSecond()==3) {
+			list.setCatSecondName("교정");
+		}
+		if(list.getCatThird()==1) {
+			list.setCatThirdName("다이어트");
+		} else if(list.getCatThird()==2) {
+			list.setCatThirdName("보디빌딩");
+		} else if(list.getCatThird()==3) {
+			list.setCatThirdName("교정");
+		}
+		
 		System.out.println(list);
 		model.addAttribute("list", list);
 		return "trainer/trainerInputFrm";
@@ -51,7 +72,7 @@ public class TrainerController {
 		} else {
 			System.out.println("수정 실패");
 		}
-		return "redirect:/healthner/trainer/trainer.do";
+		return "trainer/trainer";
 	}
 	
 	//회원 리스트 가져오기
@@ -79,12 +100,12 @@ public class TrainerController {
 	
 	//트레이너가 회원 PT 카운트 증가감소 시키기
 	@RequestMapping(value="/customerCntUpdate.do")
-	public String customerCntUpdate(int mappingSeq, String check) {
-//		int trainingCnt = mmv.getTrainingCnt();
-//		int memberNo = mmv.getMemberNo();
-//		System.out.println("트레이너 카운트 : " + trainingCnt);
-//		System.out.println("회원 번호 : " + memberNo);
-		int result = service.customerCntUpdate(mappingSeq, check);
+	public String customerCntUpdate(MemberMappingVO mmv) {
+		int trainingCnt = mmv.getTrainingCnt();
+		int memberNo = mmv.getMemberNo();
+		System.out.println("트레이너 카운트 : " + trainingCnt);
+		System.out.println("회원 번호 : " + memberNo);
+		int result = service.customerCntUpdate(mmv);
 		if(result > 0) {
 			System.out.println("수정 성공");
 		} else {
@@ -107,19 +128,11 @@ public class TrainerController {
 	
 	//인바디목록으로 보내기
 	@RequestMapping("/inbodyList.do")
-	public String inbodyList(Model model, int memberNo, HttpServletRequest request) {
-		int reqPage = 0;
-		try {
-			reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		} catch (Exception e) {
-			reqPage = 1;
-		}
-		BmiData data = service.selectOneMemberBmi(memberNo, reqPage);
-		model.addAttribute("memberNo", memberNo);
-		model.addAttribute("list", data.getList());
-		model.addAttribute("pageNavi", data.getPageNavi());
+	public String inbodyList(Model model, int memberNo) {
+		List<BmiVO> bmi = service.selectOneMemberBmi(memberNo);
+		System.out.println(bmi);
+		model.addAttribute("bmi", bmi);
 		System.out.println("회원번호 " + memberNo + "의 inbodyList 페이지");
-		System.out.println("회원번호" + memberNo + "의 정보 입니다." + data);
 		return "trainer/inbodyList";
 	}
 	
@@ -156,20 +169,10 @@ public class TrainerController {
 	
 	@RequestMapping("/customerGraph.do")
 	public String customerGraph(Model model, int memberNo) {
-		BmiVO prevBmi = service.selectPrevBmi(memberNo);
+		//BmiVO prevBmi = service.selectPrevBmi(memberNo);
 		BmiVO recentBmi = service.selectBmi(memberNo);
-		System.out.println(prevBmi);
-		System.out.println(recentBmi);
-		model.addAttribute("prevBmi", prevBmi);
+		//model.addAttribute("bmi", prevBmi);
 		model.addAttribute("recentBmi", recentBmi);
 		return "trainer/customerGraph";
-	}
-	
-	@RequestMapping(value="/inbodyGraph.do")
-	public String inbodyGraph(Model model, BmiVO bmi) {
-		BmiVO recentBmi = service.selectOneGraph(bmi);
-		System.out.println("그래프에 들어갈 내용 : " + recentBmi);
-		model.addAttribute("recentBmi", recentBmi);
-		return "trainer/inbodyGraph";
 	}
 }

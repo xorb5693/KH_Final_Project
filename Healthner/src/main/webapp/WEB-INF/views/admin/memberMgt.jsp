@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<meta charset="UTF-8">
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,6 +48,7 @@ table tr:hover {
 	<div id="content" class="p-4 p-md-5 pt-5">
 		<h6>전체 회원 관리</h6>
 		<!-- 혜진_200624_회원 검색 조회 box_아이디/이름/닉네임 입력, 이용권 미등록 찾기, 카드키 미등록 찾기, 검색버튼  -->
+		<form action="/memberList" method="post" id="memberList">
 		<div class="search-box">
 			<!-- (1) 아이디/이름/닉네임 입력 -->
 			<input type="text" id="searchWord" placeholder="아이디/이름/닉네임을 입력하세요.">
@@ -57,6 +59,7 @@ table tr:hover {
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"
 				onclick="show_memberlist(1,1);">
 		</div>
+		</form>
 		<div class="memberTB">
 			<table border="1">
 				<tr class="titleRow">

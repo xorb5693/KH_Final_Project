@@ -52,10 +52,10 @@ public class TrainerDaoImpl {
 		return sqlSession.selectList("trainer.selectMapperInfo", map);
 	}
 
-//	public int customerCntUpdate(MemberMappingVO mmv) {
-//		// TODO Auto-generated method stub
-//		return sqlSession.update("trainer.customerCntUpdate", mmv);
-//	}
+	public int customerCntUpdate(MemberMappingVO mmv) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("trainer.customerCntUpdate", mmv);
+	}
 
 	public List<ProfessionalCategoryVO> selectCategoryList() {
 		
@@ -71,9 +71,9 @@ public class TrainerDaoImpl {
 		return sqlSession.selectOne("trainer.selectOneMember", memberNo);
 	}
 
-	public List<BmiVO> selectOneMemberBmi(HashMap<String, Integer> map) {
+	public List<BmiVO> selectOneMemberBmi(int memberNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("trainer.selectOneMemberBmi", map);
+		return sqlSession.selectList("trainer.selectOneMemberBmi", memberNo);
 	}
 
 	public int selectMapperInfoCount(HashMap<String, Integer> map) {
@@ -91,22 +91,4 @@ public class TrainerDaoImpl {
 		return sqlSession.selectOne("trainer.selectPrevBmi", memberNo);
 	}
 
-	public BmiVO selectOneGraph(BmiVO bmi) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("trainer.selectOneGraph", bmi);
-	}
-	
-	public int selectOneMemberBmiCount(HashMap<String, Integer> map) {
-		return sqlSession.selectOne("trainer.selectOneMemberBmiCount", map);
-	}
-
-	public int customerUpgrade(int mappingSeq) {
-
-		return sqlSession.update("trainer.customerUpgrade", mappingSeq);
-	}
-
-	public int customerDowngrade(int mappingSeq) {
-		
-		return sqlSession.update("trainer.customerDowngrade", mappingSeq);
-	}
 }

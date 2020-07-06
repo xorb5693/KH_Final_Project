@@ -29,17 +29,9 @@ public class CardHandler extends TextWebSocketHandler {
 		
 		if (!members.isEmpty()) {
 			WebSocketSession ws = members.get(0);
-			ws.sendMessage(new TextMessage("Insert$" + cardNo));
+			ws.sendMessage(new TextMessage(cardNo));
 		} else {
 			System.out.println("열려있는 페이지가 없습니다.");
-		}
-	}
-	
-	public void cardOverlap(String cardNo, String memberId) throws Exception {
-		
-		if (!members.isEmpty()) {
-			WebSocketSession ws = members.get(0);
-			ws.sendMessage(new TextMessage("Overlap$" + "카드번호 " + cardNo + "은(는) " + memberId +"이(가) 사용중입니다."));
 		}
 	}
 

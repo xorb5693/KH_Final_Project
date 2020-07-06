@@ -6,8 +6,7 @@ import kr.co.healthner.member.model.vo.Member;
 import lombok.Data;
 
 @Data
-public class TotalpageList {
+public class totalpageList {
 	private ArrayList<Member> list;
 	private int totalCount;
-	private ArrayList<PTmapping> listpt;
 }

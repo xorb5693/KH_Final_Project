@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>My Attendance</title>
-	<link rel="icon" href="/resources/images/favicon.png">
 <style>
 .icon-check-circle:hover {
 	color: green;
