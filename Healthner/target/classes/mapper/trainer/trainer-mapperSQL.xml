@@ -77,11 +77,11 @@
 			#{metabolism}
 		)
 	</insert>
-	<select id="selectMapperInfo" parameterType="trainer" resultType="memberInfo">			
+	<select id="selectMapperInfo" parameterType="map" resultType="memberInfo">			
 		select * 
 			from(
 			    select rownum as rnum, m.*
-			    from (
+			    from (	
 			        select
 			            mapping_seq as mappingSeq,
 			            member.member_no as memberNo,
@@ -97,10 +97,10 @@
 			            phone
 			        from member_mapping
 			        join member on(member.member_no = member_mapping.member_no)
-			        where trainer_no = 10
+			        where trainer_no = #{trainerNo}
 			        order by mapping_seq desc
 			    ) m
-			) where rnum between 1 and 10	
+			) where rnum between #{start} and #{end}	
 	</select>
 	<select id="selectTrainerInfo" parameterType="_int" resultType="trainer">
 		select
@@ -129,25 +129,28 @@
 		from member
 		where member_no= #{memberNo}
 	</select>
-	<select id="selectOneMemberBmi" parameterType="int" resultType="bmi">
-		select rownum,
-			inbody_no as inbodyNo,
-			b.member_no as memberNo,
-			measure_date as measureDate,
-			weight,
-			bone,
-			bodyfat,
-			bodywater,
-			protein,
-			mineral,
-			bmi,
-			bodyfat_per as bodyfatPer,
-			abfat_per as abfatPer,
-			metabolism,
-			(select member_name from member where member_no=#{memberNo}) as memberName
-		from bmi b
-		where member_no=#{memberNo}
-		order by measure_date desc
+	<select id="selectOneMemberBmi" parameterType="map" resultType="bmi">
+	select * from
+		(select rownum as rnum, b.* from
+			(select
+				inbody_no as inbodyNo,
+				b.member_no as memberNo,
+				measure_date as measureDate,
+				weight,
+				bone,
+				bodyfat,
+				bodywater,
+				protein,
+				mineral,
+				bmi,
+				bodyfat_per as bodyfatPer,
+				abfat_per as abfatPer,
+				metabolism,
+				(select member_name from member where member_no=#{memberNo}) as memberName
+			from bmi b
+			where member_no=#{memberNo}
+			order by measure_date desc) b)
+		where rnum between #{start} and #{end}
 	</select>
 	<select id="selectMapperInfoCount" parameterType="map" resultType = "_int">
 	select count(*) from member_mapping where trainer_no = #{trainerNo}
@@ -236,6 +239,8 @@
 			metabolism,
 			(select member_name from member where member_no=#{memberNo}) as memberName
 		from bmi where inbody_no = #{inbodyNo}
-			
+	</select>
+	<select id="selectOneMemberBmiCount" parameterType="map" resultType="_int">
+		select count(*) from bmi where member_no = #{memberNo}
 	</select>
 </mapper>

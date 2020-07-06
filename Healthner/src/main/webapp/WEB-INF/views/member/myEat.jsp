@@ -156,7 +156,17 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	<c:if test="${sessionScope.member.memberLevel eq 2 or sessionScope.member.memberLevel eq 3 }">
+		<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 1 }">
+		<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 4 }">
+		<script>
+			location.href = "/adminMain.do";
+		</script>
+	</c:if>
 	<section class="ftco-section ftco-about">
 		<div class="container">
             <div class="row justify-content-center mb-5 pb-3">
@@ -173,9 +183,11 @@
                     </h2>
                 </div>
             </div>
-            <button type="button" id="modal" class="btn btn-primary ftco-animate fadeInUp ftco-animated" data-toggle="modal" data-target="#myModal">
-                	식단 입력
-            </button>
+            <c:if test="${eatMemberNo eq sessionScope.member.memberNo }">
+	            <button type="button" id="modal" class="btn btn-primary ftco-animate fadeInUp ftco-animated" data-toggle="modal" data-target="#myModal">
+	                	식단 입력
+	            </button>
+            </c:if>
             <br><br>
             <table class="table ftco-animate fadeInUp ftco-animated">
                 <thead>
@@ -389,7 +401,7 @@
             
                     var trComment = $("<tr></tr>");            
                     var tdComment = $("<td></td>");
-                    var form = $("<form action='/healthner/member/insertMenuComment.do?memberNo=" + memberNo + " method='post'></form>");
+                    var form = $("<form action='/healthner/member/insertMenuComment.do?memberNo=" + memberNo + "' method='post'></form>");
                     var textDiv = $("<div class='commentWrite'></div>");
                     var textArea = $("<div style='width: 85%;'><input type='hidden' name='menuNo' value='" + menuNo + "'><textarea class='form-control' name='cmtContent'></textarea></div>");
                     var textBtn = $("<div><input type='submit' class='btn btn-primary' value='댓글 입력'></div>");
