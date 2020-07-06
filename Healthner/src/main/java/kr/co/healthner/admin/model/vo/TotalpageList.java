@@ -9,4 +9,5 @@ import lombok.Data;
 public class TotalpageList {
 	private ArrayList<Member> list;
 	private int totalCount;
+	private ArrayList<PTmapping> listpt;
 }

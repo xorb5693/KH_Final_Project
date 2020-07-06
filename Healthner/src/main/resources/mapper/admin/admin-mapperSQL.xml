@@ -120,26 +120,50 @@
 		delete member where member_id = #{_parameter}
 	</delete>
 	<!-- 혜진_200702_mapping 테이블 검색 -->
-	<select id="ptmapping" parameterType="memberSearch" resultType="pt">
-	select
-    	c.member_profile as trainerProfile,
+	<select id="ptmapping" parameterType="pt" resultType="pt">
+	select rownum, n.* from(select
+    	NVL(c.member_profile,' ') as trainerProfile,
     	c.member_name as trainerName,
     	p.category_name as catFirst,
     	q.category_name as catSecond,
     	r.category_name as catThird,
-    	m.member_profile as memberProfile,
+    	NVL(m.member_profile,' ') as memberProfile,
     	m.member_name as memberName,
     	m.expire_date as expireDate,
     	(mp.training_maxcnt-mp.training_cnt) as trainingLeft
 	from member_mapping mp 
 	join member c on (c.member_no = mp.trainer_no)
 	join trainer t on (t.member_no = mp.trainer_no)
-	join professional_category p on (p.category_no = t.CAT_FIRST)
-	join professional_category q on (q.category_no = t.CAT_second)
-	join professional_category r on (r.category_no = t.CAT_third)
+	join professional_category p on (p.category_no = t.cat_first)
+	join professional_category q on (q.category_no = t.cat_second)
+	join professional_category r on (r.category_no = t.cat_third)
 	join member m on (m.member_no = mp.member_no)
-	where m.expire_date is not null and m.member_level=#{_parameter}
-	and (m.member_id like '%'||#{searchWord}||'%' or m.member_name like '%'||#{searchWord}||'%' or m.member_nick like '%'||#{searchWord}||'%' )
-	order by mp.training_cnt
+	where m.expire_date is not null
+	<if test="memberType==1">
+	and m.member_level=1
+	and (m.member_name like '%'||#{searchWord}||'%')
+	</if>
+	<if test="memberType==3">
+	and c.member_level=3
+	and (c.member_name like '%'||#{searchWord}||'%')
+	</if>
+	order by c.member_name
+	<if test="checkbox1==1">
+	, mp.training_cnt
+	</if>
+	)n where (rownum between #{start} and #{end})
+	</select>
+	<!-- 혜진_200702_mapping 테이블 자료수 세기 -->
+	<select id="ptTotalCount" parameterType="memberSearch" resultType="_int">
+	<if test="memberType==1">
+	select count (member_no) from member_mapping 
+	join member using (member_no)
+	where expire_date is not null and (member_name like '%'||#{searchWord}||'%')
+	</if>
+	<if test="memberType==3">
+	select count (trainer_no) from member_mapping mp 
+	join member m on (m.member_no = mp.trainer_no)
+	where (m.member_name like '%'||#{searchWord}||'%')
+	</if>
 	</select>
 </mapper>
