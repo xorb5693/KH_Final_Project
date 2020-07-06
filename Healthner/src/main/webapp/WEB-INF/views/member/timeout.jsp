@@ -27,19 +27,17 @@ prefix="c"%>
         </div>
       </div>
     </section>
-
     <section class="hero-wrap">
         <div class="container">
             <h1 class="mb-3 bread">시간이 만료 되었습니다</h1>
             <h2 class="mb-2 bread">
+              기간이 만료 되었습니다 
               <a href="/healthner/member/resend.do?memberId=${memberId}">
-                다시인증 하기
+                다시 인증하기
               </a>
             </h2>
         </div>
-
     </section>
-
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

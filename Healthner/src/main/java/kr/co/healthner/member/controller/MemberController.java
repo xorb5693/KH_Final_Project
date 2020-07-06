@@ -89,11 +89,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String insertMember(Member m,HttpServletRequest request) {
+	public String insertMember(Member m,HttpServletRequest request,Model model) {
 		// send mail
 		long timeout = System.currentTimeMillis()/1000;
-		mailService.sendMail(m,request,timeout);
 		
+		mailService.sendMail(m,request,timeout);
+		model.addAttribute("memberId", m.getMemberId());
 		// upload profile Image
 		
 		// insert Member
@@ -277,6 +278,11 @@ public class MemberController {
 			model.addAttribute("memberId", memberId);
 			return "member/timeout";
 		}
+	}
+	
+	@RequestMapping("/retrievePw.do")
+	public String recoverFrm() {
+		return "member/retrieve";
 	}
 	
 }

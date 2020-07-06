@@ -59,10 +59,7 @@ prefix="c"%>
 							Don't have an account?<a href="/healthner/member/registerFrm.do">Sign Up</a>
 						</div>
 						<div class="d-flex justify-content-center">
-							<a href="/healthner/member/retrievePw.do">Forgot your password?</a>
-						</div>
-						<div class="d-flex justify-content-center">
-							<a href="/healthner/member/retrieveId.do">아이디 까먹음?</a>
+							<a href="/healthner/member/retrievePw.do">아이디/비밀번호 찾기</a>
 						</div>
 					</div>
 <!-- 				</div>

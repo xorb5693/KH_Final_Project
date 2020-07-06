@@ -22,7 +22,7 @@ public class MemberMailServiceImpl {
 		MimeMessage mail = mailSender.createMimeMessage();
 		String msg = "<h2>안녕하세요 핼트너쉽 입니다!</h2><br><br>"
 				+"<h3>"+m.getMemberName()+"님</h3>"+"<p>인증하기 버튼을 누르시면 인증이 됩니다</p>:"
-				+ "<a href='http://localhost/healthner/member/verifyMail.do?memberId="+m.getMemberId()+"&timeout="+timeout+"'>인증하기</a>";
+				+ "<a href='http://localhost/healthner/member/verifyMail.do?memberId="+m.getMemberId()+"&timeout="+timeout+"&memberId="+m.getMemberId()+"'>인증하기</a>";
 		try {
 			mail.setSubject("[본인인증]"+m.getMemberName()+"님 헬트너쉽 본인인증 메일입니다");
 			mail.setText(msg, "utf-8", "html");
