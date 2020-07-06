@@ -6,7 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Customer Graph</title>
-<link
+
+	<link rel="icon" href="/resources/images/favicon.png">
+ <link
+
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
 

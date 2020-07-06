@@ -1,5 +1,6 @@
 package kr.co.healthner.board.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,6 +64,18 @@ public class BoardDao {
 	public int commentUpdate(BoardCommentVO bc) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("comment.commentUpdate",bc);
+	}
+
+
+
+	public int totalSearchList(HashMap<String, String> map2) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("board.totalSearchList",map2);
+	}
+
+	public List BoardSearchTitleList(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("board.boardSearchList",map);
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class test {
 	 */
 	@RequestMapping(value = "/imageUpload.do", method = RequestMethod.POST)
 	public String imageUpload(HttpServletRequest request, HttpServletResponse response,
-			MultipartHttpServletRequest multiFile, @RequestParam MultipartFile upload) throws Exception {
+			MultipartHttpServletRequest multiFile, @RequestParam MultipartFile upload , HttpSession session) throws Exception {
 		// 랜덤 문자 생성
 		UUID uid = UUID.randomUUID();
 
@@ -47,13 +48,15 @@ public class test {
 			// 파일 이름 가져오기
 			String fileName = upload.getOriginalFilename();
 			byte[] bytes = upload.getBytes();
-
+			
 			// 이미지 경로 생성
 
 			String path = request.getSession().getServletContext().getRealPath("/resources/upload/");
 			String ckUploadPath = path + uid + "_" + fileName;
 			File folder = new File(path);
-
+			System.out.println(ckUploadPath);
+			
+//			session.setAttribute("filename", path);
 			// 해당 디렉토리 확인
 			if (!folder.exists()) {
 				try {
@@ -69,8 +72,12 @@ public class test {
 
 			String callback = request.getParameter("CKEditorFuncNum");
 			printWriter = response.getWriter();
-			String fileUrl = "/ckImgSubmit.do?uid=" + uid + "&fileName=" + fileName; // 작성화면
-
+			String fileUrl = "/resources/upload/" + uid + "_" + fileName; // 작성화면
+			
+			/*
+			 * System.out.println("파일경로확인333 : "+uid+fileName); String ssum = uid+fileName;
+			 */
+			
 			// 업로드시 메시지 출력
 			printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
 			printWriter.flush();

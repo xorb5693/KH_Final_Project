@@ -11,6 +11,7 @@ prefix="c"%>
   <head>
     <meta charset="UTF-8" />
     <title>Register</title>
+	<link rel="icon" href="/resources/images/favicon.png">
   </head>
   <body>
     <script>
@@ -283,15 +284,6 @@ prefix="c"%>
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
             <br /><br />
             <h1 class="mb-3 bread">Registration</h1>
-            <p class="breadcrumbs">
-              <span class="mr-2"><a href="trainer.do">Trainer Intro</a></span>
-              <span class="mr-2"
-                ><a href="customerList.do">My Customer </a></span
-              >
-              <span class="mr-2"
-                ><a href="trainerInputFrm.do">Edit Info</a></span
-              >
-            </p>
           </div>
         </div>
       </div>

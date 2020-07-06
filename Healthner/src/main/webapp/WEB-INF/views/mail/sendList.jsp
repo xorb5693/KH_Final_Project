@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Send Mail List</title>
+	<link rel="icon" href="/resources/images/favicon.png">
 <style>
 form>button {
 	float: right;
@@ -114,10 +115,10 @@ form>button {
 			</div>
 			<form action="/healthner/mail/deleteMail.do" method="get">
 				<input type="hidden" value="1" name="readType">
-				<button type="button" id="modal"
+				<button type="button" id="modal" style="width: 120px;"
 					class="btn btn-primary ftco-animate fadeInUp ftco-animated"
 					data-toggle="modal" data-target="#myModal">쪽지 쓰기</button>
-				<button type="submit"
+				<button type="submit" style="width: 120px;"
 					class="btn btn-primary ftco-animate fadeInUp ftco-animated"
 					onclick="return checkDelete()">삭제</button>
 				<br>
@@ -192,9 +193,9 @@ form>button {
 
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary"
+						<button type="submit" class="btn btn-primary btn-lg"
 							onclick="return checkId()">Write</button>
-						<button type="button" class="btn btn-secondary"
+						<button type="button" class="btn btn-secondary btn-lg"
 							data-dismiss="modal">Close</button>
 					</div>
 				</form>
