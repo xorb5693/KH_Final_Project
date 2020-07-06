@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Customer Graph</title>
-
 	<link rel="icon" href="/resources/images/favicon.png">
  <link
 
