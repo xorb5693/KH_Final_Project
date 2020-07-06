@@ -16,7 +16,6 @@
 	</properties>
 	<dependencies>
 
-
 		<!-- Jsoup -->
 		<dependency> 
 			<groupId>org.jsoup</groupId> 
