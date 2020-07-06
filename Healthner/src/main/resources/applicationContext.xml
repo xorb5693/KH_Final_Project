@@ -58,7 +58,13 @@
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
-	
+	<!-- 메일 알림용 웹소켓 설정 -->
+	<websocket:handlers>
+		<websocket:mapping handler="mailCheckScheduled" path="/healthner/mail/mailCheck.do"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
 	
 		
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

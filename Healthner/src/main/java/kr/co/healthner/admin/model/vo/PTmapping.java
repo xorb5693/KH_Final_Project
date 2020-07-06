@@ -13,4 +13,9 @@ public class PTmapping {
 	private String memberName;
 	private String expireDate;
 	private int trainingLeft;
+	private String searchWord;
+	private int checkbox1;
+	private int start;
+	private int end;
+	private int memberType;
 }

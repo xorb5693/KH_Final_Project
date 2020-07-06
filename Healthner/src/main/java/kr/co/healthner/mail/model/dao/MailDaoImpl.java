@@ -75,4 +75,9 @@ public class MailDaoImpl {
 		
 		return sqlSession.selectList("mail.selectSendMailList", map);
 	}
+
+	public int mailCheck(int memberNo) {
+		
+		return sqlSession.selectOne("mail.mailCheck", memberNo);
+	}
 }

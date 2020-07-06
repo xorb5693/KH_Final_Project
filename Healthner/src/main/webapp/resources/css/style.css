@@ -10399,5 +10399,17 @@ textarea.form-control {
 }
 
 .tg-yellow {
-	color: #fcd307
+    animation-name: tg-ani;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+@keyframes tg-ani {
+    from {
+        color: rgb(255, 255, 255);
+    }
+    to {
+	   color: #fcd307;
+    }
 }

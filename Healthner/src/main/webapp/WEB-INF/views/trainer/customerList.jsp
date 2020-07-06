@@ -89,7 +89,7 @@
 										</form>
 									</td>
 									<td rowspan="2" style="text-align: center;">
-										<img src="/resources/prifile/${memberList.memberProfile}" width="80px;" height="80px;">
+										<img src="/resources/profile/${memberList.memberProfile}" width="80px;" height="80px;">
 									</td>
 									<td rowspan="2">
 										<!-- training_cnt -->
