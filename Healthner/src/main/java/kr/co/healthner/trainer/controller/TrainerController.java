@@ -1,5 +1,7 @@
 package kr.co.healthner.trainer.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +12,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+
 import kr.co.healthner.member.model.vo.Member;
-import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
 import kr.co.healthner.trainer.model.vo.BmiData;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.CustomerData;
+import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
 
 @Controller
@@ -79,12 +84,12 @@ public class TrainerController {
 	
 	//트레이너가 회원 PT 카운트 증가감소 시키기
 	@RequestMapping(value="/customerCntUpdate.do")
-	public String customerCntUpdate(MemberMappingVO mmv) {
-		int trainingCnt = mmv.getTrainingCnt();
-		int memberNo = mmv.getMemberNo();
-		System.out.println("트레이너 카운트 : " + trainingCnt);
-		System.out.println("회원 번호 : " + memberNo);
-		int result = service.customerCntUpdate(mmv);
+	public String customerCntUpdate(int mappingSeq, String check) {
+//		int trainingCnt = mmv.getTrainingCnt();
+//		int memberNo = mmv.getMemberNo();
+//		System.out.println("트레이너 카운트 : " + trainingCnt);
+//		System.out.println("회원 번호 : " + memberNo);
+		int result = service.customerCntUpdate(mappingSeq, check);
 		if(result > 0) {
 			System.out.println("수정 성공");
 		} else {
@@ -149,8 +154,10 @@ public class TrainerController {
 	@RequestMapping("/trainer.do")
 	public String trainers(Model model) {
 		List<TrainerVO> list = service.selectAllTrainers();
-		System.out.println(list);
+//		System.out.println(list);
+		ArrayList<ProfessionalCategoryVO> categorys = service.selectCategoryList();
 		model.addAttribute("list", list);
+		model.addAttribute("categorys", categorys);
 		return "trainer/trainer";
 	}
 	
@@ -171,5 +178,27 @@ public class TrainerController {
 		System.out.println("그래프에 들어갈 내용 : " + recentBmi);
 		model.addAttribute("recentBmi", recentBmi);
 		return "trainer/inbodyGraph";
+	}
+	
+	//트레이너 - 자기 정보 보기
+	@RequestMapping("/oneTrainerInfo.do")
+	public String trainerInputFrm(HttpSession session, Model model) {
+		Member member = new Member();
+		member = (Member)session.getAttribute("member");
+		String id = member.getMemberId();
+		int memberNo = member.getMemberNo();
+		System.out.println("세션아이디 : "+id);
+		TrainerVO list = service.oneTrainerInfo(memberNo);		
+		model.addAttribute("list", list);
+		return "trainer/oneTrainerInfo";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/recommend.do", produces = "application/json; charset=utf-8")
+	public String recommend(int first, int second, int third) {
+		
+		ArrayList<TrainerVO> list = service.recommend(first, second, third);
+		
+		return new Gson().toJson(list);
 	}
 }

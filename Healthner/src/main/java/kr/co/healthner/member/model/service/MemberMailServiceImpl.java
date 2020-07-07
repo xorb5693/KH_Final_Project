@@ -22,7 +22,7 @@ public class MemberMailServiceImpl {
 		MimeMessage mail = mailSender.createMimeMessage();
 		String msg = "<h2>안녕하세요 핼트너쉽 입니다!</h2><br><br>"
 				+"<h3>"+m.getMemberName()+"님</h3>"+"<p>인증하기 버튼을 누르시면 인증이 됩니다</p>:"
-				+ "<a href='http://localhost/healthner/member/verifyMail.do?memberId="+m.getMemberId()+"&timeout="+timeout+"'>인증하기</a>";
+				+ "<a href='http://localhost/healthner/member/verifyMail.do?memberId="+m.getMemberId()+"&timeout="+timeout+"&email="+m.getEmail()+"'>인증하기</a>";
 		try {
 			mail.setSubject("[본인인증]"+m.getMemberName()+"님 헬트너쉽 본인인증 메일입니다");
 			mail.setText(msg, "utf-8", "html");
@@ -33,6 +33,22 @@ public class MemberMailServiceImpl {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public void resetPw(Member member, long timeout, HttpServletRequest request ) {
+		MimeMessage mail = mailSender.createMimeMessage();
+		String msg = "<h2>안녕하세요 헬트너쉽입니다</h2><br><br>"
+				+"<h3>"+member.getMemberName()+"님</h3><p>비밀번호를 제설정 해주세요</p>:"
+				+"<a href='http://localhost/healthner/member/resetPwFrm.do?memberId="+member.getMemberId()+"&timeout="+timeout+"&email="+member.getEmail()+"'>재설정 하기</a>";
+		try {
+			mail.setSubject("[비밀번호 재설정]"+member.getMemberName()+"님 헬트너쉽 비밀번호를 재설정 해주세요");
+			mail.setText(msg,"utf-8","html");
+			mail.addRecipient(RecipientType.TO, new InternetAddress(member.getEmail()));
+			mailSender.send(mail);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Customer Graph</title>
+	<link rel="icon" href="/resources/images/favicon.png">
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -61,7 +62,17 @@ canvas {
 
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp" />
+	<c:if test="${sessionScope.member.memberLevel eq 2 or sessionScope.member.memberLevel eq 3 }">
+		<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 1 }">
+		<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 4 }">
+		<script>
+			location.href = "/adminMain.do";
+		</script>
+	</c:if>
 
 	<section class="ftco-section bg-light">
 		<div class="container px-4">
@@ -83,6 +94,52 @@ canvas {
 						<canvas id="myChart4"></canvas>
 					</div>
 
+				</div>
+			</div>
+		</div>
+		<div class="overlay"></div>
+			<div
+				class="container col-md-12 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+				<div class="row justify-content-center">
+					<div class="col-md-8 text-center">
+						<table class="table" style="text-align: center;">
+							<tr>
+								<th scope="col">날짜</th>
+								<th scope="col">체수분</th>
+								<th scope="col">단백질</th>
+								<th scope="col">무기질</th>
+								<th scope="col">체지방량</th>
+								<th scope="col">체중</th>
+								<th scope="col">골격근량</th>
+								<th scope="col">BMI</th>
+								<th scope="col">체지방률</th>
+								<th scope="col">복부지방률</th>
+							</tr>
+							<tr>
+								<th scope="row">${recentBmi.measureDate }</th>
+								<th scope="row">${recentBmi.bodywater}</th>
+								<th scope="row">${recentBmi.protein}</th>
+								<th scope="row">${recentBmi.mineral}</th>
+								<th scope="row">${recentBmi.bodyfat}</th>
+								<th scope="row">${recentBmi.weight}</th>
+								<th scope="row">${recentBmi.bone}</th>
+								<th scope="row">${recentBmi.bmi}</th>
+								<th scope="row">${recentBmi.bodyfatPer}</th>
+								<th scope="row">${recentBmi.abfatPer}</th>
+							</tr>
+							<tr>
+								<th scope="row">${prevBmi.measureDate }</th>
+								<th scope="row">${prevBmi.bodywater}</th>
+								<th scope="row">${prevBmi.protein}</th>
+								<th scope="row">${prevBmi.mineral}</th>
+								<th scope="row">${prevBmi.bodyfat}</th>
+								<th scope="row">${prevBmi.weight}</th>
+								<th scope="row">${prevBmi.bone}</th>
+								<th scope="row">${prevBmi.bmi}</th>
+								<th scope="row">${prevBmi.bodyfatPer}</th>
+								<th scope="row">${prevBmi.abfatPer}</th>
+							</tr>
+						</table>
 				</div>
 			</div>
 		</div>
@@ -137,7 +194,15 @@ canvas {
 		options: { 
 			legend: { 
 				display: false 
-				} 
+				} ,
+				scales: {
+					yAxes: [{
+	                    display: true,
+	                    ticks: {
+	                    	beginAtZero: true
+	                    }
+	                }]
+				}
 		} 
 	});
 

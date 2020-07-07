@@ -89,12 +89,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String insertMember(Member m,HttpServletRequest request) {
+	public String insertMember(Member m,HttpServletRequest request,Model model) {
 		// send mail
 		long timeout = System.currentTimeMillis()/1000;
-		mailService.sendMail(m,request,timeout);
 		
+		mailService.sendMail(m,request,timeout);
+		model.addAttribute("memberId", m.getMemberId());
 		// upload profile Image
+		
+		
+		
+		
 		
 		// insert Member
 		int result = service.insertMember(m);
@@ -175,6 +180,7 @@ public class MemberController {
 		request.setAttribute("list", data.getList());
 		request.setAttribute("pageNavi", data.getPageNavi());
 		request.setAttribute("memberName", data.getMemberName());
+		request.setAttribute("eatMemberNo", memberNo);
 //		System.out.println(data.getPageNavi());
 		return "member/myEat";
 	}
@@ -195,13 +201,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/insertMenuComment.do")
-	public String insertMenuComment(HttpServletRequest request, MenuCommentVO comment) {
+	public String insertMenuComment(HttpServletRequest request, MenuCommentVO comment, int memberNo) {
 		
 		HttpSession session = request.getSession();
 		comment.setWriterNo(((Member)session.getAttribute("member")).getMemberNo());
 		int result = service.insertMenuComment(comment);
 		
-		return "redirect:/healthner/member/myEat.do?memberNo=" + comment.getWriterNo() + "&reqPage=1";
+		return "redirect:/healthner/member/myEat.do?memberNo=" + memberNo + "&reqPage=1";
 	}
 	
 	@ResponseBody
@@ -264,7 +270,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("/verifyMail.do")
-	public String verifyMail(String memberId,long timeout,Model model) {
+	public String verifyMail(String memberId,String email,long timeout,Model model) {
 		long endtime = System.currentTimeMillis()/1000;
 		if(endtime-timeout<24*60*60) {
 			int result = service.verifyMail(memberId);			
@@ -275,8 +281,77 @@ public class MemberController {
 			}
 		}else {
 			model.addAttribute("memberId", memberId);
+			model.addAttribute("email", email);
 			return "member/timeout";
 		}
+	}
+	
+	@RequestMapping("/retrieveFrm.do")
+	public String recoverFrm() {
+		return "member/retrieveFrm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/retrieveId.do", produces="application/json; charset=utf-8")
+	public String retrieveId(String memberName, String email) {
+		Member m = new Member();
+		m.setEmail(email);
+		m.setMemberName(memberName);
+		Member member = service.retrieveId(m);
+		return new Gson().toJson(member);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/retrievePw.do", produces="application/json; charset=utf-8")
+	public String retrievePw(String memberId, String email, HttpServletRequest request) {
+		Member m = new Member();
+		m.setEmail(email);
+		m.setMemberId(memberId);
+		System.out.println(m.getEmail());
+		System.out.println(m.getMemberId());
+		Member member = service.retrievePw(m);
+		if(member != null) {
+			long timeout = System.currentTimeMillis()/1000;
+			mailService.resetPw(member,timeout, request);
+		}
+		return new Gson().toJson(member); 
+	}
+	
+	@RequestMapping("/resetPwFrm.do")
+	public String resetPwFrm(Member m, long timeout, Model model) {
+		long endTimeout = System.currentTimeMillis()/1000;
+		model.addAttribute("memberId",m.getMemberId());
+		System.out.println(endTimeout-timeout);
+		if(endTimeout-timeout>60*30) {
+			// Timedout
+			model.addAttribute("resetPw", "reset");
+			model.addAttribute("memberId", m.getMemberId());
+			model.addAttribute("email", m.getEmail());
+			return "member/timeout";
+		}else {
+			return "member/resetPwFrm";
+		}
+	}
+	
+	@RequestMapping("/resetPw.do")
+	public String resetPw(Member m,Model model) {
+		int result = service.resetPwMember(m);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/resend.do")
+	public String resend(String email, String memberId, String type,HttpServletRequest request) {
+		Member m = new Member();
+		m.setMemberId(memberId);
+		Member member = service.selectMember(m);
+		long timeout = System.currentTimeMillis()/1000;
+		if(type.equals("email")) {
+			mailService.sendMail(member,request,timeout);
+		}else {
+			mailService.resetPw(member,timeout,request);
+		}
+		return "redirect:/";
 	}
 	
 }

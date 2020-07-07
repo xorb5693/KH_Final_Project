@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>My Eat</title>
+	<link rel="icon" href="/resources/images/favicon.png">
     <style>
         #modal {
             float: right;
@@ -156,7 +157,17 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	<c:if test="${sessionScope.member.memberLevel eq 2 or sessionScope.member.memberLevel eq 3 }">
+		<jsp:include page="/WEB-INF/views/common/headerForTrainer.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 1 }">
+		<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
+	</c:if>
+	<c:if test="${sessionScope.member.memberLevel eq 4 }">
+		<script>
+			location.href = "/adminMain.do";
+		</script>
+	</c:if>
 	<section class="ftco-section ftco-about">
 		<div class="container">
             <div class="row justify-content-center mb-5 pb-3">
@@ -173,9 +184,11 @@
                     </h2>
                 </div>
             </div>
-            <button type="button" id="modal" class="btn btn-primary ftco-animate fadeInUp ftco-animated" data-toggle="modal" data-target="#myModal">
-                	식단 입력
-            </button>
+            <c:if test="${eatMemberNo eq sessionScope.member.memberNo }">
+	            <button type="button" id="modal" class="btn btn-primary ftco-animate fadeInUp ftco-animated btn-lg" data-toggle="modal" data-target="#myModal">
+	                	식단 입력
+	            </button>
+            </c:if>
             <br><br>
             <table class="table ftco-animate fadeInUp ftco-animated">
                 <thead>
@@ -195,7 +208,7 @@
 					      <td>${eat.eatDate }</td>
 					      <td>${eat.eatTime }</td>
 					      <td>
-					      	<button class="btn btn-primary" onclick='openComment(this, ${eat.menuNo}, ${eat.memberNo})'>댓글 보기</button>
+					      	<button class="btn btn-primary btn-lg" onclick='openComment(this, ${eat.menuNo}, ${eat.memberNo})'>댓글 보기</button>
 					      </td>
 					    </tr>
 				    </c:forEach>
@@ -235,7 +248,7 @@
                             <div style="width: 380px">
                                 <input type="text" class="form-control" id="foodName" name="foodName" placeholder="음식 이름을 입력하세요" required>
                             </div>
-                            <button type="button" id="search" class="btn btn-outline-primary">검색</button>
+                            <button type="button" id="search" class="btn btn-outline-primary btn-lg">검색</button>
                         </div>
                        	 칼로리
                         <input type="number" name="kcal" class="form-control" placeholder="kcal" step="any" required>
@@ -245,8 +258,8 @@
 	
 	                <!-- Modal footer -->
 	                <div class="modal-footer">
-						<button type="submit" class="btn btn-primary">Write</button>
-	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary btn-lg">Write</button>
+	                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
 	                </div>
 				</form>
             </div>
@@ -389,7 +402,7 @@
             
                     var trComment = $("<tr></tr>");            
                     var tdComment = $("<td></td>");
-                    var form = $("<form action='/healthner/member/insertMenuComment.do?memberNo=" + memberNo + " method='post'></form>");
+                    var form = $("<form action='/healthner/member/insertMenuComment.do?memberNo=" + memberNo + "' method='post'></form>");
                     var textDiv = $("<div class='commentWrite'></div>");
                     var textArea = $("<div style='width: 85%;'><input type='hidden' name='menuNo' value='" + menuNo + "'><textarea class='form-control' name='cmtContent'></textarea></div>");
                     var textBtn = $("<div><input type='submit' class='btn btn-primary' value='댓글 입력'></div>");

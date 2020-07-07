@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>My Trainer</title>
+	<link rel="icon" href="/resources/images/favicon.png">
     <style>
         .form-control {
             resize: none;
@@ -33,7 +34,7 @@
                 <c:forEach items="${list }" var="data">
                 	<div class="col-lg-3 d-flex">
 	                    <div class="coach align-items-stretch">
-	                        <div class="img" style="background-image: url(/resources/profile/${data.trainer.memberProfile});">
+	                        <div class="img" style="background-image: url(/resources/profile/${data.trainer.memberProfile}), url(/resources/profile/noprofile.png);">
 	                        </div>
 	                        <div class="text pt-3 ftco-animate fadeInUp ftco-animated">
 	                            <span class="subheading">${data.trainer.catFirstName } / ${data.trainer.catSecondName } / ${data.trainer.catThirdName }</span>
@@ -43,11 +44,11 @@
 	                        </div>
 	                        <div>
 	                        	<c:if test="${not empty data.mapping.trainingPostscript }">
-	                            	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#readPostscript" onclick="readPostscript(this)">후기 보기</button>
+	                            	<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#readPostscript" onclick="readPostscript(this)">후기 보기</button>
                                     <input type="hidden" value="${data.mapping.trainingPostscript }">
 	                        	</c:if>
 	                        	<c:if test="${empty data.mapping.trainingPostscript }">
-	                            	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#writePostscript" onclick="writePostscript(this)">후기 입력</button>
+	                            	<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#writePostscript" onclick="writePostscript(this)">후기 입력</button>
 	                        	</c:if>
 	                        </div>
 	                    </div>

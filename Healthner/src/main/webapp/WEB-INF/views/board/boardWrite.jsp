@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="resources/ckeditor/contents.css">
+<title>board</title>
+<link rel="icon" href="/resources/images/favicon.png">
+<link rel="stylesheet" href="/resources/ckeditor/contents.css">
 
-<script type="text/javascript" src="resources/ckeditor/ckeditor.js"
+<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"
 	charset="utf-8"></script>
 </head>
 <body>
@@ -25,44 +26,48 @@
 						<br>
 						<h1 class="mb-3 bread">Place title here</h1>
 						<p class="breadcrumbs">
-							<span class="mr-2"><a href="index.html">링크</a></span> <span>링크</span>
+							<span class="mr-2"><a href="/healthner/notice/noticeList.do?reqPage=1">NOTICE</a></span>
+							<span><a href="/healthner/board/boardList.do?reqPage=1">BOARD</a></span>
 						</p>
 					</div>
 				</div>
 			</div>
 		</section>
 		<div class="content">
-			<form action="/boardUp.do" method="post">
+		<c:if test="${sessionScope.member.memberLevel eq 1 }">
+			<form action="/healthner/board/boardUp.do" method="post">
 				<h2>자유게시판 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
 				제목 : <input type="text" name="boardTitle"><br>
+				<input type="hidden" name="boardWriter" value="${sessionScope.member.memberNo }">
 				<input type="hidden" name="boardType" value="0"><br>
 				<textarea id="ck4" name="boardContent"></textarea>
 				<script>
 					CKEDITOR.replace('ck4', {
-						filebrowserUploadUrl : '/imageUpload.do'
+						filebrowserUploadUrl : '/healthner/notice/imageUpload.do'
 					});
 				</script>
-				<c:if test="${sessionScope.member.memberLevel eq 0 }">회원일경우출력</c:if>
+				
 				<input type="submit" value="작성">
 			</form>
+			</c:if>
 			
-			
-			<c:if test="${sessionScope.member.memberLevel eq 1 }">트레이너일경우출력</c:if>
-			<form action="/boardUp.do" method="post">
+			<c:if test="${sessionScope.member.memberLevel eq 3 }">
+			<form action="/healthner/board/boardUp.do" method="post">
 				<h2>트레이너게시판 글쓰기</h2>
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
+				<input type="hidden" name="boardWriter" value="${sessionScope.member.memberNo }">
 				제목 : <input type="text" name="boardTitle"><br>
 				<input type="hidden" name="boardType" value="1"><br>
 				<textarea id="ck4" name="boardContent"></textarea>
 				<script>
 					CKEDITOR.replace('ck4', {
-						filebrowserUploadUrl : '/imageUpload.do'
+						filebrowserUploadUrl : '/healthner/notice/imageUpload.do'
 					});
 				</script>
 				<input type="submit" value="작성">
 			</form>
-			
+			</c:if>
 			
 			
 		</div>
