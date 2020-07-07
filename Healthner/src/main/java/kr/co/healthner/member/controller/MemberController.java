@@ -1,5 +1,9 @@
 package kr.co.healthner.member.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,9 +108,31 @@ public class MemberController {
 		
 		mailService.sendMail(m,request,timeout);
 		model.addAttribute("memberId", m.getMemberId());
+		
+		
 		// upload profile Image
-		
-		
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/profile/"); // 저장 경로
+		// 업로드한 파일의 실제 파일명
+		String originalFilename = file.getOriginalFilename(); 
+		// 확장자를 제되한 파일명
+		String onlyFilename = originalFilename.substring(0,originalFilename.lastIndexOf("."));
+		// 확장자 -> txt
+		String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+		String filepath = onlyFilename+"_"+System.currentTimeMillis()+extension;
+		String fullpath = savePath + filepath;
+		if(!file.isEmpty()) {
+			try {
+				byte [] bytes = file.getBytes();
+				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fullpath)));
+				bos.write(bytes);
+				bos.close();
+				System.out.println("파일 업로드 완료");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		m.setMemberProfile(filepath);
 		
 		
 		
