@@ -29,9 +29,7 @@ prefix="c"%>
           $("#remember").attr("checked",true);
         }
       });
-
-      $(function(){
-        $("#login").click(function(){
+		function submitForm(){
           var memberId = $("input[name=memberId]").val();
           var memberPw = $("input[name=memberPw]").val();
           $.ajax({
@@ -58,8 +56,9 @@ prefix="c"%>
               }
             }
           });
-        });
-      });
+			
+		}
+      
       function createCookie(key,memberId,exdate){
         var d = new Date();
         d.setDate(d.getDate+exdate);
@@ -103,7 +102,7 @@ prefix="c"%>
 				<div class="card"> -->
 
             <div class="card-body">
-              <form action="/healthner/member/login.do" method="POST">
+              <form  onsubmit="submitForm()" method="POST">
                 <div class="input-group form-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text"
@@ -137,7 +136,7 @@ prefix="c"%>
                   </label>
                 </div>
                 <div class="form-group">
-                  <button type="button" id="login" class="btn btn-primary btn-outline-white">로그인</button>
+                <input type="submit" value="로그인" class="btn btn-primary btn-outline-white">
                 </div>
               </form>
             </div>

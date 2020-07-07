@@ -389,4 +389,9 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping("/about.do")
+	public String aboutFrm() {
+		return "member/about";
+	}
+	
 }
