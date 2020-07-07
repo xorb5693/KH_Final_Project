@@ -71,15 +71,18 @@ public class MemberController {
 		return "$" + cardNo;
 	}
 	
-	@RequestMapping("/login.do")
+	@ResponseBody
+	@RequestMapping(value="/login.do", produces = "application/json;charset=utf-8")
 	public String selectMember(Member m, HttpSession session) {
 		Member member = new Member();
 		member = service.selectMember(m);
 		if(member != null) {
 			session.setAttribute("member", member);
+			return "success";
+		}else {
+			return "fail";
 		}
 		
-		return "redirect:/";
 	}
 	
 	@RequestMapping("/logout.do")

@@ -7,6 +7,10 @@ prefix="c"%>
 <meta charset="UTF-8">
 <title>Login</title>
 	<link rel="icon" href="/resources/images/favicon.png">
+	<script
+  type="text/javascript"
+  src="http://code.jquery.com/jquery-3.3.1.js"
+></script>
  <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -15,7 +19,35 @@ prefix="c"%>
     <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
     <!-- END nav -->
+    <script>
+      $(function(){
+        $("#login").click(function(){
+          var memberId = $("input[name=memberId]").val();
+          var memberPw = $("input[name=memberPw]").val();
+          $.ajax({
+            url: "/healthner/member/login.do",
+            method: "post",
+            data: {memberId : memberId,
+                    memberPw : memberPw
+            },
+            success: function(data){
+              
+            }
+          });
+          if($("#remember").is(":checked")){
+            console.log("checked");
+          }else{
+            console.log("not checked");
+          }
+        });
+      });
+      function createCookie(){
 
+      }
+      function deleteCookie(){
+
+      }
+    </script>
     <section
       class="hero-wrap js-fullheight"
       style="background-image: url('/resources/images/bg_2.jpg');"
@@ -66,18 +98,14 @@ prefix="c"%>
                   </label>
                 </div>
                 <div class="form-group">
-                  <input
-                    type="submit"
-                    value="Login"
-                    class="btn btn-primary btn-outline-white"
-                  />
+                  <button type="button" id="login" class="btn btn-primary btn-outline-white">로그인</button>
                 </div>
               </form>
             </div>
             <div class="card-footer">
               <div class="d-flex justify-content-center links">
                 Don't have an account?<a href="/healthner/member/registerFrm.do"
-                  >Sign Up</a
+                  >회원가입</a
                 >
               </div>
               <div class="d-flex justify-content-center">
