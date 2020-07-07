@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.google.gson.Gson;
 
@@ -96,7 +98,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String insertMember(Member m,HttpServletRequest request,Model model) {
+	public String insertMember(Member m,HttpServletRequest request,Model model, MultipartFile file) {
 		// send mail
 		long timeout = System.currentTimeMillis()/1000;
 		
