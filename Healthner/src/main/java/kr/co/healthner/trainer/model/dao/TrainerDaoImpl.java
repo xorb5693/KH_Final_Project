@@ -109,4 +109,9 @@ public class TrainerDaoImpl {
 		
 		return sqlSession.update("trainer.customerDowngrade", mappingSeq);
 	}
+
+	public TrainerVO oneTrainerInfo(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("trainer.oneTrainerInfo", memberNo);
+	}
 }

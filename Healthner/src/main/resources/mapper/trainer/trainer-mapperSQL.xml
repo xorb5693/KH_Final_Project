@@ -17,6 +17,27 @@
 		join Trainer t on (m1.member_no = t.member_no)
 
 	</select>
+	
+	<select id="oneTrainerInfo" resultType="trainer">
+	select * from(
+		select  
+			m1.member_no as memberNo,
+	        m1.member_name as memberName, 
+	        m1.member_profile as memberProfile,
+	        t.cat_first catFirst,
+	        t.cat_second catSecond,
+	        t.cat_third catThird,
+	        t.trainer_intro as trainerIntro,
+	        (select category_name from Professional_Category where category_no in (select cat_first from member m2 join Trainer t2 on (m2.member_no = t2.member_no) where m2.member_no = m1.member_no)) as catFirstName,
+	        (select category_name from Professional_Category where category_no in (select cat_second from member m2 join Trainer t2 on (m2.member_no = t2.member_no) where m2.member_no = m1.member_no)) as catSecondName,
+	        (select category_name from Professional_Category where category_no in (select cat_third from member m2 join Trainer t2 on (m2.member_no = t2.member_no) where m2.member_no = m1.member_no)) as catThirdName
+		from member m1
+		join Trainer t on (m1.member_no = t.member_no)
+		) m
+		where memberNo = #{memberNo}
+
+	</select>
+	
 	<select id="selectOneTrainer" parameterType="string" resultType="trainer">
 		select
 			t.member_no as memberNo,

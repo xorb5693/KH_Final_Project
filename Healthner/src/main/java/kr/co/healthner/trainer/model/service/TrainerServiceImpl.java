@@ -27,6 +27,10 @@ public class TrainerServiceImpl {
 	public List<TrainerVO> selectAllTrainers() {
 		return dao.selectAllTrainers();
 	}
+	
+	public TrainerVO oneTrainerInfo(int memberNo) {
+		return dao.oneTrainerInfo(memberNo);
+	}
 
 	public TrainerVO selectOneTrainer(String id) {
 		// TODO Auto-generated method stub
