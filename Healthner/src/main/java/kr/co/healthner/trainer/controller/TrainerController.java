@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.co.healthner.member.model.vo.Member;
-import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
 import kr.co.healthner.trainer.model.vo.BmiData;
 import kr.co.healthner.trainer.model.vo.BmiVO;
@@ -172,4 +171,18 @@ public class TrainerController {
 		model.addAttribute("recentBmi", recentBmi);
 		return "trainer/inbodyGraph";
 	}
+	
+	//트레이너 - 자기 정보 보기
+	@RequestMapping("/oneTrainerInfo.do")
+	public String trainerInputFrm(HttpSession session, Model model) {
+		Member member = new Member();
+		member = (Member)session.getAttribute("member");
+		String id = member.getMemberId();
+		int memberNo = member.getMemberNo();
+		System.out.println("세션아이디 : "+id);
+		TrainerVO list = service.oneTrainerInfo(memberNo);		
+		model.addAttribute("list", list);
+		return "trainer/oneTrainerInfo";
+	}
+	
 }

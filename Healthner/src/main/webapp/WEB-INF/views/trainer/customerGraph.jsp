@@ -97,6 +97,52 @@ canvas {
 				</div>
 			</div>
 		</div>
+		<div class="overlay"></div>
+			<div
+				class="container col-md-12 appointment pl-md-5 py-md-5 ftco-animate align-items-center">
+				<div class="row justify-content-center">
+					<div class="col-md-8 text-center">
+						<table class="table" style="text-align: center;">
+							<tr>
+								<th scope="col">날짜</th>
+								<th scope="col">체수분</th>
+								<th scope="col">단백질</th>
+								<th scope="col">무기질</th>
+								<th scope="col">체지방량</th>
+								<th scope="col">체중</th>
+								<th scope="col">골격근량</th>
+								<th scope="col">BMI</th>
+								<th scope="col">체지방률</th>
+								<th scope="col">복부지방률</th>
+							</tr>
+							<tr>
+								<th scope="row">${recentBmi.measureDate }</th>
+								<th scope="row">${recentBmi.bodywater}</th>
+								<th scope="row">${recentBmi.protein}</th>
+								<th scope="row">${recentBmi.mineral}</th>
+								<th scope="row">${recentBmi.bodyfat}</th>
+								<th scope="row">${recentBmi.weight}</th>
+								<th scope="row">${recentBmi.bone}</th>
+								<th scope="row">${recentBmi.bmi}</th>
+								<th scope="row">${recentBmi.bodyfatPer}</th>
+								<th scope="row">${recentBmi.abfatPer}</th>
+							</tr>
+							<tr>
+								<th scope="row">${prevBmi.measureDate }</th>
+								<th scope="row">${prevBmi.bodywater}</th>
+								<th scope="row">${prevBmi.protein}</th>
+								<th scope="row">${prevBmi.mineral}</th>
+								<th scope="row">${prevBmi.bodyfat}</th>
+								<th scope="row">${prevBmi.weight}</th>
+								<th scope="row">${prevBmi.bone}</th>
+								<th scope="row">${prevBmi.bmi}</th>
+								<th scope="row">${prevBmi.bodyfatPer}</th>
+								<th scope="row">${prevBmi.abfatPer}</th>
+							</tr>
+						</table>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<script src="/resources/js/jquery.min.js"></script>
