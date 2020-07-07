@@ -9,6 +9,7 @@ import kr.co.healthner.report.model.service.ReportService;
 import kr.co.healthner.vo.ReportVO;
 
 @Controller
+@RequestMapping(value="healthner/report")
 public class ReportController {
 	
 	@Autowired
@@ -26,7 +27,7 @@ public class ReportController {
 			System.out.println("report등록 실패");
 		}
 		
-		return "redirect:/boardView.do?boardNo="+boardNo;
+		return "redirect:/healthner/board/boardView.do?boardNo="+boardNo;
 	}
 
 }

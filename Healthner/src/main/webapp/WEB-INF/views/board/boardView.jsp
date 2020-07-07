@@ -11,7 +11,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Board</title>
+<link rel="icon" href="/resources/images/favicon.png">
 <style>
 .commentList {
 	width: 100%;
@@ -56,7 +57,7 @@
 				</div>
 			</div>
 		</section>
-		<div class="content">
+		<div class="content wraper col-md-12">
 			<table>
 				<tr>
 					<th>제목</th>
@@ -81,8 +82,8 @@
 
 
 
-			<a href="/boardModify.do?boardNo=${b.boardNo }">내용수정</a> <a
-				href="/boardDelete.do?boardNo=${b.boardNo }">글삭제</a>
+			<a href="/healthner/board/boardModify.do?boardNo=${b.boardNo }">내용수정</a> <a
+				href="/healthner/board/boardDelete.do?boardNo=${b.boardNo }">글삭제</a>
 			<button type="button"
 				onclick="reportBoard('1','${b.boardNo}','${b.boardWriter}','${sessionScope.member.memberNo}');"
 				class="btn" data-toggle="modal" style="border: 1px solid #999"
@@ -90,11 +91,9 @@
 		</div>
 		<c:if test="${not empty sessionScope.member}">
 	
-	${sessionScope.member.memberNo }
-	${b.boardNo }
 	<!-- 댓글작성하기 -->
 			<div class="comment-wrapper">
-				<form action="/boardCommentInsert.do" method="post">
+				<form action="/healthner/board/boardCommentInsert.do" method="post">
 					<input type="hidden" name="commentWriter"
 						value="${sessionScope.member.memberNo}"> <input
 						type="hidden" name="ref" value="${b.boardNo }"> <input
@@ -195,7 +194,7 @@
 
 
 					<div class="form-group" id="modal-content"></div>
-					<form action="/insertReport.do" method="post" id="inputReviewBox">
+					<form action="/healthner/report/insertReport.do" method="post" id="inputReviewBox">
 						<div class="form-group">
 							<div class="form-group" id="report-ability-wrapper">
 								<span class="field-label-header">무분별한 신고는 도히려 정지당할수 있습니다.</span><br> 
@@ -230,7 +229,7 @@
 		function insertComment(obj, commentNo, boardNo, memberNo) {
 			$(obj).parent().hide();
 			alert(boardNo);
-			var $form = $("<form action='/boardCommentInsert.do' method='post'></form>");
+			var $form = $("<form action='/healthner/board/boardCommentInsert.do' method='post'></form>");
 			var $ul = $("<ul class='commentList'></ul>");
 			$form.append($("<input type='hidden' name='commentWriter' value='"+memberNo+"'>"));
 			$form.append($("<input type='hidden' name='boardNo' value='"+boardNo+"'>"));
@@ -253,7 +252,7 @@
 			$(obj).parents('form').remove();
 		}
 		function deleteComment(commentNo, ref) {
-			location.href = "/commentDelete.do?commentNo=" + commentNo
+			location.href = "/healthner/board/commentDelete.do?commentNo=" + commentNo
 					+ "&ref=" + ref;
 		}
 		function modifyComment(obj, commentNo, Ref) {
@@ -279,7 +278,7 @@
 			$(obj).parent().parent().find('input').prev().show();
 		}
 		function modifyComplete(obj, commentNo, Ref) {
-			var $form = $("<form action='/commentUpdate.do' method='post'></form>");
+			var $form = $("<form action='/healthner/board/commentUpdate.do' method='post'></form>");
 			$form.append($("<input type='text' name='commentNo' value='"+commentNo+"'>"));
 			$form.append($("<input type='text' name='Ref' value='"+Ref+"'>"));
 			$form.append($(obj).parent().parent().find('input'));

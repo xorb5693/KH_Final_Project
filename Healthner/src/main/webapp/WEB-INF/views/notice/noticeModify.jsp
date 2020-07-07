@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="resources/ckeditor/contents.css">
+<title>noticeModify</title>
+<link rel="icon" href="/resources/images/favicon.png">
+<link rel="stylesheet" href="/resources/ckeditor/contents.css">
 
-<script type="text/javascript" src="resources/ckeditor/ckeditor.js"
+<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"
 	charset="utf-8"></script>
 	<style>
 		#ck4{
@@ -36,7 +37,7 @@
 			</div>
 		</section>
 	<div class="content">		
-			<form action="noticeUpdate.do" method="post">
+			<form action="/healthner/notice/noticeUpdate.do" method="post">
 				<h2>공지사항 글쓰기</h2>
 				<input type="hidden" name="noticeNo" value="${n.noticeNo }">
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
@@ -44,12 +45,12 @@
 				<textarea id="ck4" name="noticeContent" row="5">${n.noticeContent }</textarea>
 				<script>
 					CKEDITOR.replace('ck4', {
-						filebrowserUploadUrl : '/imageUpload.do'
+						filebrowserUploadUrl : '/healthner/notice/imageUpload.do'
 					});
 				</script>
 				<input type="submit" value="수정하기">
 			</form>	
-			<a href="/noticeList.do?reqPage=1">목록으로 돌아가기</a>
+			<a href="/healthner/notice/noticeList.do?reqPage=1">목록으로 돌아가기</a>
 	
 	
 	</div>
