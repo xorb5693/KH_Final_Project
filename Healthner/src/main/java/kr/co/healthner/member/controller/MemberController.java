@@ -72,13 +72,17 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/login.do", produces = "application/json;charset=utf-8")
+	@RequestMapping(value="/login.do", produces = "html/text;charset=utf-8")
 	public String selectMember(Member m, HttpSession session) {
 		Member member = new Member();
 		member = service.selectMember(m);
 		if(member != null) {
-			session.setAttribute("member", member);
-			return "success";
+			if(member.getEmailVerification()==1) {
+				session.setAttribute("member", member);
+				return "success";				
+			}else {
+				return "mail";
+			}
 		}else {
 			return "fail";
 		}

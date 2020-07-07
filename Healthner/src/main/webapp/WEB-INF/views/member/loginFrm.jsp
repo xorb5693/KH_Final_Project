@@ -20,6 +20,16 @@ prefix="c"%>
 
     <!-- END nav -->
     <script>
+      $(document).ready(function(){
+        var cookieValue = getCookie("userId");
+
+
+        $("input[name=memberId]").val(cookieValue);
+        if($("input[name=memberId]").val() != ""){
+          $("#remember").attr("checked",true);
+        }
+      });
+
       $(function(){
         $("#login").click(function(){
           var memberId = $("input[name=memberId]").val();
@@ -31,22 +41,51 @@ prefix="c"%>
                     memberPw : memberPw
             },
             success: function(data){
-              
+              if(data == "success"){
+                if($("#remember").is(":checked")){
+                  console.log("checked");
+                  createCookie("userId",memberId,14);
+                  location.href="/";
+                }else{
+                  deleteCookie("userId");
+                  location.href="/";
+                }
+
+              }else if(data=="fail"){
+                alert("아이디/비밀번호를 확인해주세요");
+              }else if(data=="mail"){
+                alert("이메일을 인증해주세요");
+              }
             }
           });
-          if($("#remember").is(":checked")){
-            console.log("checked");
-          }else{
-            console.log("not checked");
-          }
         });
       });
-      function createCookie(){
-
+      function createCookie(key,memberId,exdate){
+        var d = new Date();
+        d.setDate(d.getDate+exdate);
+        var cookieValue = escape(memberId) + (d == null ? "":"; expires="+d.toLocaleDateString());
+        document.cookie = key + "=" + cookieValue;
       }
-      function deleteCookie(){
-
+      function deleteCookie(key){
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate(-1));
+        document.cookie = key + "="+" ; expires" + expireDate.toLocaleDateString();
       }
+
+      function getCookie(cookieName){
+        cookieName = cookieName + "=";
+      var cookieData = document.cookie;
+      var start = cookieData.indexOf(cookieName);
+      var cookieValue = "";
+      if (start != -1) {
+        start += cookieName.length;
+        var end = cookieData.indexOf(";", start);
+        if (end == -1) end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+      }
+      return unescape(cookieValue);
+      }
+
     </script>
     <section
       class="hero-wrap js-fullheight"
