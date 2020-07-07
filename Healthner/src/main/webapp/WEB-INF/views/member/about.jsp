@@ -9,10 +9,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<c:if test="${not empty sessionScope.member }">
-		<jsp:include page="/WEB-INF/views/common/headerForMember.jsp"/>
-	</c:if>
-	<c:if test="${empty sessionScope.member }">
+	
 	<section class="hero-wrap" style="background-image: url('/resources/images/bg_02.jpg');">
       <div class="overlay"></div>
       <div class="container">
@@ -24,10 +21,9 @@
         </div>
       </div>
     </section>
-	</c:if>
   
   <secion class="container">
-    
+      
   </secion>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
