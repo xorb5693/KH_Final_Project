@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원관리 - 회원 상세보기</title>
+<link rel="icon" href="/resources/images/favicon.png">
 <script type="text/javascript"
 		src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <style>
