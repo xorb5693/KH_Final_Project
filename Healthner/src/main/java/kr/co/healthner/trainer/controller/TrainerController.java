@@ -1,5 +1,7 @@
 package kr.co.healthner.trainer.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +12,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.google.gson.Gson;
 
 import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
 import kr.co.healthner.trainer.model.vo.BmiData;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.CustomerData;
+import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
 
 @Controller
@@ -148,8 +154,10 @@ public class TrainerController {
 	@RequestMapping("/trainer.do")
 	public String trainers(Model model) {
 		List<TrainerVO> list = service.selectAllTrainers();
-		System.out.println(list);
+//		System.out.println(list);
+		ArrayList<ProfessionalCategoryVO> categorys = service.selectCategoryList();
 		model.addAttribute("list", list);
+		model.addAttribute("categorys", categorys);
 		return "trainer/trainer";
 	}
 	
@@ -185,4 +193,12 @@ public class TrainerController {
 		return "trainer/oneTrainerInfo";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/recommend.do", produces = "application/json; charset=utf-8")
+	public String recommend(int first, int second, int third) {
+		
+		ArrayList<TrainerVO> list = service.recommend(first, second, third);
+		
+		return new Gson().toJson(list);
+	}
 }

@@ -15,7 +15,12 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
-		
+		<!-- 문자열 유사도 라이브러리 -->
+		<dependency>
+		    <groupId>info.debatty</groupId>
+		    <artifactId>java-string-similarity</artifactId>
+		    <version>0.10</version>
+		</dependency>
 		
 <!-- 		이메일 인증 -->
 		<dependency>
