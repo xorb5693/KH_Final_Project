@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Notice</title>
+<link rel="icon" href="/resources/images/favicon.png">
 </head>
 <body>
 	<div class="wraper">
@@ -42,8 +43,8 @@
 				<td>${n.noticeContent }</td>
 			</tr>
 		</table>
-		<a href="/noticeModify.do?noticeNo=${n.noticeNo }">내용수정</a>
-	<a href="/noticeDelete.do?noticeNo=${n.noticeNo }">글삭제</a>
+		<a href="/healthner/notice/noticeModify.do?noticeNo=${n.noticeNo }">내용수정</a>
+	<a href="/healthner/notice/noticeDelete.do?noticeNo=${n.noticeNo }">글삭제</a>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>

@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>boardModify</title>
+<link rel="icon" href="/resources/images/favicon.png">
 <link rel="stylesheet" href="resources/ckeditor/contents.css">
 
 <script type="text/javascript" src="resources/ckeditor/ckeditor.js"
@@ -31,7 +32,7 @@
 			</div>
 		</section>
 	<div class="content">		
-			<form action="boardUpdate.do" method="post">
+			<form action="/healthner/board/boardUpdate.do" method="post">
 				<h2>자유게시판 글쓰기</h2>
 				<input type="hidden" name="boardNo" value="${b.boardNo }">
 				<!-- <form action="/noticeWrite.do" method="post" enctype="multipart/form-data"> -->
@@ -40,12 +41,12 @@
 				<textarea id="ck4" name="boardContent" row="5">${b.boardContent }</textarea>
 				<script>
 					CKEDITOR.replace('ck4', {
-						filebrowserUploadUrl : '/imageUpload.do'
+						filebrowserUploadUrl : '/healthner/notice/imageUpload.do'
 					});
 				</script>
 				<input type="submit" value="수정하기">
 			</form>	
-			<a href="/boardList.do?reqPage=1">목록으로 돌아가기</a>
+			<a href="/healthner/board/boardList.do?reqPage=1">목록으로 돌아가기</a>
 	
 	
 	</div>
