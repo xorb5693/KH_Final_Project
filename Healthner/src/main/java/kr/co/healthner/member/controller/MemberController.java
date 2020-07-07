@@ -394,4 +394,9 @@ public class MemberController {
 		return "member/about";
 	}
 	
+	@RequestMapping("/pricing.do")
+	public String pricing() {
+		return "member/pricing";
+	}
+	
 }
