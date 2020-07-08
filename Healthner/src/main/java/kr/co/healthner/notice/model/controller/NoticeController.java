@@ -13,7 +13,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
+import kr.co.healthner.board.model.vo.BoardPageDate;
 import kr.co.healthner.notice.model.service.NoticeService;
 import kr.co.healthner.notice.model.vo.Notice;
 import kr.co.healthner.notice.model.vo.NoticePageDate;
@@ -84,6 +88,14 @@ public class NoticeController {
 		model.addAttribute("list",nd.getList());
 		model.addAttribute("navi",nd.getPageNavi());
 		return "notice/noticeList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mainPageNotice.do", produces = "application/json; charset=utf-8")
+	public String mainPageNotice(int reqPage) {
+		NoticePageDate nd = service.noticeList(reqPage);
+		
+		return new Gson().toJson(nd.getList());
 	}
 	
 	@RequestMapping(value="/noticeView.do") // 게시글 상세보기
