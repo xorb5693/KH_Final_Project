@@ -23,5 +23,14 @@
 	<delete id="noticeDelete" parameterType="notice">
 		delete from notice where notice_no =#{noticeNo}
 	</delete>
+	
+	<select id="noticeSearchTitle" parameterType="String" resultType="notice">
+		select notice_no as noticeNo, notice_title as noticeTitle, notice_content as noticeContent, notice_date as noticeDate , notice_filename as noticeFilename
+		 from notice where notice_title like '%'||#{searchTitle}||'%'
+	</select>
+	
+	<select id="noticeSearchCount" parameterType="String" resultType="int">
+		select count(*) as cnt from notice where notice_title like '%'||#{searchTitle}||'%'
+	</select>
   
 </mapper>

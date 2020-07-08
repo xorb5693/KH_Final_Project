@@ -123,7 +123,7 @@
 					href="/healthner/member/pricing.do" class="nav-link">Pricing</a></li>
 				<li class="nav-item active"><a
 					href="/healthner/notice/notice.do?reqPage=1" class="nav-link">Blog</a></li>
-				<li class="nav-item active"><a href="/healthner/member/shop.do"
+				<li class="nav-item active"><a href="/healthner/shop/shop.do?reqPage=1"
 					class="nav-link">Shop</a></li>
 			</ul>
 		</div>

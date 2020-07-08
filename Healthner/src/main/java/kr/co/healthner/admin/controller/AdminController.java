@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
+import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
@@ -166,7 +167,7 @@ public class AdminController {
 		return new Gson().toJson(tl);
 	}
 	
-	//쪽지 관련 페이지 메소드들
+	// 태규_200703_쪽지 관련 페이지 메소드들
 	@RequestMapping("/sendMail.do")
 	public String sendMail(HttpSession session, Model model, int reqPage) {
 		
@@ -180,7 +181,7 @@ public class AdminController {
 		return "admin/sendMail";
 	}
 	
-	
+	// 태규_200703_쪽지 관련 페이지 메소드들
 	@RequestMapping("/adminInsertMail.do")
 	public String insertMail(MailVO mail, int readType) {
 		
@@ -199,6 +200,7 @@ public class AdminController {
 		}
 	}
 	
+	// 태규_200703_쪽지 관련 페이지 메소드들
 	@RequestMapping("/adminDeleteMail.do")
 	public String deleteMail(int deleteNo[], int readType) {
 		
@@ -215,5 +217,37 @@ public class AdminController {
 		} else {
 			return "redirect:/sendMail.do?reqPage=1";
 		}
+	}
+	
+	// 혜진_200706_mapping데이터 삭제
+	@RequestMapping("/mappingDelete.do")
+	@ResponseBody
+	public int mappingDelete(int mpSeq) {
+		int result = service.mappingDelete(mpSeq);
+		return result;
+	}
+	
+	//혜진_200706_mapping신규 등록_회원 찾기
+	@RequestMapping(value="/mappingDetail.do", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String mappingFind(String searchWord, int memberType) {
+		TotalpageList tl = service.mappingFind(searchWord, memberType);
+		return new Gson().toJson(tl);
+	}
+	
+	//혜진_200707_mapping신규등록_신규 mapping 등록
+	@RequestMapping("/inputNewMapping.do")
+	@ResponseBody
+	public int inputNewMapping(int PTmax, int PTleft, int memberNo, int trainerNo) {
+		int result = service.inputNewMapping(PTmax,PTleft,memberNo,trainerNo);
+		return result;
+	}
+	
+	//혜진_200707_mapping 데이터 수정
+	@RequestMapping("/mappingCheck.do")
+	@ResponseBody
+	public PTmapping mappingCheck(int mpSeq) {
+		PTmapping ptm = service.mappingCheck(mpSeq);
+		return ptm;
 	}
 }

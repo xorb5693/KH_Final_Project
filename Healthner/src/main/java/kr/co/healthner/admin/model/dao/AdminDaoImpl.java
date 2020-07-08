@@ -96,4 +96,21 @@ public class AdminDaoImpl {
 
 		return sqlSession.selectList("mail.selectSendMailList", map);
 	}
+	
+	// 혜진_200706_mapping데이터 삭제
+	public int mappingDelete(int mpSeq) {
+		return sqlSession.delete("admin.mappingDelete",mpSeq);
+	}
+	// 혜진_200706_mapping신규 등록_회원 찾기
+	public List mappingFind(MemberSearch ms) {
+		return sqlSession.selectList("admin.mappingFind",ms);
+	}
+	// 혜진_200707_mapping신규 등록_등록
+	public int inputNewMapping(PTmapping pt) {
+		return sqlSession.insert("admin.inputNewMapping",pt);
+	}
+	//혜진_200707_mapping 데이터 수정
+	public PTmapping mappingCheck(int mpSeq) {
+		return sqlSession.selectOne("admin.mappingCheck", mpSeq);
+	}
 }
