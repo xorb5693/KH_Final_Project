@@ -37,7 +37,7 @@
 		
 	</script>
 	<section>
-		<div class="wrapper d-flex align-items-stretch bg-dark">
+		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
 					<c:if test="${empty sessionScope.member.memberProfile}">
