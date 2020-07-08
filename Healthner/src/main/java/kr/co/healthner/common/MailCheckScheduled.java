@@ -66,7 +66,7 @@ public class MailCheckScheduled extends TextWebSocketHandler {
 	// 매분 메일 테이블을 체크해서 연결된 페이지에 memberNo를 물어보는 메소드
 	@Scheduled(cron = "0 0/1 * * * *")
 	public void mailCheck() throws Exception {
-		System.out.println("확인");
+		//System.out.println("확인");
 		for (WebSocketSession ws : members) {
 			ws.sendMessage(new TextMessage("memberNo"));
 		}

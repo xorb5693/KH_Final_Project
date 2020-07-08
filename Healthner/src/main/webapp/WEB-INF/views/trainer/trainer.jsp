@@ -74,6 +74,7 @@
 
 	<!-- 가입된 트레이너 정보 가져오기  -->
 	<section class="ftco-section bg-light">
+        
 		<div class="container px-4">
 			<div class="row justify-content-center mb-5">
 				<div class="col-md-7 heading-section text-center ftco-animate">
@@ -81,8 +82,37 @@
 					<h2 class="mb-1">Our Coaches</h2>
 				</div>
 			</div>
-
-			<div class="row">
+            <div class="row d-md-flex align-items-center">
+                <div class="col-md-3 appointment ftco-animate fadeInUp ftco-animated">
+                    <select class="form-control" id="first">
+                        <option value="0">1지망</option>
+                        <c:forEach items="${categorys }" var="cat">
+                        	<option value="${cat.categoryNo }">${cat.categoryName }</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3 appointment ftco-animate fadeInUp ftco-animated">
+                    <select class="form-control" id="second">
+                        <option value="0">2지망</option>
+                        <c:forEach items="${categorys }" var="cat">
+                        	<option value="${cat.categoryNo }">${cat.categoryName }</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3 appointment ftco-animate fadeInUp ftco-animated">
+                    <select class="form-control" id="third">
+                        <option value="0">3지망</option>
+                        <c:forEach items="${categorys }" var="cat">
+                        	<option value="${cat.categoryNo }">${cat.categoryName }</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3 appointment ftco-animate fadeInUp ftco-animated">
+                    <button class="btn btn-primary btn-block btn-lg" id="serachTrainer">검색</button>
+                </div>
+            </div>
+            <br><br><br>
+			<div class="row" id="trainerArea">
 				<c:forEach items="${list }" var="list">
 					<div class="col-lg-3 d-flex">
 						<div class="coach align-items-stretch">
@@ -120,7 +150,7 @@
 				<div class="modal-body">
 					<div style="float: left;">
 						<input id="readImage2" class="d-flex align-items-center"
-							type="image" style="width: 350px; height: 100%;">
+							type="image" style="width: 350px; height: 100%;" onError="this.src='/resources/profile/noprofile.png'">
 					</div>
 					<div id="readIntro" class="d-flex align-items-center" style="padding: 20px"></div>
 				</div>
@@ -130,12 +160,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
 
 		<script src="/resources/js/jquery.min.js"></script>
 		<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
@@ -172,6 +196,51 @@
 				$("#modifyTextarea").val($("#readArea").html());
 				$(btn).next().click();
 			}
+            
+            $(function() {
+                $("#serachTrainer").click(function() {
+                                    
+                    var first = $("#first>option:selected").val();
+                    var second = $("#second>option:selected").val();
+                    var third = $("#third>option:selected").val();
+                    if (first == "0" || second == "0" || third == "0") {
+                        alert("1지망, 2지망, 3지망을 선택하세요");
+                    } else {
+                    
+                        $.ajax({
+                            url: "/healthner/trainer/recommend.do",
+                            data: {first: first, second: second, third: third},
+                            type: "get",
+                            success: function(data) {
+                                $("#trainerArea").html("");
+                                
+                                for (var i = 0; i < data.length; i++) {
+                                    var div1 = $("<div class='col-lg-3 d-flex'></div>");
+                                    var div2 = $("<div class='coach align-items-stretch'></div>");
+                                    
+                                    var imgDiv = $("<div class='img' style='width: 200px; height: 300px;' id='myImg' data-toggle='modal' data-target='#readPostscript' onclick='readPostscript(this)'>");
+                                    var img = $("<input type='image' src='/resources/profile/" + data[i]['memberProfile'] + "' onError='this.src=\"/resources/profile/noprofile.png\"' style='width: 200px; height: 300px;' value='" + data[i]['memberProfile'] + "'>");
+                                    imgDiv.append(img);
+                                    div2.append(imgDiv);
+                                    
+                                    div2.append($("<button type='button' class='btn displayNone'></button>"));
+                                    
+                                    var textDiv = $("<div class='text pt-3'>");
+                                    textDiv.append($("<h3>" + data[i]['memberName'] + "</h3>"));
+                                    textDiv.append($("<p>주특기 1 : " + data[i]['catFirstName'] + "</p>"));
+                                    textDiv.append($("<p>주특기 2 : " + data[i]['catSecondName'] + "</p>"));
+                                    textDiv.append($("<p>주특기 3 : " + data[i]['catThirdName'] + "</p>"));
+                                    textDiv.append($("<input type='hidden' value='" + data[i]['trainerIntro'] + "'>"));
+                                    div2.append(textDiv);
+                                    div1.append(div2);
+                                    
+                                    $("#trainerArea").append(div1);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
 		</script>
 </body>
 </html>

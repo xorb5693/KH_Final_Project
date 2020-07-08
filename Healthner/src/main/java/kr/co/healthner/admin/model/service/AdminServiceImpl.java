@@ -15,6 +15,7 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.vo.ProductVO;
 
 @Service("adminService")
 public class AdminServiceImpl {
@@ -118,120 +119,164 @@ public class AdminServiceImpl {
 		return tl;
 	}
 
-	//쪽지 관련 메소드들
+	// 쪽지 관련 메소드들
 	public int insertMail(MailVO mail) {
-		
+
 		return dao.insertMail(mail);
 	}
 
 	public int deleteMail(int[] deleteNo) {
-		
+
 		return dao.deleteMail(deleteNo);
 	}
 
 	public MailData receiveMailData(int reqPage, int memberNo) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("memberNo", memberNo);
-		
+
 		int totalCount = dao.selectTotalReciveCount(map);
 		int numPerPage = 10;
 		int totalPage;
-		
+
 		if (totalCount % numPerPage == 0) {
 			totalPage = totalCount / numPerPage;
 		} else {
 			totalPage = totalCount / numPerPage + 1;
 		}
-		
+
 		int start = (reqPage - 1) * numPerPage + 1;
 		int end = reqPage * numPerPage;
 		map.put("start", start);
 		map.put("end", end);
 		List<MailVO> list = dao.selectReceiveMailList(map);
-		
+
 		StringBuffer pageNavi = new StringBuffer();
 		int pageNaviSize = 10;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		
+
 		if (pageNo != 1) {
 			pageNavi.append("<a class='btn btn-outline-primary' href='/mail.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
 		}
-		
+
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo != reqPage) {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/mail.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+				pageNavi.append(
+						"<a class='btn btn-outline-primary' href='/mail.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
 			} else {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			}
-			
+
 			pageNo++;
-			
+
 			if (pageNo > totalPage) {
 				break;
 			}
 		}
-		
+
 		if (pageNo <= totalPage) {
 			pageNavi.append("<a class='btn btn-outline-primary' href='/mail.do?reqPage=" + pageNo + "'>다음</a>");
 		}
-		
+
 		MailData data = new MailData();
-		data.setList((ArrayList<MailVO>)list);
+		data.setList((ArrayList<MailVO>) list);
 		data.setPageNavi(pageNavi.toString());
 		return data;
 	}
 
 	public MailData sendMailData(int reqPage, int memberNo) {
-		
+
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("memberNo", memberNo);
-		
+
 		int totalCount = dao.selectTotalSendCount(map);
 		int numPerPage = 10;
 		int totalPage;
-		
+
 		if (totalCount % numPerPage == 0) {
 			totalPage = totalCount / numPerPage;
 		} else {
 			totalPage = totalCount / numPerPage + 1;
 		}
-		
+
 		int start = (reqPage - 1) * numPerPage + 1;
 		int end = reqPage * numPerPage;
 		map.put("start", start);
 		map.put("end", end);
 		List<MailVO> list = dao.selectSendMailList(map);
-		
+
 		StringBuffer pageNavi = new StringBuffer();
 		int pageNaviSize = 10;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		
+
 		if (pageNo != 1) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/sendList.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
 		}
-		
+
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo != reqPage) {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/sendList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+				pageNavi.append("<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
 			} else {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			}
-			
+
 			pageNo++;
-			
+
 			if (pageNo > totalPage) {
 				break;
 			}
 		}
-		
+
 		if (pageNo <= totalPage) {
-			pageNavi.append("<a class='btn btn-outline-primary' href=/sendList.do?reqPage=" + pageNo + "'>다음</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href=/sendMail.do?reqPage=" + pageNo + "'>다음</a>");
 		}
-		
-		///healthner/mail/receiveList.do?reqPage=1
+
+		/// healthner/mail/receiveList.do?reqPage=1
 		MailData data = new MailData();
-		data.setList((ArrayList<MailVO>)list);
+		data.setList((ArrayList<MailVO>) list);
 		data.setPageNavi(pageNavi.toString());
 		return data;
+	}
+
+	public int productInsert(ProductVO product) {
+		
+		return dao.productInsert(product);
+    }
+    
+	// 혜진_200706_mapping데이터 삭제
+	public int mappingDelete(int mpSeq) {
+		int result = dao.mappingDelete(mpSeq);
+		return result;
+	}
+
+	// 혜진_200706_mapping신규 등록_회원 찾기
+	public TotalpageList mappingFind(String searchWord, int memberType) {
+		MemberSearch ms = new MemberSearch();
+		ms.setSearchWord(searchWord);
+		ms.setMemberType(memberType);
+		ArrayList<Member> list = (ArrayList<Member>) dao.mappingFind(ms);
+		for (Member m : list) {
+			if (m.getExpireDate() == null) {
+				m.setExpireDate(" ");
+			}
+		}
+		TotalpageList tl = new TotalpageList();
+		tl.setList(list);
+		return tl;
+	}
+
+	// 혜진_200707_mapping신규 등록_등록
+	public int inputNewMapping(int PTmax, int PTleft, int memberNo, int trainerNo) {
+		PTmapping pt = new PTmapping();
+		pt.setMemberNo(memberNo);
+		pt.setTrainerNo(trainerNo);
+		pt.setPTleft(PTleft);
+		pt.setPTmax(PTmax);
+		int result = dao.inputNewMapping(pt);
+		return result;
+	}
+	//혜진_200707_mapping 데이터 수정
+	public PTmapping mappingCheck(int mpSeq) {
+		PTmapping ptm = dao.mappingCheck(mpSeq);
+		return ptm;
 	}
 }

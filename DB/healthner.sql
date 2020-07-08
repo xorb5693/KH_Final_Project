@@ -1168,3 +1168,90 @@ ALTER TABLE menu_comment
 ALTER TABLE Member_Mapping ADD (training_postscript VARCHAR2(2000));
 COMMENT ON COLUMN MEMBER_MAPPING.TRAINING_POSTSCRIPT IS '트레이닝 후기';
 ALTER TABLE NOTICE MODIFY NOTICE_FILENAME NULL;
+
+DROP TABLE PURCHASE;
+
+-- Member Table Create SQL
+CREATE TABLE PURCHASE
+(
+    buy_no         NUMBER           NOT NULL, 
+    member_no      NUMBER           NOT NULL, 
+    buy_date       VARCHAR2(20)     NOT NULL, 
+    buy_addr       VARCHAR2(300)    NOT NULL, 
+    total_price    NUMBER           NOT NULL, 
+    CONSTRAINT PURCHASE_PK PRIMARY KEY (buy_no)
+)
+/
+
+CREATE SEQUENCE PURCHASE_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER PURCHASE_AI_TRG
+BEFORE INSERT ON PURCHASE 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT PURCHASE_SEQ.NEXTVAL
+    INTO :NEW.buy_no
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER PURCHASE_AI_TRG;
+/
+
+--DROP SEQUENCE PURCHASE_SEQ;
+/
+
+COMMENT ON TABLE PURCHASE IS '결제테이블'
+/
+
+COMMENT ON COLUMN PURCHASE.buy_no IS '결제넘버'
+/
+
+COMMENT ON COLUMN PURCHASE.member_no IS '멤버넘버'
+/
+
+COMMENT ON COLUMN PURCHASE.buy_date IS '결제날짜'
+/
+
+COMMENT ON COLUMN PURCHASE.buy_addr IS '실제받을주소'
+/
+
+COMMENT ON COLUMN PURCHASE.total_price IS '총가격'
+/
+
+ALTER TABLE PURCHASE
+    ADD CONSTRAINT FK_PURCHASE_member_no_Member_m FOREIGN KEY (member_no)
+        REFERENCES Member (member_no)
+/
+
+-- Member Table Create SQL
+CREATE TABLE buy_product
+(
+    buy_no    NUMBER    NOT NULL, 
+    pno       NUMBER    NOT NULL, 
+    stock     NUMBER    NOT NULL
+)
+/
+
+COMMENT ON COLUMN buy_product.buy_no IS '결제넘버'
+/
+
+COMMENT ON COLUMN buy_product.pno IS '상품넘버'
+/
+
+COMMENT ON COLUMN buy_product.stock IS '수량'
+/
+
+ALTER TABLE buy_product
+    ADD CONSTRAINT FK_buy_product_buy_no_PURCHASE FOREIGN KEY (buy_no)
+        REFERENCES PURCHASE (buy_no)
+/
+
+ALTER TABLE buy_product
+    ADD CONSTRAINT FK_buy_product_pno_PRODUCT_pno FOREIGN KEY (pno)
+        REFERENCES PRODUCT (pno)
+/
+

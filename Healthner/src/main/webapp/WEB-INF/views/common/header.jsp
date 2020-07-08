@@ -178,7 +178,13 @@
     }
   })();
   ChannelIO('boot', {
-    "pluginKey": "ee91a13a-2f95-49c6-a8e4-b941406b87f7" //please fill with your plugin key
+    "pluginKey": "ee91a13a-2f95-49c6-a8e4-b941406b87f7", //please fill with your plugin key
+    "memberId": "${sessionScope.member.memberId}", //fill with user id
+    "profile": {
+      "name": "${sessionScope.member.memberName}", //fill with user name
+      "mobileNumber": "${sessionScope.member.phone}" //fill with user phone number
+      
+    }
   });
 </script>
 	

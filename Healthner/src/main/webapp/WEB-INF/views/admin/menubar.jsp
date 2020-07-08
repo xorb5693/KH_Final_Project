@@ -8,6 +8,7 @@
 <html lang="en">
 <head>
 <title>관리자 페이지</title>
+<link rel="icon" href="/resources/images/favicon.png">
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,6 +34,7 @@
 	width: 105%;
 	margin-top: 20px;
 	margin-bottom: 15px;
+	outline: none;
 }
 
 #sidebar {
@@ -138,7 +140,7 @@
 		} else if (loc.includes('penaltyMgt')) {
 			$("#4").children("ul").show();
 			$("#5").addClass("active");
-		} else if (loc.includes('productMgt')) {
+		} else if (loc.includes('product')) {
 			$("#6").addClass("active");
 		} else if (loc.includes('mail') || loc.includes('Mail')) {
 			$("#7").addClass("active");
