@@ -34,7 +34,52 @@
 
 
 	<script>
-		
+		function quit(){
+			if(confirm("회원탈퇴 하시겠습니까")){
+				$.ajax({
+					url: "/healthner/member/quit.do",
+					method: "get",
+					success: function(data){
+						if(data=="success"){
+							alert("다음에 또 뵐게요~");
+						}else{
+							alert("오류가 발생했습니다 관리자에게 문의 부탁드립니다");
+						}
+						location.href="/";
+					}
+					
+				});
+			}
+		}
+		function checkPw(){
+			var memberPw = $("input[name=oldMemberPw]").val();
+			var memberNo = $("#memberNo").val();
+			$.ajax({
+				url: "/healthner/member/checkPw.do",
+				method: "post",
+				data: {memberPw : memberPw,
+						memberNo : memberNo},
+				success: function(data){
+					if(data=="1"){
+						$("#check").remove();
+						$("#change").show();
+					}else{
+						alert("비밀번호가 틀렸습니다");
+					}
+				}
+			});
+		}
+		function myInfo(){
+			location.href="/healthner/member/myStat.do"
+		}
+		function changePw(){
+			
+		}
+		function changeAddr(){}
+		function changeMail(){}
+		function purchaseLog(){}
+		function purchaseMember(){}
+		function checkExpire(){}
 	</script>
 	<section>
 		<div class="wrapper d-flex align-items-stretch">
@@ -50,42 +95,49 @@
 					</c:if>
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">
-	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-dark dropdown-toggle" style="color: white;">My Info</a>
+	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-dark dropdown-toggle" style="color: white;">회원정보</a>
 	            <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Home 1</a>
+					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">정보 보기</a> -->
+					<button type="button" onclick="myInfo()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">정보 보기</button>
                 </li>
                 <li>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Home 2</a>
+					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">비밀번호 수정</a> -->
+					<button type="button" data-toggle="modal" data-target="#changePw" onclick="changePw()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">비밀번호 수정</button>
                 </li>
                 <li>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Home 3</a>
+					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">주소 수정</a> -->
+					<button type="button" onclick="changeAddr()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">주소 수정</button>
+                </li>
+                <li>
+					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">이메일 변경</a> -->
+					<button type="button" onclick="changeMail()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">이메일 변경</button>
                 </li>
 	            </ul>
 	          </li>
 	          <li>
-	              <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">About</a>
-	          </li>
-	          <li>
-              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-dark" style="color: white;">Pages</a>
-              <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Page 1</a>
-                </li>
-                <li>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Page 2</a>
-                </li>
-                <li>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Page 3</a>
-                </li>
-              </ul>
-	          </li>
-	          <li>
-              <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Portfolio</a>
-	          </li>
-	          <li>
-              <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Contact</a>
-	          </li>
+				  <button type="button" onclick="purchaseLog()" class="list-group-item list-group-item-action bg-dark" style="color: white;"> 결제 내역</button>
+	              <!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">결제 내역</a> -->
+			  </li>
+			  <li>
+				  <button type="button" onclick="quit()" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원탈퇴</button>
+				<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
+			  </li>
+			  <c:if test="${empty sessionScope.member.expireDate}">
+				  <li>
+					  <button type="button" onclick="purchaseMember()" class="list-group-item list-group-item-action bg-dark" style="color: white;">이용권 구매</button>
+					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
+				  </li>
+				</c:if>
+				<c:if test="${not empty sessionScope.member.expireDate}">
+					<li>
+						<button type="button" onclick="checkExpire()" class="list-group-item list-group-item-action bg-dark" style="color: white;">이용권 만료일</button>
+					  <!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
+					</li>
+
+			  </c:if>
+	          
+	          
 	        </ul>
 
 	        
@@ -103,50 +155,59 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
 		</div>
-	</section>
 
+		<!-- Modal -->
+		<div class="modal fade" id="changePw" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			  <div class="modal-content bg-dark" >
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">비밀번호 수정</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+					<p id="modalBody">
+						<div id="check">
+							<div class="form-row">
 
-	<section>
-		<div class="d-flex" id="wrapper">
-			 <!-- Sidebar -->
-			 <div class="bg-light border-right" id="sidebar-wrapper">
-				<div class="sidebar-heading">Start Bootstrap </div>
-				<div class="list-group list-group-flush">
-				  <a href="#" class="list-group-item list-group-item-action bg-dark">Dashboard</a>
-				  <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-				  <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-				  <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-				  <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-				  <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+								<input type="password" name="oldMemberPw" class="form-control" id="">
+							</div>
+							<br>
+							<div class="form-row" >
+								<button type="button" onclick="checkPw();" class="btn btn-primary">비밀번호 확인</button>
+							</div>
+						</div>
+						<div style="display: none;" id="change">
+							<form action="/healthner/member/changePw.do"  method="post">
+								<div class="form-row" style="color: white;">
+									새 비밀번호
+									<input type="password" class="form-control" name="memberPw" id="memberPw">
+								</div>
+								<div class="form-row" style="color: white;">
+									비밀번호 확인
+									<input type="password" name="chkPw" class="form-control" id="checkPw">
+								</div>
+								<br>
+								<div class="form-row">
+									<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.member.memberNo}">
+									<input type="submit" class="btn btn-primary" value="변경">
+								</div>
+							</form>
+
+						</div>
+
+					</p>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			  </div>
-
-			  <div>
-				  비밀번호 수정하기
-				  <button type="button" class="btn btn-primary" id="password">수정</button>
-				  <br> 주소 수정
-				  <button type="button" class="btn btn-primary" id="address">수정</button>
-				  <br>
-				  <!-- Make sure the person knows that they need to verify the mail before having access to the account -->
-				  이메일 수정
-				  <button type="button" class="btn btn-primary" id="">수정</button>
-				  <br> 이용권 구매
-				  <button type="button" class="btn btn-primary">구매하러 가기</button>
-				  <br>
-	  
-				  <c:if test="${empty sessionScope.member.expireDate}">
-					  <a href="/healthner/member/pricing.do">이용권 구매</a>
-					  <br>
-				  </c:if>
-				  <c:if test="${not empty sessionScope.member.expireDate}">
-					  이용권 만료일자 : ${sessionScope.member.expireDate} <br>
-				  </c:if>
-				  <a href="">구매내역</a> <a href="">상품리뷰</a>
-			  </div>
-			  
-		</div>
-
+			</div>
 	</section>
+
+
+	
 
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
