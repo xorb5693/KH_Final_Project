@@ -168,6 +168,10 @@
 	where m.expire_date is not null and (m.member_name like '%'||#{searchWord}||'%'))
 	</if>
 	</select>
+	<!-- 물품등록 -->
+	<insert id="productInsert" parameterType="product">
+		insert into product values(product_seq.nextval, #{pname}, #{pcontent}, #{price}, #{stock}, #{category}, #{category2}, #{category3}, #{thumbnail})
+	</insert>
 	<!-- 혜진_200706_mapping테이블 데이터 삭제 -->
 	<delete id="mappingDelete" parameterType="_int">
 	delete member_mapping where mapping_seq = #{_parameter}

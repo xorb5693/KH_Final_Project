@@ -27,9 +27,9 @@ form>button {
 }
 
 .span.span-primary {
-	background: #30e3ca;
-	border-color: #30e3ca;
-	border: 1px solid #30e3ca;
+	background: #fcd307;
+	border-color: #fcd307;
+	border: 1px solid #fcd307;
 	color: #fff;
 }
 
@@ -125,10 +125,10 @@ form>button {
 		<h2 class="mb-4">Send Mail List</h2>
 		<form action="/adminDeleteMail.do" method="get">
 			<input type="hidden" name="readType" value="1">
-			<button type="button" id="modal"
+			<button type="button" id="modal" style="width: 100px;"
 				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
 				data-toggle="modal" data-target="#myModal">쪽지 쓰기</button>
-			<button type="submit"
+			<button type="submit" style="width: 100px;"
 				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
 				onclick="return checkDelete()">삭제</button>
 			<br>
@@ -297,22 +297,11 @@ form>button {
                 data: {mailNo: mailNo, readType: 1},
                 type: "get",
                 success: function(data) {
-                    console.log(data);
-                    $(obj).parent().prev().html("<span class='icon-envelope-open tg-gray'></span>");
-                    
                     $("#writer").html(data['memberNick']);
                     $("#writeDate").html(data['writeDate']);
                     $("#mailContent").html(data['mailContent']);
                 }
             });
-        }
-        
-        function answer(memberId) {
-            $("#close").click();
-            $("#modal").click();
-            $("input[name=memberId]").val(memberId);
-            $("input[name=memberId]").blur();
-            $("textarea[name=mailContent]").val("");
         }
     </script>
 </body>
