@@ -421,6 +421,8 @@
 			<div class="row ftco-animate">
 				<div class="col-md-12">
 					<div class="carousel-testimony owl-carousel">
+
+						
 						<!-- Individual template for review -->
 						<div class="item">
 							<div class="testimony-wrap p-4 pb-5">
@@ -502,10 +504,11 @@
 			<div class="row justify-content-center mb-5 pb-3">
 				<div class="col-md-7 heading-section ftco-animate text-center">
 					<span class="subheading"><small><i class="left-bar"></i>Articles<i
-							class="right-bar"></i></small></span>
-					<h2 class="mb-1">Recent Blog</h2>
+						class="right-bar"></i></small></span>
+						<h2 class="mb-1">Recent Blog</h2>
 				</div>
 			</div>
+				<!-- Container for notice -->
 			<div class="row d-flex">
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry justify-content-end">
@@ -533,6 +536,9 @@
 						</div>
 					</div>
 				</div>
+
+
+
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry justify-content-end">
 						<a href="blog-single.html" class="block-20"
