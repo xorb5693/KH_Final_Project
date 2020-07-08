@@ -32,57 +32,59 @@
 		</script>
 	</c:if>
 
-	<style>
-		#picture{
 
-			background-image: url();
-		}
-	</style>
 	<script>
 		
 	</script>
 	<section>
-		<div class="wrapper d-flex align-items-stretch">
+		<div class="wrapper d-flex align-items-stretch bg-dark">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
-		  		<img class="img-circle" src="/resources/profile/train.png" onerror="this.src='/resources/profile/noprofile.png'">
+					<c:if test="${empty sessionScope.member.memberProfile}">
+						<div class="bordered" style="width: 300px;height: 300px; background-image: url(/resources/profile/noprofile.png);background-size: contain;background-repeat: no-repeat;">
+						</div>
+					</c:if>
+					<c:if test="${not empty sessionScope.member.memberProfile}">
+						<div class="bordered" style="width: 300px;height: 300px; background-image: url(/resources/profile/${sessionScope.member.memberProfile});background-size: contain;background-repeat: no-repeat;">
+						</div>
+					</c:if>
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">
-	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-dark dropdown-toggle" style="color: white;">My Info</a>
 	            <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Home 1</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Home 1</a>
                 </li>
                 <li>
-                    <a href="#">Home 2</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Home 2</a>
                 </li>
                 <li>
-                    <a href="#">Home 3</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Home 3</a>
                 </li>
 	            </ul>
 	          </li>
 	          <li>
-	              <a href="#">About</a>
+	              <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">About</a>
 	          </li>
 	          <li>
-              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-dark" style="color: white;">Pages</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Page 1</a>
                 </li>
                 <li>
-                    <a href="#">Page 2</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Page 2</a>
                 </li>
                 <li>
-                    <a href="#">Page 3</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Page 3</a>
                 </li>
               </ul>
 	          </li>
 	          <li>
-              <a href="#">Portfolio</a>
+              <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Portfolio</a>
 	          </li>
 	          <li>
-              <a href="#">Contact</a>
+              <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">Contact</a>
 	          </li>
 	        </ul>
 
