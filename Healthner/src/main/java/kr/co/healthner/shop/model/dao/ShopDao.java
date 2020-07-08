@@ -63,15 +63,15 @@ public class ShopDao {
 		return sqlSession.selectList("basket.selectBasket",memberNo);
 	}
 
-	public List selectBasketList() {
+	public List selectBasketList(int memberNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("basketVO.selectBasketList");
+		return sqlSession.selectList("basketVO.selectBasketList",memberNo);
 	}
 
-//	public int deleteBasket(int pno, int memberNo) {
-//		// TODO Auto-generated method stub
-//		return sqlSession.delete("basket.deleteBasket",pno,memberNo);
-//	}
+	public int deleteBasket(Basket bk) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("basket.deleteBasket",bk);
+	}
 	
 	
 	
