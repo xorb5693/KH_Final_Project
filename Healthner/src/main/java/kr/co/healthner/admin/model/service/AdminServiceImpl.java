@@ -15,6 +15,7 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
 
 @Service("adminService")
@@ -278,5 +279,77 @@ public class AdminServiceImpl {
 	public PTmapping mappingCheck(int mpSeq) {
 		PTmapping ptm = dao.mappingCheck(mpSeq);
 		return ptm;
+	}
+
+	//물품 페이지 정보 가져오기
+	public ShopPageDate productData(int reqPage) {
+		
+		int totalCount = dao.totalProductCount();
+		int numPerPage = 10;
+		int totalPage;
+		
+		if (totalCount % 10 == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		
+		int start = (reqPage - 1) * numPerPage + 1;
+		int end = reqPage * numPerPage;
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		List<ProductVO> list = dao.productList(map);
+		
+		int pageNaviSize = 10;
+		StringBuffer pageNavi = new StringBuffer();
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		
+		if (pageNo != 1) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+		}
+		
+		for (int i = 0; i < pageNaviSize; i++) {
+			
+			if (reqPage == pageNo) {
+				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
+			} else {
+				pageNavi.append("<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+			}
+			
+			pageNo++;
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		
+		if (pageNo <= totalPage) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + pageNo + "'>다음</a>");
+		}
+		
+		ShopPageDate data = new ShopPageDate();
+		data.setList((ArrayList<ProductVO>)list);
+		data.setPageNavi(pageNavi.toString());
+		
+		return data;
+	}
+
+	//제품 정보 가져오기
+	public ProductVO productRead(int pno) {
+		
+		return dao.productRead(pno);
+	}
+
+	//제품 수정
+	public int productModify(ProductVO product) {
+		
+		return dao.productModify(product);
+	}
+
+	public int productDelete(int[] deleteNo) {
+		
+		return dao.productDelete(deleteNo);
 	}
 }

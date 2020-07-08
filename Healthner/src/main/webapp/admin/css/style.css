@@ -8375,3 +8375,9 @@ a[data-toggle="collapse"] {
 .tg-gray {
     color: rgb(191, 191, 191)
 }
+
+
+        
+#productContentArea img {
+    width: 100%;
+}

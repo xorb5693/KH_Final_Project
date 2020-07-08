@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>관리자 페이지 - 물품 등록</title>
+  	<title>관리자 페이지 - 물품 수정</title>
   	<link rel="icon" href="/resources/images/favicon.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -102,19 +102,22 @@
     <!-- Page Content  -->
     <!--  태규_200708_페이지 제작  -->
     <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">Product Insert</h2>
-        <form action="/productInsert.do" method="post" enctype="multipart/form-data">
+        <h2 class="mb-4">Product Modify</h2>
+        <form action="/productModify.do" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="pno" value="${product.pno}">
+            <input type="hidden" name="thumbnail" value="${product.thumbnail}">
+            <input type="hidden" name="type" value="not">
 			<table class="table">
                 <tbody>
 				    <tr>
                         <th scope="row">이름</th>
-                        <td colspan="5"><input class="form-control" type="text" name="pname" required></td>
+                        <td colspan="5"><input class="form-control" type="text" name="pname" value="${product.pname}" required></td>
 				    </tr>
                     <tr>
                         <th scope="row">가격</th>
-                        <td colspan="2"><input class="form-control" type="number" min="0" name="price" required></td>
+                        <td colspan="2"><input class="form-control" type="number" min="0" name="price" value="${product.price}" required></td>
                         <th scope="row">수량</th>
-                        <td colspan="2"><input class="form-control" type="number" min="0" name="stock" required></td>
+                        <td colspan="2"><input class="form-control" type="number" min="0" name="stock" value="${product.stock}" required></td>
                     </tr>
                     <tr>
                         <th scope="row">카테고리 1</th>
@@ -144,11 +147,17 @@
                     <tr>
                         <th scope="row" colspan="3">내용</th>
                         <th scope="row">섬네일</th>
-                        <td colspan="2"><input class="form-control-file" type="file" id="file" name="file" accept="image/*" onchange="checkFile(this)" required></td>
+                        <td colspan="2" align="center">
+                            <img id="thumbnailImg" src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%">
+                            <br>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="thumbnailModify(this)">수정하기</button>
+                            <input class="form-control-file" type="file" id="file" name="file" accept="image/*" style="display: none" onchange="checkFile(this)">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="thumbnailModifyCancel(this)" style="display: none">수정취소</button>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="6">
-                            <textarea id="ck4" name="pcontent" rows="20" required></textarea>
+                            <textarea id="ck4" name="pcontent" rows="20" required>${product.pcontent}</textarea>
                             <script>
                                 CKEDITOR.replace('ck4', {
                                     filebrowserUploadUrl : '/healthner/notice/imageUpload.do',
@@ -163,10 +172,10 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <button type="submit" class="btn btn-primary btn-block" onclick="return check()">등 록</button>
+                            <button type="submit" class="btn btn-primary btn-block" onclick="return check()">수 정</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/productMgt.do?reqPage=1'">취 소</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="location.href='/productRead.do?pno=${product.pno}'">취 소</button>
                         </td>
                         <td></td>
                         <td></td>
@@ -195,6 +204,45 @@
                 alert(".jpg, .png, .jpeg, .gif, .bmp중 하나를 올려주세요.");
                 $(obj).val("");
             }
+        }
+        
+        $(function() {
+            var cat1 = $("select[name=category]>option");
+            var cat2 = $("select[name=category2]>option");
+            var cat3 = $("select[name=category3]>option");
+            
+            for (var i = 0; i < cat1.length; i++) {
+                if (cat1.eq(i).val() == ${product.category}) {
+                    cat1.eq(i).prop("selected", true);
+                    break;
+                }
+            }
+            
+            for (var i = 0; i < cat2.length; i++) {
+                if (cat2.eq(i).val() == ${product.category2}) {
+                    cat2.eq(i).prop("selected", true);
+                    break;
+                }
+            }
+            
+            for (var i = 0; i < cat3.length; i++) {
+                if (cat3.eq(i).val() == ${product.category3}) {
+                    cat3.eq(i).prop("selected", true);
+                    break;
+                }
+            }
+        });
+        
+        function thumbnailModify(obj) {
+            $(obj).parent().children().toggle();
+            $("input[name=type]").val("change");
+            $("#file").prop("required", true);
+        }
+        
+        function thumbnailModifyCancel(obj) {
+            $(obj).parent().children().toggle();
+            $("input[name=type]").val("not");
+            $("#file").prop("required", false);
         }
     </script>
 </body>    

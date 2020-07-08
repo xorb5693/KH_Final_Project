@@ -1225,6 +1225,7 @@ COMMENT ON COLUMN PURCHASE.total_price IS 'ÃÑ°¡°Ý'
 ALTER TABLE PURCHASE
     ADD CONSTRAINT FK_PURCHASE_member_no_Member_m FOREIGN KEY (member_no)
         REFERENCES Member (member_no)
+    on delete cascade
 /
 
 -- Member Table Create SQL
@@ -1248,10 +1249,11 @@ COMMENT ON COLUMN buy_product.stock IS '¼ö·®'
 ALTER TABLE buy_product
     ADD CONSTRAINT FK_buy_product_buy_no_PURCHASE FOREIGN KEY (buy_no)
         REFERENCES PURCHASE (buy_no)
+    on delete cascade
 /
 
 ALTER TABLE buy_product
     ADD CONSTRAINT FK_buy_product_pno_PRODUCT_pno FOREIGN KEY (pno)
         REFERENCES PRODUCT (pno)
+    on delete cascade
 /
-

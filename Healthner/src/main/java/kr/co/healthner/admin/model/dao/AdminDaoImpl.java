@@ -119,4 +119,29 @@ public class AdminDaoImpl {
 	public PTmapping mappingCheck(int mpSeq) {
 		return sqlSession.selectOne("admin.mappingCheck", mpSeq);
 	}
+
+	public int totalProductCount() {
+		
+		return sqlSession.selectOne("shop.totalShop");
+	}
+
+	public List<ProductVO> productList(HashMap<String, String> map) {
+		
+		return sqlSession.selectList("shop.shopList", map);
+	}
+
+	public ProductVO productRead(int pno) {
+		
+		return sqlSession.selectOne("shop.productRead", pno);
+	}
+
+	public int productModify(ProductVO product) {
+		
+		return sqlSession.update("admin.productModify", product);
+	}
+
+	public int productDelete(int[] deleteNo) {
+		
+		return sqlSession.delete("admin.productDelete", deleteNo);
+	}
 }
