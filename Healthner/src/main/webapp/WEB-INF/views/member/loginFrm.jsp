@@ -7,6 +7,10 @@ prefix="c"%>
 <meta charset="UTF-8">
 <title>Login</title>
 	<link rel="icon" href="/resources/images/favicon.png">
+	<script
+  type="text/javascript"
+  src="http://code.jquery.com/jquery-3.3.1.js"
+></script>
  <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
 	rel="stylesheet">
@@ -15,7 +19,73 @@ prefix="c"%>
     <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
     <!-- END nav -->
+    <script>
+      $(document).ready(function(){
+        var cookieValue = getCookie("userId");
 
+
+        $("input[name=memberId]").val(cookieValue);
+        if($("input[name=memberId]").val() != ""){
+          $("#remember").attr("checked",true);
+        }
+      });
+		function submitForm(){
+          var memberId = $("input[name=memberId]").val();
+          var memberPw = $("input[name=memberPw]").val();
+          $.ajax({
+            url: "/healthner/member/login.do",
+            method: "post",
+            data: {memberId : memberId,
+                    memberPw : memberPw
+            },
+            success: function(data){
+              if(data == "success"){
+                if($("#remember").is(":checked")){
+                  console.log("checked");
+                  createCookie("userId",memberId,14);
+                  location.href="/";
+                }else{
+                  deleteCookie("userId");
+                  location.href="/";
+                }
+
+              }else if(data=="fail"){
+                alert("아이디/비밀번호를 확인해주세요");
+              }else if(data=="mail"){
+                alert("이메일을 인증해주세요");
+              }
+            }
+          });
+			
+		}
+      
+      function createCookie(key,memberId,exdate){
+        var d = new Date();
+        d.setDate(d.getDate+exdate);
+        var cookieValue = escape(memberId) + (d == null ? "":"; expires="+d.toLocaleDateString());
+        document.cookie = key + "=" + cookieValue;
+      }
+      function deleteCookie(key){
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate(-1));
+        document.cookie = key + "="+" ; expires" + expireDate.toLocaleDateString();
+      }
+
+      function getCookie(cookieName){
+        cookieName = cookieName + "=";
+      var cookieData = document.cookie;
+      var start = cookieData.indexOf(cookieName);
+      var cookieValue = "";
+      if (start != -1) {
+        start += cookieName.length;
+        var end = cookieData.indexOf(";", start);
+        if (end == -1) end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+      }
+      return unescape(cookieValue);
+      }
+
+    </script>
     <section
       class="hero-wrap js-fullheight"
       style="background-image: url('/resources/images/bg_2.jpg');"
@@ -32,7 +102,7 @@ prefix="c"%>
 				<div class="card"> -->
 
             <div class="card-body">
-              <form action="/healthner/member/login.do" method="POST">
+              <form  onsubmit="submitForm()" method="POST">
                 <div class="input-group form-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text"
@@ -66,18 +136,14 @@ prefix="c"%>
                   </label>
                 </div>
                 <div class="form-group">
-                  <input
-                    type="submit"
-                    value="Login"
-                    class="btn btn-primary btn-outline-white"
-                  />
+                <input type="submit" value="로그인" class="btn btn-primary btn-outline-white">
                 </div>
               </form>
             </div>
             <div class="card-footer">
               <div class="d-flex justify-content-center links">
                 Don't have an account?<a href="/healthner/member/registerFrm.do"
-                  >Sign Up</a
+                  >회원가입</a
                 >
               </div>
               <div class="d-flex justify-content-center">

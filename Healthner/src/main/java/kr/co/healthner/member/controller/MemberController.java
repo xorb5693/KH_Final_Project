@@ -1,5 +1,9 @@
 package kr.co.healthner.member.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.google.gson.Gson;
 
@@ -71,15 +77,22 @@ public class MemberController {
 		return "$" + cardNo;
 	}
 	
-	@RequestMapping("/login.do")
+	@ResponseBody
+	@RequestMapping(value="/login.do", produces = "html/text;charset=utf-8")
 	public String selectMember(Member m, HttpSession session) {
 		Member member = new Member();
 		member = service.selectMember(m);
 		if(member != null) {
-			session.setAttribute("member", member);
+			if(member.getEmailVerification()==1) {
+				session.setAttribute("member", member);
+				return "success";				
+			}else {
+				return "mail";
+			}
+		}else {
+			return "fail";
 		}
 		
-		return "redirect:/";
 	}
 	
 	@RequestMapping("/logout.do")
@@ -89,15 +102,37 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join.do")
-	public String insertMember(Member m,HttpServletRequest request,Model model) {
+	public String insertMember(Member m,HttpServletRequest request,Model model, MultipartFile file) {
 		// send mail
 		long timeout = System.currentTimeMillis()/1000;
 		
 		mailService.sendMail(m,request,timeout);
 		model.addAttribute("memberId", m.getMemberId());
+		
+		
 		// upload profile Image
-		
-		
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/profile/"); // 저장 경로
+		// 업로드한 파일의 실제 파일명
+		String originalFilename = file.getOriginalFilename(); 
+		// 확장자를 제되한 파일명
+		String onlyFilename = originalFilename.substring(0,originalFilename.lastIndexOf("."));
+		// 확장자 -> txt
+		String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+		String filepath = onlyFilename+"_"+System.currentTimeMillis()+extension;
+		String fullpath = savePath + filepath;
+		if(!file.isEmpty()) {
+			try {
+				byte [] bytes = file.getBytes();
+				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fullpath)));
+				bos.write(bytes);
+				bos.close();
+				System.out.println("파일 업로드 완료");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		m.setMemberProfile(filepath);
 		
 		
 		
@@ -352,6 +387,16 @@ public class MemberController {
 			mailService.resetPw(member,timeout,request);
 		}
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/about.do")
+	public String aboutFrm() {
+		return "member/about";
+	}
+	
+	@RequestMapping("/pricing.do")
+	public String pricing() {
+		return "member/pricing";
 	}
 	
 }

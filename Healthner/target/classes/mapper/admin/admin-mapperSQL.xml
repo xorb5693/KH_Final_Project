@@ -121,8 +121,10 @@
 	</delete>
 	<!-- 혜진_200702_mapping 테이블 검색 -->
 	<select id="ptmapping" parameterType="pt" resultType="pt">
-	select rownum, n.* from(select
+	select*from (select rownum as rnum, n.* from(select
+		mp.mapping_seq as mappingSeq,
     	NVL(c.member_profile,' ') as trainerProfile,
+    	c.member_id as memberId,
     	c.member_name as trainerName,
     	p.category_name as catFirst,
     	q.category_name as catSecond,
@@ -151,7 +153,7 @@
 	<if test="checkbox1==1">
 	, mp.training_cnt
 	</if>
-	)n where (rownum between #{start} and #{end})
+	)n) where (rnum between #{start} and #{end})
 	</select>
 	<!-- 혜진_200702_mapping 테이블 자료수 세기 -->
 	<select id="ptTotalCount" parameterType="memberSearch" resultType="_int">
@@ -161,13 +163,63 @@
 	where expire_date is not null and (member_name like '%'||#{searchWord}||'%')
 	</if>
 	<if test="memberType==3">
-	select count (trainer_no) from member_mapping mp 
-	join member m on (m.member_no = mp.trainer_no)
-	where (m.member_name like '%'||#{searchWord}||'%')
+	select count (expire_date) from (select mp.trainer_no, mp.member_no, m.expire_date from member_mapping mp 
+	join member m on (m.member_no = mp.member_no)
+	where m.expire_date is not null and (m.member_name like '%'||#{searchWord}||'%'))
 	</if>
 	</select>
 	<!-- 물품등록 -->
 	<insert id="productInsert" parameterType="product">
 		insert into product values(product_seq.nextval, #{pname}, #{pcontent}, #{price}, #{stock}, #{category}, #{category2}, #{category3}, #{thumbnail})
 	</insert>
+	<!-- 혜진_200706_mapping테이블 데이터 삭제 -->
+	<delete id="mappingDelete" parameterType="_int">
+	delete member_mapping where mapping_seq = #{_parameter}
+	</delete>
+	<!-- 혜진_200706_mapping신규 등록_회원 찾기 -->
+	<select id="mappingFind" parameterType="memberSearch" resultType="member">
+	select *
+		from(
+			select rownum as rnum, m.*
+			from(
+				select
+					NVL(member_Profile, ' ') as memberProfile,
+					member_id as memberId,
+					member_no as memberNo,
+					member_name as memberName,
+					age,
+					phone,
+					email,
+					road_addr as roadAddr,
+					det_addr as detAddr,
+					member_level as memberLevel
+				from member
+				where member_level=#{memberType}
+				<if test="memberType==1">
+					and expire_date is not null
+				</if>
+				and (
+					member_id like '%'||#{searchWord}||'%' 
+					or member_name like '%'||#{searchWord}||'%')
+			)m
+		) 
+	</select>
+	<!-- 혜진_200707_mapping신규 등록_등록 -->
+	<insert id="inputNewMapping" parameterType="pt">
+	insert into member_mapping values (member_mapping_seq.nextval,#{memberNo},#{trainerNo},#{PTleft},#{PTmax},null)
+	</insert>
+	<!-- 혜진_200707_mapping 데이터 수정 -->
+	<select id="mappingCheck" parameterType="_int" resultType="pt">
+	select
+		mp.member_no as memberNo,
+		m.member_name as memberName,
+		mp.trainer_no as trainerNo,
+		t.member_name as trainerName,
+		mp.training_cnt as PTleft,
+		mp.training_maxcnt as PTmax
+	from member_mapping mp
+	join member m on (m.member_no = mp.member_no)
+	join member t on (t.member_no = mp.member_no)
+	where mapping_seq = #{mpSeq}
+	</select>
 </mapper>
