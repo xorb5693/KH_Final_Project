@@ -1,6 +1,7 @@
 package kr.co.healthner.shop.model.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class ShopController {
 	@RequestMapping(value="/basketList.do")
 	public String basketList(int memberNo , Model model) {
 		List bk = service.selectBasket(memberNo);
-		List bv = service.selectBasketProduct();
+		List bv = service.selectBasketProduct(memberNo);
 		
 		model.addAttribute("list",bk);
 		model.addAttribute("pv",bv);
@@ -87,19 +88,28 @@ public class ShopController {
 		return "shop/basket";
 	}
 	
-//	@RequestMapping(value="/deleteBasket.do")
-//	public String deleteBasket(int pno,int memberNo){
-//		System.out.println("바스켓딜리트실험 "+pno);
-//		System.out.println("바스켓딜리트실험 "+memberNo);
-//		int result = service.deleteBasket(pno,memberNo);
-//		if(result>0) {
-//			System.out.println("장바구니비우기성공");
-//		}else {
-//			System.out.println("장바구니비우기실패");
-//		}
-//		
-//		
-//		return null;
-//	}
+	@RequestMapping(value="/deleteBasket.do")
+	public String deleteBasket(Basket bk){
+		System.out.println("바스켓딜리트실험 "+bk.getPno());
+		System.out.println("바스켓딜리트실험 "+bk.getMemberNo());
+		int result = service.deleteBasket(bk);
+		if(result>0) {
+			System.out.println("장바구니비우기성공");
+		}else {
+			System.out.println("장바구니비우기실패");
+		}
+		return "redirect:/healthner/shop/basketList.do?memberNo="+bk.getMemberNo();
+	}
+	@RequestMapping(value="/buy.do")
+	public String test(String[] array2 , String[] array3 , int memberNo) {
+		
+		String[] arrayPno = array2;
+		String[] arrayStock = array3;
+		System.out.println("결제컨트롤러1");
+		System.out.println(memberNo);
+		System.out.println(Arrays.toString(arrayPno));
+		System.out.println(Arrays.toString(arrayStock));
+		return null;
+	}
 
 }

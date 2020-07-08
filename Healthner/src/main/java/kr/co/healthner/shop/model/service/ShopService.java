@@ -204,15 +204,17 @@ public class ShopService {
 		return dao.selectBasket(memberNo);
 	}
 
-	public List selectBasketProduct( ) {
+	public List selectBasketProduct(int memberNo ) {
 		// TODO Auto-generated method stub
-		return dao.selectBasketList();
+		return dao.selectBasketList(memberNo);
 	}
 
-	/*
-	 * public int deleteBasket(int pno, int memberNo) { // TODO Auto-generated
-	 * method stub return dao.deleteBasket(pno,memberNo); }
-	 */
+	
+	public int deleteBasket(Basket bk) {
+	 
+	return dao.deleteBasket(bk); 
+	}
+	
 
 	
 	
