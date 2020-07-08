@@ -12,6 +12,7 @@ import kr.co.healthner.admin.model.vo.MemberSearch;
 import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.vo.ProductVO;
 
 @Repository("adminDao")
 public class AdminDaoImpl {
@@ -95,5 +96,10 @@ public class AdminDaoImpl {
 	public List<MailVO> selectSendMailList(HashMap<String, Integer> map) {
 
 		return sqlSession.selectList("mail.selectSendMailList", map);
+	}
+
+	public int productInsert(ProductVO product) {
+		
+		return sqlSession.insert("admin.productInsert", product);
 	}
 }

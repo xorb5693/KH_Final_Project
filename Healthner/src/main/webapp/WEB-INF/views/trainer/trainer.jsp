@@ -150,7 +150,7 @@
 				<div class="modal-body">
 					<div style="float: left;">
 						<input id="readImage2" class="d-flex align-items-center"
-							type="image" style="width: 350px; height: 100%;">
+							type="image" style="width: 350px; height: 100%;" onError="this.src='/resources/profile/noprofile.png'">
 					</div>
 					<div id="readIntro" class="d-flex align-items-center" style="padding: 20px"></div>
 				</div>
@@ -219,7 +219,7 @@
                                     var div2 = $("<div class='coach align-items-stretch'></div>");
                                     
                                     var imgDiv = $("<div class='img' style='width: 200px; height: 300px;' id='myImg' data-toggle='modal' data-target='#readPostscript' onclick='readPostscript(this)'>");
-                                    var img = $("<input type='image' src='/resources/profile/" + data[i]['memberProfile'] + "' onError='this.src='/resources/profile/noprofile.png'' style='width: 200px; height: 300px;' value='" + data[i]['memberProfile'] + "'>");
+                                    var img = $("<input type='image' src='/resources/profile/" + data[i]['memberProfile'] + "' onError='this.src=\"/resources/profile/noprofile.png\"' style='width: 200px; height: 300px;' value='" + data[i]['memberProfile'] + "'>");
                                     imgDiv.append(img);
                                     div2.append(imgDiv);
                                     

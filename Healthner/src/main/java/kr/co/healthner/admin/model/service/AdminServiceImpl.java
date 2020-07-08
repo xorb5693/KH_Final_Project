@@ -15,6 +15,7 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.vo.ProductVO;
 
 @Service("adminService")
 public class AdminServiceImpl {
@@ -207,12 +208,12 @@ public class AdminServiceImpl {
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		
 		if (pageNo != 1) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/sendList.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
 		}
 		
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo != reqPage) {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/sendList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+				pageNavi.append("<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
 			} else {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			}
@@ -225,7 +226,7 @@ public class AdminServiceImpl {
 		}
 		
 		if (pageNo <= totalPage) {
-			pageNavi.append("<a class='btn btn-outline-primary' href=/sendList.do?reqPage=" + pageNo + "'>다음</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href=/sendMail.do?reqPage=" + pageNo + "'>다음</a>");
 		}
 		
 		///healthner/mail/receiveList.do?reqPage=1
@@ -233,5 +234,10 @@ public class AdminServiceImpl {
 		data.setList((ArrayList<MailVO>)list);
 		data.setPageNavi(pageNavi.toString());
 		return data;
+	}
+
+	public int productInsert(ProductVO product) {
+		
+		return dao.productInsert(product);
 	}
 }

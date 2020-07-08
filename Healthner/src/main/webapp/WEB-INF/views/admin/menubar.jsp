@@ -33,6 +33,7 @@
 	width: 105%;
 	margin-top: 20px;
 	margin-bottom: 15px;
+	outline: none;
 }
 
 #sidebar {
@@ -138,7 +139,7 @@
 		} else if (loc.includes('penaltyMgt')) {
 			$("#4").children("ul").show();
 			$("#5").addClass("active");
-		} else if (loc.includes('productMgt')) {
+		} else if (loc.includes('product')) {
 			$("#6").addClass("active");
 		} else if (loc.includes('mail') || loc.includes('Mail')) {
 			$("#7").addClass("active");
