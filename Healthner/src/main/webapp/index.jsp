@@ -499,8 +499,23 @@
 		</div>
 	</section>
 
+	<script>
+		$(function(){
+			$.ajax({
+				url: "/healthner/notice/noticeList.do",
+				data: {reqPage: "1"},
+				method: "get",
+				success: function(data){
+					for(var i=0; i<3; i++){
+						
+					}
+				}
+			});
+		});
+	</script>
+
 	<section class="ftco-section bg-light">
-		<div class="container">
+		<div class="container" id="noticeSection">
 			<div class="row justify-content-center mb-5 pb-3">
 				<div class="col-md-7 heading-section ftco-animate text-center">
 					<span class="subheading"><small><i class="left-bar"></i>Articles<i
@@ -539,58 +554,7 @@
 
 
 
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('/resources/images/image_2.jpg');">
-						</a>
-						<div class="text p-4 float-right d-block">
-							<div class="meta">
-								<div>
-									<a href="#">July 01, 2019</a>
-								</div>
-								<div>
-									<a href="#">Admin</a>
-								</div>
-								<div>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span>
-										3</a>
-								</div>
-							</div>
-							<h3 class="heading mt-2">
-								<a href="#">Young Women Doing Abdominal</a>
-							</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('/resources/images/image_3.jpg');">
-						</a>
-						<div class="text p-4 float-right d-block">
-							<div class="meta">
-								<div>
-									<a href="#">July 01, 2019</a>
-								</div>
-								<div>
-									<a href="#">Admin</a>
-								</div>
-								<div>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span>
-										3</a>
-								</div>
-							</div>
-							<h3 class="heading mt-2">
-								<a href="#">Young Women Doing Abdominal</a>
-							</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia.</p>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</section>
