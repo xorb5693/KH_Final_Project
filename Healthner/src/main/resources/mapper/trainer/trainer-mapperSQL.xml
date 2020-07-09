@@ -270,4 +270,13 @@
 	<update id="customerDowngrade" parameterType="_int">
 		update member_mapping set training_cnt = training_cnt - 1 where mapping_seq = #{_parameter} 
 	</update>
+	<select id="trainerComment" resultType="trainerCom">
+		select
+		    m.member_nick as memberNick,
+		    m.member_profile as memberProfile,
+		    t.member_no as memberNo,
+		    t.training_postscript as trainingPostscript
+		from member m
+    		join member_mapping t on (m.member_no = t.member_no)
+	</select>
 </mapper>

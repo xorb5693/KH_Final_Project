@@ -21,7 +21,9 @@ import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.CustomerData;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
 import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
+import kr.co.healthner.trainer.model.vo.TrainerCommentData;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
+import kr.co.healthner.vo.TrainerCommentVO;
 
 @Service("trainerService")
 public class TrainerServiceImpl {
@@ -272,6 +274,11 @@ public class TrainerServiceImpl {
 		}
 		
 		return sortList;
+	}
+
+	public ArrayList<TrainerCommentVO> trainerComment() {
+		ArrayList<TrainerCommentVO> list = (ArrayList<TrainerCommentVO>)dao.trainerComment();
+		return list;
 	}
 
 //	public List<Member> selectCustomerList() {
