@@ -15,6 +15,7 @@
 		<typeAlias type="kr.co.healthner.vo.BasketVO" alias="basketVO"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceVO" alias="attend"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceAvgtimeVO" alias="attendAvg"/>
+		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceLastDate" alias="attendLast"/>
 		
 		<typeAlias type="kr.co.healthner.trainer.model.vo.TrainerVO" alias="trainer"/>
 		<typeAlias type="kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO" alias="category"/>
