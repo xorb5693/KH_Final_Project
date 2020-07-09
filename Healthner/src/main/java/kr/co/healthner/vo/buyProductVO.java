@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import lombok.Data;
 @Data
 public class buyProductVO {
-	private ArrayList<Basket> list;
+	private int buyNo;
+	private int pno;
+	private int stock;
 
 }
