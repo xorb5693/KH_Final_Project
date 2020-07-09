@@ -133,7 +133,7 @@ public class AdminDaoImpl {
 	public List totalReportCnt(Report rp) {
 		return sqlSession.selectList("admin.totalReportCnt",rp);
 	}
-
+	//태규_200708_상품 관리 페이지
 	public int totalProductCount() {
 		
 		return sqlSession.selectOne("shop.totalShop");
@@ -159,4 +159,5 @@ public class AdminDaoImpl {
 		return sqlSession.delete("admin.productDelete", deleteNo);
 
 	}
+	//혜진_200709_
 }

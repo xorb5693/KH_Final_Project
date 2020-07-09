@@ -39,8 +39,6 @@
 				<option value=4>기타</option>
 			</select>
 			<input type="text" id="searchWord" placeholder="게시글 제목을 입력하세요.">
-			<span>누적 신고 수</span><span><input type="text" value="" placeholder=0 style="text-align: right;width:50px;" id="startNum"><span>~</span><input type="text" value="" placeholder=0 style="text-align: right;width:50px;" id="endNum"></span>
-			
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"
 				onclick="show_reportlist(1,1);">
 		</div>
@@ -71,20 +69,10 @@
 			var searchWord = $("#searchWord").val();
 			var writeType = $("select[name=writeType]").val();
 			var reportCat = $("select[name=reportCat]").val();
-			var startNum = $("#startNum").val();
-			if(startNum==""){
-				startNum = 0;
-			}
-			var endNum = $("#endNum").val();
-			if($("#endNum").val()==""){
-				endNum=0;
-			}
 			var param = {
 				searchWord : searchWord,
 				writeType : writeType,
 				reportCat : reportCat,
-				startNum : startNum,
-				endNum : endNum,
 				start: start
 			};
 			$.ajax({

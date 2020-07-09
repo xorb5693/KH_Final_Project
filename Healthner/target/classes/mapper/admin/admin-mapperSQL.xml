@@ -226,48 +226,55 @@
 	<select id="reportlist" parameterType="adminReport" resultType="adminReport">
 	select*from (select rownum as rnum, m.* 
 	from(select distinct
+        k.reportCnt as reportCnt,
 		r.write_no as writeNo,
     	m.member_id as reportedId,
     	m.member_nick as reportedName,
    	 	r.write_type as writeType,
-    	b.board_title as boardTitle
+    	b.board_title as boar8dTitle
 	from report r
 	join member m on (m.member_no = r.reported_no)
 	join member t on (t.member_no = r.member_no)
 	join board b on (b.board_no = r.write_no)
-	where b.board_title like '%'||#{searchWord}||'%'
-	<if test="reportCat!=0">
-	and r.report_cat=#{reportCat} 
-	</if>
-	<if test="writeType!=0">
-	where write_type =#{writeType} 
-	</if>
+    join (select r.write_no as write_no, r.write_type as write_type, count(*) as reportCnt from report r
+        	join board b on (b.board_no = r.write_no)
+        	<trim prefix="where" prefixOverrides="and">
+				<if test="writeType!=0">
+				r.write_type =#{writeType} 
+				</if>
+				<if test="reportCat!=0">
+				and (r.report_cat=#{reportCat})
+				</if>
+				and (b.board_title like '%'||#{searchWord}||'%')
+				</trim>
+				group by r.write_no, r.write_type)k on (k.write_no = r.write_no and k.write_type = r.write_type)
+	<trim prefix="where" prefixOverrides="and">
+		<if test="writeType!=0">
+		r.write_type =#{writeType} 
+		</if>
+		<if test="reportCat!=0">
+		and (r.report_cat=#{reportCat})
+		</if>
+		and (b.board_title like '%'||#{searchWord}||'%')
+		</trim>
+    order by reportCnt desc
 	)m)
 	where (rnum between #{start} and #{end})
-	</select>
+	</select>	
 	<!-- 혜진_200708_신고글 전체 수 조회 -->
 	<select id="totalReportlist" parameterType="adminReport" resultType="_int">
-	select count(b.board_title) from report r
+	select count(*) from(select r.write_no, r.write_type, count(*) as reportCnt from report r
 	join board b on (b.board_no = r.write_no)
-	where b.board_title like '%'||#{searchWord}||'%'
+	where (b.board_title like '%'||#{searchWord}||'%') 
+	<if test="writeType!=0">
+	and r.write_type =#{writeType} 
+	</if>
 	<if test="reportCat!=0">
-	and r.report_cat=#{reportCat} 
+	and (r.report_cat=#{reportCat})
 	</if>
-	<if test="writeType!=0">
-	where write_type =#{writeType} 
-	</if>
+	group by r.write_no, r.write_type)
 	</select>
-	<!--  -->
-	<select id="totalReportCnt" parameterType="adminReport" resultType="adminReport">
-	select write_no as writeNo, write_type as writeType, count(*) as reportCnt from report 
-	<if test="writeType!=0">
-	where write_type =#{writeType} 
-	</if>
-	<if test="writeType==0">
-	where write_type=1 or write_type=2
-	</if>
-	group by write_no, write_type
-	</select>
+	<!-- 태규_200708_상품 관리 페이지 -->
 	<update id="productModify" parameterType="product">
 		update product set
 			pname = #{pname},
@@ -286,4 +293,5 @@
 			#{pno}
 		</foreach>
 	</delete>
+	<!-- 혜진_200709_ -->
 </mapper>

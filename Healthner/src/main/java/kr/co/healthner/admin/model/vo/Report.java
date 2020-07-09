@@ -20,8 +20,6 @@ public class Report {
 	private String commentContent;
 	private int reportCnt;
 	private String searchWord;
-	private int startNum;
-	private int endNum;
 	private int start;
 	private int end;
 }
