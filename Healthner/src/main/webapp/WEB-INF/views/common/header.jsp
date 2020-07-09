@@ -31,15 +31,15 @@
 <style>
 .back-to-top {
 	position: fixed;
-	bottom: 145px;
-	right: 31px;
+	bottom: 155px;
+	right: 25px;
 	display: none;
 	z-index: 1000;
 }
 .mail{
 	position: fixed;
 	bottom: 90px;
-	right: 31px;
+	right: 25px;
 	display: none;
 	z-index: 1000;
 }
@@ -131,12 +131,12 @@
 </nav>
 <!-- END nav -->
 	<c:if test="${not empty sessionScope.member }">
-		<a id="mail" href="/healthner/mail/receiveList.do?reqPage=1" class="btn btn-dark btn-lg mail">
+		<a id="mail" href="/healthner/mail/receiveList.do?reqPage=1" class="btn btn-dark btn-lg mail tg-btn-fixed">
 			<i class="icon-envelope-open"></i>
 			<!-- <i class="icon-envelope"></i> -->
 		</a>
 	</c:if>
-<a id="back-to-top" href="#" class="btn btn-dark btn-lg back-to-top"
+<a id="back-to-top" href="#" class="btn btn-dark btn-lg back-to-top tg-btn-fixed"
 	role="button"><i class="icon-arrow-up"></i></a>
 	
 <!-- Channel Plugin Scripts -->

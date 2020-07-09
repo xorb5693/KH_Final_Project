@@ -87,7 +87,12 @@
 									class="fa fa-long-arrow-right mr-3"></span>회원 정지 관리</a></li>
 						</ul></li>
 					<li id="6"><a href="/productMgt.do?reqPage=1"><span
-							class="fa fa-shopping-cart mr-3"></span>상품 관리</a></li>
+							class="fa fa-shopping-cart mr-3"></span>상품 관리</a>
+                            <ul class="sub-list list-unstyled">
+							<li id="9"><a href="/userBuy.do?reqPage=1&type=0"><span
+									class="fa fa-long-arrow-right mr-3"></span>구매 관리</a></li>
+						</ul>
+                    </li>
 					<li id="7"><a href="/mail.do?reqPage=1"><span class="fa fa-send-o mr-3"></span>쪽지함</a>
 					</li>
 					<li id="8"><a href="/inquiryMgt.do"><span class="fa fa-calendar mr-3"></span>예약
@@ -142,10 +147,14 @@
 			$("#5").addClass("active");
 		} else if (loc.includes('product')) {
 			$("#6").addClass("active");
+            $("#6").children("ul").show();
 		} else if (loc.includes('mail') || loc.includes('Mail')) {
 			$("#7").addClass("active");
 		} else if (loc.includes('inquiryMgt')) {
 			$("#8").addClass("active");
+		} else if (loc.includes('userBuy')) {
+			$("#9").addClass("active");
+            $("#6").children("ul").show();
 		}
 	});
 </script>

@@ -222,6 +222,59 @@
 	join member t on (t.member_no = mp.member_no)
 	where mapping_seq = #{mpSeq}
 	</select>
+	<!-- 혜진_200708_신고글 조회 -->
+	<select id="reportlist" parameterType="adminReport" resultType="adminReport">
+	select*from (select rownum as rnum, m.* 
+	from(select distinct
+        k.reportCnt as reportCnt,
+		r.write_no as writeNo,
+    	m.member_id as reportedId,
+    	m.member_nick as reportedName,
+   	 	r.write_type as writeType,
+    	b.board_title as boar8dTitle
+	from report r
+	join member m on (m.member_no = r.reported_no)
+	join member t on (t.member_no = r.member_no)
+	join board b on (b.board_no = r.write_no)
+    join (select r.write_no as write_no, r.write_type as write_type, count(*) as reportCnt from report r
+        	join board b on (b.board_no = r.write_no)
+        	<trim prefix="where" prefixOverrides="and">
+				<if test="writeType!=0">
+				r.write_type =#{writeType} 
+				</if>
+				<if test="reportCat!=0">
+				and (r.report_cat=#{reportCat})
+				</if>
+				and (b.board_title like '%'||#{searchWord}||'%')
+				</trim>
+				group by r.write_no, r.write_type)k on (k.write_no = r.write_no and k.write_type = r.write_type)
+	<trim prefix="where" prefixOverrides="and">
+		<if test="writeType!=0">
+		r.write_type =#{writeType} 
+		</if>
+		<if test="reportCat!=0">
+		and (r.report_cat=#{reportCat})
+		</if>
+		and (b.board_title like '%'||#{searchWord}||'%')
+		</trim>
+    order by reportCnt desc
+	)m)
+	where (rnum between #{start} and #{end})
+	</select>	
+	<!-- 혜진_200708_신고글 전체 수 조회 -->
+	<select id="totalReportlist" parameterType="adminReport" resultType="_int">
+	select count(*) from(select r.write_no, r.write_type, count(*) as reportCnt from report r
+	join board b on (b.board_no = r.write_no)
+	where (b.board_title like '%'||#{searchWord}||'%') 
+	<if test="writeType!=0">
+	and r.write_type =#{writeType} 
+	</if>
+	<if test="reportCat!=0">
+	and (r.report_cat=#{reportCat})
+	</if>
+	group by r.write_no, r.write_type)
+	</select>
+	<!-- 태규_200708_상품 관리 페이지 -->
 	<update id="productModify" parameterType="product">
 		update product set
 			pname = #{pname},
@@ -240,4 +293,48 @@
 			#{pno}
 		</foreach>
 	</delete>
+	
+	<!-- 태규_200709_구매 관리 -->
+	<select id="totalPurchaseCount" parameterType="map" resultType="_int">
+		select count(*) from purchase
+		<if test="type == 1">
+			where delivery_bool = 0
+		</if>
+	</select>
+	<select id="selectPurchaseList" parameterType="map" resultType="purchase">
+		select * from (
+		    select rownum as rnum, PS.*
+		    from (
+		        select S.*, pname, thumbnail, member_Id as memberId from(
+		            select 
+		            	buy_no as buyNo,
+		                member_no as memberNo, 
+		                buy_addr as buyAddr,
+		                total_price as totalPrice,
+		                delivery_bool as deliveryBool,
+		                invoice_number as invoiceNumber, 
+		                buy_date as buyDate,
+			            (
+			                select count(*) - 1 
+			                from BUY_PRODUCT 
+			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
+			                group by buy_no
+			            ) as count, (
+			                select min(pno)
+			                from BUY_PRODUCT 
+			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
+			                group by buy_no
+			            ) as pno
+		            from PURCHASE
+		            <if test="type == 1">
+						where delivery_bool = 0
+					</if>
+		        ) S
+		        join PRODUCT P on (S.pno = p.pno)
+		        join Member M on (S.memberNo = M.member_No)
+		        order by buyNo desc) 
+		    PS
+		) where rnum BETWEEN #{start} and #{end}
+	</select>
+	<!-- 혜진_200709_ -->
 </mapper>

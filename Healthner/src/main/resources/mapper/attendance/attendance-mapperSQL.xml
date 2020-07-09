@@ -10,8 +10,8 @@
 		    ATTEND_DATE <= to_date(to_char(SYSDATE + (INTERVAL '-1' DAY), 'YYYY-MM-DD')||' 23:59:59', 'YYYY-MM-DD HH24:MI:SS') and 
 		    ATTEND_DATE > TRUNC(SYSDATE + (INTERVAL '-1' DAY), 'DD')]]>
 	</select>
-	<select id="selectAttendanceCount" parameterType="_int" resultType="_int">
-		<![CDATA[select count(*) from attendance
+	<select id="selectAttendanceCount" parameterType="_int" resultType="attendLast">
+		<![CDATA[select count(*) as count, to_char(MAX(attend_date), 'YYYY-MM-DD HH24:MI:SS') as strAttendDate from Attendance
 		where
 			ATTEND_DATE <= to_date(to_char(SYSDATE + (INTERVAL '-1' DAY), 'YYYY-MM-DD')||' 23:59:59', 'YYYY-MM-DD HH24:MI:SS') and 
 		    ATTEND_DATE > TRUNC(SYSDATE + (INTERVAL '-1' DAY), 'DD')
@@ -20,6 +20,10 @@
 	<insert id="insertLastAttendance" parameterType="_int">
 		insert into ATTENDANCE values(#{_parameter}, 
 		to_date(to_char(SYSDATE + (INTERVAL '-1' DAY), 'YYYY-MM-DD')||' 23:59:59', 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	<insert id="insertLastAttendanceMap" parameterType="map">
+		insert into ATTENDANCE values(#{memberNo}, 
+		to_date(#{time}, 'YYYY-MM-DD HH24:MI:SS')  + interval '60' minute)
 	</insert>
 	<select id="selectAttendanceList" parameterType="_int" resultType="attend">
 		<![CDATA[select member_no as memberNo, to_char(attend_date, 'YYYY-MM-DD HH24:MI:SS') as strAttendDate from attendance

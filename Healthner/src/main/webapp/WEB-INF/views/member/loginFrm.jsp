@@ -50,6 +50,8 @@
 						alert("아이디/비밀번호를 확인해주세요");
 					} else if (data == "mail") {
 						alert("이메일을 인증해주세요");
+					}else{
+						location.href="/";
 					}
 				}
 			});

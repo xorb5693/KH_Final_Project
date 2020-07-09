@@ -10413,3 +10413,14 @@ textarea.form-control {
 	   color: #fcd307;
     }
 }
+
+.tg-btn-fixed {
+    background-color: rgb(36, 36, 36);
+    border: none;
+    line-height: 62px;
+    font-size: 30px;
+    padding: 0;
+    margin: 0;
+    height: 62px;
+    width: 62px;
+}

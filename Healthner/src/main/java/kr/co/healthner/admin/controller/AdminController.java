@@ -24,6 +24,7 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
 
@@ -313,6 +314,15 @@ public class AdminController {
 		return ptm;
 	}
 	
+
+	//혜진_200708_신고글 조회
+	@RequestMapping(value="/reportlist.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String reportlist(String searchWord, int writeType, int reportCat, int start) {
+		TotalpageList tl = service.reportlist(searchWord, writeType, reportCat, start);
+		return new Gson().toJson(tl);
+	}
+	
 	//태규_200707_제품 상세 정보 보기
 	@RequestMapping("/productRead.do")
 	public String productRead(Model model, int pno) {
@@ -391,5 +401,18 @@ public class AdminController {
 		}
 		
 		return "redirect:/productMgt.do?reqPage=1";
+	}
+	
+	//태규_200709_주문 목록 관련 페이지 제작
+	@RequestMapping("/userBuy.do")
+	public String userBuy(Model model, int reqPage, int type) {
+		
+		PurchasePageData data = service.userBuy(reqPage, type);
+		
+		model.addAttribute("type", type);
+		model.addAttribute("list", data.getList());
+		model.addAttribute("pageNavi", data.getPageNavi());
+//		System.out.println(data.getPageNavi());
+		return "admin/userBuy";
 	}
 }

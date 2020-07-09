@@ -9,4 +9,10 @@ public class PurchaseVO {
 	private int totalPrice;
 	private String buyDate;
 	private String buyAddr;
+	private int deliveryBool;
+	private String invoicNumber;
+	private String pname;
+	private String thumbnail;
+	private String count;
+	private String memberId;
 }

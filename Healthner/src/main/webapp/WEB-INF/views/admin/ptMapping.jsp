@@ -297,9 +297,9 @@ table {
 						type="hidden" value="" id="fixMemberNo"><span></span></td>
 					<td id="fixTrainer" ondblclick="outputMember(this);"><input
 						type="hidden" value="" id="fixTrainerNo"><span></span></td>
-					<td><input type="text" id="PTmax" placeholder="0" value=""
+					<td><input type="text" id="PTmax" placeholder=0 value=""
 						style="text-align: right;"></td>
-					<td><input type="text" id="PTleft" placeholder="0" value=""
+					<td><input type="text" id="PTleft" placeholder=0 value=""
 						style="text-align: right;"></td>
 				</tr>
 			</table>
