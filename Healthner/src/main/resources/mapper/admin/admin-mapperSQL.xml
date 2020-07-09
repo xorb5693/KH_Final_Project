@@ -222,4 +222,22 @@
 	join member t on (t.member_no = mp.member_no)
 	where mapping_seq = #{mpSeq}
 	</select>
+	<update id="productModify" parameterType="product">
+		update product set
+			pname = #{pname},
+			pcontent = #{pcontent},
+			price = #{price},
+			stock = #{stock},
+			category = #{category},
+			category2 = #{category2},
+			category3 = #{category3},
+			thumbnail = #{thumbnail}
+		where pno = #{pno}
+	</update>
+	<delete id="productDelete">
+		delete from product where pno in
+		<foreach collection="array" item="pno" open="(" separator="," close=")">
+			#{pno}
+		</foreach>
+	</delete>
 </mapper>

@@ -86,7 +86,7 @@
 							<li id="5"><a href="/penaltyMgt.do"><span
 									class="fa fa-long-arrow-right mr-3"></span>회원 정지 관리</a></li>
 						</ul></li>
-					<li id="6"><a href="/productMgt.do"><span
+					<li id="6"><a href="/productMgt.do?reqPage=1"><span
 							class="fa fa-shopping-cart mr-3"></span>상품 관리</a></li>
 					<li id="7"><a href="/mail.do?reqPage=1"><span class="fa fa-send-o mr-3"></span>쪽지함</a>
 					</li>

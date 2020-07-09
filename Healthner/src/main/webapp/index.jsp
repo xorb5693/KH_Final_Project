@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
 <title>헬트너</title>
+<link rel="icon" href="/resources/images/favicon.png">
 <script
   type="text/javascript"
   src="http://code.jquery.com/jquery-3.3.1.js"
@@ -407,6 +408,9 @@
 	</section>
 
 
+	<script>
+
+	</script>
 	<!-- Successful stories -->
 	<section class="ftco-section testimony-section">
 		<div class="container">
@@ -419,7 +423,9 @@
 			</div>
 			<div class="row ftco-animate">
 				<div class="col-md-12">
-					<div class="carousel-testimony owl-carousel">
+					<div class="carousel-testimony owl-carousel" id="trainerComment">
+
+						
 						<!-- Individual template for review -->
 						<div class="item">
 							<div class="testimony-wrap p-4 pb-5">
@@ -451,6 +457,21 @@
 			</div>
 		</div>
 	</section>
+	
+	<script>
+		$(function(){
+			var trainerComment = $("#trainerComment");
+			var html = "";
+			
+
+		});
+	</script>
+
+	<script>
+		function bmiCalc(){
+
+		}
+	</script>
 
 	<section class="ftco-appointment">
 		<div class="overlay"></div>
@@ -461,24 +482,25 @@
 				</div>
 				<div class="col-md-6 appointment pl-md-5 py-md-5 ftco-animate">
 					<h3 class="mb-3">Calculate Your BMI</h3>
-					<form action="#" class="appointment-form">
+					<form action="bmiCalc();" class="appointment-form">
 						<div class="form-group">
 							<label for="height">키</label>
 							<div class="d-flex">
 								<input type="text" class="form-control mr-2"
-									placeholder="키를 cm으로 입력해주세요">
+									placeholder="키를 cm으로 입력해주세요" required>
 								<!-- <input type="text" class="form-control ml-2" placeholder="inches"> -->
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="d-flex">
 								<div class="mr-2">
-									<label for="height">몸 무개</label> <input type="text"
-										class="form-control" placeholder="65kg">
+									<label for="height">몸 무개 <input type="text"
+										class="form-control" placeholder="65kg" required>
+									</label>
 								</div>
 								<div class="ml-2">
 									<label for="height">나이</label> <input type="text"
-										class="form-control" placeholder="나이를 입력하세요">
+										class="form-control" placeholder="나이를 입력하세요" required>
 								</div>
 							</div>
 						</div>
@@ -496,16 +518,63 @@
 		</div>
 	</section>
 
+	<script>
+		$(function(){
+			$.ajax({
+				url: "/healthner/notice/mainPageNotice.do",
+				data: {reqPage: 1},
+				method: "get",
+				success: function(data){
+					var html = ""
+					var noticeSection = $("#noticeSection");
+					console.log(data[0]);
+					for(var i=0; i<3; i++){
+						html += '<div class="col-md-4 d-flex">'+
+									'<div class="blog-entry justify-content-end">'+
+										'<a href="blog-single.html" class="block-20" style="background-image: url('+data[i].noticeFilename+')">'+
+										'</a>'+
+										'<div class="text p-4 float-right d-block">'+
+											'<div class="meta">'+
+												'<div>'+
+													'<a href="/healthner/notice/noticeView.do?noticeNo='+data[i].noticeNo+'">'+data[i].noticeDate+'</a>'+
+												'</div>'+
+												'<div>'+
+													'<a href="/healthner/notice/noticeView.do?noticeNo='+data[i].noticeNo+'">Admin</a>'+
+												'</div>'+
+												'<div>'+
+													'<a href="/healthner/notice/noticeView.do?noticeNo='+data[i].noticeNo+'" class="meta-chat"><span class="icon-chat"></span>'+
+													'3</a>'+
+												'</div>'+
+											'</div>'+
+											'<h3 class="heading mt-2">'+
+												'<a href="#">'+data[i].noticeTitle+'</a>'+
+											'</h3>'+
+											'<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>'+
+										'</div>'+
+									'</div>'+
+								'</div>';
+					}
+					console.log(html);
+					noticeSection.append(html);
+				}
+			});
+		});
+	</script>
+
 	<section class="ftco-section bg-light">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
 				<div class="col-md-7 heading-section ftco-animate text-center">
 					<span class="subheading"><small><i class="left-bar"></i>Articles<i
-							class="right-bar"></i></small></span>
-					<h2 class="mb-1">Recent Blog</h2>
+						class="right-bar"></i></small></span>
+						<h2 class="mb-1">Recent Blog</h2>
 				</div>
 			</div>
-			<div class="row d-flex">
+			<div class="row d-flex" id="noticeSection">
+
+			</div>
+				<!-- Container for notice -->
+			<!-- <div class="row d-flex">
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry justify-content-end">
 						<a href="blog-single.html" class="block-20"
@@ -532,59 +601,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('/resources/images/image_2.jpg');">
-						</a>
-						<div class="text p-4 float-right d-block">
-							<div class="meta">
-								<div>
-									<a href="#">July 01, 2019</a>
-								</div>
-								<div>
-									<a href="#">Admin</a>
-								</div>
-								<div>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span>
-										3</a>
-								</div>
-							</div>
-							<h3 class="heading mt-2">
-								<a href="#">Young Women Doing Abdominal</a>
-							</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('/resources/images/image_3.jpg');">
-						</a>
-						<div class="text p-4 float-right d-block">
-							<div class="meta">
-								<div>
-									<a href="#">July 01, 2019</a>
-								</div>
-								<div>
-									<a href="#">Admin</a>
-								</div>
-								<div>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span>
-										3</a>
-								</div>
-							</div>
-							<h3 class="heading mt-2">
-								<a href="#">Young Women Doing Abdominal</a>
-							</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia.</p>
-						</div>
-					</div>
-				</div>
-			</div>
+			</div> -->
+
+
+
+
 		</div>
 	</section>
 

@@ -399,4 +399,10 @@ public class MemberController {
 		return "member/pricing";
 	}
 	
+	@RequestMapping("/payment.do")
+	public String paymentFrm(int amount,Model model) {
+		model.addAttribute("amount", amount);
+		return "member/paymentFrm";
+	}
+	
 }
