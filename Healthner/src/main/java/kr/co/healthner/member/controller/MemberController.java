@@ -418,6 +418,11 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("/myStat.do")
+	public String myStatFrm() {
+		return "member/myStat";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/checkPw.do", produces = "html/text; charset=utf-8")
 	public String checkPwMember(Member m) {
