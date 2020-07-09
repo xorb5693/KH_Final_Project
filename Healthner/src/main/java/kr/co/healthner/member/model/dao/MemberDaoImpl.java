@@ -192,4 +192,16 @@ public class MemberDaoImpl {
 		return sqlSession.update("member.resetPw", m);
 	}
 
+	public int quit(Member m) {
+		return sqlSession.delete("member.quit",m);
+	}
+
+	public Member checkPw(Member m) {
+		return sqlSession.selectOne("member.checkPw", m);
+	}
+
+	public int changePwMember(Member m) {
+		return sqlSession.update("member.changePw", m);
+	}
+
 }

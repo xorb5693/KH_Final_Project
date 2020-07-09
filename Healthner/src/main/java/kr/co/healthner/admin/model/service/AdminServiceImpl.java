@@ -286,7 +286,7 @@ public class AdminServiceImpl {
 	}
 
 	// 혜진_200708_신고글 조회
-	public TotalpageList reportlist(String searchWord, int writeType, int reportCat, int startNum, int endNum,
+	public TotalpageList reportlist(String searchWord, int writeType, int reportCat,
 			int start) {
 		Report rp = new Report();
 		TotalpageList tl = new TotalpageList();
@@ -294,8 +294,6 @@ public class AdminServiceImpl {
 		rp.setSearchWord(searchWord);
 		rp.setWriteType(writeType);
 		rp.setReportCat(reportCat);
-		rp.setStartNum(startNum);
-		rp.setEndNum(endNum);
 		int totalCount = dao.reportTotalCount(rp);
 		tl.setTotalCount(totalCount);
 		// (2) list로 글목록 가져오기
@@ -304,19 +302,10 @@ public class AdminServiceImpl {
 		rp.setStart(start);
 		rp.setEnd(end);
 		ArrayList<Report> list = (ArrayList<Report>) dao.reportlist(rp);
-		// (3)누적 신고수 조회
-		ArrayList<Report> countlist = (ArrayList<Report>) dao.totalReportCnt(rp);
-		for (int i = 0; i < list.size(); i++) {
-			for (int j = 0; j < countlist.size(); j++) {
-				if (list.get(i).getWriteNo() == countlist.get(j).getWriteNo()&&list.get(i).getWriteType()==countlist.get(j).getWriteType()) {
-					list.get(i).setReportCnt(countlist.get(j).getReportCnt());
-				}
-			}
-		}
 		tl.setListrp(list);
 		return tl;
 	}
-	//물품 페이지 정보 가져오기
+	//태규_200708_물품 페이지 정보 가져오기
 	public ShopPageDate productData(int reqPage) {
 		
 		int totalCount = dao.totalProductCount();
@@ -371,13 +360,13 @@ public class AdminServiceImpl {
 		return data;
 	}
 
-	//제품 정보 가져오기
+	//태규_200708_제품 정보 가져오기
 	public ProductVO productRead(int pno) {
 		
 		return dao.productRead(pno);
 	}
 
-	//제품 수정
+	//태규_200708_제품 수정
 	public int productModify(ProductVO product) {
 		
 		return dao.productModify(product);

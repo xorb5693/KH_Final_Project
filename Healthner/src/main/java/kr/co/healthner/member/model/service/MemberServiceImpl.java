@@ -363,4 +363,19 @@ public class MemberServiceImpl {
 		public int resetPwMember(Member m) {
 			return dao.resetPwMember(m);
 		}
+
+
+		public int quit(Member m) {
+			return dao.quit(m);
+		}
+
+
+		public Member checkPwMember(Member m) {
+			return dao.checkPw(m);
+		}
+
+
+		public int changePwMember(Member m) {
+			return dao.changePwMember(m);
+		}
 }
