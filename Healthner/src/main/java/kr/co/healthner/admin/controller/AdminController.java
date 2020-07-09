@@ -1,7 +1,11 @@
 package kr.co.healthner.admin.controller;
 
-import java.util.ArrayList;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -19,6 +24,8 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.ShopPageDate;
+import kr.co.healthner.vo.ProductVO;
 
 @Controller
 //@RequestMapping("/healthner/admin")
@@ -65,7 +72,12 @@ public class AdminController {
 
 	// 혜진_200624_관리자 페이지에서 6번 상품관리 페이지로 이동
 	@RequestMapping("/productMgt.do")
-	public String productMgt() {
+	public String productMgt(Model model, int reqPage) {
+		
+		ShopPageDate data = service.productData(reqPage);
+		model.addAttribute("list", data.getList());
+		model.addAttribute("pageNavi", data.getPageNavi());
+		
 		return "admin/productMgt";
 	}
 
@@ -219,6 +231,56 @@ public class AdminController {
 		}
 	}
 	
+	//태규_200708_물품 등록 페이지 이동
+	@RequestMapping("/productInsertFrm.do")
+	public String productInsertFrm() {
+		
+		return "admin/productInsertFrm";
+	}
+	
+	//태규_200708_물품 등록
+	@RequestMapping("/productInsert.do")
+	public String productInsert(HttpServletRequest request, ProductVO product, MultipartFile file) {
+		
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/thumbnail/");
+		
+		//업로드할 파일 오리지널 이름
+		String originFileName = file.getOriginalFilename();
+		
+		//업로드할 파일 이름과 확장자를 나눠 두 문자열 사이 중복을 제거할 구분자 입력
+		String thumbnail = originFileName.substring(0, originFileName.lastIndexOf(".")) + "_" + System.currentTimeMillis() 
+							+ originFileName.substring(originFileName.lastIndexOf("."));
+		
+		//실제 파일이 저장될 경로와 파일명
+		String fullpath = savePath + thumbnail;
+		
+		//파일 저장
+		try {
+			product.setThumbnail(thumbnail);
+			byte[] bytes = file.getBytes();
+			
+			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fullpath)));
+			bos.write(bytes);
+			bos.close();
+			
+			System.out.println("파일전송 완료");
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		} 
+		
+		int result = service.productInsert(product);
+		
+		if (result > 0) {
+			System.out.println("물품 등록");
+		} else {
+			System.out.println("물품 등록 실패");
+		}
+		
+		return "redirect:/productMgt.do?reqPage=1";
+    }
+    
 	// 혜진_200706_mapping데이터 삭제
 	@RequestMapping("/mappingDelete.do")
 	@ResponseBody
@@ -251,11 +313,92 @@ public class AdminController {
 		return ptm;
 	}
 	
+
 	//혜진_200708_신고글 조회
 	@RequestMapping(value="/reportlist.do", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String reportlist(String searchWord, int writeType, int reportCat, int startNum, int endNum, int start) {
 		TotalpageList tl = service.reportlist(searchWord, writeType, reportCat, startNum, endNum, start);
 		return new Gson().toJson(tl);
+	}
+	
+	//태규_200707_제품 상세 정보 보기
+	@RequestMapping("/productRead.do")
+	public String productRead(Model model, int pno) {
+		
+		ProductVO product = service.productRead(pno);
+		model.addAttribute("product", product);
+		
+		return "admin/productRead";
+	}
+	
+	//태규_200707_제품 수정 페이지 이동
+	@RequestMapping("/productModifyFrm.do")
+	public String productModifyFrm(Model model, int pno) {
+		
+		ProductVO product = service.productRead(pno);
+		model.addAttribute("product", product);
+		
+		return "admin/productModify";
+	}
+	
+	//태규_200707_제품 수정
+	@RequestMapping("/productModify.do")
+	public String productModify(HttpServletRequest request, ProductVO product, MultipartFile file, String type) {
+		
+		if (type.equals("change")) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/thumbnail/");
+			
+			//업로드할 파일 오리지널 이름
+			String originFileName = file.getOriginalFilename();
+			
+			//업로드할 파일 이름과 확장자를 나눠 두 문자열 사이 중복을 제거할 구분자 입력
+			String thumbnail = originFileName.substring(0, originFileName.lastIndexOf(".")) + "_" + System.currentTimeMillis() 
+								+ originFileName.substring(originFileName.lastIndexOf("."));
+			
+			//실제 파일이 저장될 경로와 파일명
+			String fullpath = savePath + thumbnail;
+			
+			//파일 저장
+			try {
+				product.setThumbnail(thumbnail);
+				byte[] bytes = file.getBytes();
+				
+				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fullpath)));
+				bos.write(bytes);
+				bos.close();
+				
+				System.out.println("파일전송 완료");
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+		int result = service.productModify(product);
+		
+		if (result > 0) {
+			System.out.println("제품 수정 완료");
+		} else {
+			System.out.println("제품 수정 실패");
+		}
+		
+		return "redirect:/productRead.do?pno=" + product.getPno();
+	}
+	
+	//물품 삭제
+	@RequestMapping("/productDelete.do")
+	public String productDelete(int deleteNo[]) {
+		
+		int result = service.productDelete(deleteNo);
+		
+		if (result > 0) {
+			
+		} else {
+			
+		}
+		
+		return "redirect:/productMgt.do?reqPage=1";
 	}
 }

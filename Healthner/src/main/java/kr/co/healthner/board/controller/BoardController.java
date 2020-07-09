@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kr.co.healthner.board.model.service.BoardService;
 import kr.co.healthner.board.model.vo.BoardPageDate;
@@ -63,6 +66,7 @@ public class BoardController {
 		model.addAttribute("navi",nd.getPageNavi());
 		return "board/boardList";
 	}
+	
 	
 	
 	

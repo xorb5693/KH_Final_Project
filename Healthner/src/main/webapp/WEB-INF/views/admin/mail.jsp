@@ -27,9 +27,9 @@ form>button {
 }
 
 .span.span-primary {
-	background: #30e3ca;
-	border-color: #30e3ca;
-	border: 1px solid #30e3ca;
+	background: #fcd307;
+	border-color: #fcd307;
+	border: 1px solid #fcd307;
 	color: #fff;
 }
 
@@ -126,10 +126,10 @@ form>button {
 		<h2 class="mb-4">Receive Mail List</h2>
 		<form action="/adminDeleteMail.do" method="get">
 			<input type="hidden" name="readType" value="0">
-			<button type="button" id="modal"
+			<button type="button" id="modal" style="width: 100px;"
 				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
 				data-toggle="modal" data-target="#myModal">쪽지 쓰기</button>
-			<button type="submit"
+			<button type="submit" style="width: 100px;"
 				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
 				onclick="return checkDelete()">삭제</button>
 			<br>

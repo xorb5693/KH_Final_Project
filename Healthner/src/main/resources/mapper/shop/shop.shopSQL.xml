@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="shop">
-	<select id="totalShop" resultType="int">
+	<select id="totalShop" resultType="_int">
 		select count(*) as cnt from
 		product
 	</select>
@@ -61,6 +61,11 @@
 	</select>
 	<select id="selectBasket" parameterType="int" resultType="product">
 		select member_no as memberNo,pno,stock where member_no=${memberNo}
+	</select>
+	<select id="productRead" parameterType="_int" resultType="product">
+		select pno, pname, pcontent, price , stock ,
+		category,category2,category3,thumbnail
+		from product where pno=#{_parameter}
 	</select>
 
 </mapper>

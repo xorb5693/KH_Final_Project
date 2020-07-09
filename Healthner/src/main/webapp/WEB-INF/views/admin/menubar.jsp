@@ -34,6 +34,7 @@
 	width: 105%;
 	margin-top: 20px;
 	margin-bottom: 15px;
+	outline: none;
 }
 
 #sidebar {
@@ -85,7 +86,7 @@
 							<li id="5"><a href="/penaltyMgt.do"><span
 									class="fa fa-long-arrow-right mr-3"></span>회원 정지 관리</a></li>
 						</ul></li>
-					<li id="6"><a href="/productMgt.do"><span
+					<li id="6"><a href="/productMgt.do?reqPage=1"><span
 							class="fa fa-shopping-cart mr-3"></span>상품 관리</a></li>
 					<li id="7"><a href="/mail.do?reqPage=1"><span class="fa fa-send-o mr-3"></span>쪽지함</a>
 					</li>
@@ -139,7 +140,7 @@
 		} else if (loc.includes('penaltyMgt')) {
 			$("#4").children("ul").show();
 			$("#5").addClass("active");
-		} else if (loc.includes('productMgt')) {
+		} else if (loc.includes('product')) {
 			$("#6").addClass("active");
 		} else if (loc.includes('mail') || loc.includes('Mail')) {
 			$("#7").addClass("active");

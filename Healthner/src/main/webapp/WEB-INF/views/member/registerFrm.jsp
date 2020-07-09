@@ -11,9 +11,17 @@ prefix="c"%>
   <head>
     <meta charset="UTF-8" />
     <title>Register</title>
-	<link rel="icon" href="/resources/images/favicon.png">
+    <link rel="icon" href="/resources/images/favicon.png" />
   </head>
   <body>
+    <script type="text/javascript">
+      window.history.forward();
+
+      function noBack() {
+        window.history.forward();
+      }
+    </script>
+
     <script>
       var count = 0;
 
@@ -36,7 +44,7 @@ prefix="c"%>
                 } else {
                   $("input[name=memberId]").prev("span").html("사용가능");
                   $("input[name=memberId]").prev("span").css("color", "green");
-                  $("input[name=memberId]").attr('qualify','true');
+                  $("input[name=memberId]").attr("qualify", "true");
                 }
               } else {
                 $("input[name=memberId]").prev("span").css("color", "red");
@@ -58,10 +66,10 @@ prefix="c"%>
             $("input[name=memberPw]")
               .prev("span")
               .html("영어 대/소문자 특수문자 8~16자리");
-            $("input[name=memberPw]").attr('qualify','false');
+            $("input[name=memberPw]").attr("qualify", "false");
           } else {
             $("input[name=memberPw]").prev().hide();
-            $("input[name=memberPw]").attr('qualify','true');
+            $("input[name=memberPw]").attr("qualify", "true");
           }
         });
 
@@ -72,10 +80,10 @@ prefix="c"%>
           if (chkPw != memberPw) {
             $(this).prev("span").css("color", "red");
             $(this).prev("span").html("비밀번호가 일치하지 않습니다");
-            $("input[name=chkPw]").attr('qualify','false');
+            $("input[name=chkPw]").attr("qualify", "false");
           } else {
             $(this).prev("span").hide();
-            $("input[name=chkPw]").attr('qualify','true');
+            $("input[name=chkPw]").attr("qualify", "true");
           }
         });
 
@@ -95,14 +103,17 @@ prefix="c"%>
               data: { memberNick: memberNick },
               success: function (data) {
                 if (data == "0") {
-                  $('input[name=memberNick]').prev("span").html("사용가능").css("color", "green");
-                  $("input[name=memberNick]").attr('qualify','true');
+                  $("input[name=memberNick]")
+                    .prev("span")
+                    .html("사용가능")
+                    .css("color", "green");
+                  $("input[name=memberNick]").attr("qualify", "true");
                 } else {
-                  $('input[name=memberNick]')
+                  $("input[name=memberNick]")
                     .prev("span")
                     .css("color", "red")
                     .html("이미 사용중인 이름입니다");
-                  $("input[name=memberNick]").attr('qualify','false');
+                  $("input[name=memberNick]").attr("qualify", "false");
                 }
               },
             });
@@ -119,10 +130,10 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("나이를 숫자로 입력해주세요");
-            $("input[name=age]").attr('qualify','false');
+            $("input[name=age]").attr("qualify", "false");
           } else {
             $(this).prev().hide();
-            $("input[name=age]").attr('qualify','true');
+            $("input[name=age]").attr("qualify", "true");
           }
         });
 
@@ -135,10 +146,10 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("01000000000 형식으로 입력해주세요");
-            $("input[name=phone]").attr('qualify','false');
+            $("input[name=phone]").attr("qualify", "false");
           } else {
             $(this).prev().hide();
-            $("input[name=phone]").attr('qualify','true');
+            $("input[name=phone]").attr("qualify", "true");
           }
         });
 
@@ -151,10 +162,10 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("한글로 2~4글자를 입력하세요");
-            $("input[name=memberName]").attr('qualify','false');
+            $("input[name=memberName]").attr("qualify", "false");
           } else {
             $(this).prev().hide();
-            $("input[name=memberName]").attr('qualify','true');
+            $("input[name=memberName]").attr("qualify", "true");
           }
         });
 
@@ -167,10 +178,10 @@ prefix="c"%>
               .prev()
               .css("color", "red")
               .html("이메일을 다시 확인해주세요");
-            $("input[name=email]").attr('qualify','false');
+            $("input[name=email]").attr("qualify", "false");
           } else {
             $(this).prev().hide();
-            $("input[name=email]").attr('qualify','true');
+            $("input[name=email]").attr("qualify", "true");
           }
         });
 
@@ -215,60 +226,59 @@ prefix="c"%>
         });
       });
 
-      function FinalCheck(){
-        var id = $('input[name=memberId]').attr('qualify');
-        var pw = $('input[name=memberPw]').attr('qualify');
-        var chkPw = $('input[name=chkPw]').attr('qualify');
-        var email = $('input[name=email]').attr('qualify');
-        var name = $('input[name=memberName]').attr('qualify');
-        var nickName = $('input[name=memberNick]').attr('qualify');
-        var age = $('input[name=age]').attr('qualify');
-        var phone = $('input[name=phone]').attr('qualify');
-        var detAddr = $('input[name=detAddr]').val();
-        var zip = $('input[name=zip]').val();
-        if(id != "true"){
-          alert('아이디를 확인해주세요');
+      function FinalCheck() {
+        var id = $("input[name=memberId]").attr("qualify");
+        var pw = $("input[name=memberPw]").attr("qualify");
+        var chkPw = $("input[name=chkPw]").attr("qualify");
+        var email = $("input[name=email]").attr("qualify");
+        var name = $("input[name=memberName]").attr("qualify");
+        var nickName = $("input[name=memberNick]").attr("qualify");
+        var age = $("input[name=age]").attr("qualify");
+        var phone = $("input[name=phone]").attr("qualify");
+        var detAddr = $("input[name=detAddr]").val();
+        var zip = $("input[name=zip]").val();
+        if (id != "true") {
+          alert("아이디를 확인해주세요");
           return false;
         }
-        if(pw != "true"){
-          alert('비밀번호를 다시 확인해주세요');
+        if (pw != "true") {
+          alert("비밀번호를 다시 확인해주세요");
           return false;
         }
-        if(chkPw !="true"){
-          alert('비밀번호가 동일한지 확인해주세요');
+        if (chkPw != "true") {
+          alert("비밀번호가 동일한지 확인해주세요");
           return false;
         }
-        if(email != "true"){
-          alert('이메일 주소를 확인해주세요');
+        if (email != "true") {
+          alert("이메일 주소를 확인해주세요");
           return false;
         }
-        if(name != "true"){
-          alert('이름을 다시 확인해주세요');
+        if (name != "true") {
+          alert("이름을 다시 확인해주세요");
           return false;
         }
-        if(nickName != "true"){
-          alert('닉네임을 다시 확인해주세요');
+        if (nickName != "true") {
+          alert("닉네임을 다시 확인해주세요");
           return false;
         }
-        if(age != "true"){
-          alert('나이를 다시 확인해주세요');
+        if (age != "true") {
+          alert("나이를 다시 확인해주세요");
           return false;
         }
-        if(phone != "true"){
-          alert('핸드폰 번호를 다시 확인해주세요');
+        if (phone != "true") {
+          alert("핸드폰 번호를 다시 확인해주세요");
           return false;
         }
-        if(zip == ""){
-          alert('우편번호를 입력해주세요');
+        if (zip == "") {
+          alert("우편번호를 입력해주세요");
           return false;
         }
-        if(detAddr == ""){
-          alert('상세주소를 다시 입력해주세요');
+        if (detAddr == "") {
+          alert("상세주소를 다시 입력해주세요");
           return false;
         }
         return true;
       }
-
     </script>
     <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
@@ -291,7 +301,12 @@ prefix="c"%>
 
     <section class="hero-wrap">
       <div class="container">
-        <form action="/healthner/member/join.do" method="post" onsubmit="return FinalCheck()" enctype="multipart/form-data">
+        <form
+          action="/healthner/member/join.do"
+          method="post"
+          onsubmit="return FinalCheck()"
+          enctype="multipart/form-data"
+        >
           <div class="form-row">
             <div class="col-md-5"></div>
             <div class="col-md-2">
@@ -300,7 +315,7 @@ prefix="c"%>
                   <input
                     type="radio"
                     name="memberLevel"
-                    id="option1"
+                    id="option"
                     value="1"
                     autocomplete="off"
                     checked
@@ -310,8 +325,8 @@ prefix="c"%>
                 <label class="btn btn-secondary btn-bm">
                   <input
                     type="radio"
-                    name="memverLevel"
-                    id="option2"
+                    name="memberLevel"
+                    id="option"
                     value="2"
                     autocomplete="off"
                   />
@@ -324,12 +339,7 @@ prefix="c"%>
           <div class="form-row">
             <div class="col-md-9">
               아이디: <span></span>
-              <input
-                type="text"
-                name="memberId"
-                id=""
-                class="form-control"
-              />
+              <input type="text" name="memberId" id="" class="form-control" />
               <br />
             </div>
           </div>
@@ -348,12 +358,7 @@ prefix="c"%>
             <div class="col-md-5">
               비밀번호 확인:
               <span></span>
-              <input
-                type="password"
-                name="chkPw"
-                id=""
-                class="form-control"
-              />
+              <input type="password" name="chkPw" id="" class="form-control" />
               <br />
             </div>
           </div>
@@ -373,45 +378,25 @@ prefix="c"%>
             <div class="col">
               이름:
               <span></span>
-              <input
-                type="text"
-                name="memberName"
-                id=""
-                class="form-control"
-              />
+              <input type="text" name="memberName" id="" class="form-control" />
             </div>
             <div class="col">
               닉네임:
               <span></span>
-              <input
-                type="text"
-                name="memberNick"
-                id=""
-                class="form-control"
-              />
+              <input type="text" name="memberNick" id="" class="form-control" />
             </div>
           </div>
           <div class="form-row">
             <div class="col-md-6">
               나이:
               <span></span>
-              <input
-                type="text"
-                name="age"
-                id=""
-                class="form-control"
-              />
+              <input type="text" name="age" id="" class="form-control" />
               <br />
             </div>
             <div class="col-md-6">
               핸드폰:
               <span></span>
-              <input
-                type="text"
-                name="phone"
-                id=""
-                class="form-control"
-              />
+              <input type="text" name="phone" id="" class="form-control" />
               <br />
             </div>
           </div>
@@ -429,12 +414,7 @@ prefix="c"%>
                   남
                 </label>
                 <label class="btn btn-primary btn-bm">
-                  <input
-                    type="radio"
-                    name="gender"
-                    id="option2"
-                    value="F"
-                  />
+                  <input type="radio" name="gender" id="option2" value="F" />
                   여
                 </label>
               </div>

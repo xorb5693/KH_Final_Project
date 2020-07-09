@@ -8329,8 +8329,8 @@ a[data-toggle="collapse"] {
   transition: all 0.3s; }
 
 .btn.btn-primary {
-  background: #30e3ca;
-  border-color: #30e3ca; }
+  background: #fcd307;
+  border-color: #fcd307; }
   .btn.btn-primary:hover, .btn.btn-primary:focus {
     background: #30e3ca !important;
     border-color: #30e3ca !important; }
@@ -8374,4 +8374,10 @@ a[data-toggle="collapse"] {
 
 .tg-gray {
     color: rgb(191, 191, 191)
+}
+
+
+        
+#productContentArea img {
+    width: 100%;
 }
