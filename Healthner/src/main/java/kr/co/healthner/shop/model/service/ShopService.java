@@ -8,15 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import kr.co.healthner.notice.model.vo.Notice;
-import kr.co.healthner.notice.model.vo.NoticePageDate;
 import kr.co.healthner.shop.model.dao.ShopDao;
+import kr.co.healthner.shop.model.vo.BuyProductVO;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.Basket;
-import kr.co.healthner.vo.BasketVO;
 import kr.co.healthner.vo.ProductVO;
 import kr.co.healthner.vo.PurchaseVO;
-import kr.co.healthner.vo.buyProductVO;
 
 @Service("shopService")
 public class ShopService {
@@ -228,9 +225,17 @@ public class ShopService {
 	}
 
 
-	public int insertBuyProduct(HashMap<String, Object> map) {
+	public int insertBuyProduct(ArrayList<BuyProductVO> list) {
 		
-		return dao.insertBuyProduct(map);
+		try {
+			for (BuyProductVO buy: list) {
+				dao.insertBuyProduct(buy);
+			}
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	public int deleteAllBasket(int memberNo) {

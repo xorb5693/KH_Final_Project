@@ -1,28 +1,24 @@
 package kr.co.healthner.shop.model.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.annotation.SessionScope;
 
 import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.shop.model.service.ShopService;
+import kr.co.healthner.shop.model.vo.BuyProductVO;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.Basket;
-import kr.co.healthner.vo.BasketVO;
 import kr.co.healthner.vo.ProductVO;
 import kr.co.healthner.vo.PurchaseVO;
-import kr.co.healthner.vo.buyProductVO;
 
 @Controller
 @RequestMapping(value="healthner/shop")
@@ -109,11 +105,11 @@ public class ShopController {
 	}
 	@RequestMapping(value="/buy.do")
 	public String test(String[] array2 , String[] array3 , Member m , int totalPrice , Model model , HttpSession se) {
-		ArrayList<buyProductVO> list = new ArrayList<buyProductVO>();
+		ArrayList<BuyProductVO> list = new ArrayList<BuyProductVO>();
 		String[] arrayPno = array2; // 받아온 상품넘버 배열  
 		String[] arrayStock = array3;  // 받아온 상품들 숫자 배열  두개로 db값 수정		
 		for(int i=0;i<arrayPno.length;i++) {
-			buyProductVO bp = new buyProductVO();
+			BuyProductVO bp = new BuyProductVO();
 			System.out.println(arrayPno[i]);
 			bp.setPno((Integer.parseInt(arrayPno[i])));
 			bp.setStock((Integer.parseInt(arrayStock[i])));
@@ -131,9 +127,9 @@ public class ShopController {
 		
 		
 	}
-	@RequestMapping(value="paySuccess.do")
+	@RequestMapping(value="/paySuccess.do")
 	public String paySuccess(HttpSession se , int memberNo , int totalPrice , String buyAddr) {
-		List list = (List)se.getAttribute("list");
+		ArrayList<BuyProductVO> list = (ArrayList<BuyProductVO>)se.getAttribute("list");
 		System.out.println(memberNo); // 거래성공한 멤버넘버
 		System.out.println(totalPrice); // 거래성공한 금액
 		System.out.println(buyAddr); // 거래성공한 주소
@@ -148,15 +144,15 @@ public class ShopController {
 		
 		
 		for(int i=0;i<list.size();i++) {
-			((buyProductVO)list.get(i)).setBuyNo(buyNo);
+			((BuyProductVO)list.get(i)).setBuyNo(buyNo);
 		}
 		System.out.println(list);
 		
 		
 		System.out.println("거래완료 어디까지 되고있나 2");
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("list", list);
-		int result2 = service.insertBuyProduct(map);
+//		HashMap<String,Object> map = new HashMap<String,Object>();
+//		map.put("list", list);
+		int result2 = service.insertBuyProduct(list);
 		System.out.println("거래완료 어디까지 되고있나 3");
 		
 		int result3 = service.deleteAllBasket(memberNo);

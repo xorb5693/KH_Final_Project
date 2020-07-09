@@ -8,11 +8,11 @@
 		select member_no as memberNo , pno,stock from basket where member_no=#{memberNo}
 	</select>
 	<delete id="deleteBasket" parameterType="basket">
-		delete basket where member_no = #{memberNo} and pno =#{pno}
+		delete from basket where member_no = #{memberNo} and pno =#{pno}
 	</delete>
 	
-	<delete id="deleteAllBasket" parameterType="int">
-		delete basket where member_no = #{memberNo};
+	<delete id="deleteAllBasket" parameterType="_int">
+		delete from basket where member_no = #{_parameter}
 	</delete>
   
 </mapper>
