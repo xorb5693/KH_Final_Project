@@ -10,5 +10,9 @@
 	<delete id="deleteBasket" parameterType="basket">
 		delete basket where member_no = #{memberNo} and pno =#{pno}
 	</delete>
+	
+	<delete id="deleteAllBasket" parameterType="int">
+		delete basket where member_no = #{memberNo};
+	</delete>
   
 </mapper>

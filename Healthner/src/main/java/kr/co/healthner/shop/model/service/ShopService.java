@@ -15,6 +15,8 @@ import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.Basket;
 import kr.co.healthner.vo.BasketVO;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
+import kr.co.healthner.vo.buyProductVO;
 
 @Service("shopService")
 public class ShopService {
@@ -213,6 +215,27 @@ public class ShopService {
 	public int deleteBasket(Basket bk) {
 	 
 	return dao.deleteBasket(bk); 
+	}
+
+	public int insertPurchase(PurchaseVO pv) {
+		// TODO Auto-generated method stub
+		return dao.insertPurchase(pv);
+	}
+
+	public int selectBuyNo() {
+		// TODO Auto-generated method stub
+		return dao.selectBuyNom();
+	}
+
+
+	public int insertBuyProduct(HashMap<String, Object> map) {
+		
+		return dao.insertBuyProduct(map);
+	}
+
+	public int deleteAllBasket(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteAllBasket(memberNo);
 	}
 	
 

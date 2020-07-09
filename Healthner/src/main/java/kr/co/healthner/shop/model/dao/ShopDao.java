@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import kr.co.healthner.vo.Basket;
 import kr.co.healthner.vo.BasketVO;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
+import kr.co.healthner.vo.buyProductVO;
 
 @Repository("shopDao")
 public class ShopDao {
@@ -71,6 +73,29 @@ public class ShopDao {
 	public int deleteBasket(Basket bk) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("basket.deleteBasket",bk);
+	}
+
+	public int insertPurchase(PurchaseVO pv) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("purchase.insertPurchase",pv);
+	}
+
+	public int selectBuyNom() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("purchase.selectBuyNom");
+	}
+
+	public int insertBuyProduct(HashMap<String, Object> map) {
+//		List<buyProductVO> list = (List<buyProductVO>)map.get("list");
+//		for(buyProductVO bp : list) {
+//			sqlSession.insert("buyProduct.insertBuyProduct",map);
+//		}
+		return sqlSession.insert("buyProduct.insertBuyProduct",map);
+	}
+
+	public int deleteAllBasket(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("basket.deleteAllBasket",memberNo);
 	}
 	
 	

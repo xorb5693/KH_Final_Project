@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="purchase">
+	<insert id="insertPurchase" parameterType="purchase">
+		insert into purchase values(purchase_seq.nextval,#{memberNo},sysdate,#{buyAddr},#{totalPrice},default,null)
+	</insert>
+	
+	<select id="selectBuyNom" resultType="int">
+		select max(member_no) from member
+	</select>
+  
+</mapper>
