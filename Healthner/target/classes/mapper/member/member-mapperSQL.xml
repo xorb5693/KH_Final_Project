@@ -136,4 +136,7 @@
 	<select id="checkPw" parameterType="member" resultType="member">
 		select member_no as memberNo, member_pw as memberPw from member where member_pw = #{memberPw} and member_no = #{memberNo}
 	</select>
+	<update id="changePw" parameterType="member">
+		update member set member_pw = #{memberPw} where member_no = #{memberNo}
+	</update>
 </mapper>

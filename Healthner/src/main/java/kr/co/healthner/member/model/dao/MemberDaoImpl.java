@@ -194,4 +194,8 @@ public class MemberDaoImpl {
 		return sqlSession.selectOne("member.checkPw", m);
 	}
 
+	public int changePwMember(Member m) {
+		return sqlSession.update("member.changePw", m);
+	}
+
 }

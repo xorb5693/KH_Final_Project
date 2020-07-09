@@ -14,6 +14,16 @@
 			location.href = "/";
 		</script>
 	</c:if>
+	<c:if test="${not empty requestScope.msg}">
+		<script>
+			var msg = "${requestScope.msg}";
+			if(msg == "success"){
+				alert("수정 성공");
+			}else{
+				alert("수정 실패");
+			}
+		</script>
+	</c:if>
 	<!-- 기존 해더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<!-- 트레이너 전용  -->
@@ -47,7 +57,6 @@
 						}
 						location.href="/";
 					}
-					
 				});
 			}
 		}
@@ -70,15 +79,31 @@
 			});
 		}
 		function myInfo(){
-			location.href="/healthner/member/myStat.do"
+			location.href="/healthner/member/mypageFrm.do"
 		}
 		function changePw(){
-			
+			var regExp = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+			var memberPw = $("input[name=memberPw]");
+			var chkPw = $("input[name=chkPw]");
+			if(!regExp.test(memberPw.val())){
+				memberPw.prev().html("영어 대/소문자 특수문자 8~16자리").attr('color','red');
+			}else{
+				memberPw.prev().html("");
+				if(memberPw.val() != chkPw.val()){
+					chkPw.prev().html("비밀번호가 동일하지 않습니다").attr("color","red");
+					return false;
+				}else{
+					chkPw.prev().html("");
+				}
+			}
+			return true;
 		}
 		function changeAddr(){}
 		function changeMail(){}
 		function purchaseLog(){}
-		function purchaseMember(){}
+		function purchaseMember(){
+			location.href="/healthner/member/pricing.do";
+		}
 		function checkExpire(){}
 	</script>
 	<section>
@@ -93,6 +118,7 @@
 						<div class="bordered" style="width: 300px;height: 300px; background-image: url(/resources/profile/${sessionScope.member.memberProfile});background-size: contain;background-repeat: no-repeat;">
 						</div>
 					</c:if>
+					
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">
 	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-dark dropdown-toggle" style="color: white;">회원정보</a>
@@ -179,13 +205,13 @@
 							</div>
 						</div>
 						<div style="display: none;" id="change">
-							<form action="/healthner/member/changePw.do"  method="post">
+							<form action="/healthner/member/changePw.do" onsubmit="return changePw()"  method="post">
 								<div class="form-row" style="color: white;">
-									새 비밀번호
+									새 비밀번호<span></span>
 									<input type="password" class="form-control" name="memberPw" id="memberPw">
 								</div>
 								<div class="form-row" style="color: white;">
-									비밀번호 확인
+									비밀번호 확인<span></span>
 									<input type="password" name="chkPw" class="form-control" id="checkPw">
 								</div>
 								<br>

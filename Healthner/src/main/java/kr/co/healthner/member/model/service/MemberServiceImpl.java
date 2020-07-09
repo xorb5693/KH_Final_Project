@@ -354,4 +354,9 @@ public class MemberServiceImpl {
 		public Member checkPwMember(Member m) {
 			return dao.checkPw(m);
 		}
+
+
+		public int changePwMember(Member m) {
+			return dao.changePwMember(m);
+		}
 }

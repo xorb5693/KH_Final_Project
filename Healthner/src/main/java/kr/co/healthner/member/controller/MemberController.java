@@ -418,10 +418,6 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/myStat.do")
-	public String myStatFrm() {
-		return "member/myStat";
-	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/checkPw.do", produces = "html/text; charset=utf-8")
@@ -433,6 +429,17 @@ public class MemberController {
 		}else {
 			return "0";
 		}
+	}
+	
+	@RequestMapping("/changePw.do")
+	public String changePwMember(Member m,Model model) {
+		int result = service.changePwMember(m);
+		if(result>0) {
+			model.addAttribute("msg", "success");
+		}else {
+			model.addAttribute("msg", "fail");
+		}
+		return "member/mypage";
 	}
 	
 	
