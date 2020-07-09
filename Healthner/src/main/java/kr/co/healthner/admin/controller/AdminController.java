@@ -250,4 +250,12 @@ public class AdminController {
 		PTmapping ptm = service.mappingCheck(mpSeq);
 		return ptm;
 	}
+	
+	//혜진_200708_신고글 조회
+	@RequestMapping(value="/reportlist.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String reportlist(String searchWord, int writeType, int reportCat, int startNum, int endNum, int start) {
+		TotalpageList tl = service.reportlist(searchWord, writeType, reportCat, startNum, endNum, start);
+		return new Gson().toJson(tl);
+	}
 }

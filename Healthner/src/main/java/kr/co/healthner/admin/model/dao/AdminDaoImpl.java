@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.healthner.admin.model.vo.MemberSearch;
 import kr.co.healthner.admin.model.vo.PTmapping;
+import kr.co.healthner.admin.model.vo.Report;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
 
@@ -112,5 +113,17 @@ public class AdminDaoImpl {
 	//혜진_200707_mapping 데이터 수정
 	public PTmapping mappingCheck(int mpSeq) {
 		return sqlSession.selectOne("admin.mappingCheck", mpSeq);
+	}
+	//혜진_200708_신고글 조회
+	public List reportlist(Report rp) {
+		return sqlSession.selectList("admin.reportlist",rp);
+	}
+	//혜진_200708_신고글 전체 수 조회
+	public int reportTotalCount(Report rp) {
+		return sqlSession.selectOne("admin.totalReportlist",rp);
+	}
+	//혜진_200708_누적 신고수 조회
+	public List totalReportCnt(Report rp) {
+		return sqlSession.selectList("admin.totalReportCnt",rp);
 	}
 }
