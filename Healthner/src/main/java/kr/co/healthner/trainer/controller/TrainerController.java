@@ -56,7 +56,7 @@ public class TrainerController {
 		} else {
 			System.out.println("수정 실패");
 		}
-		return "redirect:/healthner/trainer/trainer.do";
+		return "redirect:/healthner/trainer/oneTrainerInfo.do";
 	}
 	
 	//회원 리스트 가져오기

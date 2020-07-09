@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.healthner.admin.model.vo.MemberSearch;
 import kr.co.healthner.admin.model.vo.PTmapping;
+import kr.co.healthner.admin.model.vo.Report;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
 
 @Repository("adminDao")
 public class AdminDaoImpl {
@@ -120,6 +122,19 @@ public class AdminDaoImpl {
 		return sqlSession.selectOne("admin.mappingCheck", mpSeq);
 	}
 
+	//혜진_200708_신고글 조회
+	public List reportlist(Report rp) {
+		return sqlSession.selectList("admin.reportlist",rp);
+	}
+	//혜진_200708_신고글 전체 수 조회
+	public int reportTotalCount(Report rp) {
+		return sqlSession.selectOne("admin.totalReportlist",rp);
+	}
+	//혜진_200708_누적 신고수 조회
+	public List totalReportCnt(Report rp) {
+		return sqlSession.selectList("admin.totalReportCnt",rp);
+	}
+	//태규_200708_상품 관리 페이지
 	public int totalProductCount() {
 		
 		return sqlSession.selectOne("shop.totalShop");
@@ -143,5 +158,17 @@ public class AdminDaoImpl {
 	public int productDelete(int[] deleteNo) {
 		
 		return sqlSession.delete("admin.productDelete", deleteNo);
+
 	}
+
+	public int totalPurchaseCount(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectOne("admin.totalPurchaseCount", map);
+	}
+
+	public List<PurchaseVO> selectPurchaseList(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectList("admin.selectPurchaseList", map);
+	}
+	//혜진_200709_
 }

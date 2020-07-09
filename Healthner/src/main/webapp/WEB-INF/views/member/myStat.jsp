@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%><%@ taglib
+    pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MY PAGE</title>
+<title>Insert title here</title>
 <link rel="icon" href="/resources/images/favicon.png">
+<script
+  type="text/javascript"
+  src="http://code.jquery.com/jquery-3.3.1.js"
+></script>
 </head>
 <body>
 	<c:if test="${empty sessionScope.member}">
@@ -41,9 +45,7 @@
 			location.href = "/adminMain.do";
 		</script>
 	</c:if>
-
-
-	<script>
+  <script>
 		function quit(){
 			if(confirm("회원탈퇴 하시겠습니까")){
 				$.ajax({
@@ -79,14 +81,15 @@
 			});
 		}
 		function myInfo(){
-			location.href="/healthner/member/mypageFrm.do"
+			location.href="/healthner/member/myStat.do"
 		}
 		function changePw(){
 			var regExp = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
 			var memberPw = $("input[name=memberPw]");
-			var chkPw = $("input[name=chkPw]");
+			var chkPw = $("input[name=memberPw]");
 			if(!regExp.test(memberPw.val())){
 				memberPw.prev().html("영어 대/소문자 특수문자 8~16자리").attr('color','red');
+				return false;
 			}else{
 				memberPw.prev().html("");
 				if(memberPw.val() != chkPw.val()){
@@ -101,9 +104,7 @@
 		function changeAddr(){}
 		function changeMail(){}
 		function purchaseLog(){}
-		function purchaseMember(){
-			location.href="/healthner/member/pricing.do";
-		}
+		function purchaseMember(){}
 		function checkExpire(){}
 	</script>
 	<section>
@@ -176,9 +177,8 @@
 
         
 
-        <h2 class="mb-4">Sidebar #01</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2 class="mb-4">회원 정보</h2>
+        
       </div>
 		</div>
 
@@ -231,11 +231,8 @@
 			  </div>
 			</div>
 	</section>
-
-
 	
-
-
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
