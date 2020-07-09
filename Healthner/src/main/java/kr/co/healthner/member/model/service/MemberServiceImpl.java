@@ -3,6 +3,7 @@ package kr.co.healthner.member.model.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.healthner.member.model.dao.MemberDaoImpl;
 import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
 import kr.co.healthner.member.model.vo.AttendanceData;
+import kr.co.healthner.member.model.vo.AttendanceLastDate;
 import kr.co.healthner.member.model.vo.AttendancePrintData;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.EatLogData;
@@ -69,15 +71,32 @@ public class MemberServiceImpl {
 	public void insertLastAttendance() {
 		
 		ArrayList<Integer> list = (ArrayList<Integer>)dao.lastDayAttendanceList();
+		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+		HashMap<String, String> map = new HashMap<String, String>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			
 			int memberNo = list.get(i);
-			int count = dao.selectAttendanceCount(memberNo);
-			System.out.println(count);
+			AttendanceLastDate count = dao.selectAttendanceCount(memberNo);
+			System.out.println(count.getCount());
 			
-			if (count % 2 != 0) {
-				dao.insertLastAttendance(memberNo);
+			if (count.getCount() % 2 != 0) {
+				try {
+					calendar.setTime(fm.parse(count.getStrAttendDate()));
+					int hour = calendar.get(Calendar.HOUR_OF_DAY);
+					System.out.println(hour);
+					
+					if (hour == 23) {
+						dao.insertLastAttendance(memberNo);
+					} else {
+						map.put("memberNo", String.valueOf(memberNo));
+						map.put("time", count.getStrAttendDate());
+						dao.insertLastAttendance(map);
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -343,5 +362,20 @@ public class MemberServiceImpl {
 
 		public int resetPwMember(Member m) {
 			return dao.resetPwMember(m);
+		}
+
+
+		public int quit(Member m) {
+			return dao.quit(m);
+		}
+
+
+		public Member checkPwMember(Member m) {
+			return dao.checkPw(m);
+		}
+
+
+		public int changePwMember(Member m) {
+			return dao.changePwMember(m);
 		}
 }

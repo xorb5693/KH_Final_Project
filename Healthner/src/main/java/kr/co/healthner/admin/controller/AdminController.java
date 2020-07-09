@@ -401,4 +401,11 @@ public class AdminController {
 		
 		return "redirect:/productMgt.do?reqPage=1";
 	}
+	
+	//태규_200709_주문 목록 관련 페이지 제작
+	@RequestMapping("/userBuy.do")
+	public String userBuy(int reqPage) {
+		
+		return "admin/userBuy";
+	}
 }

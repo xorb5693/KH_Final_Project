@@ -405,4 +405,43 @@ public class MemberController {
 		return "member/paymentFrm";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/quit.do", produces = "html/text; charset=utf-8")
+	public String quit(HttpSession session) {
+		Member m = (Member)session.getAttribute("member");
+		int result = service.quit(m);
+		if(result>0) {
+			session.invalidate();
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/checkPw.do", produces = "html/text; charset=utf-8")
+	public String checkPwMember(Member m) {
+		Member member = new Member();
+		member = service.checkPwMember(m);
+		if(member!=null) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
+	@RequestMapping("/changePw.do")
+	public String changePwMember(Member m,Model model) {
+		int result = service.changePwMember(m);
+		if(result>0) {
+			model.addAttribute("msg", "success");
+		}else {
+			model.addAttribute("msg", "fail");
+		}
+		return "member/mypage";
+	}
+	
+	
+	
 }
