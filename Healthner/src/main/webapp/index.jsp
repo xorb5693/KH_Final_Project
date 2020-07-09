@@ -24,7 +24,7 @@
 <body>
 
 <script>
-	location.href="/healthner/member/main.do";
+	location.href="/main.do";
 </script>
 <%-- 	<jsp:include page="/WEB-INF/views/common/header.jsp"/> --%>
 <!-- 	<!-- END nav --> -->
