@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.healthner.member.model.vo.AttendanceAvgtimeVO;
+import kr.co.healthner.member.model.vo.AttendanceLastDate;
 import kr.co.healthner.member.model.vo.AttendanceVO;
 import kr.co.healthner.member.model.vo.EatLogVO;
 import kr.co.healthner.member.model.vo.Member;
@@ -55,7 +56,7 @@ public class MemberDaoImpl {
 	}
 
 	//해당 멤버가 전날 헬스장에서 출결을 몇번 찍었는지 확인
-	public int selectAttendanceCount(int memberNo) {
+	public AttendanceLastDate selectAttendanceCount(int memberNo) {
 		
 		return sqlSession.selectOne("attendance.selectAttendanceCount", memberNo);
 	}
@@ -64,6 +65,11 @@ public class MemberDaoImpl {
 	public int insertLastAttendance(int memberNo) {
 		
 		return sqlSession.insert("attendance.insertLastAttendance", memberNo);
+	}
+
+	public int insertLastAttendance(HashMap<String, String> map) {
+		
+		return sqlSession.insert("attendance.insertLastAttendanceMap", map);
 	}
 
 	public List<AttendanceVO> selectAttendanceList(int memberNo) {

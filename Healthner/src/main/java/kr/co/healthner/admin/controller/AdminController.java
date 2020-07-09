@@ -313,6 +313,15 @@ public class AdminController {
 		return ptm;
 	}
 	
+
+	//혜진_200708_신고글 조회
+	@RequestMapping(value="/reportlist.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String reportlist(String searchWord, int writeType, int reportCat, int startNum, int endNum, int start) {
+		TotalpageList tl = service.reportlist(searchWord, writeType, reportCat, startNum, endNum, start);
+		return new Gson().toJson(tl);
+	}
+	
 	//태규_200707_제품 상세 정보 보기
 	@RequestMapping("/productRead.do")
 	public String productRead(Model model, int pno) {
@@ -391,5 +400,12 @@ public class AdminController {
 		}
 		
 		return "redirect:/productMgt.do?reqPage=1";
+	}
+	
+	//태규_200709_주문 목록 관련 페이지 제작
+	@RequestMapping("/userBuy.do")
+	public String userBuy(int reqPage) {
+		
+		return "admin/userBuy";
 	}
 }

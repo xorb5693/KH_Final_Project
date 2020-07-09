@@ -10,4 +10,5 @@ public class TotalpageList {
 	private ArrayList<Member> list;
 	private int totalCount;
 	private ArrayList<PTmapping> listpt;
+	private ArrayList<Report> listrp;
 }

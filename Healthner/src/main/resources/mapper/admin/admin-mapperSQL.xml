@@ -222,6 +222,52 @@
 	join member t on (t.member_no = mp.member_no)
 	where mapping_seq = #{mpSeq}
 	</select>
+	<!-- 혜진_200708_신고글 조회 -->
+	<select id="reportlist" parameterType="adminReport" resultType="adminReport">
+	select*from (select rownum as rnum, m.* 
+	from(select distinct
+		r.write_no as writeNo,
+    	m.member_id as reportedId,
+    	m.member_nick as reportedName,
+   	 	r.write_type as writeType,
+    	b.board_title as boardTitle
+	from report r
+	join member m on (m.member_no = r.reported_no)
+	join member t on (t.member_no = r.member_no)
+	join board b on (b.board_no = r.write_no)
+	where b.board_title like '%'||#{searchWord}||'%'
+	<if test="reportCat!=0">
+	and r.report_cat=#{reportCat} 
+	</if>
+	<if test="writeType!=0">
+	where write_type =#{writeType} 
+	</if>
+	)m)
+	where (rnum between #{start} and #{end})
+	</select>
+	<!-- 혜진_200708_신고글 전체 수 조회 -->
+	<select id="totalReportlist" parameterType="adminReport" resultType="_int">
+	select count(b.board_title) from report r
+	join board b on (b.board_no = r.write_no)
+	where b.board_title like '%'||#{searchWord}||'%'
+	<if test="reportCat!=0">
+	and r.report_cat=#{reportCat} 
+	</if>
+	<if test="writeType!=0">
+	where write_type =#{writeType} 
+	</if>
+	</select>
+	<!--  -->
+	<select id="totalReportCnt" parameterType="adminReport" resultType="adminReport">
+	select write_no as writeNo, write_type as writeType, count(*) as reportCnt from report 
+	<if test="writeType!=0">
+	where write_type =#{writeType} 
+	</if>
+	<if test="writeType==0">
+	where write_type=1 or write_type=2
+	</if>
+	group by write_no, write_type
+	</select>
 	<update id="productModify" parameterType="product">
 		update product set
 			pname = #{pname},

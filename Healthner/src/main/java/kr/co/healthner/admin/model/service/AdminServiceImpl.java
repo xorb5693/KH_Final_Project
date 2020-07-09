@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.co.healthner.admin.model.dao.AdminDaoImpl;
 import kr.co.healthner.admin.model.vo.MemberSearch;
 import kr.co.healthner.admin.model.vo.PTmapping;
+import kr.co.healthner.admin.model.vo.Report;
 import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
@@ -275,12 +276,44 @@ public class AdminServiceImpl {
 		int result = dao.inputNewMapping(pt);
 		return result;
 	}
-	//혜진_200707_mapping 데이터 수정
+
+	// 혜진_200707_mapping 데이터 수정
 	public PTmapping mappingCheck(int mpSeq) {
 		PTmapping ptm = dao.mappingCheck(mpSeq);
 		return ptm;
 	}
 
+	// 혜진_200708_신고글 조회
+	public TotalpageList reportlist(String searchWord, int writeType, int reportCat, int startNum, int endNum,
+			int start) {
+		Report rp = new Report();
+		TotalpageList tl = new TotalpageList();
+		// (1) 전체 수 조회
+		rp.setSearchWord(searchWord);
+		rp.setWriteType(writeType);
+		rp.setReportCat(reportCat);
+		rp.setStartNum(startNum);
+		rp.setEndNum(endNum);
+		int totalCount = dao.reportTotalCount(rp);
+		tl.setTotalCount(totalCount);
+		// (2) list로 글목록 가져오기
+		int length = 5;
+		int end = start + length - 1;
+		rp.setStart(start);
+		rp.setEnd(end);
+		ArrayList<Report> list = (ArrayList<Report>) dao.reportlist(rp);
+		// (3)누적 신고수 조회
+		ArrayList<Report> countlist = (ArrayList<Report>) dao.totalReportCnt(rp);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < countlist.size(); j++) {
+				if (list.get(i).getWriteNo() == countlist.get(j).getWriteNo()&&list.get(i).getWriteType()==countlist.get(j).getWriteType()) {
+					list.get(i).setReportCnt(countlist.get(j).getReportCnt());
+				}
+			}
+		}
+		tl.setListrp(list);
+		return tl;
+	}
 	//물품 페이지 정보 가져오기
 	public ShopPageDate productData(int reqPage) {
 		
