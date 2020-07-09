@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/admin/css/style.css">
     <style>
-        form>button {
+        #content>button {
             float: right;
         }
 
@@ -80,7 +80,7 @@
             text-align: center;
         }
 
-        .table td, .table th {
+        .table td, .table th, .table td div {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -100,45 +100,47 @@
     <!-- Page Content  -->
     <!--  태규_200708_페이지 제작  -->
     <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">Product List</h2>
-        <form action="/productDelete.do" method="get">
-			<input type="hidden" name="readType" value="0">
-			<button type="button" id="modal" style="width: 100px;"
-				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-				onclick="location.href='/productInsertFrm.do'">물품 등록</button>
-			<button type="submit" style="width: 100px;"
-				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-				onclick="return checkDelete()">삭제</button>
-			<br>
-			<br>
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col" style="width: 10%">삭제</th>
-						<th scope="col" style="width: 10%">이미지</th>
-						<th scope="col" style="width: 50%">이름</th>
-						<th scope="col" style="width: 14.5%">가격</th>
-						<th scope="col" style="width: 14.5%">수량</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${list }" var="product">
-                        <c:if test="${product.stock eq 0}">
-                            <tr class="table-secondary">
-                        </c:if>
-                        <c:if test="${product.stock ne 0}">
-                            <tr>
-                        </c:if>
-							<td><input type="checkbox" name="deleteNo" value="${product.pno }"></td>
-							<td><img src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%"></td>
-							<td><a class="tg-black" href="/productRead.do?pno=${product.pno }">${product.pname }</a></td>
-							<td>${product.price }</td>
-							<td>${product.stock }</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</form>
+        <h2 class="mb-4">User Buy List</h2>
+		<input type="hidden" name="readType" value="0">
+        <c:if test="${type eq 0}">
+            <button type="button" id="modal" style="width: 150px;"
+            class="btn btn-primary ftco-animate fadeInUp ftco-animated"
+            onclick="location.href='/userBuy.do?reqPage=1&type=1'">미배송 리스트</button>
+        </c:if>
+        <c:if test="${type eq 1}">
+            <button type="button" id="modal" style="width: 150px;"
+            class="btn btn-primary ftco-animate fadeInUp ftco-animated"
+            onclick="location.href='/userBuy.do?reqPage=1&type=0'">전체 보기</button>
+        </c:if>
+		<br>
+		<br>
+		<table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 10%">이미지</th>
+                    <th scope="col" style="width: 45%">이름</th>
+                    <th scope="col" style="width: 14.5%">가격</th>
+                    <th scope="col" style="width: 14.5%">구매자</th>
+                    <th scope="col" style="width: 15%">구매일</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<c:forEach items="${list}" var="purchase">
+	                <c:if test="${purchase.deliveryBool eq 0}">
+	                    <tr class="table-danger">
+	                </c:if>
+	                <c:if test="${purchase.deliveryBool ne 0}">
+	                    <tr>
+	                </c:if>
+	                	<td><img src="/resources/upload/thumbnail/${purchase.thumbnail }" style="width: 100%"></td>
+                        <td><a class="tg-black" href="/userBuyRead?buyNo=${purchase.buyNo}"><div>${purchase.pname}</div> <c:if test="${purchase.count ne 0}">외 ${purchase.count}개</c:if></a></td>
+                        <td>${purchase.totalPrice}</td>
+                        <td>${purchase.memberId}</td>
+                        <td>${purchase.buyDate}</td>
+	                </tr>
+                </c:forEach>
+            </tbody>
+		</table>
 		<div class="pageNavi">${pageNavi}</div>
 	</div>
 
