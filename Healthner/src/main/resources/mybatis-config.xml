@@ -18,6 +18,7 @@
 		<typeAlias type="kr.co.healthner.member.model.vo.AttendanceLastDate" alias="attendLast"/>
 		
 		<typeAlias type="kr.co.healthner.trainer.model.vo.TrainerVO" alias="trainer"/>
+		<typeAlias type="kr.co.healthner.vo.TrainerCommentVO" alias="trainerCom"/>
 		<typeAlias type="kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO" alias="category"/>
 		<typeAlias type="kr.co.healthner.trainer.model.vo.MemberMappingInfoVO" alias="memberInfo"/>
 		<typeAlias type="kr.co.healthner.member.model.vo.MemberMappingVO" alias="memberMapping"/>

@@ -32,6 +32,8 @@ import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
+import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
+import kr.co.healthner.vo.TrainerCommentVO;
 
 @Controller
 @RequestMapping("/healthner/member")
@@ -43,6 +45,9 @@ public class MemberController {
 	@Autowired
 	@Qualifier("cardHandler")
 	private CardHandler cardHandler;
+	
+
+	
 	
 	@Autowired
 	@Qualifier("memberMail")

@@ -23,7 +23,9 @@ import kr.co.healthner.trainer.model.vo.BmiData;
 import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.CustomerData;
 import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
+import kr.co.healthner.trainer.model.vo.TrainerCommentData;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
+import kr.co.healthner.vo.TrainerCommentVO;
 
 @Controller
 @SessionAttributes("id")
@@ -200,5 +202,12 @@ public class TrainerController {
 		ArrayList<TrainerVO> list = service.recommend(first, second, third);
 		
 		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/trainerCom.do", produces = "application/json; charset=utf-8")
+	public String trainerComment(Model model) {
+		ArrayList<TrainerCommentVO> arr = service.trainerComment();
+		return new Gson().toJson(arr);
 	}
 }

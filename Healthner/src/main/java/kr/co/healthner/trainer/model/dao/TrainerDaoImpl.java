@@ -1,5 +1,6 @@
 package kr.co.healthner.trainer.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import kr.co.healthner.trainer.model.vo.BmiVO;
 import kr.co.healthner.trainer.model.vo.MemberMappingInfoVO;
 import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
+import kr.co.healthner.vo.TrainerCommentVO;
 
 @Repository("trainerDao")
 public class TrainerDaoImpl {
@@ -114,4 +116,15 @@ public class TrainerDaoImpl {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("trainer.oneTrainerInfo", memberNo);
 	}
+
+	public List<TrainerCommentVO> trainerComment() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("trainer.trainerComment");
+	}
+
+	
+
+	
+
+	
 }
