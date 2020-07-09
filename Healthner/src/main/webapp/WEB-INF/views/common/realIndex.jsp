@@ -303,7 +303,10 @@
 							<h2 class="heading">하루 트레이닝</h2>
 							<span class="price"><sup>&#8361;</sup> <span class="number">15,000</span></span>
 							<span class="excerpt d-block">하루 무제한 이용권</span> 
-							<c:if test="${not empty sessionScope.member}">
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=15000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessionScope.member.expireDate }">
 								<a href="/healthner/member/payment.do?amount=15000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
 							<c:if test="${empty sessionScope.member}">
@@ -328,7 +331,10 @@
 							<span class="price"><sup>&#8361;</sup> <span class="number">30,000</span></span>
 							<span class="excerpt d-block">이용권 결제</span> 
 							
-							<c:if test="${not empty sessionScope.member}">
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=30000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessionScope.member.expireDate }">
 								<a href="/healthner/member/payment.do?amount=30000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
 							<c:if test="${empty sessionScope.member}">
@@ -352,7 +358,10 @@
 							<h2 class="heading">일년 이용권</h2>
 							<span class="price"><sup>&#8361;</sup> <span class="number">125,000</span></span>
 							<span class="excerpt d-block">All features are included</span> 
-							<c:if test="${not empty sessionScope.member}">
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=125000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessionScope.member.expireDate }">
 								<a href="/healthner/member/payment.do?amount=125000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
 							<c:if test="${empty sessionScope.member}">

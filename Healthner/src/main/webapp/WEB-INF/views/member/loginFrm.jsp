@@ -23,8 +23,10 @@
 			$("input[name=memberId]").val(cookieValue);
 			if ($("input[name=memberId]").val() != "") {
 				$("#remember").attr("checked", true);
+				$("input[name=memberPw]").focus();
 			}
 		});
+
 		function submitForm() {
 			var memberId = $("input[name=memberId]").val();
 			var memberPw = $("input[name=memberPw]").val();
@@ -40,18 +42,17 @@
 						if ($("#remember").is(":checked")) {
 							console.log("checked");
 							createCookie("userId", memberId, 14);
-							location.href = "/";
+							return true;
 						} else {
 							deleteCookie("userId");
-							location.href = "/";
+							return true;
 						}
-
 					} else if (data == "fail") {
 						alert("아이디/비밀번호를 확인해주세요");
+						return false;
 					} else if (data == "mail") {
 						alert("이메일을 인증해주세요");
-					}else{
-						location.href="/";
+						return false;
 					}
 				}
 			});
@@ -62,14 +63,14 @@
 			var d = new Date();
 			d.setDate(d.getDate + exdate);
 			var cookieValue = escape(memberId)
-					+ (d == null ? "" : "; expires=" + d.toLocaleDateString());
+					+ (d == null ? "" : "; expires=" + d.toDateString);
 			document.cookie = key + "=" + cookieValue;
 		}
 		function deleteCookie(key) {
 			var expireDate = new Date();
-			expireDate.setDate(expireDate.getDate(-1));
+			expireDate.setDate(expireDate.getDate()-1);
 			document.cookie = key + "=" + " ; expires"
-					+ expireDate.toLocaleDateString();
+					+ expireDate.toDateString();
 		}
 
 		function getCookie(cookieName) {
@@ -116,14 +117,14 @@
 				<div class="card"> -->
 
 					<div class="card-body">
-						<form onsubmit="submitForm()" method="POST">
+						<form action="/healthner/member/loggedIn.do" onsubmit="return submitForm()" method="POST">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i
 										class="icon-person_outline"></i></span>
 								</div>
 								<input type="text" name="memberId" class="form-control"
-									placeholder="username" />
+									placeholder="username"/>
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
@@ -139,7 +140,7 @@
 								</label>
 							</div>
 							<div class="form-group">
-								<input type="submit" value="로그인"
+								<input type="submit" value="로그인" id="login"
 									class="btn btn-primary btn-outline-white">
 							</div>
 						</form>

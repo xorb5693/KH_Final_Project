@@ -139,4 +139,11 @@
 	<update id="changePw" parameterType="member">
 		update member set member_pw = #{memberPw} where member_no = #{memberNo}
 	</update>
+	<update id="changeAddr" parameterType="member">
+		update member set
+			zip = #{zip},
+			road_Addr = #{roadAddr},
+			det_Addr = #{detAddr}
+		where member_no = #{memberNo}
+	</update>
 </mapper>

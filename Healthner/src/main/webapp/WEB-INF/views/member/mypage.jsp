@@ -44,6 +44,12 @@
 
 
 	<script>
+		$(function(){
+			$("#changePw").on('hidden.bs.modal', function(){
+				$("#check").show();
+				$("#change").hide();
+			});
+		});
 		function quit(){
 			if(confirm("회원탈퇴 하시겠습니까")){
 				$.ajax({
@@ -70,7 +76,8 @@
 						memberNo : memberNo},
 				success: function(data){
 					if(data=="1"){
-						$("#check").remove();
+						$("#check").hide();
+						$("input[name=oldMemberPw]").val("");
 						$("#change").show();
 					}else{
 						alert("비밀번호가 틀렸습니다");
@@ -98,7 +105,9 @@
 			}
 			return true;
 		}
-		function changeAddr(){}
+		function changeAddr(){
+			location.href="/healthner/member/changeAddrFrm.do";
+		}
 		function changeMail(){}
 		function purchaseLog(){}
 		function purchaseMember(){

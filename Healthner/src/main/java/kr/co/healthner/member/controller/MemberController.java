@@ -87,6 +87,7 @@ public class MemberController {
 	public String selectMember(Member m, HttpSession session) {
 		Member member = new Member();
 		member = service.selectMember(m);
+
 		if(member != null) {
 			if(member.getEmailVerification()==1) {
 				session.setAttribute("member", member);
@@ -99,7 +100,10 @@ public class MemberController {
 		}
 		
 	}
-	
+	@RequestMapping("/loggedIn.do")
+	public String loggedIn() {
+		return "redirect:/";
+	}
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -447,6 +451,21 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
+	@RequestMapping("/changeAddrFrm.do")
+	public String changeAddrFrm() {
+		return "member/changeAddr";
+	}
 	
+	@RequestMapping("/changeAddr.do")
+	public String changeAddr(Member m,HttpSession session) {
+		int result = service.changeAddr(m);
+		Member member = (Member)session.getAttribute("member");
+		if(result>0) {
+			member.setDetAddr(m.getDetAddr());
+			member.setZip(m.getZip());
+			member.setRoadAddr(m.getRoadAddr());			
+		}
+		return "member/changeAddr";
+	}
 	
 }

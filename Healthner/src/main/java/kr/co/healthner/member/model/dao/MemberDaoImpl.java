@@ -204,4 +204,8 @@ public class MemberDaoImpl {
 		return sqlSession.update("member.changePw", m);
 	}
 
+	public int changeAddr(Member m) {
+		return sqlSession.update("member.changeAddr", m);
+	}
+
 }

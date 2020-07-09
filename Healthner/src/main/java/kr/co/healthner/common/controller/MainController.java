@@ -20,8 +20,6 @@ public class MainController {
 	@RequestMapping("/main.do")
 	public String main(Model model) {
 		ArrayList<TrainerCommentVO> arr = serviceTrainer.trainerComment();
-		System.out.println(arr.size());
-		System.out.println(arr.get(0).getMemberNick());
 		model.addAttribute("trainerComment", arr);
 		return"common/realIndex";
 	}
