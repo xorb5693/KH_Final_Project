@@ -21,16 +21,11 @@
 			expire_date as expireDate,
 			phone,
 			email_verification as emailVerification
-		from member where 
-		<if test="memberId != null and !memberId.equals('')">
-			member_id = #{memberId}
-		</if>
+		from member where member_id = #{memberId}
 		<if test="memberPw != null and !memberPw.equals('')">
 			and member_pw = #{memberPw}
 		</if>
-		<if test="memberId == null and memberPw == null">
-			member_no = #{memberNo}
-		</if> 
+		
 	</select>
 	<insert id="insertMember" parameterType="member">
 		insert into member values(
