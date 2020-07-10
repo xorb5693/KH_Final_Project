@@ -508,7 +508,9 @@
 	
 										<div class="d-flex align-items-center">
 											<div class="user-img"
-												style="background-image: url(/resources/profile/${train.memberProfile},url(/resources/profile/person_2.jpg))">
+											>
+											<!-- style="background-image: url(/resources/profile/${train.memberProfile})" -->
+												<img class="user-img" src="/resources/profile/${train.memberProfile}" onerror="this.src='/resources/images/person_1.jpg'" alt="">
 												<span
 													class="quote d-flex align-items-center justify-content-center">
 													<i class="icon-quote-left"></i>

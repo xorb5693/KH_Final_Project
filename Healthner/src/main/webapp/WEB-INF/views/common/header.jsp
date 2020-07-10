@@ -43,8 +43,36 @@
 	display: none;
 	z-index: 1000;
 }
-</style>
 
+
+
+/* Custom Scrollbar using CSS */
+body {
+  overflow-y: scroll;
+}
+
+/* scrollbar width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* scrollbar track */
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* scrollbar handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: #000000;
+  background-image: linear-gradient(to top, #353535 0%, #535353 100%);
+}
+</style>
+<script>
+	$("body").mCustomScrollbar({
+    theme: "dark-thin"
+  });
+</script>
 <div class="py-1 bg-black top">
 	<div class="container">
 		<div
