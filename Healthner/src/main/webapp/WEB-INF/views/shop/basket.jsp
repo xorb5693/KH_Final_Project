@@ -229,7 +229,7 @@ h1 {
 								<button type="button"
 									class="btn btn-lg btn-block btn-success text-uppercase"
 									data-toggle="modal" data-target="#myModal"
-									onclick="checkOut('${sessionScope.member.detAddr}');">Checkout
+									onclick="checkOut('${sessionScope.member.zip}','${sessionScope.member.roadAddr}','${sessionScope.member.detAddr}');">Checkout
 								</button>
 							</div>
 						</div>
@@ -242,6 +242,9 @@ h1 {
 			<div class="modal" id="myModal">
 				<div class="modal-dialog">
 					<form action="/healthner/shop/buy.do" method="post">
+					<input type="hidden" name="zip" value="${sessionScope.member.zip }">
+					<input type="hidden" name="roadAddr" value="${sessionScope.member.roadAddr }">
+					<input type="hidden" name="detAddr" value="${sessionScope.member.detAddr }">
 						<div class="modal-content">
 							<!-- Modal Header -->
 							<div class="modal-header">
@@ -256,21 +259,21 @@ h1 {
 										우편번호:
 										<button class="btn btn-ground" id="searchAddr" type="button">조회</button>
 
-										<input type="text" name="zip" id="" class="form-control"
+										<input type="text" id="old1" class="form-control"
 											readonly />
 									</div>
 									<div class="col">
-										도로명: <input type="text" name="roadAddr" id=""
+										도로명: <input type="text" id="old2"
 											class="form-control" readonly />
 									</div>
 									<div class="col">
-										상세주소: <input type="text" name="detAddr" id=""
+										상세주소: <input type="text" id="old3"
 											class="form-control" placeholder="상세주소" />
 									</div>
 								</div>
 							</div><!-- Modal footer -->
 						<div class="modal-footer">
-							<input type="submit" class="btn btn-success"
+							<input type="submit" class="btn btn-success" 
 								value="buy">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
@@ -283,9 +286,8 @@ h1 {
 			</div>
 		</div>
 
-	</div>
+	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	</div>
 	<script>
 	 function deleteBasket(pno,memberNo){ // 장바구니 비우기
 		/* var test = $(this).val(); */
@@ -293,15 +295,17 @@ h1 {
 		var memberNo = memberNo;
 		location.href = "/healthner/shop/deleteBasket.do?pno="+pno+"&memberNo="+memberNo;
 	}
-	 function checkOut(detAddr){
+	 function checkOut(zip,roadAddr,detAddr){ // 결제하기 준비듕
 		 var modal = $("#modal-content");
 		 
 		 var modalf = $('.modal-footer');
 		 
 		 modal.find("p").remove();
 		/*  modalf.find("input").remove(); */
-				
-		 modal.append("<p id='oldaddr'>배송주소 : "+detAddr+"</p>");
+		
+		 
+		 modal.append("<p id='oldaddr'>배송주소 : "+zip+" "+roadAddr+" "+detAddr+"</p>");
+		 
 		 modal.append("<p>배송받을 주소 새로 입력하기<input type='checkbox' id='newaddr'></a></p>");
 			
 		 var sum = $('strong[name=sum]').html();
@@ -314,29 +318,64 @@ h1 {
 		 var arrStock = new Array();
 		 
 		 modal.find($('#address')).hide(); // 새로운주소 입력창 숨기기
-		 for(var i=0;i<array3.length;i++){
-			 
+		 for(var i=0;i<array3.length;i++){	 
 			 arrPno[i]=array2[i];
-			 arrStock[i]=array3[i];
-			 
-			 
-			 console.log(array2[i]);
-			 console.log(array3[i]);
-			 
+			 arrStock[i]=array3[i]; 
 		 }
-		 modal.append("<input type='hidden' name='array3' value='"+arrPno+"'>");
-		 modal.append("<input type='hidden' name='array2' value='"+arrStock+"'>");
-		 modal.append("<input type='hidden' name='memberNo' value='"+${sessionScope.member.memberNo}+"'>");
-		/*  modalf.append("<input type='submit' class='btn btn-success' value='buy'>"); */
 	
 		 
 		 $('#newaddr').click(function(){
 			 
 			 modal.find($('#oldaddr')).toggle(); // 기본주소 숨기고 나타내기
 			 modal.find($('#address')).toggle(); // 새로운주소 입력창 숨기고 나타내기
+			 if($('#newaddr').prop("checked")){
+					$("#old1").prop("required",true);
+                    $("#old1").val("");
+					$("#old2").prop("required",true);
+                    $("#old2").val("");
+					$("#old3").prop("required",true);
+                    $("#old3").val("");
+			 }else{
+				 $("input[name=zip]").val("${sessionScope.member.zip}");
+				 $("input[name=roadAddr]").val("${sessionScope.member.roadAddr}");
+				 $("input[name=detAddr]").val("${sessionScope.member.detAddr}");
+				 $("#old1").prop("required",false);
+				 $("#old2").prop("required",false);
+				 $("#old3").prop("required",false);
+			 } 
 		 });
+		 
+		 // 여기서부터 결제정보에 넘길값 pname,totalprice,addr(3개) 넘기고 (5개) , 데이터베이스 basket에 있는값 pno에 따라서 stock (2갸) 줄이기위해 넘겨야함
+		 modal.append("<input type='hidden' name='array3' value='"+arrPno+"'>");
+		 modal.append("<input type='hidden' name='array2' value='"+arrStock+"'>");
+		 modal.append("<input type='hidden' name='memberNo' value='"+${sessionScope.member.memberNo}+"'>");
+		 modal.append("<input type='hidden' name='totalPrice' value='"+sum+"'>");
+		 
+			 
+		 
+		 
+		 
+		/*  modalf.append("<input type='submit' class='btn btn-success' value='buy'>"); */
 		
 	 }
+	 $(function(){
+		$("#old1").change(function(){
+			$("input[name=zip]").val($(this).val());
+		});
+
+		$("#old2").change(function(){
+			$("input[name=roadAddr]").val($(this).val());
+		});
+
+		$("#old3").keyup(function(){
+			$("input[name=detAddr]").val($(this).val());
+		});
+         
+		$("#old3").change(function(){
+			$("input[name=detAddr]").val($(this).val());
+		});
+		
+	 });
 	 
 	 //
 	 $("#searchAddr").click(function () { //주소찾기 api 실행
@@ -370,10 +409,12 @@ h1 {
                 }
               }
 
-              $("input[name=zip]").val(data.zonecode);
-              $("input[name=roadAddr]").val(addr);
+              $("#old1").val(data.zonecode);
+              $("#old1").change();
+              $("#old2").val(addr);
+              $("#old2").change();
               // 커서를 상세주소 필드로 이동한다.
-              $("input[name=detAddr]").focus();
+              $("#old3").focus();
             },
           }).open();
         });

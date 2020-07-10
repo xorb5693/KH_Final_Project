@@ -352,4 +352,49 @@
 			#{meetingSeq}
 		</foreach>
 	</delete>
+
+	<!-- 태규_200709_구매 관리 -->
+	<select id="totalPurchaseCount" parameterType="map" resultType="_int">
+		select count(*) from purchase
+		<if test="type == 1">
+			where delivery_bool = 0
+		</if>
+	</select>
+	<select id="selectPurchaseList" parameterType="map" resultType="purchase">
+		select * from (
+		    select rownum as rnum, PS.*
+		    from (
+		        select S.*, pname, thumbnail, member_Id as memberId from(
+		            select 
+		            	buy_no as buyNo,
+		                member_no as memberNo, 
+		                buy_addr as buyAddr,
+		                total_price as totalPrice,
+		                delivery_bool as deliveryBool,
+		                invoice_number as invoiceNumber, 
+		                buy_date as buyDate,
+			            (
+			                select count(*) - 1 
+			                from BUY_PRODUCT 
+			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
+			                group by buy_no
+			            ) as count, (
+			                select min(pno)
+			                from BUY_PRODUCT 
+			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
+			                group by buy_no
+			            ) as pno
+		            from PURCHASE
+		            <if test="type == 1">
+						where delivery_bool = 0
+					</if>
+		        ) S
+		        join PRODUCT P on (S.pno = p.pno)
+		        join Member M on (S.memberNo = M.member_No)
+		        order by buyNo desc) 
+		    PS
+		) where rnum BETWEEN #{start} and #{end}
+	</select>
+	<!-- 혜진_200709_ -->
+
 </mapper>

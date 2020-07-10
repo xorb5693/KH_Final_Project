@@ -27,6 +27,7 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
 
@@ -407,8 +408,14 @@ public class AdminController {
 	
 	//태규_200709_주문 목록 관련 페이지 제작
 	@RequestMapping("/userBuy.do")
-	public String userBuy(int reqPage) {
+	public String userBuy(Model model, int reqPage, int type) {
 		
+		PurchasePageData data = service.userBuy(reqPage, type);
+		
+		model.addAttribute("type", type);
+		model.addAttribute("list", data.getList());
+		model.addAttribute("pageNavi", data.getPageNavi());
+//		System.out.println(data.getPageNavi());
 		return "admin/userBuy";
 	}
 	

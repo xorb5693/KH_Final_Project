@@ -15,6 +15,7 @@ import kr.co.healthner.admin.model.vo.Report;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
 
 @Repository("adminDao")
 public class AdminDaoImpl {
@@ -184,4 +185,17 @@ public class AdminDaoImpl {
 	public int deleteMeeting(int[] meetingSeqArr) {
 		return sqlSession.delete("admin.deleteMeeting",meetingSeqArr);
 	}
+
+
+	public int totalPurchaseCount(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectOne("admin.totalPurchaseCount", map);
+	}
+
+	public List<PurchaseVO> selectPurchaseList(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectList("admin.selectPurchaseList", map);
+	}
+	//혜진_200709_
+
 }

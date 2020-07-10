@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="buyProduct">
+	<insert id="insertBuyProduct" parameterType="buy">
+		
+		insert into buy_product values (#{buyNo}, #{pno}, #{stock})
+
+	</insert>
+  
+</mapper>

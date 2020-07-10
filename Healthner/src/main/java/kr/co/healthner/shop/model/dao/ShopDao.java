@@ -7,9 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.healthner.shop.model.vo.BuyProductVO;
 import kr.co.healthner.vo.Basket;
-import kr.co.healthner.vo.BasketVO;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
 
 @Repository("shopDao")
 public class ShopDao {
@@ -71,6 +72,29 @@ public class ShopDao {
 	public int deleteBasket(Basket bk) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("basket.deleteBasket",bk);
+	}
+
+	public int insertPurchase(PurchaseVO pv) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("purchase.insertPurchase",pv);
+	}
+
+	public int selectBuyNom() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("purchase.selectBuyNom");
+	}
+
+	public int insertBuyProduct(BuyProductVO buy) {
+//		List<buyProductVO> list = (List<buyProductVO>)map.get("list");
+//		for(buyProductVO bp : list) {
+//			sqlSession.insert("buyProduct.insertBuyProduct",map);
+//		}
+		return sqlSession.insert("buyProduct.insertBuyProduct",buy);
+	}
+
+	public int deleteAllBasket(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("basket.deleteAllBasket",memberNo);
 	}
 	
 	

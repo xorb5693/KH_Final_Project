@@ -17,8 +17,10 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
 
 @Service("adminService")
 public class AdminServiceImpl {
@@ -421,5 +423,62 @@ public class AdminServiceImpl {
 	//혜진_200710_신고관리 페이지_선택 다중 삭제
 	public int deleteMeeting(int[] meetingSeqArr) {
 		return dao.deleteMeeting(meetingSeqArr);
+
+
+	public PurchasePageData userBuy(int reqPage, int type) {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("type", type);
+		
+		int totalCount = dao.totalPurchaseCount(map);
+		int numPerPage = 10;
+		int totalPage;
+		
+		if (totalCount % numPerPage == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		
+		int start = (reqPage - 1) * numPerPage + 1;
+		int end = reqPage * numPerPage;
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<PurchaseVO> list = dao.selectPurchaseList(map);
+		
+		int pageSize = 10;
+		StringBuffer pageNavi = new StringBuffer();
+		int pageNo = (reqPage - 1) / pageSize * pageSize + 1;
+		
+		if (pageNo != 1) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + (pageNo - 1) + "&type=" + type + "'>이전</a>");
+		}
+		
+		for (int i = 0; i < pageSize; i++) {
+			
+			if (pageNo == reqPage) {
+				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
+			} else {
+				pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + pageNo + "&type=" + type + "'>" + pageNo + "</a>");
+			}
+			
+			pageNo++;
+			
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		
+		if (pageNo <= totalPage) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + pageNo + "&type=" + type + "'>다음</a>");
+		}
+		
+		PurchasePageData data = new PurchasePageData();
+		data.setPageNavi(pageNavi.toString());
+		data.setList((ArrayList<PurchaseVO>)list);
+		
+		return data;
+
 	}
 }

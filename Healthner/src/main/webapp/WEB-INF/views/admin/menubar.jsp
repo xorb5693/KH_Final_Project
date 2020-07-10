@@ -89,7 +89,7 @@
 					<li id="6"><a href="/productMgt.do?reqPage=1"><span
 							class="fa fa-shopping-cart mr-3"></span>상품 관리</a>
                             <ul class="sub-list list-unstyled">
-							<li id="9"><a href="/userBuy.do?reqPage=1"><span
+							<li id="9"><a href="/userBuy.do?reqPage=1&type=0"><span
 									class="fa fa-long-arrow-right mr-3"></span>구매 관리</a></li>
 						</ul>
                     </li>
