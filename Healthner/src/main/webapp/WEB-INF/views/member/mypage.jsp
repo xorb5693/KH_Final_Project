@@ -44,6 +44,12 @@
 
 
 	<script>
+		$(function(){
+			$("#changePw").on('hidden.bs.modal', function(){
+				$("#check").show();
+				$("#change").hide();
+			});
+		});
 		function quit(){
 			if(confirm("회원탈퇴 하시겠습니까")){
 				$.ajax({
@@ -70,7 +76,8 @@
 						memberNo : memberNo},
 				success: function(data){
 					if(data=="1"){
-						$("#check").remove();
+						$("#check").hide();
+						$("input[name=oldMemberPw]").val("");
 						$("#change").show();
 					}else{
 						alert("비밀번호가 틀렸습니다");
@@ -98,7 +105,9 @@
 			}
 			return true;
 		}
-		function changeAddr(){}
+		function changeAddr(){
+			location.href="/healthner/member/changeAddrFrm.do";
+		}
 		function changeMail(){}
 		function purchaseLog(){}
 		function purchaseMember(){
@@ -110,14 +119,14 @@
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
-					<c:if test="${empty sessionScope.member.memberProfile}">
-						<div class="bordered" style="width: 300px;height: 300px; background-image: url(/resources/profile/noprofile.png);background-size: contain;background-repeat: no-repeat;">
-						</div>
-					</c:if>
-					<c:if test="${not empty sessionScope.member.memberProfile}">
-						<div class="bordered" style="width: 300px;height: 300px; background-image: url(/resources/profile/${sessionScope.member.memberProfile});background-size: contain;background-repeat: no-repeat;">
-						</div>
-					</c:if>
+					<div class="bordered" style="width: 300px;height: 300px;" >
+						<a href="/healthner/member/changeProfilePic.do">
+							<img src="/resources/profile/${sessionScope.member.memberProfile}" style="width: 300px; height: 300px;" onerror="this.src='/resources/profile/noprofile.png'">
+						</a>
+						<!-- background-image: url(/resources/profile/${sessionScope.member.memberProfile}), url(/resources/profile/noprofile.png);background-size: contain;background-repeat: no-repeat;" -->
+					</div>
+					
+
 					
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">

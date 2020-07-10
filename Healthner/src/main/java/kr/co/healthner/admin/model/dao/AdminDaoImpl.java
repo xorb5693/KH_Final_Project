@@ -8,11 +8,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.healthner.admin.model.vo.MeetingSchedule;
 import kr.co.healthner.admin.model.vo.MemberSearch;
 import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.admin.model.vo.Report;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.BuyProductVO;
 import kr.co.healthner.vo.ProductVO;
 import kr.co.healthner.vo.PurchaseVO;
 
@@ -160,6 +162,31 @@ public class AdminDaoImpl {
 		return sqlSession.delete("admin.productDelete", deleteNo);
 
 	}
+	//혜진_200709_신고관리 페이지_선택 다중 삭제_본문
+	public int deleteReport(HashMap checkArr) {
+		return sqlSession.delete("admin.deleteReport",checkArr);
+	}
+	//혜진_200709_신고관리 페이지_선택 다중 삭제_신고관리 테이블
+	public int deleteReportTB(HashMap checkArr) {
+		return sqlSession.delete("admin.deleteReportTB",checkArr);
+	}
+	//혜진_200709_예약 목록 관리 페이지_전체 게시물 갯수
+	public int meetingTotalCount(MeetingSchedule ms) {
+		return sqlSession.selectOne("admin.meetingTotalCount",ms);
+	}
+	//혜진_200709_예약 목록 관리 페이지_게시물 조회
+	public List meetinglist(MeetingSchedule ms) {
+		return sqlSession.selectList("admin.meetinglist",ms);
+	}
+	//혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
+	public int finResponse(MeetingSchedule ms) {
+		return sqlSession.update("admin.finResponse",ms);
+	}
+	//혜진_200710_신고관리 페이지_선택 다중 삭제
+	public int deleteMeeting(int[] meetingSeqArr) {
+		return sqlSession.delete("admin.deleteMeeting",meetingSeqArr);
+	}
+
 
 	public int totalPurchaseCount(HashMap<String, Integer> map) {
 		
@@ -171,4 +198,19 @@ public class AdminDaoImpl {
 		return sqlSession.selectList("admin.selectPurchaseList", map);
 	}
 	//혜진_200709_
+
+	public PurchaseVO selectPurchase(int buyNo) {
+		
+		return sqlSession.selectOne("shop.selectPurchase", buyNo);
+	}
+
+	public List<BuyProductVO> selectBuyProductList(int buyNo) {
+		
+		return sqlSession.selectList("shop.selectBuyProductList", buyNo);
+	}
+
+	public int modifyInvoiceNumber(PurchaseVO purchase) {
+		
+		return sqlSession.update("admin.modifyInvoiceNumber", purchase);
+	}
 }

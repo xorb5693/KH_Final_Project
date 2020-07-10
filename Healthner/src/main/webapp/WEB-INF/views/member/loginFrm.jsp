@@ -23,7 +23,20 @@
 			$("input[name=memberId]").val(cookieValue);
 			if ($("input[name=memberId]").val() != "") {
 				$("#remember").attr("checked", true);
+				$("input[name=memberPw]").focus();
 			}
+		});
+		$(function(){
+			var input = document.getElementById("memberPw");
+			input.addEventListener("keyup", function(event) {
+			// Number 13 is the "Enter" key on the keyboard
+				if (event.keyCode === 13) {
+					// Cancel the default action, if needed
+					// event.preventDefault();
+					// Trigger the button element with a click
+					document.getElementById("login").click();
+				}
+			});
 		});
 		function submitForm() {
 			var memberId = $("input[name=memberId]").val();
@@ -40,18 +53,16 @@
 						if ($("#remember").is(":checked")) {
 							console.log("checked");
 							createCookie("userId", memberId, 14);
-							location.href = "/";
+							location.reload();
 						} else {
 							deleteCookie("userId");
-							location.href = "/";
 						}
-
+						location.href="/";
 					} else if (data == "fail") {
 						alert("아이디/비밀번호를 확인해주세요");
+						
 					} else if (data == "mail") {
 						alert("이메일을 인증해주세요");
-					}else{
-						location.href="/";
 					}
 				}
 			});
@@ -62,14 +73,14 @@
 			var d = new Date();
 			d.setDate(d.getDate + exdate);
 			var cookieValue = escape(memberId)
-					+ (d == null ? "" : "; expires=" + d.toLocaleDateString());
+					+ (d == null ? "" : "; expires=" + d.toDateString);
 			document.cookie = key + "=" + cookieValue;
 		}
 		function deleteCookie(key) {
 			var expireDate = new Date();
-			expireDate.setDate(expireDate.getDate(-1));
+			expireDate.setDate(expireDate.getDate()-1);
 			document.cookie = key + "=" + " ; expires"
-					+ expireDate.toLocaleDateString();
+					+ expireDate.toDateString();
 		}
 
 		function getCookie(cookieName) {
@@ -116,21 +127,20 @@
 				<div class="card"> -->
 
 					<div class="card-body">
-						<form onsubmit="submitForm()" method="POST">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i
 										class="icon-person_outline"></i></span>
 								</div>
 								<input type="text" name="memberId" class="form-control"
-									placeholder="username" />
+									placeholder="username"/>
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i
 										class="icon-key"></i></span>
 								</div>
-								<input type="password" name="memberPw" class="form-control"
+								<input type="password" name="memberPw" id="memberPw" class="form-control"
 									placeholder="password" />
 							</div>
 							<div class="row align-items-center remember">
@@ -139,10 +149,9 @@
 								</label>
 							</div>
 							<div class="form-group">
-								<input type="submit" value="로그인"
+								<input type="button" onclick="submitForm()" value="로그인" id="login"
 									class="btn btn-primary btn-outline-white">
 							</div>
-						</form>
 					</div>
 					<div class="card-footer">
 						<div class="d-flex justify-content-center links">

@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,14 +21,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
+import kr.co.healthner.admin.model.vo.MeetingSchedule;
 import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.PurchaseData;
 import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
 
 @Controller
 //@RequestMapping("/healthner/admin")
@@ -414,5 +419,61 @@ public class AdminController {
 		model.addAttribute("pageNavi", data.getPageNavi());
 //		System.out.println(data.getPageNavi());
 		return "admin/userBuy";
+	}
+	
+	@RequestMapping("/userBuyRead.do")
+	public String userBuyRead(Model model, int buyNo) {
+		
+		PurchaseData data = service.userBuyData(buyNo);
+		
+		model.addAttribute("purchase", data.getPurchase());
+		model.addAttribute("list", data.getList());
+		return "admin/userBuyRead";
+	}
+	
+	@RequestMapping("/modifyInvoiceNumber.do")
+	public String modifyInvoiceNumber(PurchaseVO purchase) {
+		
+		int result = service.modifyInvoiceNumber(purchase);
+		
+		if (result > 0) {
+			
+		} else {
+			
+		}
+		
+		return "redirect:/userBuyRead.do?buyNo=" + purchase.getBuyNo();
+    }
+    
+	//혜진_200709_신고관리 페이지_선택 다중 삭제
+	@RequestMapping("/deleteReport.do")
+	@ResponseBody
+	public int deleteReport(int[] writeType, int[] writeNo) {
+		int result = service.deleteReport(writeType, writeNo);
+		return result;
+	}
+	
+	//혜진_200709_예약 목록 관리 페이지_내용 조회
+	@RequestMapping(value="/meetinglist.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String meetinglist(int responseFin, int start, int sorting){
+		TotalpageList tl = service.meetinglist(responseFin, start, sorting);
+		return new Gson().toJson(tl);
+	}
+	
+	//혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
+	@RequestMapping("/finResponse.do")
+	@ResponseBody
+	public int meetinglist(int responseFin, int meetingSeq){
+		int result = service.finResponse(responseFin, meetingSeq);
+		return result;
+	}
+	
+	//혜진_200710_신고관리 페이지_선택 다중 삭제
+	@RequestMapping("/deleteMeeting.do")
+	@ResponseBody
+	public int deleteMeeting(int[] meetingSeqArr) {
+		int result = service.deleteMeeting(meetingSeqArr);
+		return result;
 	}
 }

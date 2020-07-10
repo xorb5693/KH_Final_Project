@@ -48,7 +48,6 @@
 	<div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<jsp:include page="/WEB-INF/views/common/headerForShop.jsp" />
-		
 
 				<section class="ftco-section bg-light">
 					<div class="container">
@@ -126,14 +125,11 @@
 						</c:forEach>
 
 					</div>
-		</div></div>
+		</div>
 		</section>
 		
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
 	<script>
 		window.jQuery
 				|| document
