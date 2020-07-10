@@ -42,6 +42,7 @@
 						if ($("#remember").is(":checked")) {
 							console.log("checked");
 							createCookie("userId", memberId, 14);
+							location.reload();
 							return true;
 						} else {
 							deleteCookie("userId");

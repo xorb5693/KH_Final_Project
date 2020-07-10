@@ -9,5 +9,6 @@ public class MeetingScheduleVO {
 	private String name;
 	private String phone;
 	private String email;
+	private float bmi;
 	private int responseFin;
 }

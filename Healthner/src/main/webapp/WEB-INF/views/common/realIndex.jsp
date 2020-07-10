@@ -547,7 +547,6 @@
 				</div>
 				<div class="col-md-6 appointment pl-md-5 py-md-5 ftco-animate">
 					<h3 class="mb-3">Calculate Your BMI</h3>
-					<form action="bmiCalc();" class="appointment-form">
 						<div class="form-group">
 							<label for="height">키</label>
 							<div class="d-flex">
@@ -571,16 +570,61 @@
 						</div>
 						<div class="d-md-flex">
 							<div class="form-group d-flex">
-								<input type="submit" value="Calculate"
-									class="btn btn-secondary py-3 px-4 mr-2"> <input
-									type="submit" value="BMI"
-									class="btn btn-primary py-3 px-4 ml-2">
+								<input type="button"  data-toggle="modal" data-target="#changePw" value="Calculate"
+									class="btn btn-secondary py-3 px-4 mr-2">
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="changePw" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			  <div class="modal-content bg-dark" >
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">비밀번호 수정</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+					<p id="modalBody">
+						<div id="check">
+							<div class="form-row">
+
+								<input type="password" name="oldMemberPw" class="form-control" id="">
+							</div>
+							<br>
+							<div class="form-row" >
+								<button type="button" onclick="checkPw();" class="btn btn-primary">비밀번호 확인</button>
+							</div>
+						</div>
+						<div style="display: none;" id="change">
+							<form action="/healthner/member/changePw.do" onsubmit="return changePw()"  method="post">
+								<div class="form-row" style="color: white;">
+									새 비밀번호<span></span>
+									<input type="password" class="form-control" name="memberPw" id="memberPw">
+								</div>
+								<div class="form-row" style="color: white;">
+									비밀번호 확인<span></span>
+									<input type="password" name="chkPw" class="form-control" id="checkPw">
+								</div>
+								<br>
+								<div class="form-row">
+									<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.member.memberNo}">
+									<input type="submit" class="btn btn-primary" value="변경">
+								</div>
+							</form>
+
+						</div>
+
+					</p>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			  </div>
+			</div>
 	</section>
 
 	<script>
@@ -596,7 +640,7 @@
 					for(var i=0; i<3; i++){
 						html += '<div class="col-md-4 d-flex">'+
 									'<div class="blog-entry justify-content-end">'+
-										'<a href="blog-single.html" class="block-20" style="background-image: url('+data[i].noticeFilename+')">'+
+										'<a href="/healthner/notice/noticeView.do?noticeNo='+data[i].noticeNo+'" class="block-20" style="background-image: url('+data[i].noticeFilename+')">'+
 										'</a>'+
 										'<div class="text p-4 float-right d-block">'+
 											'<div class="meta">'+
@@ -605,10 +649,6 @@
 												'</div>'+
 												'<div>'+
 													'<a href="/healthner/notice/noticeView.do?noticeNo='+data[i].noticeNo+'">Admin</a>'+
-												'</div>'+
-												'<div>'+
-													'<a href="/healthner/notice/noticeView.do?noticeNo='+data[i].noticeNo+'" class="meta-chat"><span class="icon-chat"></span>'+
-													'3</a>'+
 												'</div>'+
 											'</div>'+
 											'<h3 class="heading mt-2">'+
