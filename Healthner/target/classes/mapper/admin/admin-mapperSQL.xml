@@ -318,12 +318,10 @@
 			                select count(*) - 1 
 			                from BUY_PRODUCT 
 			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
-			                group by buy_no
 			            ) as count, (
 			                select min(pno)
 			                from BUY_PRODUCT 
 			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
-			                group by buy_no
 			            ) as pno
 		            from PURCHASE
 		            <if test="type == 1">
@@ -336,5 +334,8 @@
 		    PS
 		) where rnum BETWEEN #{start} and #{end}
 	</select>
+	<update id="modifyInvoiceNumber" parameterType="purchase">
+		update purchase set invoice_number = #{invoiceNumber}, delivery_bool = 1 where buy_no = #{buyNo}
+	</update>
 	<!-- 혜진_200709_ -->
 </mapper>

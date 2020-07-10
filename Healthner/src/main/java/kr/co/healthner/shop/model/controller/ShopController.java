@@ -1,7 +1,12 @@
 package kr.co.healthner.shop.model.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,10 +16,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.shop.model.service.ShopService;
 import kr.co.healthner.shop.model.vo.BuyProductVO;
+import kr.co.healthner.shop.model.vo.PurchaseData;
+import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.Basket;
 import kr.co.healthner.vo.ProductVO;
@@ -162,4 +172,62 @@ public class ShopController {
 		return "shop/basket";
 	}
 
+	//태규_배송추적 ajax
+	@ResponseBody
+	@RequestMapping(value = "/parcelTrace.do", produces = "application/json; charset=utf-8")
+	public String parcelTrace(String invoiceNumber) {
+		
+		BufferedReader in = null;
+		URL url;
+		StringBuffer buffer = new StringBuffer();
+		
+		try {
+			url = new URL("http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key=BcQF777hPp8vOsG4hosRSQ&t_code=01&t_invoice=" + invoiceNumber);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection(); 
+			con.setConnectTimeout(5000); //서버에 연결되는 Timeout 시간 설정
+			con.setReadTimeout(5000); // InputStream 읽어 오는 Timeout 시간 설정
+
+			con.setRequestMethod("GET");
+			
+			in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+			
+			String line;
+			while ((line = in.readLine()) != null) {
+				buffer.append(line);
+			}
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+//		System.out.println(buffer.toString());
+
+		return buffer.toString();
+	}
+	
+	//개인 구매 리스트 페이지
+	@RequestMapping("/myBuyList.do")
+	public String myBuyList(HttpSession session, Model model, int reqPage) {
+		
+		Member m = (Member)session.getAttribute("member");
+		
+		PurchasePageData data = service.userBuy(reqPage, m.getMemberNo());
+		model.addAttribute("list", data.getList());
+		model.addAttribute("pageNavi", data.getPageNavi());
+		
+		return "shop/myBuyList";
+	}
+	
+	//개인 구매 상세정보 페이지
+	@RequestMapping("/myBuyRead.do")
+	public String myBuyRead(Model model, int buyNo) {
+
+		PurchaseData data = service.myBuyData(buyNo);
+		
+		model.addAttribute("purchase", data.getPurchase());
+		model.addAttribute("list", data.getList());
+		return "shop/myBuyRead";
+	}
 }

@@ -24,9 +24,11 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.PurchaseData;
 import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
 
 @Controller
 //@RequestMapping("/healthner/admin")
@@ -414,5 +416,29 @@ public class AdminController {
 		model.addAttribute("pageNavi", data.getPageNavi());
 //		System.out.println(data.getPageNavi());
 		return "admin/userBuy";
+	}
+	
+	@RequestMapping("/userBuyRead.do")
+	public String userBuyRead(Model model, int buyNo) {
+		
+		PurchaseData data = service.userBuyData(buyNo);
+		
+		model.addAttribute("purchase", data.getPurchase());
+		model.addAttribute("list", data.getList());
+		return "admin/userBuyRead";
+	}
+	
+	@RequestMapping("/modifyInvoiceNumber.do")
+	public String modifyInvoiceNumber(PurchaseVO purchase) {
+		
+		int result = service.modifyInvoiceNumber(purchase);
+		
+		if (result > 0) {
+			
+		} else {
+			
+		}
+		
+		return "redirect:/userBuyRead.do?buyNo=" + purchase.getBuyNo();
 	}
 }

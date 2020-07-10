@@ -16,6 +16,8 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.BuyProductVO;
+import kr.co.healthner.shop.model.vo.PurchaseData;
 import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
@@ -431,5 +433,22 @@ public class AdminServiceImpl {
 		data.setList((ArrayList<PurchaseVO>)list);
 		
 		return data;
+	}
+
+	public PurchaseData userBuyData(int buyNo) {
+		
+		PurchaseVO purchase = dao.selectPurchase(buyNo);
+		List<BuyProductVO> list = dao.selectBuyProductList(buyNo);
+		
+		PurchaseData data = new PurchaseData();
+		data.setList((ArrayList<BuyProductVO>)list);
+		data.setPurchase(purchase);
+		
+		return data;
+	}
+
+	public int modifyInvoiceNumber(PurchaseVO purchase) {
+
+		return dao.modifyInvoiceNumber(purchase);
 	}
 }

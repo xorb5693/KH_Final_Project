@@ -45,7 +45,8 @@
 						<br> <br>
 						<h1 class="mb-3 bread">SHOP</h1>
 						<p class="breadcrumbs">
-							<span class="mr-2"><a href="/healthner/shop/basketList.do?memberNo=${sessionScope.member.memberNo}">장바구니보기</a></span> <span>링크</span>
+							<span class="mr-2"><a href="/healthner/shop/basketList.do?memberNo=${sessionScope.member.memberNo}">장바구니보기</a></span> 
+							<span class="mr-2"><a href="/healthner/shop/myBuyList.do?reqPage=1">My Buy List</a></span> 
 						</p>
 					</div>
 				</div>
@@ -131,9 +132,6 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
 	<script>
 		window.jQuery
 				|| document
