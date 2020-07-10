@@ -508,7 +508,7 @@
 	
 										<div class="d-flex align-items-center">
 											<div class="user-img"
-												style="background-image: url(/resources/profile/${train.memberProfile})">
+												style="background-image: url(/resources/profile/${train.memberProfile},url(/resources/profile/person_2.jpg))">
 												<span
 													class="quote d-flex align-items-center justify-content-center">
 													<i class="icon-quote-left"></i>
