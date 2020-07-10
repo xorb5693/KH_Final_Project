@@ -6,7 +6,7 @@
 	</insert>
 	
 	<select id="selectBuyNom" resultType="int">
-		select max(member_no) from member
+		select max(buy_no) from purchase;
 	</select>
   
 </mapper>

@@ -57,28 +57,25 @@
 #pageNavi {
 	
 }
+.bread{
+	margin:o auto;
+}
+.content{
+	padding-right: 200px;
+	padding-left: 200px;
+}
+.wraper{
+	
+}
 </style>
 <link href="album.css" rel="stylesheet">
 <body>
-	<div class="wraper">
+	<div class="wraper bg-light">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="hero-wrap"
-			style="background-image: url('/resources/images/bg_1.jpg');">
-			<div class="overlay"></div>
-			<div class="container">
-				<div
-					class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-						<br> <br>
-						<h1 class="mb-3 bread">NOTICE</h1>
-						<p class="breadcrumbs">
-							<span class="mr-2"><a href="/healthner/notice/noticeList.do?reqPage=1">NOTICE</a></span> <span><a href="/healthner/board/boardList.do?reqPage=1">BOARD</a></span>
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-		<div class="content"></div>
+		<jsp:include page="/WEB-INF/views/common/headerForBlog.jsp"/>
+		<div class="content"><br><br>
+			<h1 class="bread" style="font-style:italic; font-weight:900;">Notice List</h1><br><hr><br>
+		</div>
 		<main role="main">
 
 			<div class="album py-5 bg-light">
@@ -91,7 +88,7 @@
 									<img class="bd-placeholder-img card-img-top" width="100%"
 										height="225" xmlns="http://www.w3.org/2000/svg"
 										preserveAspectRatio="xMidYMid slice" focusable="false"
-										role="img" src="${n.noticeFilename }">
+										role="img" src="${n.noticeFilename }" onerror="this.src='/resources/images/favicon.png'; this.onerror=null;">
 									<rect width="100%" height="100%" fill="#55595c" />
 									<text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
 									</svg>
@@ -101,7 +98,7 @@
 											<div class="btn-group">
 												<button type="button"
 													class="btn btn-sm btn-dark btn-outline-secondary">
-													<a href="/healthner/notice/noticeView.do?noticeNo=${n.noticeNo}">View</a>
+													<a style="color:white" href="/healthner/notice/noticeView.do?noticeNo=${n.noticeNo}">View</a>
 												</button>
 											</div>
 											<small class="text-muted">${n.noticeDate }</small>
@@ -113,11 +110,11 @@
 					</div>
 
 				</div>
-				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="noticeSearch col-md-6">
+				<div class="row justify-content-center">
+					
+					<div class="noticeSearch">
 						<div>
-							<form action="/noticeSearchTitle.do">
+							<form action="/healthner/notice/noticeSearchTitle.do">
 							<input type="hidden" name="reqPage" value="1">
 							<input type="hidden" name="search">
 								<div style="width:150px">
@@ -132,21 +129,21 @@
 										class="searchTitle form-control" value="${keyword}">
 								</div>
 								<div style="width:80px">
-									<button type="submit" class="btn btn-primary">검색</button>
+									<button type="submit" class="btn btn-dark">검색</button>
 								</div>
 							</form>
 						</div>
 					</div>
-					<div class="col-md-3"></div>
+					
 				</div>
 	<script>
 		
 	</script>
 
-				<div class="row">
-					<div class="col-md-6"></div>
+				<div class="row justify-content-center">
+					
 					<div class="col-md-0" id="pageNavi">${navi }</div>
-					<div class="col-md-5"></div>
+					
 
 				</div>
 		</main>

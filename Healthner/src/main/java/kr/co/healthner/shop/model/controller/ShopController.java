@@ -103,9 +103,12 @@ public class ShopController {
 		}
 		return "redirect:/healthner/shop/basketList.do?memberNo="+bk.getMemberNo();
 	}
+	
+	ArrayList<BuyProductVO> list = null;
+	
 	@RequestMapping(value="/buy.do")
 	public String test(String[] array2 , String[] array3 , Member m , int totalPrice , Model model , HttpSession se) {
-		ArrayList<BuyProductVO> list = new ArrayList<BuyProductVO>();
+		list = new ArrayList<BuyProductVO>();
 		String[] arrayPno = array2; // 받아온 상품넘버 배열  
 		String[] arrayStock = array3;  // 받아온 상품들 숫자 배열  두개로 db값 수정		
 		for(int i=0;i<arrayPno.length;i++) {
@@ -120,16 +123,16 @@ public class ShopController {
 		pv.setTotalPrice(totalPrice);
 		pv.setBuyAddr(m.getZip()+m.getRoadAddr()+m.getDetAddr());
 		model.addAttribute("p",pv); // 거래진행시 필요한 정보
-		model.addAttribute("list",list); // db 수정시 필요한 정보 , 거래완료시 수정할 정보
-		se.setAttribute("list", list);
+		
+		
 		// 결제페이지로 넘어갈것 정보는? totalPrice , zip , road , det , memberNo 5개 전달
 		return "shop/pay";
 		
 		
 	}
 	@RequestMapping(value="/paySuccess.do")
-	public String paySuccess(HttpSession se , int memberNo , int totalPrice , String buyAddr) {
-		ArrayList<BuyProductVO> list = (ArrayList<BuyProductVO>)se.getAttribute("list");
+	public String paySuccess(int memberNo , int totalPrice , String buyAddr) {
+		
 		System.out.println(memberNo); // 거래성공한 멤버넘버
 		System.out.println(totalPrice); // 거래성공한 금액
 		System.out.println(buyAddr); // 거래성공한 주소
@@ -142,6 +145,7 @@ public class ShopController {
 		int result = service.insertPurchase(pv);
 		int buyNo = service.selectBuyNo(); // 해당 거래넘버값 구해옴
 		
+		System.out.println("거래넘버 : "+buyNo);
 		
 		for(int i=0;i<list.size();i++) {
 			((BuyProductVO)list.get(i)).setBuyNo(buyNo);
@@ -158,7 +162,7 @@ public class ShopController {
 		int result3 = service.deleteAllBasket(memberNo);
 		System.out.println("거래완료 어디까지 되고있나 4 되라");
 		
-		se.invalidate(); // 거래완료후 거래정보세션 삭제
+		list = null;
 		return "shop/basket";
 	}
 
