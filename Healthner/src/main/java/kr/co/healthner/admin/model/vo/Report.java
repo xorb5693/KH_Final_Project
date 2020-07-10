@@ -27,4 +27,5 @@ public class Report {
 	private int commentCnt;
 	private int totalReportRec;
 	private int memberType;
+	private int inBanListCheck;
 }

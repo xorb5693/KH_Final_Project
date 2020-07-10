@@ -419,32 +419,32 @@ public class AdminController {
 //		System.out.println(data.getPageNavi());
 		return "admin/userBuy";
 	}
-	
+
 	@RequestMapping("/userBuyRead.do")
 	public String userBuyRead(Model model, int buyNo) {
-		
+
 		PurchaseData data = service.userBuyData(buyNo);
-		
+
 		model.addAttribute("purchase", data.getPurchase());
 		model.addAttribute("list", data.getList());
 		return "admin/userBuyRead";
 	}
-	
+
 	@RequestMapping("/modifyInvoiceNumber.do")
 	public String modifyInvoiceNumber(PurchaseVO purchase) {
-		
+
 		int result = service.modifyInvoiceNumber(purchase);
-		
+
 		if (result > 0) {
-			
+
 		} else {
-			
+
 		}
-		
+
 		return "redirect:/userBuyRead.do?buyNo=" + purchase.getBuyNo();
-    }
-    
-	//혜진_200709_신고관리 페이지_선택 다중 삭제
+	}
+
+	// 혜진_200709_신고관리 페이지_선택 다중 삭제
 	@RequestMapping("/deleteReport.do")
 	@ResponseBody
 	public int deleteReport(int[] writeType, int[] writeNo) {
@@ -489,6 +489,14 @@ public class AdminController {
 	@ResponseBody
 	public int deletePenalty(int[] penaltyArr) {
 		int result = service.deletePenalty(penaltyArr);
+		return result;
+	}
+
+	// 혜진_200710_회원 정지 관리 페이지_글작성 권한 정지
+	@RequestMapping("/givePenalty.do")
+	@ResponseBody
+	public int givePenalty(int[] penaltyArr) {
+		int result = service.givePenalty(penaltyArr);
 		return result;
 	}
 }

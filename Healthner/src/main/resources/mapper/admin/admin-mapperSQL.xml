@@ -404,7 +404,7 @@
 	<if test="memberType!=0">
 	and m.member_level=#{memberType}
 	</if>
-	)
+	and (select count(*) from report where reported_no = r.reported_no)>=3)
 	</select>
 	<!-- 혜진_200710_회원 정지 관리 페이지_내용 조회 -->
 	<select id="penaltylist" parameterType="adminReport" resultType="adminReport">
@@ -423,6 +423,7 @@
 	<if test="memberType!=0">
 	and m.member_level=#{memberType}
 	</if>
+	and (select count(*) from report where reported_no = r.reported_no)>=3
 	order by totalReportRec 
 	<if test="sorting==1">
 	desc
@@ -436,8 +437,16 @@
 			#{penaltyArr}
 		</foreach>
 	</delete>
-	<!--태규-->>
+	<!--태규-->
 	<update id="modifyInvoiceNumber" parameterType="purchase">
 		update purchase set invoice_number = #{invoiceNumber}, delivery_bool = 1 where buy_no = #{buyNo}
 	</update>
+	<!-- 혜진_200710_회원 정지 관리 페이지_글작성 권한 정지 -->
+	<insert id="givePenalty" parameterType="_int">
+		insert into ban_list values (ban_list_seq.nextval, #{_parameter}, sysdate+14)
+	</insert>
+	<!-- 혜진_200710_회원 정지 관리 페이지_권한이 정지된 회원 표시 -->
+	<select id="banListCheck" resultType="adminReport">
+	select reported_no as reportedNo from report r join ban_list b on (b.member_no=r.reported_no) group by reported_no
+	</select>
 </mapper>

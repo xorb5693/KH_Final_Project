@@ -216,12 +216,14 @@ public class AdminServiceImpl {
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 
 		if (pageNo != 1) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+			pageNavi.append(
+					"<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
 		}
 
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo != reqPage) {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+				pageNavi.append("<a class='btn btn-outline-primary' href='/sendMail.do?reqPage=" + pageNo + "'>"
+						+ pageNo + "</a>");
 			} else {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			}
@@ -245,10 +247,10 @@ public class AdminServiceImpl {
 	}
 
 	public int productInsert(ProductVO product) {
-		
+
 		return dao.productInsert(product);
-    }
-    
+	}
+
 	// 혜진_200706_mapping데이터 삭제
 	public int mappingDelete(int mpSeq) {
 		int result = dao.mappingDelete(mpSeq);
@@ -289,8 +291,7 @@ public class AdminServiceImpl {
 	}
 
 	// 혜진_200708_신고글 조회
-	public TotalpageList reportlist(String searchWord, int writeType, int reportCat,
-			int start) {
+	public TotalpageList reportlist(String searchWord, int writeType, int reportCat, int start) {
 		Report rp = new Report();
 		TotalpageList tl = new TotalpageList();
 		// (1) 전체 수 조회
@@ -308,92 +309,95 @@ public class AdminServiceImpl {
 		tl.setListrp(list);
 		return tl;
 	}
-	//태규_200708_물품 페이지 정보 가져오기
+
+	// 태규_200708_물품 페이지 정보 가져오기
 	public ShopPageDate productData(int reqPage) {
-		
+
 		int totalCount = dao.totalProductCount();
 		int numPerPage = 10;
 		int totalPage;
-		
+
 		if (totalCount % 10 == 0) {
 			totalPage = totalCount / numPerPage;
 		} else {
 			totalPage = totalCount / numPerPage + 1;
 		}
-		
+
 		int start = (reqPage - 1) * numPerPage + 1;
 		int end = reqPage * numPerPage;
-		
+
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("start", String.valueOf(start));
 		map.put("end", String.valueOf(end));
-		
+
 		List<ProductVO> list = dao.productList(map);
-		
+
 		int pageNaviSize = 10;
 		StringBuffer pageNavi = new StringBuffer();
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		
+
 		if (pageNo != 1) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+			pageNavi.append(
+					"<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
 		}
-		
+
 		for (int i = 0; i < pageNaviSize; i++) {
-			
+
 			if (reqPage == pageNo) {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			} else {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+				pageNavi.append("<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + pageNo + "'>"
+						+ pageNo + "</a>");
 			}
-			
+
 			pageNo++;
 			if (pageNo > totalPage) {
 				break;
 			}
 		}
-		
+
 		if (pageNo <= totalPage) {
 			pageNavi.append("<a class='btn btn-outline-primary' href='/productMgt.do?reqPage=" + pageNo + "'>다음</a>");
 		}
-		
+
 		ShopPageDate data = new ShopPageDate();
-		data.setList((ArrayList<ProductVO>)list);
+		data.setList((ArrayList<ProductVO>) list);
 		data.setPageNavi(pageNavi.toString());
-		
+
 		return data;
 	}
 
-	//태규_200708_제품 정보 가져오기
+	// 태규_200708_제품 정보 가져오기
 	public ProductVO productRead(int pno) {
-		
+
 		return dao.productRead(pno);
 	}
 
-	//태규_200708_제품 수정
+	// 태규_200708_제품 수정
 	public int productModify(ProductVO product) {
-		
+
 		return dao.productModify(product);
 	}
 
 	public int productDelete(int[] deleteNo) {
-		
+
 		return dao.productDelete(deleteNo);
 	}
-	
-	//혜진_200709_신고관리 페이지_선택 다중 삭제
+
+	// 혜진_200709_신고관리 페이지_선택 다중 삭제
 	public int deleteReport(int[] writeType, int[] writeNo) {
-		int result =0;
-		for(int i=0; i<writeType.length;i++) {
+		int result = 0;
+		for (int i = 0; i < writeType.length; i++) {
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			map.put("writeType", writeType[i]);
-			map.put("writeNo",writeNo[i]);	
+			map.put("writeNo", writeNo[i]);
 			result += dao.deleteReport(map);
 			result += dao.deleteReportTB(map);
 		}
 		return result;
 	}
 
-	//혜진_200709_예약 목록 관리 페이지_내용 조회
+	// 혜진_200709_예약 목록 관리 페이지_내용 조회
 	public TotalpageList meetinglist(int responseFin, int start, int sorting) {
 		MeetingSchedule ms = new MeetingSchedule();
 		ms.setResponseFin(responseFin);
@@ -415,7 +419,7 @@ public class AdminServiceImpl {
 		return tl;
 	}
 
-	//혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
+	// 혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
 	public int finResponse(int responseFin, int meetingSeq) {
 		MeetingSchedule ms = new MeetingSchedule();
 		ms.setResponseFin(responseFin);
@@ -423,64 +427,67 @@ public class AdminServiceImpl {
 		return dao.finResponse(ms);
 	}
 
-	//혜진_200710_신고관리 페이지_선택 다중 삭제
+	// 혜진_200710_신고관리 페이지_선택 다중 삭제
 	public int deleteMeeting(int[] meetingSeqArr) {
 		return dao.deleteMeeting(meetingSeqArr);
 	}
 
 	public PurchasePageData userBuy(int reqPage, int type) {
-		
+
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("type", type);
-		
+
 		int totalCount = dao.totalPurchaseCount(map);
 		int numPerPage = 10;
 		int totalPage;
-		
+
 		if (totalCount % numPerPage == 0) {
 			totalPage = totalCount / numPerPage;
 		} else {
 			totalPage = totalCount / numPerPage + 1;
 		}
-		
+
 		int start = (reqPage - 1) * numPerPage + 1;
 		int end = reqPage * numPerPage;
 		map.put("start", start);
 		map.put("end", end);
-		
+
 		List<PurchaseVO> list = dao.selectPurchaseList(map);
-		
+
 		int pageSize = 10;
 		StringBuffer pageNavi = new StringBuffer();
 		int pageNo = (reqPage - 1) / pageSize * pageSize + 1;
-		
+
 		if (pageNo != 1) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + (pageNo - 1) + "&type=" + type + "'>이전</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + (pageNo - 1) + "&type="
+					+ type + "'>이전</a>");
 		}
-		
+
 		for (int i = 0; i < pageSize; i++) {
-			
+
 			if (pageNo == reqPage) {
 				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
 			} else {
-				pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + pageNo + "&type=" + type + "'>" + pageNo + "</a>");
+				pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + pageNo + "&type="
+						+ type + "'>" + pageNo + "</a>");
 			}
-			
+
 			pageNo++;
-			
+
 			if (pageNo > totalPage) {
 				break;
 			}
 		}
-		
+
 		if (pageNo <= totalPage) {
-			pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + pageNo + "&type=" + type + "'>다음</a>");
+			pageNavi.append("<a class='btn btn-outline-primary' href='/userBuy.do?reqPage=" + pageNo + "&type=" + type
+					+ "'>다음</a>");
 		}
-		
+
 		PurchasePageData data = new PurchasePageData();
 		data.setPageNavi(pageNavi.toString());
-		data.setList((ArrayList<PurchaseVO>)list);
-		
+		data.setList((ArrayList<PurchaseVO>) list);
+
 		return data;
 
 	}
@@ -497,31 +504,52 @@ public class AdminServiceImpl {
 		r.setEnd(end);
 		r.setSorting(sorting);
 		ArrayList<Report> listrp = (ArrayList<Report>) dao.penaltylist(r);
+		//혜진_200710_회원 정지 관리 페이지_권한이 정지된 회원 표시
+		ArrayList<Report> banlist = (ArrayList<Report>)dao.banListCheck();
+		for(int i=0; i<listrp.size();i++) {
+			for(int j=0; j<banlist.size();j++) {
+				if(listrp.get(i).getReportedNo()==banlist.get(j).getReportedNo()) {
+					listrp.get(i).setInBanListCheck(1);
+				}
+			}
+		}
 		TotalpageList tl = new TotalpageList();
 		tl.setTotalCount(totalCount);
 		tl.setListrp(listrp);
 		return tl;
 	}
-	
+
 	// 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제
 	public int deletePenalty(int[] penaltyArr) {
 		return dao.deletePenalty(penaltyArr);
+	}
 
+	// 태규
 	public PurchaseData userBuyData(int buyNo) {
-		
+
 		PurchaseVO purchase = dao.selectPurchase(buyNo);
 		List<BuyProductVO> list = dao.selectBuyProductList(buyNo);
-		
+
 		PurchaseData data = new PurchaseData();
-		data.setList((ArrayList<BuyProductVO>)list);
+		data.setList((ArrayList<BuyProductVO>) list);
 		data.setPurchase(purchase);
-		
+
 		return data;
 	}
 
+	// 태규
 	public int modifyInvoiceNumber(PurchaseVO purchase) {
 
 		return dao.modifyInvoiceNumber(purchase);
 
+	}
+
+	// 혜진_200710_회원 정지 관리 페이지_글작성 권한 정지
+	public int givePenalty(int[] penaltyArr) {
+		int result = 0;
+		for (int i = 0; i < penaltyArr.length; i++) {
+			result += dao.givePenalty(penaltyArr[i]);
+		}
+		return result;
 	}
 }
