@@ -49,7 +49,7 @@
 				보 기</button>
       </div>
       <script>
-		//혜진_200709_ajax로 DB에서 신고글 데이터 불러오기
+		//혜진_200709_ajax로 DB에서 예약목록 데이터 불러오기
 		function recent(){
 			show_meetinglist(1,1,0);
 		}
@@ -137,6 +137,7 @@
 		
 		//혜진_200710_완료 클릭 시, 응답 완료 상태로 변경
 		function finResponse(obj){
+			confirm("해당 예약을 응답 완료 상태로 변경하시겠습니까?")
 			var meetingSeq = $(obj).parent().parent().children().eq(0).children().eq(1).val();
 			console.log(meetingSeq);
 			var responseFin = 1;
@@ -147,6 +148,7 @@
 				Type: "post",
 				dataType: "json",
 				success: function(data){
+					alert("변경이 완료되었습니다.");
 					location.reload();
 				}
 			});

@@ -196,6 +196,16 @@ public class AdminDaoImpl {
 		
 		return sqlSession.selectList("admin.selectPurchaseList", map);
 	}
-	//혜진_200709_
-
+	// 혜진_200710_회원 정지 관리 페이지_전체 게시물 갯수
+	public int penaltyTotalCount(Report r) {
+		return sqlSession.selectOne("admin.penaltyTotalCount", r);
+	}
+	// 혜진_200710_회원 정지 관리 페이지_내용 조회
+	public List penaltylist(Report r) {
+		return sqlSession.selectList("admin.penaltylist", r);
+	}
+	// 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제
+	public int deletePenalty(int[] penaltyArr) {
+		return sqlSession.delete("admin.deletePenalty",penaltyArr);
+	}
 }

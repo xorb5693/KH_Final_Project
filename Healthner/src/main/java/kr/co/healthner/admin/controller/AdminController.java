@@ -77,24 +77,24 @@ public class AdminController {
 	// 혜진_200624_관리자 페이지에서 6번 상품관리 페이지로 이동
 	@RequestMapping("/productMgt.do")
 	public String productMgt(Model model, int reqPage) {
-		
+
 		ShopPageDate data = service.productData(reqPage);
 		model.addAttribute("list", data.getList());
 		model.addAttribute("pageNavi", data.getPageNavi());
-		
+
 		return "admin/productMgt";
 	}
 
 	// 혜진_200624_관리자 페이지에서 7번 쪽지함 페이지로 이동
 	@RequestMapping("/mail.do")
 	public String mail(HttpSession session, Model model, int reqPage) {
-		
-		Member m = (Member)session.getAttribute("member");
-		
+
+		Member m = (Member) session.getAttribute("member");
+
 		MailData data = service.receiveMailData(reqPage, m.getMemberNo());
 		model.addAttribute("list", data.getList());
 		model.addAttribute("pageNavi", data.getPageNavi());
-		
+
 		return "admin/mail";
 	}
 
@@ -116,13 +116,13 @@ public class AdminController {
 	// 혜진_200624_관리자 페이지_회원관리 메뉴_검색 조건에 따라 회원 조회
 	// 혜진_200625_VO추가하여 mapper에 전달할 값 정리
 	// 혜진_200629_더보기 기능을 위해 vo 객체 추가, start 전달
-	@RequestMapping(value="/memberList.do", produces="application/json; charset=utf-8")
+	@RequestMapping(value = "/memberList.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String memberList(String searchWord, int checkbox1, int checkbox2, int start) {
 		TotalpageList tl = service.memberList(searchWord, checkbox1, checkbox2, start);
 		return new Gson().toJson(tl);
 	}
-	
+
 	// 혜진_200629_회원관리 페이지_팝업창_회원 ID를 매개변수로 전달하고 해당 ID의 정보들을 가져옴
 	@RequestMapping("/oneMemberSearch.do")
 	@ResponseBody
@@ -130,7 +130,7 @@ public class AdminController {
 		Member m = service.oneMemberSearch(memberId);
 		return m;
 	}
-	
+
 	// 혜진_200630_회원관리 페이지_팝업창_카드 정보 수정 반영
 	@RequestMapping("/cardModify.do")
 	@ResponseBody
@@ -138,57 +138,57 @@ public class AdminController {
 		service.cardModify(memberId, card);
 		return card;
 	}
-	
+
 	// 혜진_200630_트레이너 페이지_전체 리스트 조회
-	@RequestMapping(value="/trainerlist.do", produces="application/json; charset=utf-8")
+	@RequestMapping(value = "/trainerlist.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String trainerList(String searchWord, int memberType, int start) {
 		TotalpageList tl = service.trainerList(searchWord, memberType, start);
 		return new Gson().toJson(tl);
 	}
-	
+
 	// 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 멤버 타입 변환
-	@RequestMapping(value="/approveTrainer.do", produces = "text/html;charset=utf-8")
+	@RequestMapping(value = "/approveTrainer.do", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String approveTrainer(String memberId) {
 		int result = service.approveTrainer(memberId);
-		System.out.println("result"+result);
-		System.out.println("memberId"+memberId);
-		if(result>0) {
+		System.out.println("result" + result);
+		System.out.println("memberId" + memberId);
+		if (result > 0) {
 			return "승인되었습니다";
-		}else {
+		} else {
 			return "실패하였습니다";
 		}
 	}
-	
+
 	// 혜진_200630_트레이너 페이지_승인 버튼 클릭 시 회원 삭제
-	@RequestMapping(value="/rejectTrainer.do", produces = "text/html;charset=utf-8")
+	@RequestMapping(value = "/rejectTrainer.do", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String rejectTrainer(String memberId) {
 		int result = service.rejectTrainer(memberId);
-		System.out.println("result"+result);
-		System.out.println("memberId"+memberId);
-		if(result>0) {
-		return "삭제하였습니다";
-		}else {
+		System.out.println("result" + result);
+		System.out.println("memberId" + memberId);
+		if (result > 0) {
+			return "삭제하였습니다";
+		} else {
 			return "실패하였습니다";
 		}
 	}
-	
+
 	// 혜진_200703_PT Mapping 페이지_조회
-	@RequestMapping(value="/ptTrainerList.do", produces = "text/html;charset=utf-8")
+	@RequestMapping(value = "/ptTrainerList.do", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String ptTrainerList(String searchWord, int memberType, int start, int checkbox1) {
 		TotalpageList tl = service.ptMapping(searchWord, memberType, start, checkbox1);
 		return new Gson().toJson(tl);
 	}
-	
+
 	// 태규_200703_쪽지 관련 페이지 메소드들
 	@RequestMapping("/sendMail.do")
 	public String sendMail(HttpSession session, Model model, int reqPage) {
-		
-		Member m = (Member)session.getAttribute("member");
-		
+
+		Member m = (Member) session.getAttribute("member");
+
 		MailData data = service.sendMailData(reqPage, m.getMemberNo());
 		model.addAttribute("list", data.getList());
 		model.addAttribute("pageNavi", data.getPageNavi());
@@ -196,95 +196,95 @@ public class AdminController {
 
 		return "admin/sendMail";
 	}
-	
+
 	// 태규_200703_쪽지 관련 페이지 메소드들
 	@RequestMapping("/adminInsertMail.do")
 	public String insertMail(MailVO mail, int readType) {
-		
+
 		int result = service.insertMail(mail);
-		
+
 		if (result > 0) {
 			System.out.println("쪽지 전송");
 		} else {
 			System.out.println("전송 실패");
 		}
-		
+
 		if (readType == 0) {
 			return "redirect:/mail.do?reqPage=1";
 		} else {
 			return "redirect:/sendMail.do?reqPage=1";
 		}
 	}
-	
+
 	// 태규_200703_쪽지 관련 페이지 메소드들
 	@RequestMapping("/adminDeleteMail.do")
 	public String deleteMail(int deleteNo[], int readType) {
-		
+
 		int result = service.deleteMail(deleteNo);
-		
+
 		if (result > 0) {
-			
+
 		} else {
-			
+
 		}
-		
+
 		if (readType == 0) {
 			return "redirect:/mail.do?reqPage=1";
 		} else {
 			return "redirect:/sendMail.do?reqPage=1";
 		}
 	}
-	
-	//태규_200708_물품 등록 페이지 이동
+
+	// 태규_200708_물품 등록 페이지 이동
 	@RequestMapping("/productInsertFrm.do")
 	public String productInsertFrm() {
-		
+
 		return "admin/productInsertFrm";
 	}
-	
-	//태규_200708_물품 등록
+
+	// 태규_200708_물품 등록
 	@RequestMapping("/productInsert.do")
 	public String productInsert(HttpServletRequest request, ProductVO product, MultipartFile file) {
-		
+
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/thumbnail/");
-		
-		//업로드할 파일 오리지널 이름
+
+		// 업로드할 파일 오리지널 이름
 		String originFileName = file.getOriginalFilename();
-		
-		//업로드할 파일 이름과 확장자를 나눠 두 문자열 사이 중복을 제거할 구분자 입력
-		String thumbnail = originFileName.substring(0, originFileName.lastIndexOf(".")) + "_" + System.currentTimeMillis() 
-							+ originFileName.substring(originFileName.lastIndexOf("."));
-		
-		//실제 파일이 저장될 경로와 파일명
+
+		// 업로드할 파일 이름과 확장자를 나눠 두 문자열 사이 중복을 제거할 구분자 입력
+		String thumbnail = originFileName.substring(0, originFileName.lastIndexOf(".")) + "_"
+				+ System.currentTimeMillis() + originFileName.substring(originFileName.lastIndexOf("."));
+
+		// 실제 파일이 저장될 경로와 파일명
 		String fullpath = savePath + thumbnail;
-		
-		//파일 저장
+
+		// 파일 저장
 		try {
 			product.setThumbnail(thumbnail);
 			byte[] bytes = file.getBytes();
-			
+
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fullpath)));
 			bos.write(bytes);
 			bos.close();
-			
+
 			System.out.println("파일전송 완료");
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
-		} 
-		
+		}
+
 		int result = service.productInsert(product);
-		
+
 		if (result > 0) {
 			System.out.println("물품 등록");
 		} else {
 			System.out.println("물품 등록 실패");
 		}
-		
+
 		return "redirect:/productMgt.do?reqPage=1";
-    }
-    
+	}
+
 	// 혜진_200706_mapping데이터 삭제
 	@RequestMapping("/mappingDelete.do")
 	@ResponseBody
@@ -292,162 +292,177 @@ public class AdminController {
 		int result = service.mappingDelete(mpSeq);
 		return result;
 	}
-	
-	//혜진_200706_mapping신규 등록_회원 찾기
-	@RequestMapping(value="/mappingDetail.do", produces = "application/json; charset=utf-8")
+
+	// 혜진_200706_mapping신규 등록_회원 찾기
+	@RequestMapping(value = "/mappingDetail.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String mappingFind(String searchWord, int memberType) {
 		TotalpageList tl = service.mappingFind(searchWord, memberType);
 		return new Gson().toJson(tl);
 	}
-	
-	//혜진_200707_mapping신규등록_신규 mapping 등록
+
+	// 혜진_200707_mapping신규등록_신규 mapping 등록
 	@RequestMapping("/inputNewMapping.do")
 	@ResponseBody
 	public int inputNewMapping(int PTmax, int PTleft, int memberNo, int trainerNo) {
-		int result = service.inputNewMapping(PTmax,PTleft,memberNo,trainerNo);
+		int result = service.inputNewMapping(PTmax, PTleft, memberNo, trainerNo);
 		return result;
 	}
-	
-	//혜진_200707_mapping 데이터 수정
+
+	// 혜진_200707_mapping 데이터 수정
 	@RequestMapping("/mappingCheck.do")
 	@ResponseBody
 	public PTmapping mappingCheck(int mpSeq) {
 		PTmapping ptm = service.mappingCheck(mpSeq);
 		return ptm;
 	}
-	
 
-	//혜진_200708_신고글 조회
-	@RequestMapping(value="/reportlist.do", produces="application/json; charset=utf-8")
+	// 혜진_200708_신고글 조회
+	@RequestMapping(value = "/reportlist.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String reportlist(String searchWord, int writeType, int reportCat, int start) {
 		TotalpageList tl = service.reportlist(searchWord, writeType, reportCat, start);
 		return new Gson().toJson(tl);
 	}
-	
-	//태규_200707_제품 상세 정보 보기
+
+	// 태규_200707_제품 상세 정보 보기
 	@RequestMapping("/productRead.do")
 	public String productRead(Model model, int pno) {
-		
+
 		ProductVO product = service.productRead(pno);
 		model.addAttribute("product", product);
-		
+
 		return "admin/productRead";
 	}
-	
-	//태규_200707_제품 수정 페이지 이동
+
+	// 태규_200707_제품 수정 페이지 이동
 	@RequestMapping("/productModifyFrm.do")
 	public String productModifyFrm(Model model, int pno) {
-		
+
 		ProductVO product = service.productRead(pno);
 		model.addAttribute("product", product);
-		
+
 		return "admin/productModify";
 	}
-	
-	//태규_200707_제품 수정
+
+	// 태규_200707_제품 수정
 	@RequestMapping("/productModify.do")
 	public String productModify(HttpServletRequest request, ProductVO product, MultipartFile file, String type) {
-		
+
 		if (type.equals("change")) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/thumbnail/");
-			
-			//업로드할 파일 오리지널 이름
+
+			// 업로드할 파일 오리지널 이름
 			String originFileName = file.getOriginalFilename();
-			
-			//업로드할 파일 이름과 확장자를 나눠 두 문자열 사이 중복을 제거할 구분자 입력
-			String thumbnail = originFileName.substring(0, originFileName.lastIndexOf(".")) + "_" + System.currentTimeMillis() 
-								+ originFileName.substring(originFileName.lastIndexOf("."));
-			
-			//실제 파일이 저장될 경로와 파일명
+
+			// 업로드할 파일 이름과 확장자를 나눠 두 문자열 사이 중복을 제거할 구분자 입력
+			String thumbnail = originFileName.substring(0, originFileName.lastIndexOf(".")) + "_"
+					+ System.currentTimeMillis() + originFileName.substring(originFileName.lastIndexOf("."));
+
+			// 실제 파일이 저장될 경로와 파일명
 			String fullpath = savePath + thumbnail;
-			
-			//파일 저장
+
+			// 파일 저장
 			try {
 				product.setThumbnail(thumbnail);
 				byte[] bytes = file.getBytes();
-				
+
 				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fullpath)));
 				bos.write(bytes);
 				bos.close();
-				
+
 				System.out.println("파일전송 완료");
-				
+
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
-		
+
 		int result = service.productModify(product);
-		
+
 		if (result > 0) {
 			System.out.println("제품 수정 완료");
 		} else {
 			System.out.println("제품 수정 실패");
 		}
-		
+
 		return "redirect:/productRead.do?pno=" + product.getPno();
 	}
-	
-	//물품 삭제
+
+	// 물품 삭제
 	@RequestMapping("/productDelete.do")
 	public String productDelete(int deleteNo[]) {
-		
+
 		int result = service.productDelete(deleteNo);
-		
+
 		if (result > 0) {
-			
+
 		} else {
-			
+
 		}
-		
+
 		return "redirect:/productMgt.do?reqPage=1";
 	}
-	
-	//태규_200709_주문 목록 관련 페이지 제작
+
+	// 태규_200709_주문 목록 관련 페이지 제작
 	@RequestMapping("/userBuy.do")
 	public String userBuy(Model model, int reqPage, int type) {
-		
+
 		PurchasePageData data = service.userBuy(reqPage, type);
-		
+
 		model.addAttribute("type", type);
 		model.addAttribute("list", data.getList());
 		model.addAttribute("pageNavi", data.getPageNavi());
 //		System.out.println(data.getPageNavi());
 		return "admin/userBuy";
 	}
-	
-	//혜진_200709_신고관리 페이지_선택 다중 삭제
+
+	// 혜진_200709_신고관리 페이지_선택 다중 삭제
 	@RequestMapping("/deleteReport.do")
 	@ResponseBody
 	public int deleteReport(int[] writeType, int[] writeNo) {
 		int result = service.deleteReport(writeType, writeNo);
 		return result;
 	}
-	
-	//혜진_200709_예약 목록 관리 페이지_내용 조회
-	@RequestMapping(value="/meetinglist.do", produces="application/json; charset=utf-8")
+
+	// 혜진_200709_예약 목록 관리 페이지_내용 조회
+	@RequestMapping(value = "/meetinglist.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String meetinglist(int responseFin, int start, int sorting){
+	public String meetinglist(int responseFin, int start, int sorting) {
 		TotalpageList tl = service.meetinglist(responseFin, start, sorting);
 		return new Gson().toJson(tl);
 	}
-	
-	//혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
+
+	// 혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
 	@RequestMapping("/finResponse.do")
 	@ResponseBody
-	public int meetinglist(int responseFin, int meetingSeq){
+	public int meetinglist(int responseFin, int meetingSeq) {
 		int result = service.finResponse(responseFin, meetingSeq);
 		return result;
 	}
-	
-	//혜진_200710_신고관리 페이지_선택 다중 삭제
+
+	// 혜진_200710_신고관리 페이지_선택 다중 삭제
 	@RequestMapping("/deleteMeeting.do")
 	@ResponseBody
 	public int deleteMeeting(int[] meetingSeqArr) {
 		int result = service.deleteMeeting(meetingSeqArr);
+		return result;
+	}
+
+	// 혜진_200710_회원 정지 관리 페이지_내용 조회
+	@RequestMapping(value = "/penaltylist.do", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String penaltylist(int memberType, int start, int sorting, String searchWord) {
+		TotalpageList tl = service.penaltylist(memberType, start, sorting, searchWord);
+		return new Gson().toJson(tl);
+	}
+
+	// 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제
+	@RequestMapping("/deletePenalty.do")
+	@ResponseBody
+	public int deletePenalty(int[] penaltyArr) {
+		int result = service.deletePenalty(penaltyArr);
 		return result;
 	}
 }

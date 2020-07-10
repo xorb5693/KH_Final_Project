@@ -386,6 +386,7 @@ public class AdminServiceImpl {
 			map.put("writeType", writeType[i]);
 			map.put("writeNo",writeNo[i]);	
 			result += dao.deleteReport(map);
+			result += dao.deleteReportTB(map);
 		}
 		return result;
 	}
@@ -480,5 +481,28 @@ public class AdminServiceImpl {
 		
 		return data;
 
+	}
+
+	// 혜진_200710_회원 정지 관리 페이지_내용 조회
+	public TotalpageList penaltylist(int memberType, int start, int sorting, String searchWord) {
+		Report r = new Report();
+		r.setMemberType(memberType);
+		r.setSearchWord(searchWord);
+		r.setStart(start);
+		int totalCount = dao.penaltyTotalCount(r);
+		int length = 10;
+		int end = start + length - 1;
+		r.setEnd(end);
+		r.setSorting(sorting);
+		ArrayList<Report> listrp = (ArrayList<Report>) dao.penaltylist(r);
+		TotalpageList tl = new TotalpageList();
+		tl.setTotalCount(totalCount);
+		tl.setListrp(listrp);
+		return tl;
+	}
+	
+	// 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제
+	public int deletePenalty(int[] penaltyArr) {
+		return dao.deletePenalty(penaltyArr);
 	}
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class PTmapping {
+	private int rnum;
 	private int mappingSeq;
 	private String trainerProfile;
 	private String trainerId;
@@ -25,4 +26,5 @@ public class PTmapping {
 	private int memberType;
 	private int PTmax;
 	private int PTleft;
+	
 }

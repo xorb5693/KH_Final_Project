@@ -345,13 +345,14 @@
 	<update id="finResponse" parameterType="ms">
 		update meeting_schedule set response_fin = #{responseFin} where meeting_seq = #{meetingSeq}
 	</update>
-	<!-- 혜진_200710_신고관리 페이지_선택 다중 삭제 -->
+	<!-- 혜진_200710_예약 목록 페이지_선택 다중 삭제 -->
 	<delete id="deleteMeeting" parameterType="ms">
 		delete meeting_schedule where meeting_seq in
 		<foreach item="meetingSeq" collection="array" open="(" separator="," close=")">
 			#{meetingSeq}
 		</foreach>
 	</delete>
+
 	<!-- 태규_200709_구매 관리 -->
 	<select id="totalPurchaseCount" parameterType="map" resultType="_int">
 		select count(*) from purchase
@@ -394,5 +395,47 @@
 		    PS
 		) where rnum BETWEEN #{start} and #{end}
 	</select>
-	<!-- 혜진_200709_ -->
+	<!-- 혜진_200710_회원 정리 관리 페이지_전체 게시물 수 조회 -->
+	<select id="penaltyTotalCount" parameterType="adminReport" resultType="_int">
+	select count(*) from
+	(select distinct
+        reported_no
+		from report r
+		join member m on (r.Reported_No = m.member_no)
+	where (member_name like '%'||#{searchWord}||'%' or member_id like '%'||#{searchWord}||'%') 
+	<if test="memberType!=0">
+	and m.member_level=#{memberType}
+	</if>
+	)
+	</select>
+	<!-- 혜진_200710_회원 정지 관리 페이지_내용 조회 -->
+	<select id="penaltylist" parameterType="adminReport" resultType="adminReport">
+	select rownum as rnum, n.* from
+	(select distinct
+        reported_no as reportedNo, 
+        member_id as reportedId, 
+        member_name as reportedName,
+        member_level as memberType, 
+        (select count(*) from report where write_type = 1 and reported_no = r.reported_no) as boardCnt,
+        (select count(*) from report where write_type = 2 and reported_no = r.reported_no) as commentCnt,
+        (select count(*) from report where reported_no = r.reported_no) as totalReportRec
+        from report r
+	join member m on (r.Reported_No = m.member_no)
+	where (member_name like '%'||#{searchWord}||'%' or member_id like '%'||#{searchWord}||'%')
+	<if test="memberType!=0">
+	and m.member_level=#{memberType}
+	</if>
+	order by totalReportRec 
+	<if test="sorting==1">
+	desc
+	</if>
+	)n where rownum between #{start} and #{end}
+	</select>
+	<!-- 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제 -->
+	<delete id="deletePenalty" parameterType="adminReport">
+		delete report where reported_no in
+		<foreach item="penaltyArr" collection="array" open="(" separator="," close=")">
+			#{penaltyArr}
+		</foreach>
+	</delete>
 </mapper>
