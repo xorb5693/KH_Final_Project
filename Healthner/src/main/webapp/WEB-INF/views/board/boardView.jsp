@@ -41,142 +41,141 @@
 <body>
 	<div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="hero-wrap"
-			style="background-image: url('/resources/images/bg_1.jpg');">
-			<div class="overlay"></div>
+		<jsp:include page="/WEB-INF/views/common/headerForBlog.jsp" />
+		<section class="ftco-section bg-light">
 			<div class="container">
-				<div
-					class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-						<br> <br>
-						<h1 class="mb-3 bread">Place title here</h1>
-						<p class="breadcrumbs">
-							<span class="mr-2"><a href="index.html">링크</a></span> <span>링크</span>
-						</p>
+				<h1 class="bread" style="font-style: italic; font-weight: 900;">Board
+					View</h1>
+				<br>
+				<%-- <c:if test="${sessionScope.member.memberNo==${b.boardWriter }"> --%>
+				<a style="float: right;"
+					href="/healthner/board/boardModify.do?boardNo=${b.boardNo }">내용수정</a>
+				<a style="float: right; padding-right: 10px;"
+					href="/healthner/board/boardDelete.do?boardNo=${b.boardNo }">글삭제</a>
+				<%-- </c:if> --%>
+				<br>
+				<div class="content wraper col-md-12" style="overflow:hidden;">
+
+					<div>
+						<div>
+							제목<span><strong>${b.boardTitle }</strong></span><span
+								style="float: right;"><span>${b.boardDate }</span></span>
+						</div>
+						<hr>
+						<div>
+							글쓴이 ${b.boardWriter }<span style="float: right;"><button
+									type="button"
+									onclick="reportBoard('1','${b.boardNo}','${b.boardWriter}','${sessionScope.member.memberNo}');"
+									class="btn" data-toggle="modal" style="border: 1px solid #999"
+									data-target="#exampleModal" data-whatever="@mdo">신고하기</button></span>
+						</div>
+						<hr>
+						<br>
+						<div class="">${b.boardContent }</div>
 					</div>
+
+
+
+
+
+
+
+
+
 				</div>
+				<br>
+				<hr>
+				<c:if test="${not empty sessionScope.member}">
+
+					<!-- 댓글작성하기 -->
+					<div class="comment-wrapper">
+						<div>
+						
+							<form action="/healthner/board/boardCommentInsert.do" method="post">
+								<input type="hidden" name="commentWriter"
+									value="${sessionScope.member.memberNo}"> <input
+									type="hidden" name="ref" value="${b.boardNo }"> <input
+									type="hidden" name="commentLevel" value="1"> <input
+									type="hidden" name="commentRef" value="0"> <input
+									type="hidden" name="boardNo" value="${b.boardNo }">
+								<div class="row">
+								<div class="col-md-1" style="margin-top:15px;">댓글</div>
+									<div class="col-md-10">
+										<input type="text" class="form-control" name="commentContent">
+									</div>
+									<div class="col-md-1">
+										<button type="submit" class="btn btn-dark">등록</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- 댓글 출력하기 -->
+					<div class="comment-wrapper">
+						<c:forEach items="${list }" var="nc">
+							<c:if test="${nc.commentLevel eq 1 }">
+								<ul class="commentList">
+									<li style="width: 10%; text-align: center"><span>${nc.commentWriter }</span>
+									</li>
+									<li style="width: 50%; text-align: center"><span>${nc.commentContent }</span>
+										<input type="text" class="form-control" name="commentContent"
+										value="${nc.commentContent }" style="display: none"></li>
+									<li style="width: 10%; text-align: center"><span>${nc.commentDate }</span>
+									</li>
+									<li style="width: 30%; text-align: center"><c:if
+											test="${not empty sessionScope.member }">
+											<a href="javascript:void(0)"
+												onclick="insertComment(this,'${nc.commentNo}','${b.boardNo}','${sessionScope.member.memberNo}')">댓글달기</a>
+											<c:if
+												test="${sessionScope.member.memberNo == nc.commentWriter }">
+												<a href="javascript:void(0)"
+													onclick="modifyComment(this,'${nc.commentNo}','${nc.ref}')">수정</a>
+												<a href="javascript:void(0)"
+													onclick="deleteComment('${nc.commentNo}','${nc.ref}')">삭제</a>
+
+											</c:if>
+											<button type="button"
+												onclick="reportComment('2','${nc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
+												class="btn" data-toggle="modal"
+												style="border: 1px solid #999" data-target="#exampleModal"
+												data-whatever="@mdo">신고하기</button>
+										</c:if></li>
+								</ul>
+							</c:if>
+							<c:forEach items="${list }" var="ncc">
+								<c:if
+									test="${ncc.commentLevel eq 2 && nc.commentNo eq ncc.commentRef}">
+									<ul class="commentList">
+										<li style="width: 5%; text-align: center"><span>└─</span>
+										<li style="width: 10%; text-align: center"><span>${ncc.commentWriter }</span>
+										</li>
+										<li style="width: 60%; text-align: center"><span>${ncc.commentContent }</span>
+											<input type="text" class="form-control" name="commentContent"
+											value="${ncc.commentContent }" style="display: none"></li>
+										<li style="width: 10%; text-align: center"><span>${ncc.commentDate }</span>
+										</li>
+										<li style="width: 15%; text-align: center"><c:if
+												test="${ not empty sessionScope.member && sessionScope.member.memberNo eq ncc.commentWriter}">
+												<a href="javascript:void(0)"
+													onclick="modifyComment(this,'${ncc.commentNo}','${ncc.ref}')">수정</a>
+												<a href="javascript:void(0)"
+													onclick="deleteComment('${ncc.commentNo}','${ncc.ref}')">삭제</a>
+												<button type="button"
+													onclick="reportComment('2','${ncc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
+													class="btn" data-toggle="modal"
+													style="border: 1px solid #999" data-target="#exampleModal"
+													data-whatever="@mdo">신고하기</button>
+											</c:if></li>
+									</ul>
+								</c:if>
+							</c:forEach>
+
+						</c:forEach>
+
+					</div>
+				</c:if>
 			</div>
 		</section>
-		<div class="content wraper col-md-12">
-			<table>
-				<tr>
-					<th>제목</th>
-					<td>${b.boardTitle }</td>
-				</tr>
-				<tr>
-					<th>글쓴이</th>
-					<td>${b.boardWriter }</td>
-				</tr>
-				<tr>
-					<th>날짜</th>
-					<td>${b.boardDate }</td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td>${b.boardContent }</td>
-				</tr>
-			</table>
-
-
-
-
-
-
-			<a href="/healthner/board/boardModify.do?boardNo=${b.boardNo }">내용수정</a> <a
-				href="/healthner/board/boardDelete.do?boardNo=${b.boardNo }">글삭제</a>
-			<button type="button"
-				onclick="reportBoard('1','${b.boardNo}','${b.boardWriter}','${sessionScope.member.memberNo}');"
-				class="btn" data-toggle="modal" style="border: 1px solid #999"
-				data-target="#exampleModal" data-whatever="@mdo">신고하기</button>
-		</div>
-		<c:if test="${not empty sessionScope.member}">
-	
-	<!-- 댓글작성하기 -->
-			<div class="comment-wrapper">
-				<form action="/healthner/board/boardCommentInsert.do" method="post">
-					<input type="hidden" name="commentWriter"
-						value="${sessionScope.member.memberNo}"> <input
-						type="hidden" name="ref" value="${b.boardNo }"> <input
-						type="hidden" name="commentLevel" value="1"> <input
-						type="hidden" name="commentRef" value="0"> <input
-						type="hidden" name="boardNo" value="${b.boardNo }">
-					<table>
-						<tr>
-							<td width="85%"><input type="text" class="form-control"
-								name="commentContent"></td>
-							<td width="15%">
-								<button type="submit" class="btn btn-primary">등록</button>
-							</td>
-						</tr>
-
-					</table>
-				</form>
-			</div>
-			<!-- 댓글 출력하기 -->
-			<div class="comment-wrapper">
-				<c:forEach items="${list }" var="nc">
-					<c:if test="${nc.commentLevel eq 1 }">
-						<ul class="commentList">
-							<li style="width: 10%; text-align: center"><span>${nc.commentWriter }</span>
-							</li>
-							<li style="width: 50%; text-align: center"><span>${nc.commentContent }</span>
-								<input type="text" class="form-control" name="commentContent"
-								value="${nc.commentContent }" style="display: none"></li>
-							<li style="width: 10%; text-align: center"><span>${nc.commentDate }</span>
-							</li>
-							<li style="width: 30%; text-align: center"><c:if
-									test="${not empty sessionScope.member }">
-									<a href="javascript:void(0)"
-										onclick="insertComment(this,'${nc.commentNo}','${b.boardNo}','${sessionScope.member.memberNo}')">댓글달기</a>
-									<c:if
-										test="${sessionScope.member.memberNo == nc.commentWriter }">
-										<a href="javascript:void(0)"
-											onclick="modifyComment(this,'${nc.commentNo}','${nc.ref}')">수정</a>
-										<a href="javascript:void(0)"
-											onclick="deleteComment('${nc.commentNo}','${nc.ref}')">삭제</a>
-
-									</c:if>
-									<button type="button"
-										onclick="reportComment('2','${nc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
-										class="btn" data-toggle="modal" style="border: 1px solid #999"
-										data-target="#exampleModal" data-whatever="@mdo">신고하기</button>
-								</c:if></li>
-						</ul>
-					</c:if>
-					<c:forEach items="${list }" var="ncc">
-						<c:if
-							test="${ncc.commentLevel eq 2 && nc.commentNo eq ncc.commentRef}">
-							<ul class="commentList">
-								<li style="width: 5%; text-align: center"><span>└─</span>
-								<li style="width: 10%; text-align: center"><span>${ncc.commentWriter }</span>
-								</li>
-								<li style="width: 60%; text-align: center"><span>${ncc.commentContent }</span>
-									<input type="text" class="form-control" name="commentContent"
-									value="${ncc.commentContent }" style="display: none"></li>
-								<li style="width: 10%; text-align: center"><span>${ncc.commentDate }</span>
-								</li>
-								<li style="width: 15%; text-align: center">
-								<c:if
-										test="${ not empty sessionScope.member && sessionScope.member.memberNo eq ncc.commentWriter}">
-										<a href="javascript:void(0)"
-											onclick="modifyComment(this,'${ncc.commentNo}','${ncc.ref}')">수정</a>
-										<a href="javascript:void(0)"
-											onclick="deleteComment('${ncc.commentNo}','${ncc.ref}')">삭제</a>
-										<button type="button"
-											onclick="reportComment('2','${ncc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
-											class="btn" data-toggle="modal"
-											style="border: 1px solid #999" data-target="#exampleModal"
-											data-whatever="@mdo">신고하기</button>
-									</c:if></li>
-							</ul>
-						</c:if>
-					</c:forEach>
-
-				</c:forEach>
-
-			</div>
-		</c:if>
-
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -194,23 +193,24 @@
 
 
 					<div class="form-group" id="modal-content"></div>
-					<form action="/healthner/report/insertReport.do" method="post" id="inputReviewBox">
+					<form action="/healthner/report/insertReport.do" method="post"
+						id="inputReviewBox">
 						<div class="form-group">
 							<div class="form-group" id="report-ability-wrapper">
-								<span class="field-label-header">무분별한 신고는 도히려 정지당할수 있습니다.</span><br> 
+								<span class="field-label-header">무분별한 신고는 도히려 정지당할수 있습니다.</span><br>
 								<span class="field-label-info"></span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">신고사유를
-								선택해주세요</label><br>
-								<input type="hidden" id="rating" class="rating" name="reportCat" value="" required="required">
-								<input type="radio" value="2" name="rr" class="rr" >욕설/인신공격<br>
-								<input type="radio" value="4" name="rr" class="rr" >도배성글/댓글반복<br>
-								<input type="radio" value="6" name="rr" class="rr" >음란성/선정성<br>
-								<input type="radio" value="8" name="rr" class="rr" >개인정보노출/사생활침해<br>
-								<input type="radio" value="10" name="rr" class="rr" >불법광고/영리목적<br>
-								<input type="radio" value="12" name="rr" class="rr" >기타<br>
+								선택해주세요</label><br> <input type="hidden" id="rating" class="rating"
+								name="reportCat" value="" required="required"> <input
+								type="radio" value="2" name="rr" class="rr">욕설/인신공격<br>
+							<input type="radio" value="4" name="rr" class="rr">도배성글/댓글반복<br>
+							<input type="radio" value="6" name="rr" class="rr">음란성/선정성<br>
+							<input type="radio" value="8" name="rr" class="rr">개인정보노출/사생활침해<br>
+							<input type="radio" value="10" name="rr" class="rr">불법광고/영리목적<br>
+							<input type="radio" value="12" name="rr" class="rr">기타<br>
 							<textarea class="form-control" id="message-text"
 								name="reportDetail" placeholder="상세사유를 적어주세요"></textarea>
 						</div>
@@ -231,17 +231,25 @@
 			alert(boardNo);
 			var $form = $("<form action='/healthner/board/boardCommentInsert.do' method='post'></form>");
 			var $ul = $("<ul class='commentList'></ul>");
-			$form.append($("<input type='hidden' name='commentWriter' value='"+memberNo+"'>"));
-			$form.append($("<input type='hidden' name='boardNo' value='"+boardNo+"'>"));
-			$form.append($("<input type='hidden' name='ref' value='"+boardNo+"'>"));
-			$form.append($("<input type='hidden' name='commentLevel' value='2'>"));
-			$form.append($("<input type='hidden' name='commentRef' value='"+commentNo+"'>"));
+			$form
+					.append($("<input type='hidden' name='commentWriter' value='"+memberNo+"'>"));
+			$form
+					.append($("<input type='hidden' name='boardNo' value='"+boardNo+"'>"));
+			$form
+					.append($("<input type='hidden' name='ref' value='"+boardNo+"'>"));
+			$form
+					.append($("<input type='hidden' name='commentLevel' value='2'>"));
+			$form
+					.append($("<input type='hidden' name='commentRef' value='"+commentNo+"'>"));
 			var $li1 = $("<li style='width:5%'>┗</li>");
 			var $li2 = $("<li style='width:75%'></li>");
-			$li2.append($("<input type='text' name='commentContent' class='form-control'> "));
+			$li2
+					.append($("<input type='text' name='commentContent' class='form-control'> "));
 			var $li3 = $("<li style='width:20%'></li>");
-			$li3.append($("<button type='submit' class='btn btn-link btn-sm'>등록</button>"));
-			$li3.append($("<button type='button' class='btn btn-link btn-sm' onclick='insertCancel(this)'>취소</button>"));
+			$li3
+					.append($("<button type='submit' class='btn btn-link btn-sm'>등록</button>"));
+			$li3
+					.append($("<button type='button' class='btn btn-link btn-sm' onclick='insertCancel(this)'>취소</button>"));
 			$ul.append($li1).append($li2).append($li3);
 			$form.append($ul);
 			$(obj).parent().parent().after($form);
@@ -252,8 +260,8 @@
 			$(obj).parents('form').remove();
 		}
 		function deleteComment(commentNo, ref) {
-			location.href = "/healthner/board/commentDelete.do?commentNo=" + commentNo
-					+ "&ref=" + ref;
+			location.href = "/healthner/board/commentDelete.do?commentNo="
+					+ commentNo + "&ref=" + ref;
 		}
 		function modifyComment(obj, commentNo, Ref) {
 			$(obj).prev().hide();
@@ -279,7 +287,8 @@
 		}
 		function modifyComplete(obj, commentNo, Ref) {
 			var $form = $("<form action='/healthner/board/commentUpdate.do' method='post'></form>");
-			$form.append($("<input type='text' name='commentNo' value='"+commentNo+"'>"));
+			$form
+					.append($("<input type='text' name='commentNo' value='"+commentNo+"'>"));
 			$form.append($("<input type='text' name='Ref' value='"+Ref+"'>"));
 			$form.append($(obj).parent().parent().find('input'));
 			$('body').append($form);
@@ -294,19 +303,18 @@
 			var modal = $(this)
 			modal.find('.modal-title').text('신고작성')
 			/* modal.find('.modal-body input').val(recipient) */
-			
-			
+
 		});
-		
-		$(document).ready(function(){
-			$('input[name=rr]').click(function(){
+
+		$(document).ready(function() {
+			$('input[name=rr]').click(function() {
 				var sel_value = $('input[name=rr]:checked').val();
 				console.log(sel_value);
 				$("#rating").val(sel_value);
 			});
-			
+
 		});
-		
+
 		/* jQuery(document).ready(function($) {
 			$(".rr").on('click',function(e){
 				
@@ -315,49 +323,49 @@
 				$("#rating").val(sel_value);
 			}));
 		} */
-		
-		function reportBoard(boardType,boardNo,boardWriter,memberNo){
+
+		function reportBoard(boardType, boardNo, boardWriter, memberNo) {
 			var modal = $("#modal-content");
 			modal.find("p").remove();
-			modal.append("<p>신고 글 타입 : "+boardType+"</p>");
-            modal.append("<p>신고 글 번호 : "+boardNo+"</p>");
-            modal.append("<p>해당 글쓴이 : "+boardWriter+"</p>");
-            modal.append("<p>신고 하는사람 : "+memberNo+"</p>");
-            $("#report-ability-wrapper").append(
-					"<input type='hidden' name='writeType' value='"+boardType+"'>");
-            $("#report-ability-wrapper").append(
+			modal.append("<p>신고 글 타입 : " + boardType + "</p>");
+			modal.append("<p>신고 글 번호 : " + boardNo + "</p>");
+			modal.append("<p>해당 글쓴이 : " + boardWriter + "</p>");
+			modal.append("<p>신고 하는사람 : " + memberNo + "</p>");
+			$("#report-ability-wrapper")
+					.append(
+							"<input type='hidden' name='writeType' value='"+boardType+"'>");
+			$("#report-ability-wrapper").append(
 					"<input type='hidden' name='writeNo' value='"+boardNo+"'>");
-            $("#report-ability-wrapper").append(
-					"<input type='hidden' name='reportedNo' value='"+boardWriter+"'>");
-            $("#report-ability-wrapper").append(
-					"<input type='hidden' name='memberNo' value='"+memberNo+"'>");
-            
+			$("#report-ability-wrapper")
+					.append(
+							"<input type='hidden' name='reportedNo' value='"+boardWriter+"'>");
+			$("#report-ability-wrapper")
+					.append(
+							"<input type='hidden' name='memberNo' value='"+memberNo+"'>");
+
 		}
-		
-		
-		
-		function reportComment(commentType,commentNo,commentWriter,memberNo){
+
+		function reportComment(commentType, commentNo, commentWriter, memberNo) {
 			var modal = $("#modal-content");
 			modal.find("p").remove();
-			modal.append("<p>신고 글 타입 : "+commentType+"</p>");
-            modal.append("<p>신고 글 번호 : "+commentNo+"</p>");
-            modal.append("<p>해당 글쓴이 : "+commentWriter+"</p>");
-            modal.append("<p>신고 하는사람 : "+memberNo+"</p>");
-            $("#report-ability-wrapper").append(
-					"<input type='hidden' name='writeType' value='"+commentType+"'>");
-            $("#report-ability-wrapper").append(
-					"<input type='hidden' name='writeNo' value='"+commentNo+"'>");
-            $("#report-ability-wrapper").append(
-					"<input type='hidden' name='reportedNo' value='"+commentWriter+"'>");
-            $("#report-ability-wrapper").append(
-					"<input type='hidden' name='memberNo' value='"+memberNo+"'>");
-            
+			modal.append("<p>신고 글 타입 : " + commentType + "</p>");
+			modal.append("<p>신고 글 번호 : " + commentNo + "</p>");
+			modal.append("<p>해당 글쓴이 : " + commentWriter + "</p>");
+			modal.append("<p>신고 하는사람 : " + memberNo + "</p>");
+			$("#report-ability-wrapper")
+					.append(
+							"<input type='hidden' name='writeType' value='"+commentType+"'>");
+			$("#report-ability-wrapper")
+					.append(
+							"<input type='hidden' name='writeNo' value='"+commentNo+"'>");
+			$("#report-ability-wrapper")
+					.append(
+							"<input type='hidden' name='reportedNo' value='"+commentWriter+"'>");
+			$("#report-ability-wrapper")
+					.append(
+							"<input type='hidden' name='memberNo' value='"+memberNo+"'>");
+
 		}
-		
-		
-		
-			
-		
 	</script>
 
 </body>

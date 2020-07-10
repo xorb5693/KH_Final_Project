@@ -7,45 +7,55 @@
 <meta charset="UTF-8">
 <title>Notice</title>
 <link rel="icon" href="/resources/images/favicon.png">
+
+<style>
+	.content{
+	padding-right: 200px;
+	padding-left: 200px;
+}
+.noticeC>img{
+	width : 100%;
+}
+</style>
 </head>
 <body>
 	<div class="wraper">
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="hero-wrap"
-			style="background-image: url('/resources/images/bg_1.jpg');">
-			<div class="overlay"></div>
-			<div class="container">
-				<div
-					class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-						<br>
-						<br>
-						<h1 class="mb-3 bread">Place title here</h1>
-						<p class="breadcrumbs">
-							<span class="mr-2"><a href="index.html">링크</a></span> <span>링크</span>
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-	<div class="content">
-		<table>
+		<jsp:include page="/WEB-INF/views/common/headerForBlog.jsp"/>
+	<div class="content"><br><br>
+		<h1 class="bread" style="font-style:italic; font-weight:900;">Notice View</h1>
+		<%-- <c:if test="${sessionScope.member.memberLever eq 4 }"> --%>
+			<a style="float:right;" href="/healthner/notice/noticeModify.do?noticeNo=${n.noticeNo }">내용수정</a>
+			<a style="float:right; padding-right:10px;" href="/healthner/notice/noticeDelete.do?noticeNo=${n.noticeNo }">글삭제</a>
+		<%-- </c:if> --%>
+	<br><hr>
+	<div>
+		<div>제목<span><strong>${n.noticeTitle }</strong></span><span style="float:right;"><span>${n.noticeDate }</span></span></div>
+		<div></div><br>
+		<div class="noticeC">${n.noticeContent }</div>
+	</div>
+		<%-- <table>
 			<tr>
 				<th>제목</th>
 				<td>${n.noticeTitle }</td>
 			</tr>
+			
 			<tr>
 				<th>날짜</th>
 				<td>${n.noticeDate }</td>
 			</tr>
+			
 			<tr>
 				<th>내용</th>
 				<td>${n.noticeContent }</td>
 			</tr>
-		</table>
-		<a href="/healthner/notice/noticeModify.do?noticeNo=${n.noticeNo }">내용수정</a>
-	<a href="/healthner/notice/noticeDelete.do?noticeNo=${n.noticeNo }">글삭제</a>
+		</table> --%>
+		
+	<br><br>
+	<hr>
+	<div><a class="btn btn-dark" style="color:white;" href="/healthner/notice/noticeList.do?reqPage=1" >목록으로</a></div><br><br>
 	</div>
+	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	
