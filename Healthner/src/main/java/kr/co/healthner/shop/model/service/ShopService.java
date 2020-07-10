@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.healthner.shop.model.dao.ShopDao;
 import kr.co.healthner.shop.model.vo.BuyProductVO;
+import kr.co.healthner.shop.model.vo.PurchaseData;
+import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.Basket;
 import kr.co.healthner.vo.ProductVO;
@@ -242,9 +244,73 @@ public class ShopService {
 		// TODO Auto-generated method stub
 		return dao.deleteAllBasket(memberNo);
 	}
-	
 
-	
-	
+	public PurchasePageData userBuy(int reqPage, int memberNo) {
 		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("memberNo", memberNo);
+		
+		int totalCount = dao.totalPurchaseCount(map);
+		int numPerPage = 10;
+		int totalPage;
+		
+		if (totalCount % numPerPage == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		
+		int start = (reqPage - 1) * numPerPage + 1;
+		int end = reqPage * numPerPage;
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<PurchaseVO> list = dao.selectPurchaseList(map);
+		
+		int pageSize = 10;
+		StringBuffer pageNavi = new StringBuffer();
+		int pageNo = (reqPage - 1) / pageSize * pageSize + 1;
+		
+		if (pageNo != 1) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/shop/myBuyList.do?reqPage=" + (pageNo - 1) + "'>이전</a>");
+		}
+		
+		for (int i = 0; i < pageSize; i++) {
+			
+			if (pageNo == reqPage) {
+				pageNavi.append("<span class='span span-primary'>" + pageNo + "</span>");
+			} else {
+				pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/shop/myBuyList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>");
+			}
+			
+			pageNo++;
+			
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		
+		if (pageNo <= totalPage) {
+			pageNavi.append("<a class='btn btn-outline-primary' href='/healthner/shop/myBuyList.do?reqPage=" + pageNo + "'>다음</a>");
+		}
+		
+		PurchasePageData data = new PurchasePageData();
+		data.setPageNavi(pageNavi.toString());
+		data.setList((ArrayList<PurchaseVO>)list);
+		
+		return data;
+	}
+
+	public PurchaseData myBuyData(int buyNo) {
+		
+		PurchaseVO purchase = dao.selectPurchase(buyNo);
+		List<BuyProductVO> list = dao.selectBuyProductList(buyNo);
+		
+		PurchaseData data = new PurchaseData();
+		data.setList((ArrayList<BuyProductVO>)list);
+		data.setPurchase(purchase);
+		
+		return data;
+	}
+			
 }

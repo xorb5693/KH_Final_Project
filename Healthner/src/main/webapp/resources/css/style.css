@@ -10424,3 +10424,7 @@ textarea.form-control {
     height: 62px;
     width: 62px;
 }
+
+.tg-line-hight {
+	line-height: 62px;
+}

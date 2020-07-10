@@ -30,73 +30,73 @@
 		font-size: 3.5rem;
 	}
 }
+
+.card-text {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.row select{
+	overflow: auto;
+	border : none;
+	
+}
+
 </style>
 </head>
 <body>
 	<div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="hero-wrap"
-			style="background-image: url('/resources/images/bg_1.jpg');">
-			<div class="overlay"></div>
-			<div class="container">
-				<div
-					class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-						<br> <br>
-						<h1 class="mb-3 bread">SHOP</h1>
-						<p class="breadcrumbs">
-							<span class="mr-2"><a href="/healthner/shop/basketList.do?memberNo=${sessionScope.member.memberNo}">장바구니보기</a></span> <span>링크</span>
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-		<div class="content">
-			<main role="main">
+		<jsp:include page="/WEB-INF/views/common/headerForShop.jsp" />
 
-				<div class="album py-5 bg-light">
+				<section class="ftco-section bg-light">
 					<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-md-8 text-center">
+							<div class="heading-section mb-5"><h1 style="font-style:italic; font-weight:900;">PRODUCT</h1></div>
+						</div>
+					</div>
 						<div>
 							<form action="/healthner/shop/productSearchList.do">
 								<div class="row">
-									<select class="col-md-2" size="3" name="category">
+								<div class="col-md-2">
+									<select class="selectpicker show-tick" style="width: 100%" size="3" name="category">
 										<option value="1" selected>국내제품
 										<option value="2">해외제품
 									</select> 
-									<select class="col-md-2" size="3" name="category2">
+								</div>
+								<div class="col-md-2">
+									<select class="selectpicker show-tick" style="width: 100%" size="3" name="category2">
 										<option value="1" selected>운동기구
 										<option value="2">보조식품
 										<option value="3">의류
 									</select> 
-									<select class="col-md-2" size="3" name="category3">
-										<option value="1" selected>a
-										<option value="2">b
-										<option value="3">c
+								</div>
+								<div class="col-md-2">
+									<select class="selectpicker show-tick" style="width: 100%" size="3" name="category3">
+										<option value="1" selected>공용
+										<option value="2">남성
+										<option value="3">여성
 									</select> 
+								</div>	
 									<input type="hidden" name="reqPage" value="1">
-									<div class="col-md-2" style="width: 100px">
-										<h2>검색</h2>
-									</div>
+									<!-- <div class="col-md-2" style="width: 100px"></div> -->
 									<!-- pno , pname , pcontent , price , stock , category , category2 , category3 , thumbnail -->
-									<div style="width: 200px">
-										<c:if test="${not empty keyword}">
-											<input type="text" name="pname"
-												class="pname form-control" value="${keyword}">
-										</c:if>
-										<c:if test="${empty keyword}">
-											<input type="text" name="pname"
-												class="boardTitle form-control">
-										</c:if>
+									
+									<div class="col-md-4">
+										<input type="text" name="pname" class="pname form-control" style="width:100%; margin-top: 7.7px;" value="${keyword}">
 									</div>
-									<div style="width: 80px">
-										<button type="submit" class="btn btn-primary">검색</button>
+									
+									<div class="col-md-2" style="vertcal-align:middle">
+										<button type="submit" class="btn btn-dark btn-block" style="margin-top: 19.3px;">검색</button>
 									</div>
+									
+								</div>
 							</form>
 						</div>
-					</div>
+					
 					<!-- pno , pname , pcontent , price , stock , category , category2 , category3 , thumbnail -->
-					<br>
-					<br>
+					<br> <br>
 					<div class="row">
 						<c:forEach items="${list }" var="n">
 							<div class="col-md-4">
@@ -105,7 +105,7 @@
 									<img class="bd-placeholder-img card-img-top" width="100%"
 										height="225" xmlns="http://www.w3.org/2000/svg"
 										preserveAspectRatio="xMidYMid slice" focusable="false"
-										role="img" src="${n.thumbnail }">
+										role="img" src="/resources/upload/thumbnail/${n.thumbnail }">
 									<rect width="100%" height="100%" fill="#55595c" />
 									<text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
 									<div class="card-body">
@@ -113,7 +113,9 @@
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
 												<button type="button"
-													class="btn btn-sm btn-outline-secondary"><a href="/healthner/shop/shopView.do?pno=${n.pno }">상세보기</a></button>
+													class="btn btn-sm btn-outline-secondary">
+													<a href="/healthner/shop/shopView.do?pno=${n.pno }">상세보기</a>
+												</button>
 											</div>
 											<small class="text-muted">Price : ${n.price }</small>
 										</div>
@@ -123,17 +125,11 @@
 						</c:forEach>
 
 					</div>
-				</div>
 		</div>
-
-		</main>
-
-	</div>
+		</section>
+		
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
 	<script>
 		window.jQuery
 				|| document

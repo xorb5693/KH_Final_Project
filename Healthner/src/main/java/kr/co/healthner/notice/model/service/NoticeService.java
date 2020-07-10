@@ -25,7 +25,7 @@ public class NoticeService {
 	}
 
 	public NoticePageDate noticeList(int reqPage) {
-		int numPerPage = 3;
+		int numPerPage = 6;
 		
 		int totalCount = dao.totalNotice();
 		System.out.println(totalCount);
@@ -47,16 +47,16 @@ public class NoticeService {
 		ArrayList<Notice> li = (ArrayList<Notice>)list;
 		
 		String pageNavi = "";
-		int pageNaviSize = 3;
+		int pageNaviSize = 6;
 		int pageNo = ((reqPage -1) / pageNaviSize) * pageNaviSize +1;
 		if (pageNo != 1) {
-			pageNavi += "<a class='btn' href='noticeList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
+			pageNavi += "<a class='btn' href='/healthner/notice/noticeList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
 		}
 		for (int i = 0; i<pageNaviSize;i++) {
 			if (reqPage == pageNo) {
 				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/noticeList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='btn' href='/healthner/notice/noticeList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
@@ -64,7 +64,7 @@ public class NoticeService {
 			}
 		}
 		if (pageNo < totalPage) {
-			pageNavi += "<a class='btn' href='/noticeList.do?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/healthner/notice/noticeList.do?reqPage="+pageNo+"'>다음</a>";
 		}
 		
 		NoticePageDate npd = new NoticePageDate();
@@ -116,13 +116,13 @@ public class NoticeService {
 		int pageNaviSize = 3;
 		int pageNo = ((reqPage -1) / pageNaviSize) * pageNaviSize +1;
 		if (pageNo != 1) {
-			pageNavi += "<a class='btn' href='noticeList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
+			pageNavi += "<a class='btn' href='/healthner/notice/noticeList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
 		}
 		for (int i = 0; i<pageNaviSize;i++) {
 			if (reqPage == pageNo) {
 				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/noticeList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='btn' href='/healthner/notice/noticeList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
@@ -130,7 +130,7 @@ public class NoticeService {
 			}
 		}
 		if (pageNo < totalPage) {
-			pageNavi += "<a class='btn' href='/noticeList.do?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/healthner/notice/noticeList.do?reqPage="+pageNo+"'>다음</a>";
 		}
 		
 		NoticePageDate npd = new NoticePageDate();

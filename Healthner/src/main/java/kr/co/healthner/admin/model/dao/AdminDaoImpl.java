@@ -14,6 +14,7 @@ import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.admin.model.vo.Report;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.BuyProductVO;
 import kr.co.healthner.vo.ProductVO;
 import kr.co.healthner.vo.PurchaseVO;
 
@@ -207,5 +208,20 @@ public class AdminDaoImpl {
 	// 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제
 	public int deletePenalty(int[] penaltyArr) {
 		return sqlSession.delete("admin.deletePenalty",penaltyArr);
+
+	public PurchaseVO selectPurchase(int buyNo) {
+		
+		return sqlSession.selectOne("shop.selectPurchase", buyNo);
+	}
+
+	public List<BuyProductVO> selectBuyProductList(int buyNo) {
+		
+		return sqlSession.selectList("shop.selectBuyProductList", buyNo);
+	}
+
+	public int modifyInvoiceNumber(PurchaseVO purchase) {
+		
+		return sqlSession.update("admin.modifyInvoiceNumber", purchase);
+
 	}
 }

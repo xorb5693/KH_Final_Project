@@ -1,25 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!DOCTYPE html>
+<html>
+
+<head>
 <meta charset="UTF-8">
-<!doctype html>
-<html lang="en">
-  <head>
-  	<title>관리자 페이지 - 구매 관리</title>
-  	<link rel="icon" href="/resources/images/favicon.png">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>My Buy List</title>
+<link rel="icon" href="/resources/images/favicon.png">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/4.5/examples/album/">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="/admin/css/style.css">
-    <style>
-        #content>button {
-            float: right;
-        }
+<!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
+<link href="album.css" rel="stylesheet">
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
-        .span.span-primary {
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+    
+    .span.span-primary {
             background: #fcd307;
             border-color: #fcd307;
             border: 1px solid #fcd307;
@@ -89,32 +101,42 @@
         .table {
             table-layout: fixed;
         }
-    </style>
+</style>
 </head>
-    <script type="text/javascript"
-	src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <body>
-	<!-- 혜진_200624_메뉴바 삽입 -->
- 	<jsp:include page="/WEB-INF/views/admin/menubar.jsp" />
-
-    <!-- Page Content  -->
-    <!--  태규_200708_페이지 제작  -->
-    <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">User Buy List</h2>
-		<input type="hidden" name="readType" value="0">
-        <c:if test="${type eq 0}">
-            <button type="button" id="modal" style="width: 150px;"
-            class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-            onclick="location.href='/userBuy.do?reqPage=1&type=1'">미배송 리스트</button>
-        </c:if>
-        <c:if test="${type eq 1}">
-            <button type="button" id="modal" style="width: 150px;"
-            class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-            onclick="location.href='/userBuy.do?reqPage=1&type=0'">전체 보기</button>
-        </c:if>
-		<br>
-		<br>
-		<table class="table">
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<section class="hero-wrap"
+		style="background-image: url('/resources/images/bg_1.jpg');">
+		<div class="overlay"></div>
+		<div class="container">
+            <div
+                class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
+                    <br> <br>
+                    <h1 class="mb-3 bread">SHOP</h1>
+                    <p class="breadcrumbs">
+                        <span class="mr-2"><a href="/healthner/shop/basketList.do?memberNo=${sessionScope.member.memberNo}">장바구니보기</a></span>
+                        <span class="mr-2"><a href="/healthner/shop/myBuyList.do?reqPage=1">My Buy List</a></span> 
+                    </p>
+                </div>
+            </div>
+		</div>
+	</section>
+	<section class="ftco-section ftco-about">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center fadeInUp ftco-animated">
+                    <span class="subheading">
+                        <small>
+                            <i class="left-bar"></i>
+                            ${sessionScope.member.memberName}
+                            <i class="right-bar"></i>
+                        </small>
+                    </span>
+                    <h2 class="mb-1">My Buy List</h2>
+                </div>
+            </div>
+            <table class="table">
             <thead>
                 <tr>
                     <th scope="col" style="width: 10%">이미지</th>
@@ -126,14 +148,9 @@
             </thead>
             <tbody>
             	<c:forEach items="${list}" var="purchase">
-	                <c:if test="${purchase.deliveryBool eq 0}">
-	                    <tr class="table-danger">
-	                </c:if>
-	                <c:if test="${purchase.deliveryBool ne 0}">
-	                    <tr>
-	                </c:if>
+	                <tr>
 	                	<td><img src="/resources/upload/thumbnail/${purchase.thumbnail }" style="width: 100%"></td>
-                        <td><a class="tg-black" href="/userBuyRead.do?buyNo=${purchase.buyNo}"><div>${purchase.pname}</div> <c:if test="${purchase.count ne 0}">외 ${purchase.count}개</c:if></a></td>
+                        <td><a class="tg-black" href="/healthner/shop/myBuyRead.do?buyNo=${purchase.buyNo}"><div>${purchase.pname}</div> <c:if test="${purchase.count ne 0}">외 ${purchase.count}개</c:if></a></td>
                         <td>${purchase.totalPrice}</td>
                         <td>${purchase.memberId}</td>
                         <td>${purchase.buyDate}</td>
@@ -142,23 +159,15 @@
             </tbody>
 		</table>
 		<div class="pageNavi">${pageNavi}</div>
-	</div>
+        </div>
+    </section>
 
-    <script>
-        function checkDelete() {
-            var count = $("input[name=deleteNo]:checked").length;
-            
-            if (count == 0) {
-                alert("삭제할 물품을 선택하세요.")
-                return false;
-            } else {
-                if (confirm("해당 물품들을 삭제하시겠습니까?")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-    </script>
-</body>    
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')
+	</script>
+	<script src="../assets/dist/js/bootstrap.bundle.js"></script>
+</body>
 </html>

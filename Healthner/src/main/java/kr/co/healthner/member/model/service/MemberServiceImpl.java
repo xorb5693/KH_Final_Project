@@ -378,4 +378,9 @@ public class MemberServiceImpl {
 		public int changePwMember(Member m) {
 			return dao.changePwMember(m);
 		}
+
+
+		public int changeAddr(Member m) {
+			return dao.changeAddr(m);
+		}
 }

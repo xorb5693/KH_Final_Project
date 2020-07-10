@@ -15,10 +15,6 @@
 .boardSearch {
 	text-align: center;
 }
-
-.boardSearch>div {
-	display: inline-block;
-}
 </style>
 </head>
 <body>
@@ -26,107 +22,97 @@
 
 	<div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="hero-wrap"
-			style="background-image: url('/resources/images/bg_1.jpg');">
-			<div class="overlay"></div>
-			<div class="container">
-				<div
-					class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-						<br> <br>
-						<h1 class="mb-3 bread">BOARD</h1>
-						<p class="breadcrumbs">
-							<span class="mr-2"><a href="/healthner/notice/noticeList.do?reqPage=1">NOTICE</a></span>
-							<span><a href="/healthner/board/boardList.do?reqPage=1">BOARD</a></span>
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-		<div class="content">
-			<!-- 보드타입 1 일경우 자유게시판 3일경우 트레이너 게시판 따로 출력할것 -->
-			<!-- 보드타입 1 일경우 자유게시판 3일경우 트레이너 게시판 따로 출력할것 -->
+		<jsp:include page="/WEB-INF/views/common/headerForBlog.jsp" />
+
+		<section class="ftco-section bg-light">
 
 			
 
+			<div class="container">
+			<h1 class="bread" style="font-style: italic; font-weight: 900;">Board
+				List</h1>
+			<br>
+			<hr>
+			<br>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">First</th>
+							<th scope="col">Last</th>
+							<th scope="col">Handle</th>
+						</tr>
+					</thead>
 
-		</div>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Handle</th>
-				</tr>
-			</thead>
+					<tbody>
+						<c:if test="${sessionScope.member.memberLevel eq 1}">
+							<c:forEach items="${list }" var="n">
+								<c:if test="${n.boardType eq 0 }">
+									<tr>
+										<th scope="row">${n.boardNo }</th>
+										<td>${n.boardWriter }</td>
+										<td><a
+											href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
+										<td>${n.boardDate }</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</c:if>
+						<c:if test="${sessionScope.member.memberLevel eq 3}">
+							<c:forEach items="${list }" var="n">
+								<c:if test="${n.boardType eq 1 }">
+									<tr>
+										<th scope="row">${n.boardNo }</th>
+										<td>${n.boardWriter }</td>
+										<td><a
+											href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
+										<td>${n.boardDate }</td>
+									</tr>
+								</c:if>
+							</c:forEach>
 
-			<tbody>
-			<c:if test="${sessionScope.member.memberLevel eq 1}">
-				<c:forEach items="${list }" var="n">
-					<c:if test="${n.boardType eq 0 }">
-					<tr>
-						<th scope="row">${n.boardNo }</th>
-						<td>${n.boardWriter }</td>
-						<td><a href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
-						<td>${n.boardDate }</td>
-					</tr>
-					</c:if>
-				</c:forEach>
-			</c:if>
-			<c:if test="${sessionScope.member.memberLevel eq 3}">
-				<c:forEach items="${list }" var="n">
-					<c:if test="${n.boardType eq 1 }">
-					<tr>
-						<th scope="row">${n.boardNo }</th>
-						<td>${n.boardWriter }</td>
-						<td><a href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
-						<td>${n.boardDate }</td>
-					</tr>
-					</c:if>
-				</c:forEach>
-				
-			</c:if>
-				
+						</c:if>
 
-			</tbody>
-		</table>
-		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="boardSearch col-md-6">
-				<div>
-					<form action="/healthner/board/boardSearchList.do">
-						<input type="hidden" name="reqPage" value="1">
-						<div style="width: 100px">
-							<select name="boardType" class="form-control">
-								<option value="board_title" selected>제목</option>
-								<option value="board_writer">글쓴이</option>
-							</select>
+
+					</tbody>
+				</table>
+				<div class="row justify-content-center">
+					<div class="boardSearch">
+						<div class="row justify-content-center">
+							<form action="/healthner/board/boardSearchList.do">
+								<input type="hidden" name="reqPage" value="1">
+								<div style="width: 100px;  display:inline-block; float:left;">
+									<select name="boardType" class="form-control">
+										<option value="board_title" selected>제목</option>
+										<option value="board_writer">글쓴이</option>
+									</select>
+								</div>
+								<div style="width: 350px; display:inline-block; float:left;">
+									<c:if test="${not empty keyword}">
+										<input type="text" name="searchString"
+											class="boardTitle form-control" value="${keyword}">
+									</c:if>
+									<c:if test="${empty keyword}">
+										<input type="text" name="searchString"
+											class="boardTitle form-control">
+									</c:if>
+								</div>
+								<div style="width: 80px;  display:inline-block; float:left; ">
+									<button type="submit" class="btn btn-dark">검색</button>
+								</div>
+							</form>
 						</div>
-						<div style="width: 350px">
-							<c:if test="${not empty keyword}">
-								<input type="text" name="searchString"
-									class="boardTitle form-control" value="${keyword}">
-							</c:if>
-							<c:if test="${empty keyword}">
-								<input type="text" name="searchString"
-									class="boardTitle form-control">
-							</c:if>
-						</div>
-						<div style="width: 80px">
-							<button type="submit" class="btn btn-primary">검색</button>
-						</div>
-					</form>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-6"></div>
+					<div class="col-md-0" id="pageNavi">${navi }</div>
+					<div class="col-md-5"></div>
+
 				</div>
 			</div>
-
-		</div>
-		<div class="row">
-			<div class="col-md-6"></div>
-			<div class="col-md-0" id="pageNavi">${navi }</div>
-			<div class="col-md-5"></div>
-
-		</div>
+		</section>
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>

@@ -43,8 +43,36 @@
 	display: none;
 	z-index: 1000;
 }
-</style>
 
+
+
+/* Custom Scrollbar using CSS */
+body {
+  overflow-y: scroll;
+}
+
+/* scrollbar width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* scrollbar track */
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* scrollbar handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: #000000;
+  background-image: linear-gradient(to top, #353535 0%, #535353 100%);
+}
+</style>
+<script>
+	$("body").mCustomScrollbar({
+    theme: "dark-thin"
+  });
+</script>
 <div class="py-1 bg-black top">
 	<div class="container">
 		<div
@@ -132,12 +160,12 @@
 <!-- END nav -->
 	<c:if test="${not empty sessionScope.member }">
 		<a id="mail" href="/healthner/mail/receiveList.do?reqPage=1" class="btn btn-dark btn-lg mail tg-btn-fixed">
-			<i class="icon-envelope-open"></i>
+			<i class="icon-envelope-open tg-line-hight"></i>
 			<!-- <i class="icon-envelope"></i> -->
 		</a>
 	</c:if>
 <a id="back-to-top" href="#" class="btn btn-dark btn-lg back-to-top tg-btn-fixed"
-	role="button"><i class="icon-arrow-up"></i></a>
+	role="button"><i class="icon-arrow-up tg-line-hight"></i></a>
 	
 <!-- Channel Plugin Scripts -->
 <script>
@@ -229,10 +257,10 @@
                 } else {
 //                    console.log(msg);
                     if (msg == 0) {
-                        var icon = $("<i class='icon-envelope-open'></i>");
+                        var icon = $("<i class='icon-envelope-open tg-line-hight'></i>");
                         $("#mail").html(icon); 
                     } else {
-                        var icon = $("<i class='icon-envelope tg-yellow'></i>");
+                        var icon = $("<i class='icon-envelope tg-yellow tg-line-hight'></i>");
                         $("#mail").html(icon);
                     }
                 }

@@ -27,8 +27,8 @@
 	location.href="/main.do";
 </script>
 <%-- 	<jsp:include page="/WEB-INF/views/common/header.jsp"/> --%>
-<!-- 	<!-- END nav --> -->
-<!-- 	<!-- Background Image --> -->
+<!-- 	END nav --> -->
+<!-- 	Background Image --> -->
 <!-- 	<section -->
 <!-- 		class="home-slider js-fullheight owl-carousel ftco-degree-bottom"> -->
 <!-- 		<div class="slider-item js-fullheight" -->
@@ -578,7 +578,7 @@
 <!-- 		</div> -->
 <!-- 	</section> -->
 
-<!-- 	<script> -->
+<script>
 // 		$(function(){
 // 			$.ajax({
 // 				url: "/healthner/notice/mainPageNotice.do",
@@ -619,7 +619,7 @@
 // 				}
 // 			});
 // 		});
-<!-- 	</script> -->
+</script>
 
 <!-- 	<section class="ftco-section bg-light"> -->
 <!-- 		<div class="container"> -->
@@ -634,7 +634,7 @@
 
 <!-- 			</div> -->
 <!-- 				Container for notice -->
-<!-- 			<!-- <div class="row d-flex"> -->
+<!-- 			<div class="row d-flex"> -->
 <!-- 				<div class="col-md-4 d-flex ftco-animate"> -->
 <!-- 					<div class="blog-entry justify-content-end"> -->
 <!-- 						<a href="blog-single.html" class="block-20" -->
@@ -719,7 +719,7 @@
 <!-- 		</div> -->
 <!-- 	</section> -->
 
-<!-- 	<!--       footer --> -->
+<!-- 	       footer -->
 <!-- 	<footer class="ftco-footer ftco-section img"> -->
 <!-- 		<div class="overlay"></div> -->
 <!-- 		<div class="container"> -->
@@ -838,7 +838,7 @@
 <!-- 	</footer> -->
 
 
-<!-- 	<!-- loader --> -->
+<!-- 	 loader --> -->
 <!-- 	<div id="ftco-loader" class="show fullscreen"> -->
 <!-- 		<svg class="circular" width="48px" height="48px"> -->
 <%-- 			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" --%>

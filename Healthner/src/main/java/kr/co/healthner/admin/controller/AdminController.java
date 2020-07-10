@@ -27,9 +27,11 @@ import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
 import kr.co.healthner.member.model.vo.Member;
+import kr.co.healthner.shop.model.vo.PurchaseData;
 import kr.co.healthner.shop.model.vo.PurchasePageData;
 import kr.co.healthner.shop.model.vo.ShopPageDate;
 import kr.co.healthner.vo.ProductVO;
+import kr.co.healthner.vo.PurchaseVO;
 
 @Controller
 //@RequestMapping("/healthner/admin")
@@ -417,8 +419,32 @@ public class AdminController {
 //		System.out.println(data.getPageNavi());
 		return "admin/userBuy";
 	}
-
-	// 혜진_200709_신고관리 페이지_선택 다중 삭제
+	
+	@RequestMapping("/userBuyRead.do")
+	public String userBuyRead(Model model, int buyNo) {
+		
+		PurchaseData data = service.userBuyData(buyNo);
+		
+		model.addAttribute("purchase", data.getPurchase());
+		model.addAttribute("list", data.getList());
+		return "admin/userBuyRead";
+	}
+	
+	@RequestMapping("/modifyInvoiceNumber.do")
+	public String modifyInvoiceNumber(PurchaseVO purchase) {
+		
+		int result = service.modifyInvoiceNumber(purchase);
+		
+		if (result > 0) {
+			
+		} else {
+			
+		}
+		
+		return "redirect:/userBuyRead.do?buyNo=" + purchase.getBuyNo();
+    }
+    
+	//혜진_200709_신고관리 페이지_선택 다중 삭제
 	@RequestMapping("/deleteReport.do")
 	@ResponseBody
 	public int deleteReport(int[] writeType, int[] writeNo) {

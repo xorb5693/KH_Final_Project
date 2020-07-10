@@ -96,6 +96,26 @@ public class ShopDao {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("basket.deleteAllBasket",memberNo);
 	}
+
+	public int totalPurchaseCount(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectOne("shop.totalPurchaseCount", map);
+	}
+
+	public List<PurchaseVO> selectPurchaseList(HashMap<String, Integer> map) {
+		
+		return sqlSession.selectList("shop.selectPurchaseList", map);
+	}
+
+	public PurchaseVO selectPurchase(int buyNo) {
+		
+		return sqlSession.selectOne("shop.selectPurchase", buyNo);
+	}
+
+	public List<BuyProductVO> selectBuyProductList(int buyNo) {
+		
+		return sqlSession.selectList("shop.selectBuyProductList", buyNo);
+	}
 	
 	
 	

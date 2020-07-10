@@ -67,5 +67,65 @@
 		category,category2,category3,thumbnail
 		from product where pno=#{_parameter}
 	</select>
+	<select id="selectPurchase" parameterType="_int" resultType="purchase">
+		select
+			buy_no as buyNo,
+			total_price as totalPrice,
+			buy_date as buyDate,
+			buy_addr as buyAddr,
+			delivery_bool as deliveryBool,
+			invoice_number as invoiceNumber,
+			member_id as memberId
+		from purchase
+		join member using(member_no)
+		where buy_no = #{_parameter}
+	</select>
+	<select id="selectBuyProductList" parameterType="_int" resultType="buy">
+		select
+			buy_no as buyNo,
+			pno,
+			buy_product.stock,
+			price,
+			pname,
+			thumbnail
+		from buy_product
+		join product using(pno)
+		where buy_no = #{_parameter}
+	</select>
+	<select id="totalPurchaseCount" parameterType="map" resultType="_int">
+		select count(*) from purchase
+		where member_no = #{memberNo}
+	</select>
+	<select id="selectPurchaseList" parameterType="map" resultType="purchase">
+		select * from (
+		    select rownum as rnum, PS.*
+		    from (
+		        select S.*, pname, thumbnail, member_Id as memberId from(
+		            select 
+		            	buy_no as buyNo,
+		                member_no as memberNo, 
+		                buy_addr as buyAddr,
+		                total_price as totalPrice,
+		                delivery_bool as deliveryBool,
+		                invoice_number as invoiceNumber, 
+		                buy_date as buyDate,
+			            (
+			                select count(*) - 1 
+			                from BUY_PRODUCT 
+			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
+			            ) as count, (
+			                select min(pno)
+			                from BUY_PRODUCT 
+			                where BUY_PRODUCT.buy_no = PURCHASE.buy_no 
+			            ) as pno
+		            from PURCHASE
+					where member_no = #{memberNo}
+		        ) S
+		        join PRODUCT P on (S.pno = p.pno)
+		        join Member M on (S.memberNo = M.member_No)
+		        order by buyNo desc) 
+		    PS
+		) where rnum BETWEEN #{start} and #{end}
+	</select>
 
 </mapper>
