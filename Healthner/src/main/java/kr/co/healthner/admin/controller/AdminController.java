@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
+import kr.co.healthner.admin.model.vo.MeetingSchedule;
 import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
@@ -440,5 +443,37 @@ public class AdminController {
 		}
 		
 		return "redirect:/userBuyRead.do?buyNo=" + purchase.getBuyNo();
+    }
+    
+	//혜진_200709_신고관리 페이지_선택 다중 삭제
+	@RequestMapping("/deleteReport.do")
+	@ResponseBody
+	public int deleteReport(int[] writeType, int[] writeNo) {
+		int result = service.deleteReport(writeType, writeNo);
+		return result;
+	}
+	
+	//혜진_200709_예약 목록 관리 페이지_내용 조회
+	@RequestMapping(value="/meetinglist.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String meetinglist(int responseFin, int start, int sorting){
+		TotalpageList tl = service.meetinglist(responseFin, start, sorting);
+		return new Gson().toJson(tl);
+	}
+	
+	//혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
+	@RequestMapping("/finResponse.do")
+	@ResponseBody
+	public int meetinglist(int responseFin, int meetingSeq){
+		int result = service.finResponse(responseFin, meetingSeq);
+		return result;
+	}
+	
+	//혜진_200710_신고관리 페이지_선택 다중 삭제
+	@RequestMapping("/deleteMeeting.do")
+	@ResponseBody
+	public int deleteMeeting(int[] meetingSeqArr) {
+		int result = service.deleteMeeting(meetingSeqArr);
+		return result;
 	}
 }
