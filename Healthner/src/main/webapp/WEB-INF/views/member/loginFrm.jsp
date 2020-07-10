@@ -26,7 +26,18 @@
 				$("input[name=memberPw]").focus();
 			}
 		});
-
+		$(function(){
+			var input = document.getElementById("memberPw");
+			input.addEventListener("keyup", function(event) {
+			// Number 13 is the "Enter" key on the keyboard
+				if (event.keyCode === 13) {
+					// Cancel the default action, if needed
+					// event.preventDefault();
+					// Trigger the button element with a click
+					document.getElementById("login").click();
+				}
+			});
+		});
 		function submitForm() {
 			var memberId = $("input[name=memberId]").val();
 			var memberPw = $("input[name=memberPw]").val();
@@ -43,17 +54,15 @@
 							console.log("checked");
 							createCookie("userId", memberId, 14);
 							location.reload();
-							return true;
 						} else {
 							deleteCookie("userId");
-							return true;
 						}
+						location.href="/";
 					} else if (data == "fail") {
 						alert("아이디/비밀번호를 확인해주세요");
-						return false;
+						
 					} else if (data == "mail") {
 						alert("이메일을 인증해주세요");
-						return false;
 					}
 				}
 			});
@@ -118,7 +127,6 @@
 				<div class="card"> -->
 
 					<div class="card-body">
-						<form action="/healthner/member/loggedIn.do" onsubmit="return submitForm()" method="POST">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i
@@ -132,7 +140,7 @@
 									<span class="input-group-text"><i
 										class="icon-key"></i></span>
 								</div>
-								<input type="password" name="memberPw" class="form-control"
+								<input type="password" name="memberPw" id="memberPw" class="form-control"
 									placeholder="password" />
 							</div>
 							<div class="row align-items-center remember">
@@ -141,10 +149,9 @@
 								</label>
 							</div>
 							<div class="form-group">
-								<input type="submit" value="로그인" id="login"
+								<input type="button" onclick="submitForm()" value="로그인" id="login"
 									class="btn btn-primary btn-outline-white">
 							</div>
-						</form>
 					</div>
 					<div class="card-footer">
 						<div class="d-flex justify-content-center links">
