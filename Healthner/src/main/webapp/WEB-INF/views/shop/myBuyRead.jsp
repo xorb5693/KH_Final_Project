@@ -200,7 +200,7 @@
                 </tr>
                 <c:forEach items="${list }" var="product">
                     <tr>
-                        <td><a class="tg-black" href="/productRead.do?pno=${product.pno}"><img src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%"></a></td>
+                        <td><a class="tg-black" href="/healthner/shop/shopView.do?pno=${product.pno}"><img src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%"></a></td>
                         <td colspan="3"><a class="tg-black" href="/healthner/shop/shopView.do?pno=${product.pno}">${product.pname}</a></td>
                         <td>${product.price}원</td>
                         <td>${product.stock}개</td>
