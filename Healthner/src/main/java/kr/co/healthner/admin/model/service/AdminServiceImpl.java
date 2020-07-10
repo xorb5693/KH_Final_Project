@@ -423,7 +423,7 @@ public class AdminServiceImpl {
 	//혜진_200710_신고관리 페이지_선택 다중 삭제
 	public int deleteMeeting(int[] meetingSeqArr) {
 		return dao.deleteMeeting(meetingSeqArr);
-
+	}
 
 	public PurchasePageData userBuy(int reqPage, int type) {
 		
