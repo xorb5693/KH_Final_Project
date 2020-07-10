@@ -293,7 +293,65 @@
 			#{pno}
 		</foreach>
 	</delete>
-	
+	<!-- 혜진_200709_신고 관리 페이지_본문 글 삭제-->
+	<delete id="deleteReport" parameterType="java.util.HashMap">
+		delete from
+		<if test="writeType==1">
+		board
+		where board_no=#{writeNo}
+		</if> 
+		<if test="writeType==2">
+		board_comment
+		where comment_no=#{writeNo}
+		</if> 
+	</delete>
+	<!-- 혜진_200709_신고관리 페이지_선택 다중 삭제_신고관리 테이블 글삭제 -->
+	<delete id="deleteReportTB" parameterType="java.util.HashMap">
+		delete from report where write_type=#{writeType} and write_no=#{writeNo}
+	</delete>
+	<!-- 혜진_200709_예약 목록 관리 페이지_전체 게시물 갯수 -->
+	<select id="meetingTotalCount" parameterType="ms" resultType="_int">
+		select count(*) from meeting_schedule
+		<if test="responseFin==1">
+			where response_fin !=0
+		</if>
+		<if test="responseFin==2">
+			where response_fin =0
+		</if>
+	</select>
+	<!-- 혜진_200709_예약 목록 관리 페이지_게시물 조회 -->
+	<select id="meetinglist" parameterType="ms" resultType="ms">
+		select*from(select rownum as rnum, ms.* from(select 
+    		meeting_seq as meetingSeq,
+    		name,
+    		phone,
+    		email,
+    		response_fin as responseFin
+		from meeting_schedule
+		<if test="responseFin==1">
+			where response_fin !=0
+		</if>
+		<if test="responseFin==2">
+			where response_fin =0
+		</if>
+		order by meeting_seq 
+		<if test="sorting==0">
+		desc
+		</if>
+		)ms)
+		where rnum between #{start} and #{end}
+	</select>
+	<!-- 혜진_200710_완료 클릭 시, 응답 완료 상태로 변경 -->
+	<update id="finResponse" parameterType="ms">
+		update meeting_schedule set response_fin = #{responseFin} where meeting_seq = #{meetingSeq}
+	</update>
+	<!-- 혜진_200710_신고관리 페이지_선택 다중 삭제 -->
+	<delete id="deleteMeeting" parameterType="ms">
+		delete meeting_schedule where meeting_seq in
+		<foreach item="meetingSeq" collection="array" open="(" separator="," close=")">
+			#{meetingSeq}
+		</foreach>
+	</delete>
 	<!-- 태규_200709_구매 관리 -->
 	<select id="totalPurchaseCount" parameterType="map" resultType="_int">
 		select count(*) from purchase

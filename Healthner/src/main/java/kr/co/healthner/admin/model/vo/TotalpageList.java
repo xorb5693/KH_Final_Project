@@ -11,4 +11,5 @@ public class TotalpageList {
 	private int totalCount;
 	private ArrayList<PTmapping> listpt;
 	private ArrayList<Report> listrp;
+	private ArrayList<MeetingSchedule> listms;
 }
