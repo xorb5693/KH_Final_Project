@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import kr.co.healthner.admin.model.dao.AdminDaoImpl;
+import kr.co.healthner.admin.model.vo.MeetingSchedule;
 import kr.co.healthner.admin.model.vo.MemberSearch;
 import kr.co.healthner.admin.model.vo.PTmapping;
 import kr.co.healthner.admin.model.vo.Report;
@@ -373,5 +374,52 @@ public class AdminServiceImpl {
 	public int productDelete(int[] deleteNo) {
 		
 		return dao.productDelete(deleteNo);
+	}
+	
+	//혜진_200709_신고관리 페이지_선택 다중 삭제
+	public int deleteReport(int[] writeType, int[] writeNo) {
+		int result =0;
+		for(int i=0; i<writeType.length;i++) {
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("writeType", writeType[i]);
+			map.put("writeNo",writeNo[i]);	
+			result += dao.deleteReport(map);
+		}
+		return result;
+	}
+
+	//혜진_200709_예약 목록 관리 페이지_내용 조회
+	public TotalpageList meetinglist(int responseFin, int start, int sorting) {
+		MeetingSchedule ms = new MeetingSchedule();
+		ms.setResponseFin(responseFin);
+		ms.setStart(start);
+		int totalCount = dao.meetingTotalCount(ms);
+		int length = 10;
+		int end = start + length - 1;
+		ms.setEnd(end);
+		ms.setSorting(sorting);
+		ArrayList<MeetingSchedule> list = (ArrayList<MeetingSchedule>) dao.meetinglist(ms);
+		for (MeetingSchedule m : list) {
+			if (m.getEmail() == null) {
+				m.setEmail(" ");
+			}
+		}
+		TotalpageList tl = new TotalpageList();
+		tl.setTotalCount(totalCount);
+		tl.setListms(list);
+		return tl;
+	}
+
+	//혜진_200710_예약 목록 관리 페이지_완료 버튼 클릭하여 응답 완료처리
+	public int finResponse(int responseFin, int meetingSeq) {
+		MeetingSchedule ms = new MeetingSchedule();
+		ms.setResponseFin(responseFin);
+		ms.setMeetingSeq(meetingSeq);
+		return dao.finResponse(ms);
+	}
+
+	//혜진_200710_신고관리 페이지_선택 다중 삭제
+	public int deleteMeeting(int[] meetingSeqArr) {
+		return dao.deleteMeeting(meetingSeqArr);
 	}
 }

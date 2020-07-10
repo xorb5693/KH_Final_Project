@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>관리자 페이지 - 회원 관리</title>
+  	<title>관리자 페이지 - 예약 목록 관리</title>
   	<link rel="icon" href="/resources/images/favicon.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,15 +22,176 @@
 
     <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">Sidebar #06</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
+       <h6>예약 목록 관리</h6>
+       <span>전체 선택</span><input type="checkbox" name="selectAll">
+       <div>
+       <span onclick="recent();" style="cursor:pointer;">최근 등록 순</span>|<span onclick="oldest();" style="cursor:pointer;">가장 오래된 순</span>
+       <select name="responseFin">
+			<option value=0>선택</option>
+			<option value=1>완료</option>
+			<option value=2>미완료</option>
+		</select>
+		<input type="button" value="검  색" class="admin-btn" id="admin-search"
+				onclick="show_meetinglist(1,1,0);">
+		<input type="button" value="삭  제" class="admin-btn" onclick="deletelist();">
 		</div>
+       <table border="1" style="width:100%;">
+     	  <tr>
+       		<th>선택</th>
+       		<th>No</th>
+       		<th>이름</th>
+       		<th>전화번호</th>
+       		<th>이메일 주소</th>
+       		<th>응답완료</th>
+       	</tr>
+       </table>
+       <button class="more-btn" currentCount="0" totalCount="" value="">더
+				보 기</button>
+      </div>
+      <script>
+		//혜진_200709_ajax로 DB에서 신고글 데이터 불러오기
+		function recent(){
+			show_meetinglist(1,1,0);
+		}
+		function oldest(){
+			show_meetinglist(1,1,1);
+		}
+		function show_meetinglist(start, btnNum, sorting) {
+			$(".more-btn").attr("currentCount", 0);
+			var responseFin = $("select[name=responseFin]").val();
+			var param = {
+				responseFin : responseFin,
+				start: start,
+				sorting:sorting
+			};
+			$.ajax({
+						url : "/meetinglist.do",
+						type : "post",
+						data : param,
+						dataType : "json",
+						success : function(data) {
+							if (btnNum == 1) {
+								$(".contentsRow").html("");
+							}
+							var html = "";
+							for (var i = 0; i < data.listms.length; i++) {
+								html += "<tr class='contentsRow'>";
+								html += "<td id='selectAll'><input type='checkbox' name='reportSelectAll'>"
+								html += "<input type='hidden' value="+data.listms[i].meetingSeq+" id='meetingSeq'>"
+										+ "</td>";
+								html += "<td>" + data.listms[i].rnum + "</td>";
+								html += "<td>" + data.listms[i].name+ "</td>";
+								html += "<td>"+data.listms[i].phone+"</td>";
+								html += "<td>"+data.listms[i].email+"</td>";
+								if(data.listms[i].responseFin!=1){
+									html += "<td><input type='button' value='완 료' class='admin-btn' onclick='finResponse(this);'></td>";
+								}else{
+									html += "<td>완 료</td>";
+								}
+								
+								html += "</tr>";
+							}
+							$("table").children("tbody").append(html);
+							$(".more-btn").val(Number(start) + 10);
+							$(".more-btn").attr(
+									"currentCount",
+									Number($(".more-btn").attr("currentCount"))
+											+ data.listms.length);
+							var totalCount = data.totalCount;
+							$(".more-btn").attr("totalCount", totalCount);
+							var currentCount = $(".more-btn").attr(
+									"currentCount");
+							if (totalCount % 5 == currentCount) {
+								$(".more-btn").attr("disabled", true);
+								$(".more-btn").css("cursor", "not-allowed");
+							} else {
+								$(".more-btn").attr("disabled", false);
+								$(".more-btn").css("cursor", "pointer");
+							}
+						},
+						error : function() {
+							console.log("데이터 불러오기 실패.")
+						}
+					});
+		}
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+		//혜진_200709_페이지 로드 시, 데이터 조회, 더보기 버튼
+		$(function() {
+			show_meetinglist(1, 1, 0);
+			$(".more-btn").click(function() {
+				var val = $(this).val();
+				show_meetinglist(val, 2,0);
+			});
+		});
+
+		//혜진_200709_전체 선택 클릭 시, 전체 체크 박스 선택
+		$(function() {
+			$("input[name='selectAll']").click(function() {
+				if ($("input[name='selectAll']").prop("checked")) {
+					$("input[name='reportSelectAll']").prop("checked", true);
+				} else {
+					$("input[name='reportSelectAll']").prop("checked", false);
+				}
+			});
+		});
+		
+		//혜진_200710_완료 클릭 시, 응답 완료 상태로 변경
+		function finResponse(obj){
+			var meetingSeq = $(obj).parent().parent().children().eq(0).children().eq(1).val();
+			console.log(meetingSeq);
+			var responseFin = 1;
+			var param = {meetingSeq: meetingSeq, responseFin: responseFin}
+			$.ajax({
+				url: "/finResponse.do",
+				data: param,
+				Type: "post",
+				dataType: "json",
+				success: function(data){
+					location.reload();
+				}
+			});
+		}
+		
+		//혜진_200710_선택하여 삭제 버튼 클릭 시, 다중 삭제
+		function deletelist(){
+			var meetingSeqArr = [];
+			$("input[name='reportSelectAll']:checked").each(function() {
+				meetingSeq = $(this).parent().parent().children().eq(0).children().eq(1).val();
+				meetingSeqArr.push(meetingSeq);
+			});
+			if (meetingSeqArr == '') {
+				alert("삭제할 대상을 선택하세요.");
+				return false;
+			}
+			if (confirm("정보를 삭제 하시겠습니까?")) {
+				 jQuery.ajaxSettings.traditional = true;
+				$.ajax({
+					url : "/deleteMeeting.do",
+					type : "post",
+					data : {meetingSeqArr: meetingSeqArr},
+					dataType : "json",
+					success : function(data) {
+						alert("삭제되었습니다.");
+						location.reload();
+					}
+				});
+			}
+		}
+		
+		//
+		function recent(){
+			show_meetinglist(1, 1, 0);
+		}
+		function oldest(){
+			show_meetinglist(1, 1, 1);
+		}
+      </script>
+      
+      
+      
+      	<script type="text/javascript"
+		src="http://code.jquery.com/jquery-3.3.1.js">
+		
+	</script>
   </body>    
 </html>

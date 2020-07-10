@@ -33,5 +33,6 @@
 		<typeAlias type="kr.co.healthner.admin.model.vo.PTmapping" alias="pt"/>
 		<typeAlias type="kr.co.healthner.admin.model.vo.Report" alias="adminReport"/>
 		<typeAlias type="kr.co.healthner.mail.model.vo.MailVO" alias="mail"/>
+		<typeAlias type="kr.co.healthner.admin.model.vo.MeetingSchedule" alias="ms"/>
 	</typeAliases>
 </configuration>
