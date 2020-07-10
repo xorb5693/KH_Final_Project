@@ -11,7 +11,8 @@
 						<br> <br>
 						<h1 class="mb-3 bread"><a href="/healthner/shop/shop.do?reqPage=1">SHOP</a></h1>
 						<p class="breadcrumbs">
-							<span class="mr-2"><a href="/healthner/shop/basketList.do?memberNo=${sessionScope.member.memberNo}">장바구니보기</a></span> <span>링크</span>
+							<span class="mr-2"><a href="/healthner/shop/basketList.do?memberNo=${sessionScope.member.memberNo}">장바구니보기</a></span> 
+							<span class="mr-2"><a href="/healthner/shop/myBuyList.do?reqPage=1">My Buy List</a></span> 
 						</p>
 					</div>
 				</div>
