@@ -352,6 +352,7 @@
 			#{meetingSeq}
 		</foreach>
 	</delete>
+
 	<!-- 태규_200709_구매 관리 -->
 	<select id="totalPurchaseCount" parameterType="map" resultType="_int">
 		select count(*) from purchase
@@ -396,4 +397,5 @@
 		update purchase set invoice_number = #{invoiceNumber}, delivery_bool = 1 where buy_no = #{buyNo}
 	</update>
 	<!-- 혜진_200709_ -->
+
 </mapper>
