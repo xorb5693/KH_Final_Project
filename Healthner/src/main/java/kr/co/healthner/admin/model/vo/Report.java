@@ -22,4 +22,10 @@ public class Report {
 	private String searchWord;
 	private int start;
 	private int end;
+	private int sorting;
+	private int boardCnt;
+	private int commentCnt;
+	private int totalReportRec;
+	private int memberType;
+	private int inBanListCheck;
 }

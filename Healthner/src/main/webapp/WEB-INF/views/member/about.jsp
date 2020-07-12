@@ -27,6 +27,9 @@ prefix="c"%>
           <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
             <br /><br />
             <h1 class="mb-3 bread">About Us</h1>
+            <p class="breadcrumbs">
+            	<span class="mr-2"><a href="/healthner/member/about.do">ABOUT</a></span>
+            </p>
           </div>
         </div>
       </div>
