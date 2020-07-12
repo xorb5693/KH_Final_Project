@@ -36,7 +36,7 @@
 			#{memberNick},
 			#{zip},
 			#{roadAddr},
-			#{detAddr},
+			#{detAddr}, 
 			#{card},
 			sysdate,
 			<if test="memberLevel == 2">
