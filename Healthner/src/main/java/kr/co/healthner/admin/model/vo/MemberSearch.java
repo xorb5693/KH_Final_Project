@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class MemberSearch {
+	private int rnum;
 	private String searchWord;
 	private int checkbox1;
 	private int checkbox2;

@@ -97,7 +97,7 @@
 								html += "<input type='hidden' value="+data.listrp[i].writeType+" id='writeType'>";
 								html += "<input type='hidden' value="+data.listrp[i].writeNo+" id='writeNo'>"
 										+ "</td>";
-								html += "<td>" + (i + 1) + "</td>";
+								html += "<td>" + data.listrp[i].rnum + "</td>";
 								html += "<td>" + data.listrp[i].reportedId
 										+ "</td>";
 								html += "<td>" + data.listrp[i].reportedName

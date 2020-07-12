@@ -137,7 +137,7 @@
 		
 		//혜진_200710_완료 클릭 시, 응답 완료 상태로 변경
 		function finResponse(obj){
-			confirm("해당 예약을 응답 완료 상태로 변경하시겠습니까?")
+			if(confirm("해당 예약을 응답 완료 상태로 변경하시겠습니까?")){
 			var meetingSeq = $(obj).parent().parent().children().eq(0).children().eq(1).val();
 			console.log(meetingSeq);
 			var responseFin = 1;
@@ -152,6 +152,7 @@
 					location.reload();
 				}
 			});
+			}
 		}
 		
 		//혜진_200710_선택하여 삭제 버튼 클릭 시, 다중 삭제

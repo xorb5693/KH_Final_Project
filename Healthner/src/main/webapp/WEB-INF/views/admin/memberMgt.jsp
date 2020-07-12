@@ -21,7 +21,108 @@
 </head>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/style.css">
 <style>
+form>button {
+	float: right;
+}
+
+.span.span-primary {
+	background: #fcd307;
+	border-color: #fcd307;
+	border: 1px solid #fcd307;
+	color: #fff;
+}
+
+.span {
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	-ms-border-radius: 40px;
+	border-radius: 40px;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	font-size: 14px;
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	-ms-border-radius: 40px;
+	border-radius: 40px;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	font-size: 14px;
+	display: inline-block;
+	font-weight: 400;
+	color: #212529;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	-webkit-transition: color 0.15s ease-in-out, background-color 0.15s
+		ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s
+		ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+	-o-transition: color 0.15s ease-in-out, background-color 0.15s
+		ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s
+		ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+}
+
+.span, .btn {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.pageNavi {
+	text-align: center;
+}
+
+.table td, .table th {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.table {
+	table-layout: fixed;
+}
+
+#readModal div.modal-body div {
+	display: inline-block;
+	white-space: pre-line;
+}
+
+#mailContent {
+	width: 95%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
 body {
 	font-family: 'Nanum Gothic', sans-serif;
 }
@@ -31,7 +132,7 @@ body {
 }
 
 table tr:hover {
-	border: 1px solid red;
+	background-color: #fcd307;
 	cursor: pointer;
 }
 
@@ -59,15 +160,15 @@ table tr:hover {
 				onclick="show_memberlist(1,1);">
 		</div>
 		<div class="memberTB">
-			<table border="1">
+			<table class="table">
 				<tr class="titleRow">
 					<th>No</th>
-					<th>프로필 이미지</th>
-					<th>회원 아이디</th>
+					<th>프로필<br>이미지</th>
+					<th>회원<br>아이디</th>
 					<th>회원 이름</th>
-					<th>회원 닉네임</th>
-					<th>이용권 만료일</th>
-					<th>카드키 정보</th>
+					<th>회원<br>닉네임</th>
+					<th>이용권<br>만료일</th>
+					<th>카드키<br>정보</th>
 				</tr>
 			</table>
 			<!-- 혜진_200629_더보기 버튼 추가 -->
@@ -110,7 +211,7 @@ table tr:hover {
 							var html = "";
 							for (var i = 0; i < data.list.length; i++) {
 								html += "<tr class='contentsRow' onclick='addCard(this);'>"
-								html += "<td id='cnt'>" + (i + 1) + "</td>";
+								html += "<td id='cnt'>" + data.list[i].rnum + "</td>";
 								if (data.list[i].memberProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 								} else {
