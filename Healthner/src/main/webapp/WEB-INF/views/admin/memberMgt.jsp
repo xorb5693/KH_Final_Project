@@ -98,7 +98,7 @@ table tr:hover {
 				start : start
 			};
 			$.ajax({
-						url : "/memberList.do",
+						url : "/healthner/admin/memberList.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -165,7 +165,7 @@ table tr:hover {
 		//혜진_200626_회원 줄을 클릭하면 상세보기 페이지로 이동
 		function addCard(obj) {
 			var memberId = $(obj).children().eq(2).html();
-			var url = "/addCard.do?memberId=" + memberId;
+			var url = "/healthner/admin/addCard.do?memberId=" + memberId;
 			var option = "width = 500, height = 500, top = 100, left = 200, location = no";
 			window.open(url, null, option);
 		}

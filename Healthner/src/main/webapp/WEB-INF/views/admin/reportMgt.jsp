@@ -50,7 +50,7 @@
 				onclick="deleteAction();">
 		</div>
 		<div class="reportTb">
-			<table border="1">
+			<table border="1" id="parentTB">
 				<tr class="titleRow">
 					<th>선택</th>
 					<th>No</th>
@@ -82,7 +82,7 @@
 			};
 			$
 					.ajax({
-						url : "/reportlist.do",
+						url : "/healthner/admin/reportlist.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -114,10 +114,10 @@
 								}
 								html += "<td>" + data.listrp[i].reportCnt
 										+ "</td>";
-								html += "<td><input type='button' value='확 인' class='admin-btn' onclick='openModal();'></td>";
+								html += "<td><input type='button' value='확 인' class='admin-btn' onclick='openModal(this);'></td>";
 								html += "</tr>";
 							}
-							$("table").children("tbody").append(html);
+							$("#parentTB").children("tbody").append(html);
 							//혜진_200630_더보기 버튼에 현재 count 정보와 데이터 길이 저장
 							$(".more-btn").val(Number(start) + 5);
 							$(".more-btn").attr(
@@ -186,7 +186,7 @@
 			if (confirm("정보를 삭제 하시겠습니까?")) {
 				 jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					url : "/deleteReport.do",
+					url : "/healthner/admin/deleteReport.do",
 					type : "get",
 					data : param,
 					dataType : "json",
@@ -243,13 +243,10 @@ table {
 	<div id="modal" class="searchModal">
 		<div class="search-modal-content">
 			신고 내용 상세 보기
-			<div class="reportContent">
-				<table border="1">
+			<div class="reportDetail-box">
+				<table border="1" id="reportContent">
 					<tr>
 						<th>게시글 일부 내용</th>
-					</tr>
-					<tr>
-						<textarea></textarea>
 					</tr>
 				</table>
 			</div>
@@ -270,8 +267,37 @@ table {
 	<!-- 추가버튼 클릭 시, 모달창 켜기 -->
 	<script>
 		//(1) 모달창 켜기
-		function openModal() {
+		function openModal(obj) {
 			$("#modal").show();
+			var writeType = $(obj).parent().parent().children().eq(0).children().eq(1).val();
+			var writeNo = $(obj).parent().parent().children().eq(0).children().eq(2).val();
+			var param = {
+					writeType:writeType,
+					writeNo:writeNo
+			}
+			//(1-1) 모달창 켜자마자, 정보 페이지 로드 - 신고당한 글의 contents
+			$.ajax({
+				url: "/healthner/admin/reportedDetail.do",
+				data: param,
+				type: "post",
+				dataType: "json",
+				success: function(data){
+					console.log(data);
+					//신고글 상세(1==board, 2==comment)
+					if(data.writeType==1){
+						
+					 	var htmlCt = "<tr><td><textarea style='width:100%;'>"
+					 					+"[ "+data.boardTitle+" ]"
+					 					+"\n"+data.boardContent
+					 					+"</textarea></td></tr>";
+					}else if(data.writeType==2){
+						var htmlCt = "<tr><td><textarea style='width:100%;'>"+data.commentContent+"</textarea></td></tr>";	
+					}
+					$("#reportContent").children("tbody").append(htmlCt);
+				}
+			});
+			//(1-2) 신고한 사람 리스트 및 이유
+			
 		};
 		//(2) 모달창 끄기
 		function closeModal() {

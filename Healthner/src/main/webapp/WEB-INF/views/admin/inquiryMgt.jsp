@@ -65,7 +65,7 @@
 				sorting:sorting
 			};
 			$.ajax({
-						url : "/meetinglist.do",
+						url : "/healthner/admin/meetinglist.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -143,7 +143,7 @@
 			var responseFin = 1;
 			var param = {meetingSeq: meetingSeq, responseFin: responseFin}
 			$.ajax({
-				url: "/finResponse.do",
+				url: "/healthner/admin/finResponse.do",
 				data: param,
 				Type: "post",
 				dataType: "json",
@@ -168,7 +168,7 @@
 			if (confirm("정보를 삭제 하시겠습니까?")) {
 				 jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					url : "/deleteMeeting.do",
+					url : "/healthner/admin/deleteMeeting.do",
 					type : "post",
 					data : {meetingSeqArr: meetingSeqArr},
 					dataType : "json",

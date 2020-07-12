@@ -81,7 +81,7 @@ body {
 			};
 			$
 					.ajax({
-						url : "/trainerlist.do",
+						url : "/healthner/admin/trainerlist.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -153,7 +153,7 @@ body {
 		function approve(obj){
 			var memberId = $(obj).parent().parent().children().eq(2).html();
 			$.ajax({
-				url: "/approveTrainer.do",
+				url: "/healthner/admin/approveTrainer.do",
 				type : "post",
 				data : {memberId: memberId},
 				success: function(data){
@@ -170,7 +170,7 @@ body {
 		function reject(obj){
 			var memberId = $(obj).parent().parent().children().eq(2).html();
 			$.ajax({
-				url: "/rejectTrainer.do",
+				url: "/healthner/admin/rejectTrainer.do",
 				type : "post",
 				data : {memberId: memberId},
 				success: function(data){

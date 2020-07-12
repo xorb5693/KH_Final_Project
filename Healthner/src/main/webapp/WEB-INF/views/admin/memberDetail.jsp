@@ -71,7 +71,7 @@
 		var memberId = $("#memberId").html();
 		var param = {memberId: memberId}
 		$.ajax({
-			url : "/oneMemberSearch.do",
+			url : "/healthner/admin/oneMemberSearch.do",
 			type : "post",
 			data : param,
 			dataType : "json",
@@ -110,7 +110,7 @@
 		var card = $("#card").val();
 		var param = {memberId:memberId, card:card}
 		$.ajax({
-			url: "/cardModify.do",
+			url: "/healthner/admin/cardModify.do",
 			type: "post",
 			data: param,
 			success: function(data){

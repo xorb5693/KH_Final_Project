@@ -449,4 +449,20 @@
 	<select id="banListCheck" resultType="adminReport">
 	select reported_no as reportedNo from report r join ban_list b on (b.member_no=r.reported_no) group by reported_no
 	</select>
+	<!-- 혜진_200710_신고글 관리_상세보기 modal_조회 -->
+	<select id="reportedDetail" parameterType="adminReport" resultType="adminReport">
+	select
+	<if test="writeType==1">
+	b.board_title as boardTitle, b.board_content as boardContent
+	from report r join board b on (b.board_no = r.write_no)
+	where r.write_no=#{writeNo}
+	group by b.board_title, b.board_content
+	</if>
+	<if test="writeType==2">
+	c.comment_content as commentContent
+	from report r join board_comment c on (c.comment_no = r.write_no)
+	where r.write_no=#{writeNo}
+	group by c.comment_content
+	</if>
+	</select>
 </mapper>

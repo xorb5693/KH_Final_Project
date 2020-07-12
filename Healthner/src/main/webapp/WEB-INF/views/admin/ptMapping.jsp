@@ -100,7 +100,7 @@ body {
 			};
 			$
 					.ajax({
-						url : "/ptTrainerList.do",
+						url : "/healthner/admin/ptTrainerList.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -184,7 +184,7 @@ body {
 		function deletePT(mpSeq) {
 			confirm("해당 데이터를 삭제하시겠습니까?");
 			$.ajax({
-				url : '/mappingDelete.do',
+				url : '/healthner/admin/mappingDelete.do',
 				type : "post",
 				data : {
 					mpSeq : mpSeq
@@ -201,7 +201,7 @@ body {
 		function modifyPT(mpSeq){
 			$("#modal").show(mpSeq);
 			$.ajax({
-				url : '/mappingCheck.do',
+				url : '/healthner/admin/mappingCheck.do',
 				type : "post",
 				data : {
 					mpSeq : mpSeq
@@ -345,7 +345,7 @@ table {
 									};
 									$
 											.ajax({
-												url : '/mappingDetail.do',
+												url : '/healthner/admin/mappingDetail.do',
 												type : 'post',
 												data : param,
 												dataType : "json",
@@ -433,7 +433,7 @@ table {
 					trainerNo : trainerNo
 				};
 				$.ajax({
-					url : "/inputNewMapping.do",
+					url : "/healthner/admin/inputNewMapping.do",
 					data : param,
 					type : 'post',
 					dataType : 'json',

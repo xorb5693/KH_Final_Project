@@ -66,36 +66,36 @@
 			style="background-image: url(/admin/images/admin_main_column.jpg);">
 			<div class="p-4">
 				<h1>
-					<a href="/adminMain.do" class="logo"><img
-						src="/admin/images/Picture4.png" class="main-logo"></a><a
-						href="index.html" class="logo"><span style="float: right;"
+					<a href="/main.do" class="logo"><img
+						src="/admin/images/Picture4.png" class="main-logo"></a>
+						<a href="/healthner/admin/logout.do" class="logo"><span style="float: right;"
 						id="logout"> [Admin]&nbsp;Logout</span></a>
 				</h1>
 				<ul class="list-unstyled components mb-5 main-list">
-					<li id="1"><a href="/memberMgt.do" style="margin-top: 55px;"><span
+					<li id="1"><a href="/healthner/admin/memberMgt.do" style="margin-top: 55px;"><span
 							class="fa fa-user mr-3"></span> <span></span>회원 관리</a>
 						<ul class="sub-list list-unstyled">
-							<li id="2"><a href="/trainerMgt.do"><span
+							<li id="2"><a href="/healthner/admin/trainerMgt.do"><span
 									class="fa fa-long-arrow-right mr-3"></span>트레이너 관리</a></li>
-							<li id="3"><a href="/ptMapping.do"><span
+							<li id="3"><a href="/healthner/admin/ptMapping.do"><span
 									class="fa fa-long-arrow-right mr-3"></span>PT Mapping 관리</a></li>
 						</ul></li>
-					<li id="4"><a href="/reportMgt.do"><span class="fa fa-warning mr-3"></span>신고
+					<li id="4"><a href="/healthner/admin/reportMgt.do"><span class="fa fa-warning mr-3"></span>신고
 							관리</a>
 						<ul class="sub-list list-unstyled">
-							<li id="5"><a href="/penaltyMgt.do"><span
+							<li id="5"><a href="/healthner/admin/penaltyMgt.do"><span
 									class="fa fa-long-arrow-right mr-3"></span>회원 정지 관리</a></li>
 						</ul></li>
-					<li id="6"><a href="/productMgt.do?reqPage=1"><span
+					<li id="6"><a href="/healthner/admin/productMgt.do?reqPage=1"><span
 							class="fa fa-shopping-cart mr-3"></span>상품 관리</a>
                             <ul class="sub-list list-unstyled">
-							<li id="9"><a href="/userBuy.do?reqPage=1&type=0"><span
+							<li id="9"><a href="/healthner/admin/userBuy.do?reqPage=1&type=0"><span
 									class="fa fa-long-arrow-right mr-3"></span>구매 관리</a></li>
 						</ul>
                     </li>
-					<li id="7"><a href="/mail.do?reqPage=1"><span class="fa fa-send-o mr-3"></span>쪽지함</a>
+					<li id="7"><a href="/healthner/admin/mail.do?reqPage=1"><span class="fa fa-send-o mr-3"></span>쪽지함</a>
 					</li>
-					<li id="8"><a href="/inquiryMgt.do"><span class="fa fa-calendar mr-3"></span>예약
+					<li id="8"><a href="/healthner/admin/inquiryMgt.do"><span class="fa fa-calendar mr-3"></span>예약
 							목록 관리</a></li>
 				</ul>
 				<!--
