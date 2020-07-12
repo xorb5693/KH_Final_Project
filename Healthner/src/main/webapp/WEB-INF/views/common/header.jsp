@@ -53,7 +53,8 @@ body {
 
 /* scrollbar width */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 10px;
+  background-color: #7c7c7c;
 }
 
 /* scrollbar track */
@@ -61,10 +62,16 @@ body {
   background: #eee;
 }
 
+::-webkit-resizer{
+	width: 20px;
+}
+
+
+
 /* scrollbar handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 1rem;
-  background-color: #000000;
+  background-color: #3b3b3b;
   background-image: linear-gradient(to top, #353535 0%, #535353 100%);
 }
 </style>

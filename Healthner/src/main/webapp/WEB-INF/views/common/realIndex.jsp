@@ -96,7 +96,7 @@
 						<div class="heading-section mb-4">
 							<span class="subheading">Welcome</span>
 							<h2 class="mb-1">
-								Welcome to <span>Endurance</span> Crossfit Gym
+								환영합니다 <span> 헷트너쉽 </span> 너는 내가 책임 GYM
 							</h2>
 						</div>
 						<p>A small river named Duden flows by their place and supplies
@@ -565,10 +565,7 @@
 										class="form-control" placeholder="65kg" required>
 									</label>
 								</div>
-								<div class="ml-2">
-									<label for="height">나이</label> <input type="text"
-										class="form-control" placeholder="나이를 입력하세요" required>
-								</div>
+								
 							</div>
 						</div>
 						<div class="d-md-flex">
@@ -668,7 +665,7 @@
 			});
 		});
 	</script>
-
+	<br><br>
 	<section class="ftco-section bg-light">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
@@ -766,6 +763,8 @@
 			</div>
 		</div>
 	</section>
+
+
 
 	<!--       footer -->
 	<footer class="ftco-footer ftco-section img">
