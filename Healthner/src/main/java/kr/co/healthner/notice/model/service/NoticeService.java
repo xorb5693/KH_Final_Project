@@ -139,6 +139,11 @@ public class NoticeService {
 		return npd;
 	}
 
+	public int selectBanList(int memberNo) {
+		
+		return dao.selectBanList(memberNo);
+	}
+
 
 
 }

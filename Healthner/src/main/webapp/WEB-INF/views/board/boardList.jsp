@@ -52,7 +52,7 @@
 										<th scope="row">${n.boardNo }</th>
 										<td>${n.memberNick }</td>
 										<td><a
-											href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
+											href="/healthner/board/boardView.do?boardNo=${n.boardNo}" class="tg-black">${n.boardTitle }</a></td>
 										<td>${n.boardDate }</td>
 									</tr>
 								</c:if>
@@ -65,7 +65,7 @@
 										<th scope="row">${n.boardNo }</th>
 										<td>${n.memberNick }</td>
 										<td><a
-											href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
+											href="/healthner/board/boardView.do?boardNo=${n.boardNo}" class="tg-black">${n.boardTitle }</a></td>
 										<td>${n.boardDate }</td>
 									</tr>
 								</c:if>
@@ -116,9 +116,6 @@
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
 	<script>
 		window.jQuery
 				|| document

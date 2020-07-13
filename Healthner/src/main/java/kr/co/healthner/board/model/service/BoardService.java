@@ -176,6 +176,11 @@ public class BoardService {
 		npd.setPageNavi(pageNavi);
 		return npd;
 	}
+
+	public int selectBanList(int memberNo) {
+		
+		return dao.selectBanList(memberNo);
+	}
 	
 	
 }
