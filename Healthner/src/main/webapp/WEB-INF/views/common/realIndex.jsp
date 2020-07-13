@@ -93,18 +93,18 @@
 				</div>
 				<div class="col-md-6 pl-md-5 ftco-animate d-flex align-items-center">
 					<div class="text pt-4 pt-md-0">
-						<div class="heading-section mb-4">
-							<span class="subheading">Welcome</span>
-							<h2 class="mb-1">
-								환영합니다 <span> 헷트너쉽 </span> 너는 내가 책임 GYM
-							</h2>
-						</div>
-						<p>헬트너쉽과 함께 당신의 피트니스 스토리를 만들어보세요. 더 즐겁고 더 에너지 넘치는 일상을 위해 삶을 더욱 효율적으로 즐길 수 있는 ‘복합 피트니스 문화 플랫폼’으로 활기찬 라이프스타일을 제시하고자 합니다.</p>
-						<p>
-							<a href="#" class="btn btn-primary p-3">Join us</a>
-						</p>
+					  <div class="heading-section mb-4">
+						<span class="subheading">Welcome</span>
+						<h2 class="mb-1">
+						  환영합니다 <br> <span> 헬트너쉽 </span> <br> 너는 내가 책임 GYM
+						</h2>
+					  </div>
+					  <p>헬트너쉽과 함께 당신의 피트니스 스토리를 만들어보세요. 더 즐겁고 더 에너지 넘치는 일상을 위해 삶을 더욱 효율적으로 즐길 수 있는 ‘복합 피트니스 문화 플랫폼’으로 활기찬 라이프스타일을 제시하고자 합니다.</p>
+					  <p>
+						<a href="#" class="btn btn-primary p-3">Join us</a>
+					  </p>
 					</div>
-				</div>
+				  </div>
 			</div>
 		</div>
 	</section>
@@ -288,16 +288,16 @@
 					<div class="block-7">
 						<div class="text-center">
 							<h2 class="heading">하루 트레이닝</h2>
-							<span class="price"><sup>&#8361;</sup> <span class="number">15,000</span></span>
+							<span class="price"><sup>&#8361;</sup> <span class="number" style="font-size: 3.3em;">15,000</span></span>
 							<span class="excerpt d-block">하루 무제한 이용권</span> 
+							<c:if test="${empty sessionScope.member}">
+								<a href="/healthner/member/loginFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
 							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
 								<a href="/healthner/member/payment.do?amount=15000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
-							<c:if test="${not empty sessionScope.member and not empty sessionScope.member.expireDate }">
-								<a href="/healthner/member/payment.do?amount=15000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
-							<c:if test="${empty sessionScope.member}">
-								<a href="/healthner/member/loginFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							<c:if test="${not empty sessionScope.member and not empty sessinoScope.member.expireDate}">
+								<a href="/healthner/member/mypageFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
 
 							<h3 class="heading-2 mb-4">Enjoy All The Features</h3>
@@ -315,26 +315,26 @@
 					<div class="block-7">
 						<div class="text-center">
 							<h2 class="heading">정기권 결제</h2>
-							<span class="price"><sup>&#8361;</sup> <span class="number">30,000</span></span>
+							<span class="price"><sup>&#8361;</sup> <span class="number" style="font-size: 3.3em;">30,000</span></span>
 							<span class="excerpt d-block">이용권 결제</span> 
 							
-							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
-								<a href="/healthner/member/payment.do?amount=30000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
-							<c:if test="${not empty sessionScope.member and not empty sessionScope.member.expireDate }">
-								<a href="/healthner/member/payment.do?amount=30000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
 							<c:if test="${empty sessionScope.member}">
 								<a href="/healthner/member/loginFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
-
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=30000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessinoScope.member.expireDate}">
+								<a href="/healthner/member/mypageFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							
 							<h3 class="heading-2 mb-4">Enjoy All The Features</h3>
-
+							
 							<ul class="pricing-text">
 								<li>매달 2회 GX 트레이닝 참여</li>
 								<li>10회 트레이너 1:1 상담</li>
 								<li>한달에 한번 식단 평가</li>
-								<li></li>
+								<li>트레이너 1:1 상담 무료</li>
 							</ul>
 						</div>
 					</div>
@@ -343,31 +343,31 @@
 					<div class="block-7">
 						<div class="text-center">
 							<h2 class="heading">일년 이용권</h2>
-							<span class="price"><sup>&#8361;</sup> <span class="number">125,000</span></span>
+							<span class="price"><sup>&#8361;</sup> <span class="number" style="font-size: 3.3em;">125,000</span></span>
 							<span class="excerpt d-block">All features are included</span> 
-							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
-								<a href="/healthner/member/payment.do?amount=125000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
-							<c:if test="${not empty sessionScope.member and not empty sessionScope.member.expireDate }">
-								<a href="/healthner/member/payment.do?amount=125000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
 							<c:if test="${empty sessionScope.member}">
 								<a href="/healthner/member/loginFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
-
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=125000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessinoScope.member.expireDate}">
+								<a href="/healthner/member/mypageFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							
 							<h3 class="heading-2 mb-4">Enjoy All The Features</h3>
-
+							
 							<ul class="pricing-text">
 								<li>GX 트레이닝 무제한 참여</li>
 								<li>매달 트레이너 2회 상담</li>
 								<li>담당 트레이너 지정</li>
-								<li></li>
+								<li>트레이너 1:1 상담 무료</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			
 
 			<div class="row mt-5">
 				<div class="col-md-4">
@@ -415,7 +415,6 @@
 			</div>
 		</div>
 	</section>
-
 
 	<!-- <script>
 		$(function(){
