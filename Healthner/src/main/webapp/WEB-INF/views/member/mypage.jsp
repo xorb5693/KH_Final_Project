@@ -109,7 +109,9 @@
 			location.href="/healthner/member/changeAddrFrm.do";
 		}
 		function changeMail(){}
-		function purchaseLog(){}
+		function purchaseLog(){
+			location.href="/healthner/shop/myBuyList.do?reqPage=1";
+		}
 		function purchaseMember(){
 			location.href="/healthner/member/pricing.do";
 		}
@@ -164,13 +166,6 @@
 					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
 				  </li>
 				</c:if>
-				<c:if test="${not empty sessionScope.member.expireDate}">
-					<li>
-						<button type="button" onclick="checkExpire()" class="list-group-item list-group-item-action bg-dark" style="color: white;">이용권 만료일</button>
-					  <!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
-					</li>
-
-			  </c:if>
 	          
 	          
 	        </ul>

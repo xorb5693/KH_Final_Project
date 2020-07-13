@@ -383,4 +383,10 @@ public class MemberServiceImpl {
 		public int changeAddr(Member m) {
 			return dao.changeAddr(m);
 		}
+
+
+		public int paymentComplete(Member m, int amount) {
+			
+			return dao.paymentComplete(m,amount);
+		}
 }

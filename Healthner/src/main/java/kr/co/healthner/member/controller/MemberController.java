@@ -469,4 +469,11 @@ public class MemberController {
 		return "member/changeAddr";
 	}
 	
+	@RequestMapping("/paymentComplete.do")
+	public String paymentComplete(Member m,int amount) {
+		int result = service.paymentComplete(m,amount);
+		
+		return "redirect:/";
+	}
+	
 }
