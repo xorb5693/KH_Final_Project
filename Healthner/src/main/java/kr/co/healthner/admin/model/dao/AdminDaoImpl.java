@@ -119,6 +119,10 @@ public class AdminDaoImpl {
 	public int inputNewMapping(PTmapping pt) {
 		return sqlSession.insert("admin.inputNewMapping",pt);
 	}
+	// 혜진_200713_mapping업데이트
+	public int updateNewMapping(PTmapping pt) {
+		return sqlSession.insert("admin.updateNewMapping",pt);
+	}
 	//혜진_200707_mapping 데이터 수정
 	public PTmapping mappingCheck(int mpSeq) {
 		return sqlSession.selectOne("admin.mappingCheck", mpSeq);

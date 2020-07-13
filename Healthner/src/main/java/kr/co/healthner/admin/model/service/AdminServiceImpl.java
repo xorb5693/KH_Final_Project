@@ -283,6 +283,18 @@ public class AdminServiceImpl {
 		int result = dao.inputNewMapping(pt);
 		return result;
 	}
+	
+	// 혜진_200713_mapping업데이트
+		public int updateNewMapping(int PTmax, int PTleft, int memberNo, int trainerNo, int mappingSeq) {
+			PTmapping pt = new PTmapping();
+			pt.setMemberNo(memberNo);
+			pt.setTrainerNo(trainerNo);
+			pt.setPTleft(PTleft);
+			pt.setPTmax(PTmax);
+			pt.setMappingSeq(mappingSeq);
+			int result = dao.updateNewMapping(pt);
+			return result;
+		}
 
 	// 혜진_200707_mapping 데이터 수정
 	public PTmapping mappingCheck(int mpSeq) {

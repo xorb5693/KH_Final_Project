@@ -75,7 +75,8 @@
 			type : "post",
 			data : param,
 			dataType : "json",
-			success : function(data) {
+			success : function(data) { 
+				console.log(data);
 				$("#memberName").html(data.memberName);
 				$("#memberNick").html(data.memberNick);
 				$("#expireDate").html(data.expireDate);
@@ -85,10 +86,10 @@
                 if (data.card == null) {
                     $("#card").next().children().prop("disabled", true);
                 }
-				if(data.profile ==null){
+				if(data.memberProfile ==" "){
 					$("#profile").html("<img src='/resources/profile/noprofile.png' class='small-img'>");
 				}else{
-					$("#profile").html("<img src='/resources/profile/'"+data.profile+"class='small-img'>");
+					$("#profile").html("<img src='/resources/profile/"+data.memberProfile+"' class='small-img' onerror='error(this);'>");
 				}
 			},
 			error : function() {
@@ -145,6 +146,11 @@
                 }
             });
         }
+	}
+	
+	//혜진_200713_사진 에러 시, 에러 화면 처리
+	function error(obj){
+		$(obj).attr("src","/resources/profile/imageError.jpg");
 	}
 	
 </script>
