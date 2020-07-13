@@ -14,8 +14,8 @@
       <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/admin/css/style.css">
-    <link rel="stylesheet" href="resources/ckeditor/contents.css">
-    <script type="text/javascript" src="resources/ckeditor/ckeditor.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/resources/ckeditor/contents.css">
+    <script type="text/javascript" src="/resources/ckeditor/ckeditor.js" charset="utf-8"></script>
     <style>
         form>button {
             float: right;
@@ -103,7 +103,7 @@
     <!--  태규_200708_페이지 제작  -->
     <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Product Insert</h2>
-        <form action="/productInsert.do" method="post" enctype="multipart/form-data">
+        <form action="/healthner/admin/productInsert.do" method="post" enctype="multipart/form-data">
 			<table class="table">
                 <tbody>
 				    <tr>
@@ -166,7 +166,7 @@
                             <button type="submit" class="btn btn-primary btn-block" onclick="return check()">등 록</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/productMgt.do?reqPage=1'">취 소</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/healthner/admin/productMgt.do?reqPage=1'">취 소</button>
                         </td>
                         <td></td>
                         <td></td>

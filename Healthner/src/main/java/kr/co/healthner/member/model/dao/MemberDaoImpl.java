@@ -17,6 +17,7 @@ import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
 import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
+import kr.co.healthner.vo.MeetingScheduleVO;
 
 @Repository("memberDao")
 public class MemberDaoImpl {
@@ -206,6 +207,26 @@ public class MemberDaoImpl {
 
 	public int changeAddr(Member m) {
 		return sqlSession.update("member.changeAddr", m);
+	}
+
+	public int paymentComplete(Member m, int amount) {
+		int result =0;
+		switch(amount) {
+		case 15000:
+			result =sqlSession.update("member.oneDayPay", m);
+			break;
+		case 30000:
+			result = sqlSession.update("member.paymentComplete",m);
+			break;
+		case 125000:
+			result = sqlSession.update("member.oneYear",m);
+			break;
+		}
+		return result;
+	}
+
+	public int registerMeeting(MeetingScheduleVO meeting) {
+		return sqlSession.insert("member.meeting", meeting);
 	}
 
 }

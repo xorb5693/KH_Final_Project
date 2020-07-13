@@ -193,8 +193,8 @@
             </tr>
             <c:forEach items="${list }" var="product">
                 <tr>
-                    <td><a class="tg-black" href="/productRead.do?pno=${product.pno}"><img src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%"></a></td>
-                    <td colspan="3"><a class="tg-black" href="/productRead.do?pno=${product.pno}">${product.pname}</a></td>
+                    <td><a class="tg-black" href="/healthner/admin/productRead.do?pno=${product.pno}"><img src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%"></a></td>
+                    <td colspan="3"><a class="tg-black" href="/healthner/admin/productRead.do?pno=${product.pno}">${product.pname}</a></td>
                     <td>${product.price}원</td>
                     <td>${product.stock}개</td>
                 </tr>
@@ -205,7 +205,7 @@
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-            <form action="/modifyInvoiceNumber.do" method="get">
+            <form action="/healthner/admin/modifyInvoiceNumber.do" method="get">
             
                 <input type="hidden" name="buyNo" value="${purchase.buyNo}">
                 <!-- Modal content-->

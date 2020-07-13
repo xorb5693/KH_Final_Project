@@ -63,7 +63,7 @@ select.form-control>option {
 			</div>
 			<form action="trainerInput.do" class="appointment-form">
 				<div class="form-group">
-					<label for="height">Name&nbsp&nbsp</label><span>${list.memberName }</span>
+					<label for="height">Name&nbsp;&nbsp;</label><span>${list.memberName }</span>
 				</div>
 				<input type="hidden" name="memberNo" value="${list.memberNo }">
 				<input type="hidden" name="memberName" id="memberName" value="${list.memberName }">
@@ -73,33 +73,48 @@ select.form-control>option {
 							<label for="catFirst">주특기1</label> 
 							<select class="form-control" name="catFirst" id="catFirst" required>
 								<option value="">주특기를 선택해 주세요</option>
-								<option value="1">다이어트</option>
-								<option value="2">헬스</option>
-								<option value="3">보디빌딩</option>
+                                <c:forEach items="${categorys }" var="category">
+                                    <c:if test="${list.catFirst eq category.categoryNo }">
+                                	   <option value="${category.categoryNo }" selected>${category.categoryName }</option>
+                                    </c:if>
+                                    <c:if test="${list.catFirst ne category.categoryNo }">
+                                	   <option value="${category.categoryNo }">${category.categoryName }</option>
+                                    </c:if>
+                                </c:forEach>
 							</select>
 						</div>
 						<div class="ml-2">
 							<label for="catSecond">주특기2</label> 
 							<select class="form-control" name="catSecond" id="catSecond" required>
 								<option value="">주특기를 선택해 주세요</option>
-								<option value="1">다이어트</option>
-								<option value="2">헬스</option>
-								<option value="3">보디빌딩</option>
+                                <c:forEach items="${categorys }" var="category">
+                                    <c:if test="${list.catSecond eq category.categoryNo }">
+                                	   <option value="${category.categoryNo }" selected>${category.categoryName }</option>
+                                    </c:if>
+                                    <c:if test="${list.catSecond ne category.categoryNo }">
+                                	   <option value="${category.categoryNo }">${category.categoryName }</option>
+                                    </c:if>
+                                </c:forEach>
 							</select>
 						</div>
 						<div class="ml-2">
 							<label for="catThird">주특기3</label> 
 							<select class="form-control" name="catThird" id="catThird" required>
 								<option value="">주특기를 선택해 주세요</option>
-								<option value="1">다이어트</option>
-								<option value="2">헬스</option>
-								<option value="3">보디빌딩</option>
+                                <c:forEach items="${categorys }" var="category">
+                                    <c:if test="${list.catThird eq category.categoryNo }">
+                                	   <option value="${category.categoryNo }" selected>${category.categoryName }</option>
+                                    </c:if>
+                                    <c:if test="${list.catThird ne category.categoryNo }">
+                                	   <option value="${category.categoryNo }">${category.categoryName }</option>
+                                    </c:if>
+                                </c:forEach>
 							</select>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<textarea name="trainerIntro" id="trainerIntro" cols="30" rows="7"
+					<textarea name="trainerIntro" id="trainerIntro" cols="30" rows="15"
 						class="form-control" placeholder="자기소개를 입력하세요" required>${list.trainerIntro }</textarea>
 				</div>
 				<div class="d-md-flex">

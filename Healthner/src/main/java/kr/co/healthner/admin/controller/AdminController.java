@@ -299,9 +299,9 @@ public class AdminController {
 		}
 
 		if (readType == 0) {
-			return "redirect:/mail.do?reqPage=1";
+			return "redirect:/healthner/admin/mail.do?reqPage=1";
 		} else {
-			return "redirect:/sendMail.do?reqPage=1";
+			return "redirect:/healthner/admin/sendMail.do?reqPage=1";
 		}
 	}
 
@@ -318,9 +318,9 @@ public class AdminController {
 		}
 
 		if (readType == 0) {
-			return "redirect:/mail.do?reqPage=1";
+			return "redirect:/healthner/admin/mail.do?reqPage=1";
 		} else {
-			return "redirect:/sendMail.do?reqPage=1";
+			return "redirect:/healthner/admin/sendMail.do?reqPage=1";
 		}
 	}
 
@@ -379,7 +379,7 @@ public class AdminController {
 			System.out.println("물품 등록 실패");
 		}
 
-		return "redirect:/productMgt.do?reqPage=1";
+		return "redirect:/healthner/admin/productMgt.do?reqPage=1";
 	}
 
 	// 혜진_200706_mapping데이터 삭제
@@ -492,7 +492,7 @@ public class AdminController {
 			System.out.println("제품 수정 실패");
 		}
 
-		return "redirect:/productRead.do?pno=" + product.getPno();
+		return "redirect:/healthner/admin/productRead.do?pno=" + product.getPno();
 	}
 
 	// 물품 삭제
@@ -507,7 +507,7 @@ public class AdminController {
 
 		}
 
-		return "redirect:/productMgt.do?reqPage=1";
+		return "redirect:/healthner/admin/productMgt.do?reqPage=1";
 	}
 
 	// 태규_200709_주문 목록 관련 페이지 제작
@@ -544,7 +544,7 @@ public class AdminController {
 
 		}
 
-		return "redirect:/userBuyRead.do?buyNo=" + purchase.getBuyNo();
+		return "redirect:/healthner/admin/userBuyRead.do?buyNo=" + purchase.getBuyNo();
 	}
 
 	// 혜진_200709_신고관리 페이지_선택 다중 삭제

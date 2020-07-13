@@ -144,7 +144,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">트러이너 소개</h4>
+					<h4 class="modal-title">트레이너 소개</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
@@ -152,7 +152,7 @@
 						<input id="readImage2" class="d-flex align-items-center"
 							type="image" style="width: 350px; height: 100%;" onError="this.src='/resources/profile/noprofile.png'">
 					</div>
-					<div id="readIntro" class="d-flex align-items-center" style="padding: 20px"></div>
+					<div id="readIntro" class="d-flex align-items-center text" style="padding: 20px"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -188,7 +188,7 @@
 				console.log(introPlace);
 				$("#readImage2")
 						.attr("src", "/resources/profile/" + imagePlace);
-				$("#readIntro").html("<span>" + introPlace + "<span>");
+				$("#readIntro").html("<span class='tg-black'>" + introPlace + "<span>");
 
 			}
 

@@ -519,24 +519,119 @@
 		</div>
 	</section>
 	
-	
+
 
 	<script>
 
 		function bmiCalc(){
 			var height = $("#height").val();
 			var weight = $("#weight").val();
-			height = height/100;
-			height = height*height;
-			var bmi = weight / height;
-			var n = bmi.toFixed(2);
-			$("#result").append(n);
-
+			if(height==""){
+				alert("키를 입력하세요");
+				$("#checkBmi").on('show.bs.modal',function(e){
+					// e.preventDefault();
+				});
+			}else{
+				if(weight==""){
+					alert("몸무게를 입력하세요");
+					$("#checkBmi").on('show.bs.modal',function(e){
+						 e.preventDefault();
+					});
+					
+				}else{
+					console.log("show");
+					height = height/100;
+					height = height*height;
+					var bmi = weight / height;
+					var n = bmi.toFixed(2);
+					$("#result").append(n);
+					$("#bmiResult").val(n);
+					$("#showModal").click();
+				}
+			}
 		}
 		function subscribe(){
 			$("#check").hide();
-			
+			$(".subscription").show();
+			$("#registerSub").hide();
 		}
+		$(function(){
+			$("#checkBmi").on('hide.bs.modal', function(){
+				$("#result").html("");
+				$("#check").show();
+				$("#subscriptionForm").hide();
+			});
+			$("input[name=name]").keyup(function(){
+				var regEx = /^[가-힣]{2,4}$/;
+				var memberName = $(this).val();
+				if (!regEx.test(memberName)) {
+					$(this)
+					.prev()
+					.css("color", "red")
+					.html("한글로 2~4글자를 입력하세요");
+					$("input[name=name]").attr("qualify","false");
+				} else {
+					$(this).prev().hide();
+					$("input[name=name]").attr("qualify","true");
+				}
+			});
+			// 핸드폰
+			$("input[name=phone]").keyup(function () {
+			var regEx = /^[0-1]{3}[0-9]{4}[0-9]{4}$/;
+			var phone = $(this).val();
+			if (!regEx.test(phone)) {
+				$(this)
+				.prev()
+				.css("color", "red")
+				.html("01000000000 형식으로 입력해주세요");
+				$("input[name=phone]").attr("qualify", "false");
+			} else {
+				$(this).prev().hide();
+				$("input[name=phone]").attr("qualify", "true");
+			}
+			});
+			// 이메일
+			$("input[name=email]").keyup(function () {
+				var regEx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+				var email = $(this).val();
+				if (!regEx.test(email)) {
+					$(this)
+					.prev()
+					.css("color", "red")
+					.html("이메일을 다시 확인해주세요");
+					$("input[name=email]").attr("qualify", "false");
+				} else {
+					$(this).prev().hide();
+					$("input[name=email]").attr("qualify", "true");
+				}
+			});
+		});
+		function checkForm(){
+			var name = $("input[name=name]").attr("qualify");
+			var email = $("input[name=email]").attr("qualify");
+			var phone = $("input[name=phone]").attr("qualify");
+			if(!name=="true"){
+				alert("이름을 다시 확인해주세요");
+				return false;
+			}else if(!email=="true"){
+				alert("이메일을 확인해주세요");
+				return false;
+			}
+			alert("빠른 시일내에 연락 드리겠습니다~");
+			return true;
+
+		}
+		
+		$(function(){
+			$("#emailChk").click(function(){
+				if($("#email").is(":checked")){
+					$("#emailTag").show();
+				}else{
+					$("#emailTag").hide();
+				}
+			})
+		});
+		
 	</script>
 
 	<section class="ftco-appointment">
@@ -553,14 +648,13 @@
 							<div class="d-flex">
 								<input type="text" id="height" class="form-control mr-2"
 									placeholder="키를 cm으로 입력해주세요" required>
-								<!-- <input type="text" class="form-control ml-2" placeholder="inches"> -->
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="d-flex">
+							<div class="d-flex mr-2">
 								<div class="mr-2">
 									<span id="warning"></span>
-									<label for="height">몸 무개 <input id="weight" type="text"
+									<label for="weight">몸 무게 <input id="weight" type="text"
 										class="form-control" placeholder="65kg" required>
 									</label>
 								</div>
@@ -570,7 +664,8 @@
 						<div class="d-md-flex">
 							<span id="warning2"></span>
 							<div class="form-group d-flex">
-								<input type="button"  data-toggle="modal" onclick="bmiCalc()" data-target="#checkBmi" value="Calculate"
+								<button class="btn btn-secondary py-3 px-4 mr-2" onclick="bmiCalc()">Calculate</button>
+								<input type="hidden"  data-toggle="modal" name="modalBtn" id="showModal"  data-target="#checkBmi" value="Calculate"
 									class="btn btn-secondary py-3 px-4 mr-2">
 							</div>
 						</div>
@@ -589,24 +684,36 @@
 				</div>
 				<div class="modal-body">
 					<p id="modalBody">
-						<div id="check">
+						<div id="check" style="color: white;">
 							<div>
-								<span style="color: white;" id="result">당신의 BMI 는 : </span>
+								<span style="color: white;" >당신의 BMI 는 : </span><span style="color: white;" id="result"></span>
 							</div>
 						</div>
-						<div class="subscription" style="display: none;">
-							<div class="row">
-								
+						<form action="/healthner/member/registerMeeting.do" onsubmit="checkForm()" method="post">
+							<div class="subscription" id="subscriptionForm" style="display: none;">
+								<input type="hidden" name="bmi" id="bmiResult" value="">
+								<div class="row" style="color: white;">
+									이름<span></span>
+									<input type="text" class="form-control" name="name" id="" required>
+								</div>
+								<div class="row" style="color: white;">
+									핸드폰<span></span>
+									<input type="text" class="form-control" name="phone" id="" required>
+								</div>
+								<div class="row" style="color: white;">
+									이메일(선택) 
+									<input type="text" class="form-control" name="email" id="emailTag" >
+								</div>
+								<div class="row">
+									<input type="submit" class="btn btn-primary" value="예약신청하기">
+								</div>
 							</div>
-							<div class="row">
-
-							</div>
-						</div>
+						</form>
 
 					</p>
 				</div>
 				<div class="modal-footer">
-				  <button type="button" class="btn btn-secondary" onclick="subscribe()">상담 예약 신청</button>
+				  <button type="button" class="btn btn-secondary" id="registerSub" onclick="subscribe()">상담 예약 신청</button>
 				  <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
 				</div>
 			  </div>

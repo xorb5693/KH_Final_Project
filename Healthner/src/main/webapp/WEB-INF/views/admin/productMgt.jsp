@@ -101,11 +101,11 @@
     <!--  태규_200708_페이지 제작  -->
     <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Product List</h2>
-        <form action="/productDelete.do" method="get">
+        <form action="/healthner/admin/productDelete.do" method="get">
 			<input type="hidden" name="readType" value="0">
 			<button type="button" id="modal" style="width: 100px;"
 				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-				onclick="location.href='/productInsertFrm.do'">물품 등록</button>
+				onclick="location.href='/healthner/admin/productInsertFrm.do'">물품 등록</button>
 			<button type="submit" style="width: 100px;"
 				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
 				onclick="return checkDelete()">삭제</button>
@@ -131,7 +131,7 @@
                         </c:if>
 							<td><input type="checkbox" name="deleteNo" value="${product.pno }"></td>
 							<td><img src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%"></td>
-							<td><a class="tg-black" href="/productRead.do?pno=${product.pno }">${product.pname }</a></td>
+							<td><a class="tg-black" href="/healthner/admin/productRead.do?pno=${product.pno }">${product.pname }</a></td>
 							<td>${product.price }</td>
 							<td>${product.stock }</td>
 						</tr>

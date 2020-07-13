@@ -147,4 +147,22 @@
 			det_Addr = #{detAddr}
 		where member_no = #{memberNo}
 	</update>
+	<update id="paymentComplete" parameterType="member">
+		update member set
+			expire_date = sysdate+30
+		where member_no = #{memberNo}
+	</update>
+	<update id="oneDayPay" parameterType="member">
+		update member set
+			expire_date = sysdate+1
+		where member_no = #{memberNo}	
+	</update>
+	<update id="oneYear" parameterType="member">
+		update member set
+			expire_date = sysdate+365
+		where member_no = #{memberNo}	
+	</update>
+	<insert id="meeting" parameterType="ms" >
+		insert into meeting_schedule values(meeting_schedule_seq.nextval, #{name},#{phone},#{email},0,#{bmi})
+	</insert>
 </mapper>

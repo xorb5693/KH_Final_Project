@@ -105,12 +105,12 @@
         <c:if test="${type eq 0}">
             <button type="button" id="modal" style="width: 150px;"
             class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-            onclick="location.href='/userBuy.do?reqPage=1&type=1'">미배송 리스트</button>
+            onclick="location.href='/healthner/admin/userBuy.do?reqPage=1&type=1'">미배송 리스트</button>
         </c:if>
         <c:if test="${type eq 1}">
             <button type="button" id="modal" style="width: 150px;"
             class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-            onclick="location.href='/userBuy.do?reqPage=1&type=0'">전체 보기</button>
+            onclick="location.href='/healthner/admin/userBuy.do?reqPage=1&type=0'">전체 보기</button>
         </c:if>
 		<br>
 		<br>
@@ -133,7 +133,7 @@
 	                    <tr>
 	                </c:if>
 	                	<td><img src="/resources/upload/thumbnail/${purchase.thumbnail }" style="width: 100%"></td>
-                        <td><a class="tg-black" href="/userBuyRead.do?buyNo=${purchase.buyNo}"><div>${purchase.pname}</div> <c:if test="${purchase.count ne 0}">외 ${purchase.count}개</c:if></a></td>
+                        <td><a class="tg-black" href="/healthner/admin/userBuyRead.do?buyNo=${purchase.buyNo}"><div>${purchase.pname}</div> <c:if test="${purchase.count ne 0}">외 ${purchase.count}개</c:if></a></td>
                         <td>${purchase.totalPrice}</td>
                         <td>${purchase.memberId}</td>
                         <td>${purchase.buyDate}</td>

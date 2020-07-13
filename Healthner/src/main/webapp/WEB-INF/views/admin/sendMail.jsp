@@ -120,10 +120,10 @@ form>button {
 	<!-- Page Content  -->
 	<div id="content" class="p-4 p-md-5 pt-5">
 		<h5>
-			<a href="/mail.do?reqPage=1">Receive Mail List</a> / Send Mail List
+			<a href="/healthner/admin/mail.do?reqPage=1">Receive Mail List</a> / Send Mail List
 		</h5>
 		<h2 class="mb-4">Send Mail List</h2>
-		<form action="/adminDeleteMail.do" method="get">
+		<form action="/healthner/admin/adminDeleteMail.do" method="get">
 			<input type="hidden" name="readType" value="1">
 			<button type="button" id="modal" style="width: 100px;"
 				class="btn btn-primary ftco-animate fadeInUp ftco-animated"
@@ -172,7 +172,7 @@ form>button {
 		<div class="modal-dialog">
 			<div class="modal-content">
 
-				<form action="/adminInsertMail.do" method="post">
+				<form action="/healthner/admin/adminInsertMail.do" method="post">
 					<input type="hidden" value="1" name="readType">
 					<!-- Modal Header -->
 					<div class="modal-header">

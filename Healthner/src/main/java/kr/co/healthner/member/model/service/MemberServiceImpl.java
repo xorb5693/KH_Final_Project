@@ -27,6 +27,7 @@ import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
 import kr.co.healthner.trainer.model.vo.ProfessionalCategoryVO;
 import kr.co.healthner.trainer.model.vo.TrainerVO;
+import kr.co.healthner.vo.MeetingScheduleVO;
 
 @Service("memberService")
 public class MemberServiceImpl {
@@ -382,5 +383,16 @@ public class MemberServiceImpl {
 
 		public int changeAddr(Member m) {
 			return dao.changeAddr(m);
+		}
+
+
+		public int paymentComplete(Member m, int amount) {
+			
+			return dao.paymentComplete(m,amount);
+		}
+
+
+		public int registerMeeting(MeetingScheduleVO meeting) {
+			return dao.registerMeeting(meeting);
 		}
 }

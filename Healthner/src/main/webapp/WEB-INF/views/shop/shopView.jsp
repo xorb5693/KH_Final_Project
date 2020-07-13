@@ -59,7 +59,7 @@
 						<article class="gallery-wrap">
 							<div class="img-big-wrap">
 								<div>
-								<img src="${p.thumbnail }" onerror="this.src='/resources/images/favicon.png'; this.onerror=null;" width="100%"
+								<img src="/resources/upload/thumbnail/${p.thumbnail }" onerror="this.src='/resources/images/favicon.png'; this.onerror=null;" width="100%"
 										height="225">
 								</div>
 							</div>
@@ -83,7 +83,7 @@
 						<!-- gallery-wrap .end// -->
 					</aside>
 					<aside class="col-sm-7">
-					<form action="/healthner/shop/basketList.do?reqPage=1" method="post">
+					<form action="/healthner/shop/basket.do?reqPage=1" method="post">
 						<article class="card-body p-5">
 							<input type="hidden" value="${p.pno }" name="pno">
 							<input type="hidden" value="${sessionScope.member.memberNo }" name="memberNo">
