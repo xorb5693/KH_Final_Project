@@ -59,7 +59,7 @@
 						<article class="gallery-wrap">
 							<div class="img-big-wrap">
 								<div>
-								<img src="${p.thumbnail }" onerror="this.src='/resources/images/favicon.png'; this.onerror=null;" width="100%"
+								<img src="/resources/upload/thumbnail/${p.thumbnail }" onerror="this.src='/resources/images/favicon.png'; this.onerror=null;" width="100%"
 										height="225">
 								</div>
 							</div>

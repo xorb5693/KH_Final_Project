@@ -105,12 +105,12 @@
         <c:if test="${type eq 0}">
             <button type="button" id="modal" style="width: 150px;"
             class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-            onclick="location.href='/userBuy.do?reqPage=1&type=1'">미배송 리스트</button>
+            onclick="location.href='/healthner/admin/userBuy.do?reqPage=1&type=1'">미배송 리스트</button>
         </c:if>
         <c:if test="${type eq 1}">
             <button type="button" id="modal" style="width: 150px;"
             class="btn btn-primary ftco-animate fadeInUp ftco-animated"
-            onclick="location.href='/userBuy.do?reqPage=1&type=0'">전체 보기</button>
+            onclick="location.href='/healthner/admin/userBuy.do?reqPage=1&type=0'">전체 보기</button>
         </c:if>
 		<br>
 		<br>

@@ -46,7 +46,7 @@
 
 .profileImg {
 	width: 500px;
-	heigth: 600px;
+	height: 600px;
 }
 
 </style>
@@ -69,57 +69,27 @@
 			</div>
 
 			<div class="row">
-					<div class="col-lg-3 d-flex">
-						<div class="coach align-items-stretch">
-							<div class="img ftco-animate"
-								style="width: 200px; height: 300px;" id="myImg"
-								data-toggle="modal" data-target="#readPostscript"
-								onclick="readPostscript(this)">
-								<input type="image"
-									src="/resources/profile/${list.memberProfile }" onError="this.src='/resources/profile/noprofile.png'"
-									style="width: 200px; height: 300px;"
-									value="${list.memberProfile }">
-							</div>
-							<button type="button" class="btn displayNone"></button>
-							<div class="text pt-3 ftco-animate">
-								<h3>${list.memberName }</h3>
-								<p>주특기 1 : ${list.catFirstName }</p>
-								<p>주특기 2 : ${list.catSecondName }</p>
-								<p>주특기 3 : ${list.catThirdName }</p>
-								<input type="hidden" value="${list.trainerIntro2 }">
-							</div>
-						</div>
+				<div class="col-lg-3 d-flex">
+					<div class="coach align-items-stretch">
+						<div class="img ftco-animate" style="width: 200px; height: 300px;">
+				            <input type="image"	src="/resources/profile/${list.memberProfile }" onError="this.src='/resources/profile/noprofile.png'" style="width: 200px; height: 300px;" value="${list.memberProfile }">
+				        </div>
+						<div class="text pt-3 ftco-animate">
+                            <h3>${list.memberName }</h3>
+                            <p>주특기 1 : ${list.catFirstName }</p>
+                            <p>주특기 2 : ${list.catSecondName }</p>
+                            <p>주특기 3 : ${list.catThirdName }</p>
+                        </div>
 					</div>
+				</div>
+                <div class="col-lg-9 d-flex ftco-animate">
+                    <div class="text tg-black">
+                        <p>${list.trainerIntro2 }</p>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</section>
-
-	<div class="modal fade" id="readPostscript" role="dialog">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">트러이너 소개</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<div style="float: left;">
-						<input id="readImage2" class="d-flex align-items-center"
-							type="image" style="width: 350px; height: 100%;">
-					</div>
-					<div id="readIntro" class="d-flex align-items-center" style="padding: 20px"></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-
 
 		<script src="/resources/js/jquery.min.js"></script>
 		<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
@@ -140,22 +110,5 @@
 		<script src="/resources/js/google-map.js"></script>
 		<script src="/resources/js/main.js"></script>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
-		<script>
-			function readPostscript(btn) {
-				var introPlace = $(btn).next().next().children("input[type=hidden]").val();
-				var imagePlace = $(btn).children().val();
-				console.log(introPlace);
-				$("#readImage2")
-						.attr("src", "/resources/profile/" + imagePlace);
-				$("#readIntro").html("<span>" + introPlace + "<span>");
-
-			}
-
-			function closeModal(btn) {
-				$("#modifyTextarea").val($("#readArea").html());
-				$(btn).next().click();
-			}
-		</script>
 </body>
 </html>
