@@ -235,5 +235,13 @@ public class AdminDaoImpl {
 		return sqlSession.selectOne("admin.reportedDetail", r);
 		
 	}
+	// 혜진_200713_신고글 관리_상세보기 modal_reportlist 조회_totalList
+	public int reportedDetailListTotal(Report r) {
+		return sqlSession.selectOne("admin.reportedDetailListTotal",r);
+	}
+	// 혜진_200713_신고글 관리_상세보기 modal_reportlist 조회
+	public List reportedDetailList(Report r) {
+		return sqlSession.selectList("admin.reportedDetailList",r);
+	}
 	
 }

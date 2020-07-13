@@ -10,6 +10,7 @@ public class MeetingSchedule {
 	private String phone;
 	private String email;
 	private int responseFin;
+	private float bmi;
 	private int start;
 	private int end;
 	private int sorting;

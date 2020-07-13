@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <meta charset="UTF-8">
 <!doctype html>
 <html lang="en">
@@ -42,6 +43,7 @@
        		<th>이름</th>
        		<th>전화번호</th>
        		<th>이메일 주소</th>
+       		<th>BMI</th>
        		<th>응답완료</th>
        	</tr>
        </table>
@@ -83,6 +85,11 @@
 								html += "<td>" + data.listms[i].name+ "</td>";
 								html += "<td>"+data.listms[i].phone+"</td>";
 								html += "<td>"+data.listms[i].email+"</td>";
+								if(data.listms[i].bmi==0){
+									html += "<td>0.00</td>";
+								}else{
+									html += "<td>"+data.listms[i].bmi+"</td>";
+								}
 								if(data.listms[i].responseFin!=1){
 									html += "<td><input type='button' value='완 료' class='admin-btn' onclick='finResponse(this);'></td>";
 								}else{

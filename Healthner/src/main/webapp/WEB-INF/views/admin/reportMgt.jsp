@@ -168,13 +168,12 @@
 			var checkWriteNo = "";
 			var writeType = [];
 			var writeNo = [];
-			$("input[name='reportSelectAll']:checked").each(
-					function() {
-						checkWriteType = $(this).parent().children().eq(1).val();
-						checkWriteNo = $(this).parent().children().eq(2).val();
-						writeType.push(checkWriteType);
-						writeNo.push(checkWriteNo);
-					});
+			$("input[name='reportSelectAll']:checked").each(function() {
+				checkWriteType = $(this).parent().children().eq(1).val();
+				checkWriteNo = $(this).parent().children().eq(2).val();
+				writeType.push(checkWriteType);
+				writeNo.push(checkWriteNo);
+			});
 			var param = {
 				writeType : writeType,
 				writeNo : writeNo
@@ -184,7 +183,7 @@
 				return false;
 			}
 			if (confirm("정보를 삭제 하시겠습니까?")) {
-				 jQuery.ajaxSettings.traditional = true;
+				jQuery.ajaxSettings.traditional = true;
 				$.ajax({
 					url : "/healthner/admin/deleteReport.do",
 					type : "get",
@@ -269,36 +268,80 @@ table {
 		//(1) 모달창 켜기
 		function openModal(obj) {
 			$("#modal").show();
-			var writeType = $(obj).parent().parent().children().eq(0).children().eq(1).val();
-			var writeNo = $(obj).parent().parent().children().eq(0).children().eq(2).val();
+			var writeType = $(obj).parent().parent().children().eq(0)
+					.children().eq(1).val();
+			var writeNo = $(obj).parent().parent().children().eq(0).children()
+					.eq(2).val();
 			var param = {
-					writeType:writeType,
-					writeNo:writeNo
+				writeType : writeType,
+				writeNo : writeNo
 			}
 			//(1-1) 모달창 켜자마자, 정보 페이지 로드 - 신고당한 글의 contents
+			$
+					.ajax({
+						url : "/healthner/admin/reportedDetail.do",
+						data : param,
+						type : "post",
+						dataType : "json",
+						success : function(data) {
+							if ($("#contentBox").length != 1) {
+								//신고글 상세(1==board, 2==comment)
+								if (data.writeType == 1) {
+									var htmlCt = "<tr id='contentBox'><td><textarea style='width:100%;'>"
+											+ "[ "
+											+ data.boardTitle
+											+ " ]"
+											+ "\n"
+											+ data.boardContent
+											+ "</textarea></td></tr>";
+								} else if (data.writeType == 2) {
+									var htmlCt = "<tr><td><textarea style='width:100%;'>"
+											+ data.commentContent
+											+ "</textarea></td></tr>";
+								}
+								$("#reportContent").children("tbody").append(
+										htmlCt);
+							}
+
+						}
+					});
+			show_detailList(1,writeType, writeNo);
+		}
+		//(1-2) 신고한 사람 리스트 및 이유
+		function show_detailList(start, writeType, writeNo) {
+			var param = {
+				writeType : writeType,
+				writeNo : writeNo,
+				start : start
+			}
+			console.log(param);
+			//(1-1) 모달창 켜자마자, 정보 페이지 로드 - 신고당한 글의 contents
 			$.ajax({
-				url: "/healthner/admin/reportedDetail.do",
-				data: param,
-				type: "post",
-				dataType: "json",
-				success: function(data){
-					console.log(data);
-					//신고글 상세(1==board, 2==comment)
-					if(data.writeType==1){
-						
-					 	var htmlCt = "<tr><td><textarea style='width:100%;'>"
-					 					+"[ "+data.boardTitle+" ]"
-					 					+"\n"+data.boardContent
-					 					+"</textarea></td></tr>";
-					}else if(data.writeType==2){
-						var htmlCt = "<tr><td><textarea style='width:100%;'>"+data.commentContent+"</textarea></td></tr>";	
+				url : "/healthner/admin/reportedDetailList.do",
+				data : param,
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					//1) 초기화
+					$(".contentsRow").html("");
+					//2) 본문 - 리스트
+					var html = "";
+					console.log(data.listrp);
+					for (var i = 0; i < data.listrp.length; i++) {
+						html += "<tr class='contentsRow'><td>"
+								+ data.listrp[i].rnum + "</td>";
+						html += "<td>" + data.listrp[i].memberNick + "</td>";
+						html += "<td>" + data.listrp[i].categoryName + "</td>";
+						html += "<td>" + data.listrp[i].reportDetail + "</td>";
+						html += "</tr>";
 					}
-					$("#reportContent").children("tbody").append(htmlCt);
+					$("#reportComment").children("tbody").append(html);
+					//3) 넘버링
+					var numbering = "";
 				}
+
 			});
-			//(1-2) 신고한 사람 리스트 및 이유
-			
-		};
+		}
 		//(2) 모달창 끄기
 		function closeModal() {
 			$('.searchModal').hide();
