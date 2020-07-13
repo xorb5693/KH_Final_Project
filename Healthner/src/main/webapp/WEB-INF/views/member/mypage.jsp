@@ -434,8 +434,8 @@
 								<td colspan="2" style="text-align: center;">
 									<button type="button" id="finalChk"
 										class="btn btn-dark btn-block" >수정하기</button>
-									<button type="button" id="cancel"
-										class="btn btn-dark btn-block">메인페이지로</button></td>
+									<a type="button" href="/"
+										class="btn btn-dark btn-block">메인페이지로</a></td>
 							</tr>
 						</table>
 					</div>
@@ -445,8 +445,8 @@
 						<td colspan="2" style="text-align: center;" >
 							<button type="button" id="modify"
 								class="btn btn-dark btn-block">수정하기</button>
-							<button type="button" id="cancel"
-								class="btn btn-dark btn-block">메인페이지로</button></td>
+							<a href="/" id="cancel"
+								class="btn btn-dark btn-block">메인페이지로</a></td>
 					</tr>
 
 				</table>
