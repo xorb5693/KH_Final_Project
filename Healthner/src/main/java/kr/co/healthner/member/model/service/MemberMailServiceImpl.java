@@ -50,5 +50,22 @@ public class MemberMailServiceImpl {
 			e.printStackTrace();
 		}
 	}
+
+	public void sendConfirmMail(String email, Member member, HttpServletRequest request, long timeout, StringBuilder sb) {
+		MimeMessage mail = mailSender.createMimeMessage();
+		String msg = "<h2>안녕하세요 헬트너쉽입니다</h2><br><br>"
+				+"<h3>"+member.getMemberName()+"님</h3><p>인증번호 입니다</p>:"
+				+"<h4>인증번호 : "+sb.toString()+" 입니다 </h4>";
+		try {
+			mail.setSubject("[비밀번호 재설정]"+member.getMemberName()+"님 헬트너쉽 비밀번호를 재설정 해주세요");
+			mail.setText(msg,"utf-8","html");
+			mail.addRecipient(RecipientType.TO, new InternetAddress(email));
+			mailSender.send(mail);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 }
