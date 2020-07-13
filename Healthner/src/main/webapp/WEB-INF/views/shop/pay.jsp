@@ -41,7 +41,7 @@
 					merchant_uid : '상품명_' + date,
 					name : '결제테스트',
 					/* amount: '${p.totalPrice}', */
-					amount : '${p.totalPrice }',
+					amount : '${p.totalPrice}',
 					buyer_email : '${sessionScope.member.email}',
 					buyer_name : '${sessionScope.member.memberName}',
 					buyer_tel : '${sessionScope.member.phone}',

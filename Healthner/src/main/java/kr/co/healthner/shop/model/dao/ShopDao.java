@@ -116,6 +116,15 @@ public class ShopDao {
 		
 		return sqlSession.selectList("shop.selectBuyProductList", buyNo);
 	}
+
+	public int modifyBuyProduct(BuyProductVO buy) {
+		return sqlSession.update("admin.modifyBuyProduct",buy);
+		
+	}
+
+	
+
+	
 	
 	
 	

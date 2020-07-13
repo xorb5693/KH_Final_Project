@@ -361,7 +361,7 @@ h4{
 	padding: 20px;
 	border: 1px solid #888;
 	width: 60%; /* Could be more or less, depending on screen size */
-	height: 500px;
+	height: auto;
 }
 
 #memberInfo-box {
@@ -428,13 +428,13 @@ table {
 							if ($("#contentBox").length != 1) {
 								//신고글 상세(1==board, 2==comment)
 								if (data.writeType == 1) {
-									var htmlCt = "<tr id='contentBox'><td><textarea style='width:100%;'>"
+									var htmlCt = "<tr id='contentBox'><td><div style='width:100%; height: 500px;'>"
 											+ "[ "
 											+ data.boardTitle
 											+ " ]"
 											+ "\n"
 											+ data.boardContent
-											+ "</textarea></td></tr>";
+											+ "</div></td></tr>";
 								} else if (data.writeType == 2) {
 									var htmlCt = "<tr><td><textarea style='width:100%;'>"
 											+ data.commentContent

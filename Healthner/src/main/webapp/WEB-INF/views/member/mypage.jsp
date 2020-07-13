@@ -180,7 +180,8 @@
 		
 	</script>
 	
-	<section>
+	<section class="ftco-section ftco-about">
+		<div class="container">
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
@@ -300,7 +301,7 @@
 						method: "get",
 						data: { memberNick: memberNick },
 						success: function (data) {
-							if (data == "0") {
+							if (data == "0" || memberNick == $("input[name=oldNick]").val()) {
 							$("input[name=memberNick]")
 								.prev("span")
 								.html("사용가능")
@@ -386,6 +387,7 @@
 								<td><span></span><input type="text" id="memberNick"
 									class="form-control" style="width: 200px;" name="memberNick"
 									value="${sessionScope.member.memberNick }" readonly required> 
+									<input type="hidden" name="oldNick" value="${sessionScope.member.memberNick}">
 								</td>
 							</tr>
 							<tr>
@@ -432,8 +434,8 @@
 								<td colspan="2" style="text-align: center;">
 									<button type="button" id="finalChk"
 										class="btn btn-dark btn-block" >수정하기</button>
-									<button type="button" id="cancel"
-										class="btn btn-dark btn-block">메인페이지로</button></td>
+									<a type="button" href="/"
+										class="btn btn-dark btn-block">메인페이지로</a></td>
 							</tr>
 						</table>
 					</div>
@@ -443,8 +445,8 @@
 						<td colspan="2" style="text-align: center;" >
 							<button type="button" id="modify"
 								class="btn btn-dark btn-block">수정하기</button>
-							<button type="button" id="cancel"
-								class="btn btn-dark btn-block">메인페이지로</button></td>
+							<a href="/" id="cancel"
+								class="btn btn-dark btn-block">메인페이지로</a></td>
 					</tr>
 
 				</table>
@@ -540,6 +542,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
