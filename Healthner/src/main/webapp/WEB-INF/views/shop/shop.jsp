@@ -105,11 +105,11 @@
 									<img class="bd-placeholder-img card-img-top" width="100%"
 										height="225" xmlns="http://www.w3.org/2000/svg"
 										preserveAspectRatio="xMidYMid slice" focusable="false"
-										role="img" src="/resources/upload/thumbnail/${n.thumbnail }">
+										role="img" src="/resources/upload/thumbnail/${n.thumbnail }" onerror="this.src='/resources/images/favicon.png'; this.onerror=null;" >
 									<rect width="100%" height="100%" fill="#55595c" />
 									<text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
 									<div class="card-body">
-										<p class="card-text">${n.pcontent }</p>
+										<p class="card-text">${n.pname }</p>
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
 												<button type="button"
@@ -125,7 +125,14 @@
 						</c:forEach>
 
 					</div>
+					<div class="row justify-content-center">
+					
+					<div class="col-md-0" id="pageNavi">${navi }</div>
+					
+
+				</div>
 		</div>
+		
 		</section>
 		
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -47,12 +47,12 @@
 				<h1 class="bread" style="font-style: italic; font-weight: 900;">Board
 					View</h1>
 				<br>
-				<%-- <c:if test="${sessionScope.member.memberNo==${b.boardWriter }"> --%>
+				<c:if test="${sessionScope.member.memberNo eq b.boardWriter}">
 				<a style="float: right;"
 					href="/healthner/board/boardModify.do?boardNo=${b.boardNo }">내용수정</a>
 				<a style="float: right; padding-right: 10px;"
 					href="/healthner/board/boardDelete.do?boardNo=${b.boardNo }">글삭제</a>
-				<%-- </c:if> --%>
+				</c:if>
 				<br>
 				<div class="content wraper col-md-12" style="overflow:hidden;">
 
