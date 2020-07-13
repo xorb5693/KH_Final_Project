@@ -300,7 +300,7 @@
 						method: "get",
 						data: { memberNick: memberNick },
 						success: function (data) {
-							if (data == "0") {
+							if (data == "0" || memberNick == $("input[name=oldNick]").val()) {
 							$("input[name=memberNick]")
 								.prev("span")
 								.html("사용가능")
@@ -386,6 +386,7 @@
 								<td><span></span><input type="text" id="memberNick"
 									class="form-control" style="width: 200px;" name="memberNick"
 									value="${sessionScope.member.memberNick }" readonly required> 
+									<input type="hidden" name="oldNick" value="${sessionScope.member.memberNick}">
 								</td>
 							</tr>
 							<tr>
