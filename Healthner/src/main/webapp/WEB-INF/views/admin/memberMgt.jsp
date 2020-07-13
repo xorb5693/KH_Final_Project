@@ -15,6 +15,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
 	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet" href="/admin/css/style.css">
 </head>
 <script type="text/javascript"
@@ -36,15 +39,11 @@ table th, table td {
 	padding: 0.5rem;
 	border-top: 1px solid #dee2e6;
 	text-align: center;
+	height: 50px;
 }
 
 body {
 	font-family: 'Nanum Gothic', sans-serif;
-}
-
-.contentsRow:hover {
-	background-color: #fcd307;
-	cursor: pointer;
 }
 
 .small-img {
@@ -74,12 +73,15 @@ body {
 		-webkit-box-shadow 0.15s ease-in-out;
 	display: inline-block;
 	float: right;
+	margin: 5px;
+	margin-bottom:20px;
+	border-radius: 5px;
 }
 
 .admin-btn:hover {
 	color: #fff;
-	background-color: #6e6d6d;
-	border-color: #6e6d6d;
+	background-color: #33290e;
+	border-color: #33290e;
 }
 
 #profile {
@@ -103,7 +105,56 @@ body {
 .checkbox-span{
 	font-size: 1.1em;
 }
-
+.finish-btn:hover{
+background-color: #33290e;
+color:#fff;
+border: 1px solid transparent;
+}
+.finish-btn{
+width: 65px;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #212529;
+	border-weight: bold;
+	background-color: #fff;
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid #212529;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+	display: inline-block;
+}
+#searchBox{
+	float: right;
+}
+select[name=responseFin]{
+	margin-top: 6;
+    line-height: 40px;
+    height: 38;
+    margin-right: 8;
+    width: 100;
+    border: 0.5px solid gray;
+    border-radius: 5px;
+}
+span{
+	font-size: 1.2em;
+	margin-right: 10px;
+}
+#boxforselect{
+	margin-top:10px;
+	display: inline-block;
+	margin-left: 32;
+}
+h4{
+	text-align:center;
+}
 </style>
 <body>
 	<!-- 혜진_200624_메뉴바 삽입 -->
@@ -111,17 +162,18 @@ body {
 
 	<!-- Page Content  -->
 	<div id="content" class="p-4 p-md-5 pt-5">
-		<h6 style="margin-bottom:35px;">전체 회원 관리</h6>
+		<b><h4 style="font-family: 'Montserrat Subrayada', sans-serif; margin-bottom: 60px; margin-top: 20px;">Member
+				Management</h4></b>
 		<!-- 혜진_200624_회원 검색 조회 box_아이디/이름/닉네임 입력, 이용권 미등록 찾기, 카드키 미등록 찾기, 검색버튼  -->
 		<div class="search-box">
 			<!-- (1) 아이디/이름/닉네임 입력 -->
 			<input type="text" id="searchWord" placeholder="아이디/이름/닉네임을 입력하세요.">
 			<!-- (2) 이용권 미등록 찾기, 카드키 미등록 -->
-			<span class="right-searchbox">
-			<span class="checkbox-span">이용권 미등록<input type="checkbox" value="expire" name="expire"></span>
-			<span class="checkbox-span">카드키 미등록<input type="checkbox" value="card" name="card"></span>
-			<!-- (4)검색 버튼 -->
-			<input type="button" value="검  색" class="admin-btn" id="admin-search"
+			<span class="right-searchbox"> <span class="checkbox-span">이용권
+					미등록<input type="checkbox" value="expire" name="expire">
+			</span> <span class="checkbox-span">카드키 미등록<input type="checkbox"
+					value="card" name="card"></span> <!-- (4)검색 버튼 --> <input
+				type="button" value="검  색" class="admin-btn" id="admin-search"
 				onclick="show_memberlist(1,1);">
 			</span>
 		</div>
@@ -189,7 +241,9 @@ body {
 								if (data.list[i].memberProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 								} else {
-									html += "<td><img src='/resources/profile/"+data.list[i].memberProfile+"' class='small-img' onerror='error(this);'></td>";
+									html += "<td><img src='/resources/profile/"
+											+ data.list[i].memberProfile
+											+ "' class='small-img' onerror='error(this);'></td>";
 								}
 								html += "<td>" + data.list[i].memberId
 										+ "</td>";
@@ -252,10 +306,10 @@ body {
 			var option = "width = 500, height = 500, top = 100, left = 200, location = no";
 			window.open(url, null, option);
 		}
-		
+
 		//혜진_200713_사진 에러 시, 에러 화면 처리
-		function error(obj){
-			$(obj).attr("src","/resources/profile/imageError.jpg");
+		function error(obj) {
+			$(obj).attr("src", "/resources/profile/imageError.jpg");
 		}
 	</script>
 	<script type="text/javascript"
