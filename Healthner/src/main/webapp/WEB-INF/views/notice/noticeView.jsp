@@ -24,10 +24,11 @@
 		<jsp:include page="/WEB-INF/views/common/headerForBlog.jsp"/>
 	<div class="content"><br><br>
 		<h1 class="bread" style="font-style:italic; font-weight:900;">Notice View</h1>
-		<%-- <c:if test="${sessionScope.member.memberLever eq 4 }"> --%>
+		<c:if test="${sessionScope.member.memberLevel eq 4 }">
+		
 			<a style="float:right;" href="/healthner/notice/noticeModify.do?noticeNo=${n.noticeNo }">내용수정</a>
 			<a style="float:right; padding-right:10px;" href="/healthner/notice/noticeDelete.do?noticeNo=${n.noticeNo }">글삭제</a>
-		<%-- </c:if> --%>
+		</c:if>
 	<br><hr>
 	<div>
 		<div>제목<span><strong>${n.noticeTitle }</strong></span><span style="float:right;"><span>${n.noticeDate }</span></span></div>

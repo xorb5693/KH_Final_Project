@@ -13,4 +13,5 @@ public class BoardVO {
 	private String boardDate;
 	private String boardFilename;
 	private int report;
+	private String memberNick;
 }

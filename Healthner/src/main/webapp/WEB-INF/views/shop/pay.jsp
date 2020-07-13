@@ -41,7 +41,7 @@
 					merchant_uid : '상품명_' + date,
 					name : '결제테스트',
 					/* amount: '${p.totalPrice}', */
-					amount : '100',
+					amount : '${p.totalPrice }',
 					buyer_email : '${sessionScope.member.email}',
 					buyer_name : '${sessionScope.member.memberName}',
 					buyer_tel : '${sessionScope.member.phone}',
@@ -63,7 +63,7 @@
 					} else {
 						
 						alert('결제실패 : ' + rsp.error_msg);
-						
+						location.href="/healthner/shop/shop.do?reqPage=1";
 						/* alert('결제실패 : ' + rsp.error_msg); */
 					}
 				});
