@@ -12,4 +12,5 @@ public class BoardCommentVO {
 	private int commentLevel;
 	private int ref;
 	private int commentRef;
+	private String memberNick;
 }

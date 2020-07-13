@@ -27,8 +27,10 @@
   comment_date as commentDate,
   comment_level as commentLevel,
   ref,
-  NVL(comment_ref, 0) as commentRef
-from board_comment where ref = #{ref}
+  NVL(comment_ref, 0) as commentRef,
+  member_nick as memberNick
+from board_comment
+join member on (member_no = comment_writer) where ref = #{ref}
 	</select>
 	<delete id="commentDelete" parameterType="comment">
 		delete from board_comment where comment_no = #{commentNo} 

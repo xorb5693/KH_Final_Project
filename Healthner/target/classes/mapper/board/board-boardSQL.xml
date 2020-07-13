@@ -10,14 +10,19 @@
 	<select id="boardList" parameterType="map" resultType="board">
 		select * from
 			(select rownum as rnum, n.* from
-				(select board_type as boardType,board_no as boardNo,board_writer as boardWriter, board_title as boardTitle, board_content as boardContent, board_date as boardDate , board_filename as boardFilename,report 
-				from board order by board_no desc)
+				(select board_type as boardType,board_no as boardNo,board_writer as boardWriter, board_title as boardTitle,
+				board_date as boardDate , report ,member_nick as memberNick
+				from board
+				join member on (member_no=board_writer) order by board_no desc)
 				n)
 				where rnum between #{start} and #{end}
 	</select>
 	<select id="boardView" parameterType="board" resultType="board">
-		select board_type as boardType,board_no as boardNo,board_writer as boardWriter, board_title as boardTitle, board_content as boardContent, board_date as boardDate , board_filename as boardFilename,report
-		from board where board_no=#{boardNo}
+		select board_type as boardType,board_no as boardNo,board_writer as boardWriter, board_title as boardTitle, 
+		board_content as boardContent, board_date as boardDate , board_filename as boardFilename,report,member_nick as memberNick
+		from board
+		join member on (member_no = board_writer) 
+		where board_no=#{boardNo}
 	</select>
 	<update id="boardUpdate" parameterType="board">
 		update board set board_content = #{boardContent},board_title = #{boardTitle} where board_no = #{boardNo}
