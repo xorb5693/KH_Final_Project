@@ -326,6 +326,7 @@
     		name,
     		phone,
     		email,
+    		NVL(bmi,'0.00') as bmi,
     		response_fin as responseFin
 		from meeting_schedule
 		<if test="responseFin==1">
@@ -408,7 +409,7 @@
 	</select>
 	<!-- 혜진_200710_회원 정지 관리 페이지_내용 조회 -->
 	<select id="penaltylist" parameterType="adminReport" resultType="adminReport">
-	select rownum as rnum, n.* from
+	select*from(select rownum as rnum, n.* from
 	(select distinct
         reported_no as reportedNo, 
         member_id as reportedId, 
@@ -428,7 +429,7 @@
 	<if test="sorting==1">
 	desc
 	</if>
-	)n where rownum between #{start} and #{end}
+	)n) where rownum between #{start} and #{end}
 	</select>
 	<!-- 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제 -->
 	<delete id="deletePenalty" parameterType="adminReport">
@@ -464,5 +465,22 @@
 	where r.write_no=#{writeNo}
 	group by c.comment_content
 	</if>
+	</select>
+	<!-- 혜진_200713_신고글 관리_상세보기 modal_reportlist 조회_totalList -->
+	<select id="reportedDetailListTotal" parameterType="adminReport" resultType="_int">
+	select count(member_no) from report where write_type=#{writeType} and write_no=#{writeNo}
+	</select>
+	<!-- 혜진_200713_신고글 관리_상세보기 modal_reportlist 조회 -->
+	<select id="reportedDetailList" parameterType="adminReport" resultType="adminReport">
+	select*from (select rownum as rnum, n.* from(
+		select
+   			m.member_nick as memberNick,
+    		c.report_cat as categoryName,
+    		r.report_detail as reportDetail 
+		from report r
+		join member m on (m.member_no=r.member_no) 
+		join report_cat c on (r.report_cat = c.report_no) 
+		where write_type=#{writeType} and write_no=#{writeNo} 
+	)n) where rnum between #{start} and #{end}
 	</select>
 </mapper>
