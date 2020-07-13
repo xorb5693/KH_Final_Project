@@ -131,7 +131,7 @@
                         </c:if>
 							<td><input type="checkbox" name="deleteNo" value="${product.pno }"></td>
 							<td><img src="/resources/upload/thumbnail/${product.thumbnail }" style="width: 100%"></td>
-							<td><a class="tg-black" href="/productRead.do?pno=${product.pno }">${product.pname }</a></td>
+							<td><a class="tg-black" href="/healthner/admin/productRead.do?pno=${product.pno }">${product.pname }</a></td>
 							<td>${product.price }</td>
 							<td>${product.stock }</td>
 						</tr>

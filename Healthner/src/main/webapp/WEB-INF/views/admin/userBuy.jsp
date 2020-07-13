@@ -133,7 +133,7 @@
 	                    <tr>
 	                </c:if>
 	                	<td><img src="/resources/upload/thumbnail/${purchase.thumbnail }" style="width: 100%"></td>
-                        <td><a class="tg-black" href="/userBuyRead.do?buyNo=${purchase.buyNo}"><div>${purchase.pname}</div> <c:if test="${purchase.count ne 0}">외 ${purchase.count}개</c:if></a></td>
+                        <td><a class="tg-black" href="/healthner/admin/userBuyRead.do?buyNo=${purchase.buyNo}"><div>${purchase.pname}</div> <c:if test="${purchase.count ne 0}">외 ${purchase.count}개</c:if></a></td>
                         <td>${purchase.totalPrice}</td>
                         <td>${purchase.memberId}</td>
                         <td>${purchase.buyDate}</td>
