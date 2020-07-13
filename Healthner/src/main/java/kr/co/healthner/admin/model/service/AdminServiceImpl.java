@@ -313,7 +313,7 @@ public class AdminServiceImpl {
 		int totalCount = dao.reportTotalCount(rp);
 		tl.setTotalCount(totalCount);
 		// (2) list로 글목록 가져오기
-		int length = 5;
+		int length = 10;
 		int end = start + length - 1;
 		rp.setStart(start);
 		rp.setEnd(end);
