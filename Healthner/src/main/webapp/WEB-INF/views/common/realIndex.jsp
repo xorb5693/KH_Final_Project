@@ -99,13 +99,7 @@
 								환영합니다 <span> 헷트너쉽 </span> 너는 내가 책임 GYM
 							</h2>
 						</div>
-						<p>A small river named Duden flows by their place and supplies
-							it with the necessary regelialia. It is a paradisematic country,
-							in which roasted parts of sentences fly into your mouth. Far far
-							away, behind the word mountains, far from the countries Vokalia
-							and Consonantia, there live the blind texts. Separated they live
-							in Bookmarksgrove right at the coast of the Semantics, a large
-							language ocean.</p>
+						<p>헬트너쉽과 함께 당신의 피트니스 스토리를 만들어보세요. 더 즐겁고 더 에너지 넘치는 일상을 위해 삶을 더욱 효율적으로 즐길 수 있는 ‘복합 피트니스 문화 플랫폼’으로 활기찬 라이프스타일을 제시하고자 합니다.</p>
 						<p>
 							<a href="#" class="btn btn-primary p-3">Join us</a>
 						</p>
@@ -136,10 +130,8 @@
 							<span class="flaticon-ruler"></span>
 						</div>
 						<div class="text px-md-2">
-							<h3>Analyze Your Goal</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia. It is a paradisematic
-								country</p>
+							<h3>최첨단 헬스 시설</h3>
+							<p>최상의 피트니스 효과를 위해서는 트레이너의 실력뿐만 아니라 운동기구의 기본성능 또한 무엇보다 중요합니다． GOTO고투의 운동기구는 업계 최상위 클래스의 기구가 적용되어 있어 안전과 효과 모두가 보장되는 이상적인 운동환경을 제공합니다.</p>
 						</div>
 					</div>
 				</div>
@@ -149,10 +141,8 @@
 							<span class="flaticon-gym"></span>
 						</div>
 						<div class="text px-md-2">
-							<h3>Work Hard On It</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia. It is a paradisematic
-								country</p>
+							<h3>퍼스널 트레이닝</h3>
+							<p>헬트너쉽의 퍼스널 트레이닝은 PERSONAL 기본에 충실합니다. 주먹구구식이 아닌 최고의 전문성과 노하우를 바탕으로 회원 개개인의 다양한 니즈에 맞추어 과학적으로 설계/적용/진행합니다.</p>
 						</div>
 					</div>
 				</div>
@@ -162,10 +152,8 @@
 							<span class="flaticon-tools-and-utensils"></span>
 						</div>
 						<div class="text px-md-2">
-							<h3>Improve Your Performance</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia. It is a paradisematic
-								country</p>
+							<h3>최신 컨텐츠</h3>
+							<p>헬트너쉽은 가장 트렌디한 피트니스 컨텐츠를 제공합니다. 해외 라이센스 계약으로 누구보다 먼저 회원 여러분께 최고이자 최신의 피트니스 경험을 약속합니다.</p>
 						</div>
 					</div>
 				</div>
@@ -175,10 +163,8 @@
 							<span class="flaticon-abs"></span>
 						</div>
 						<div class="text px-md-2">
-							<h3>Achieve Your Perfect Body</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia. It is a paradisematic
-								country</p>
+							<h3>몸과 마음의 단련</h3>
+							<p>헬트너쉽이 지향하는 건강한 삶은 마음과 몸 속 건강도 기본으로 포함됩니다. 모든 지점에 설치된 원적외선 반신욕기는 면역을 강화하고 운동전후의 신체 긴장을 완화하여 마음까지 힐링합니다.</p>
 						</div>
 					</div>
 				</div>
@@ -536,7 +522,19 @@
 	
 
 	<script>
+
 		function bmiCalc(){
+			var height = $("#height").val();
+			var weight = $("#weight").val();
+			height = height/100;
+			height = height*height;
+			var bmi = weight / height;
+			var n = bmi.toFixed(2);
+			$("#result").append(n);
+
+		}
+		function subscribe(){
+			$("#check").hide();
 			
 		}
 	</script>
@@ -553,7 +551,7 @@
 						<div class="form-group">
 							<label for="height">키</label>
 							<div class="d-flex">
-								<input type="text" class="form-control mr-2"
+								<input type="text" id="height" class="form-control mr-2"
 									placeholder="키를 cm으로 입력해주세요" required>
 								<!-- <input type="text" class="form-control ml-2" placeholder="inches"> -->
 							</div>
@@ -561,7 +559,8 @@
 						<div class="form-group">
 							<div class="d-flex">
 								<div class="mr-2">
-									<label for="height">몸 무개 <input type="text"
+									<span id="warning"></span>
+									<label for="height">몸 무개 <input id="weight" type="text"
 										class="form-control" placeholder="65kg" required>
 									</label>
 								</div>
@@ -569,8 +568,9 @@
 							</div>
 						</div>
 						<div class="d-md-flex">
+							<span id="warning2"></span>
 							<div class="form-group d-flex">
-								<input type="button"  data-toggle="modal" data-target="#changePw" value="Calculate"
+								<input type="button"  data-toggle="modal" onclick="bmiCalc()" data-target="#checkBmi" value="Calculate"
 									class="btn btn-secondary py-3 px-4 mr-2">
 							</div>
 						</div>
@@ -578,11 +578,11 @@
 			</div>
 		</div>
 		<!-- Modal -->
-		<div class="modal fade" id="changePw" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal fade" id="checkBmi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 			  <div class="modal-content bg-dark" >
 				<div class="modal-header">
-				  <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">비밀번호 수정</h5>
+				  <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">BMI 측정</h5>
 				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				  </button>
@@ -590,38 +590,24 @@
 				<div class="modal-body">
 					<p id="modalBody">
 						<div id="check">
-							<div class="form-row">
-
-								<input type="password" name="oldMemberPw" class="form-control" id="">
-							</div>
-							<br>
-							<div class="form-row" >
-								<button type="button" onclick="checkPw();" class="btn btn-primary">비밀번호 확인</button>
+							<div>
+								<span style="color: white;" id="result">당신의 BMI 는 : </span>
 							</div>
 						</div>
-						<div style="display: none;" id="change">
-							<form action="/healthner/member/changePw.do" onsubmit="return changePw()"  method="post">
-								<div class="form-row" style="color: white;">
-									새 비밀번호<span></span>
-									<input type="password" class="form-control" name="memberPw" id="memberPw">
-								</div>
-								<div class="form-row" style="color: white;">
-									비밀번호 확인<span></span>
-									<input type="password" name="chkPw" class="form-control" id="checkPw">
-								</div>
-								<br>
-								<div class="form-row">
-									<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.member.memberNo}">
-									<input type="submit" class="btn btn-primary" value="변경">
-								</div>
-							</form>
+						<div class="subscription" style="display: none;">
+							<div class="row">
+								
+							</div>
+							<div class="row">
 
+							</div>
 						</div>
 
 					</p>
 				</div>
 				<div class="modal-footer">
-				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				  <button type="button" class="btn btn-secondary" onclick="subscribe()">상담 예약 신청</button>
+				  <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
 				</div>
 			  </div>
 			</div>

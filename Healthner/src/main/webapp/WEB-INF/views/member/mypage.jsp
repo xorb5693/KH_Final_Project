@@ -38,7 +38,7 @@
 	<!-- 관리자 전용 -->
 	<c:if test="${sessionScope.member.memberLevel eq 4 }">
 		<script>
-			location.href = "/adminMain.do";
+			location.href = "/healthner/admin/adminMain.do";
 		</script>
 	</c:if>
 
