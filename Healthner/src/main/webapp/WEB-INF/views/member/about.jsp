@@ -9,7 +9,7 @@ prefix="c"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title>About</title>
     <link rel="icon" href="/resources/images/favicon.png">
   </head>
   <body>
@@ -88,19 +88,26 @@ prefix="c"%>
       </div>
     </section>
     <section>
-      <div class="pt-md-5 pt-5">
+      <div class="container pt-md-5 pt-5">
         <div class="row">
           <div class="col-md-6">
             <!-- google map api -->
             <div id="kakaomap" style="width: 500px; height: 400px;margin: 50px;"></div>
 
           </div>
-          <div class="col-md-6">
-            <div>
-              
-            </div>
-
-          </div>
+          <div class="col-md-6 pl-md-5 ftco-animate d-flex align-items-center">
+					<div class="text pt-4 pt-md-0">
+					  <div class="heading-section mb-4">
+						<span class="subheading">오시는길</span>
+						<h2 class="mb-1">
+						  어서오세요 <br> <span> 헬트너쉽 </span> <br> 너는 내가 책임 GYM
+						</h2>
+					  </div>
+					  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+					  
+					</div>
+				  </div>
+          
         </div>
 
       </div>
@@ -132,7 +139,7 @@ prefix="c"%>
       marker.setMap(map);
 
       var iwContent =
-          '<div style="height:60px;padding:5px;width:90px;">헬트너십 <br><a class="btn btn-primary btn-sm" href="https://map.kakao.com/link/map/Healthner,37.53319, 126.89637" target="_blank">큰지도보기</a> </div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          '<div style="height:60px;padding:5px;width:150px;">헬트너십 <br><a class="btn btn-primary btn-block" href="https://map.kakao.com/link/map/Healthner,37.53319, 126.89637" target="_blank">큰지도보기</a> </div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwPosition = new kakao.maps.LatLng(37.53319, 126.89637); //인포윈도우 표시 위치입니다
 
       // 인포윈도우를 생성합니다
