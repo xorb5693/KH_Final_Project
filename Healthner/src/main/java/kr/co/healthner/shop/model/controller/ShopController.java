@@ -160,18 +160,18 @@ public class ShopController {
 		for(int i=0;i<list.size();i++) {
 			((BuyProductVO)list.get(i)).setBuyNo(buyNo);
 		}
-		System.out.println(list);
-		
 		
 		System.out.println("거래완료 어디까지 되고있나 2");
+		
+		
 //		HashMap<String,Object> map = new HashMap<String,Object>();
 //		map.put("list", list);
 		int result2 = service.insertBuyProduct(list);
 		System.out.println("거래완료 어디까지 되고있나 3");
-		
+		int result4 = service.modifyBuyProduct(list);
 		int result3 = service.deleteAllBasket(memberNo);
-		System.out.println("거래완료 어디까지 되고있나 4 되라");
 		
+		System.out.println("거래완료 어디까지 되고있나 4");
 		list = null;
 		return "shop/basket";
 	}

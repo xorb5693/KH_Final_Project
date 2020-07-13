@@ -488,4 +488,8 @@
 		where write_type=#{writeType} and write_no=#{writeNo} 
 	)n) where rnum between #{start} and #{end}
 	</select>
+	<update id="modifyBuyProduct" parameterType="buy">
+		update product set stock = stock - #{stock} where pno = #{pno}
+	</update>
+	
 </mapper>
