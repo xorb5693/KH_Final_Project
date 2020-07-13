@@ -119,7 +119,9 @@ body {
 								if (data.listpt[i].trainerProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 								} else {
-									html += "<td><img src='/resources/profile/"+data.listpt[i].trainerProfile+"' class='small-img'></td>";
+									html += "<td><img src='/resources/profile/"
+											+ data.listpt[i].trainerProfile
+											+ "' class='small-img' onerror='error(this);'></td>";
 								}
 								html += "<td>" + data.listpt[i].trainerName
 										+ "</td>";
@@ -133,7 +135,9 @@ body {
 								if (data.listpt[i].memberProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 								} else {
-									html += "<td><img src='/resources/profile/"+data.listpt[i].memberProfile+"' class='small-img'></td>";
+									html += "<td><img src='/resources/profile/"
+											+ data.listpt[i].memberProfile
+											+ "' class='small-img' onerror='error(this);'></td>";
 								}
 								html += "<td>" + data.listpt[i].memberName
 										+ "</td>";
@@ -217,6 +221,8 @@ body {
 					$("#fixTrainer").children("input").val(data.trainerNo);
 					$("#PTmax").val(data.PTmax);
 					$("#PTleft").val(data.PTleft);
+					$("#btnInfo").val(2);
+					$("#mappingSeq").val(mpSeq);
 				}
 			});
 		}
@@ -268,7 +274,8 @@ table {
 	<div id="modal" class="searchModal">
 		<div class="search-modal-content">
 			<div class="searchbar">
-				<select name="modal-memberType">
+				<input type="hidden" id="btnInfo" value=""> <select
+					name="modal-memberType">
 					<option value=1>회원</option>
 					<option value=3>트레이너</option>
 				</select> <input type="text" placeholder="아이디/이름 입력" name="searchWord">
@@ -290,7 +297,7 @@ table {
 			</div>
 			<table id="memberChoose" border="1">
 				<tr>
-					<th>회원 이름</th>
+					<th>회원 이름<input type='hidden' id='mappingSeq' value=''></th>
 					<th>트레이너 이름</th>
 					<th>PT 최대 횟수</th>
 					<th>PT 잔여 횟수</th>
@@ -300,9 +307,9 @@ table {
 						type="hidden" value="" id="fixMemberNo"><span></span></td>
 					<td id="fixTrainer" ondblclick="outputMember(this);"><input
 						type="hidden" value="" id="fixTrainerNo"><span></span></td>
-					<td><input type="text" id="PTmax" placeholder=0 value=""
+					<td><input type="text" id="PTmax" placeholder=0
 						style="text-align: right;"></td>
-					<td><input type="text" id="PTleft" placeholder=0 value=""
+					<td><input type="text" id="PTleft" placeholder=0
 						style="text-align: right;"></td>
 				</tr>
 			</table>
@@ -324,6 +331,7 @@ table {
 				$("#PTleft").val("");
 				$("#modal").show();
 				$("input[name=searchWord]").val("");
+				$("#btnInfo").val(1);
 			});
 		});
 		//(2) 모달창 끄기
@@ -364,7 +372,9 @@ table {
 														if (data.list[i].memberProfile == " ") {
 															html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 														} else {
-															html += "<td><img src='/resources/profile/"+data.list[i].memberProfile+"' class='small-img'></td>";
+															html += "<td><img src='/resources/profile/"
+																	+ data.list[i].memberProfile
+																	+ "' class='small-img' onerror='error(this);'></td>";
 														}
 														html += "<td>"
 																+ data.list[i].memberId
@@ -424,11 +434,19 @@ table {
 		}
 		//(6) mapping을 등록/수정
 		function inputNewMapping() {
+			var mappingSeq = $("#mappingSeq").val();
+			console.log("1:"+mappingSeq);
 			var PTmax = $("#PTmax").val();
+			console.log("2:"+PTmax);
 			var PTleft = $("#PTleft").val();
+			console.log("3:"+PTleft);
 			var memberNo = $("#fixMember").children("input").val();
+			console.log("4:"+memberNo);
 			var trainerNo = $("#fixTrainer").children("input").val();
-			if ($("#PTmax").val() > 0 && PTleft >= 0 && memberNo != "" && trainerNo != "") {
+			console.log("5:"+trainerNo);
+			console.log("버튼:"+$("#btnInfo").val());
+			if ($("#PTmax").val() > 0 && PTleft >= 0 && memberNo != ""
+					&& trainerNo != "") {
 				if (PTmax < PTleft) {
 					alert("가능한 PT 최대 횟수보다 잔여 횟수가 많습니다.\n다시 입력해주세요.");
 					$("#PTmax").val("");
@@ -439,28 +457,54 @@ table {
 							PTmax : PTmax,
 							PTleft : PTleft,
 							memberNo : memberNo,
-							trainerNo : trainerNo
+							trainerNo : trainerNo,
+							mappingSeq: mappingSeq
 						};
-						$.ajax({
-							url : "/healthner/admin/inputNewMapping.do",
-							data : param,
-							type : 'post',
-							dataType : 'json',
-							success : function(data) {
-								if (data > 0) {
-									closeModal();
-									alert("입력이 완료되었습니다.");
-									location.reload();
-								} else {
-									alert("실패하였습니다.\n다시 시도해주십시오.'");
+						//추가 버튼을 클릭한 경우
+						if ($("#btnInfo").val() == 1) {
+							$.ajax({
+								url : "/healthner/admin/inputNewMapping.do",
+								data : param,
+								type : 'post',
+								dataType : 'json',
+								success : function(data) {
+									if (data > 0) {
+										closeModal();
+										alert("입력이 완료되었습니다.");
+										location.reload();
+									} else {
+										alert("실패하였습니다.\n다시 시도해주십시오.'");
+									}
 								}
-							}
-						});
+							});
+						} else if ($("#btnInfo").val() == 2) {
+							//수정 버튼을 클릭한 경우
+							$.ajax({
+								url : "/healthner/admin/updateNewMapping.do",
+								data : param,
+								type : 'post',
+								dataType : 'json',
+								success : function(data) {
+									if (data > 0) {
+										closeModal();
+										alert("수정이 완료되었습니다.");
+										location.reload();
+									} else {
+										alert("실패하였습니다.\n다시 시도해주십시오.'");
+									}
+								}
+							});
+						}
 					}
 				}
-			}else {
+			} else {
 				alert("누락된 정보가 있습니다. \n전체 mapping 정보를 채워주십시오.")
 			}
+		}
+
+		//혜진_200713_사진 에러 시, 에러 화면 처리
+		function error(obj) {
+			$(obj).attr("src", "/resources/profile/imageError.jpg");
 		}
 	</script>
 

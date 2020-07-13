@@ -17,9 +17,9 @@
 	<c:if test="${not empty requestScope.msg}">
 		<script>
 			var msg = "${requestScope.msg}";
-			if(msg == "success"){
+			if (msg == "success") {
 				alert("수정 성공");
-			}else{
+			} else {
 				alert("수정 실패");
 			}
 		</script>
@@ -44,200 +44,305 @@
 
 
 	<script>
-		$(function(){
-			$("#changePw").on('hidden.bs.modal', function(){
+		$(function() {
+			$("#changePw").on('hidden.bs.modal', function() {
 				$("#check").show();
 				$("#change").hide();
 			});
 		});
-		function quit(){
-			if(confirm("회원탈퇴 하시겠습니까")){
+		function quit() {
+			if (confirm("회원탈퇴 하시겠습니까")) {
 				$.ajax({
-					url: "/healthner/member/quit.do",
-					method: "get",
-					success: function(data){
-						if(data=="success"){
+					url : "/healthner/member/quit.do",
+					method : "get",
+					success : function(data) {
+						if (data == "success") {
 							alert("다음에 또 뵐게요~");
-						}else{
+						} else {
 							alert("오류가 발생했습니다 관리자에게 문의 부탁드립니다");
 						}
-						location.href="/";
+						location.href = "/";
 					}
 				});
 			}
 		}
-		function checkPw(){
+		function checkPw() {
 			var memberPw = $("input[name=oldMemberPw]").val();
 			var memberNo = $("#memberNo").val();
 			$.ajax({
-				url: "/healthner/member/checkPw.do",
-				method: "post",
-				data: {memberPw : memberPw,
-						memberNo : memberNo},
-				success: function(data){
-					if(data=="1"){
+				url : "/healthner/member/checkPw.do",
+				method : "post",
+				data : {
+					memberPw : memberPw,
+					memberNo : memberNo
+				},
+				success : function(data) {
+					if (data == "1") {
 						$("#check").hide();
 						$("input[name=oldMemberPw]").val("");
 						$("#change").show();
-					}else{
+					} else {
 						alert("비밀번호가 틀렸습니다");
 					}
 				}
 			});
 		}
-		function myInfo(){
-			location.href="/healthner/member/mypageFrm.do"
+		function myInfo() {
+			location.href = "/healthner/member/mypageFrm.do"
 		}
-		function changePw(){
+		function changePw() {
 			var regExp = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
 			var memberPw = $("input[name=memberPw]");
 			var chkPw = $("input[name=chkPw]");
-			if(!regExp.test(memberPw.val())){
-				memberPw.prev().html("영어 대/소문자 특수문자 8~16자리").attr('color','red');
-			}else{
+			if (!regExp.test(memberPw.val())) {
+				memberPw.prev().html("영어 대/소문자 특수문자 8~16자리").attr('color',
+						'red');
+			} else {
 				memberPw.prev().html("");
-				if(memberPw.val() != chkPw.val()){
-					chkPw.prev().html("비밀번호가 동일하지 않습니다").attr("color","red");
+				if (memberPw.val() != chkPw.val()) {
+					chkPw.prev().html("비밀번호가 동일하지 않습니다").attr("color", "red");
 					return false;
-				}else{
+				} else {
 					chkPw.prev().html("");
 				}
 			}
 			return true;
 		}
-		function changeAddr(){
-			location.href="/healthner/member/changeAddrFrm.do";
+		function changeAddr() {
+			location.href = "/healthner/member/changeAddrFrm.do";
 		}
-		function changeMail(){}
-		function purchaseLog(){
-			location.href="/healthner/shop/myBuyList.do?reqPage=1";
+		function changeMail() {
 		}
-		function purchaseMember(){
-			location.href="/healthner/member/pricing.do";
+		function purchaseLog() {
+			location.href = "/healthner/shop/myBuyList.do?reqPage=1";
 		}
-		function checkExpire(){}
+		function purchaseMember() {
+			location.href = "/healthner/member/pricing.do";
+		}
+		function checkExpire() {
+		}
 	</script>
 	<section>
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
-					<div class="bordered" style="width: 300px;height: 300px;" >
-						<a href="/healthner/member/changeProfilePic.do">
-							<img src="/resources/profile/${sessionScope.member.memberProfile}" style="width: 300px; height: 300px;" onerror="this.src='/resources/profile/noprofile.png'">
+					<div class="bordered" style="width: 300px; height: 300px;">
+						<a href="/healthner/member/changeProfilePic.do"> <img
+							src="/resources/profile/${sessionScope.member.memberProfile}"
+							style="width: 300px; height: 300px;"
+							onerror="this.src='/resources/profile/noprofile.png'">
 						</a>
 						<!-- background-image: url(/resources/profile/${sessionScope.member.memberProfile}), url(/resources/profile/noprofile.png);background-size: contain;background-repeat: no-repeat;" -->
 					</div>
-					
 
-					
-	        <ul class="list-unstyled components mb-5">
-	          <li class="active">
-	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-dark dropdown-toggle" style="color: white;">회원정보</a>
-	            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">정보 보기</a> -->
-					<button type="button" onclick="myInfo()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">정보 보기</button>
-                </li>
-                <li>
-					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">비밀번호 수정</a> -->
-					<button type="button" data-toggle="modal" data-target="#changePw" onclick="changePw()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">비밀번호 수정</button>
-                </li>
-                <li>
-					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">주소 수정</a> -->
-					<button type="button" onclick="changeAddr()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">주소 수정</button>
-                </li>
-                <li>
-					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">이메일 변경</a> -->
-					<button type="button" onclick="changeMail()" class="list-group-item list-group-item-action bg-dark" style="color: rgb(163, 163, 163);">이메일 변경</button>
-                </li>
-	            </ul>
-	          </li>
-	          <li>
-				  <button type="button" onclick="purchaseLog()" class="list-group-item list-group-item-action bg-dark" style="color: white;"> 결제 내역</button>
-	              <!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">결제 내역</a> -->
-			  </li>
-			  <li>
-				  <button type="button" onclick="quit()" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원탈퇴</button>
-				<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
-			  </li>
-			  <c:if test="${empty sessionScope.member.expireDate}">
-				  <li>
-					  <button type="button" onclick="purchaseMember()" class="list-group-item list-group-item-action bg-dark" style="color: white;">이용권 구매</button>
-					<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
-				  </li>
-				</c:if>
-	          
-	          
-	        </ul>
 
-	        
 
-	      </div>
-    	</nav>
+					<ul class="list-unstyled components mb-5">
+						<li class="active"><a href="#homeSubmenu"
+							data-toggle="collapse" aria-expanded="false"
+							class="list-group-item list-group-item-action bg-dark dropdown-toggle"
+							style="color: white;">회원정보</a>
+							<ul class="collapse list-unstyled" id="homeSubmenu">
+								<li>
+									<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">정보 보기</a> -->
+									<button type="button" onclick="myInfo()"
+										class="list-group-item list-group-item-action bg-dark"
+										style="color: rgb(163, 163, 163);">정보 보기</button>
+								</li>
+								<li>
+									<!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">이메일 변경</a> -->
+									<button type="button" onclick="quit()"
+								class="list-group-item list-group-item-action bg-dark"
+								style="color: white;">회원탈퇴</button> <!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
+								</li>
+							</ul>
+						</li>
+						<li>
+							<button type="button" onclick="purchaseLog()"
+								class="list-group-item list-group-item-action bg-dark"
+								style="color: white;">결제 내역</button> <!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">결제 내역</a> -->
+						</li>
+						<c:if test="${empty sessionScope.member.expireDate}">
+							<li>
+								<button type="button" onclick="purchaseMember()"
+									class="list-group-item list-group-item-action bg-dark"
+									style="color: white;">이용권 구매</button> <!-- <a href="#" class="list-group-item list-group-item-action bg-dark" style="color: white;">회원 탈퇴</a> -->
+							</li>
+						</c:if>
 
-        <!-- Page Content  -->
-      <div id="content" class="p-4 p-md-5">
 
-        
+					</ul>
 
-        <h2 class="mb-4">Sidebar #01</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
+
+
+				</div>
+			</nav>
+
+			<script>
+				$(function(){
+
+					$("#mailBtn").click(function(){
+						$("input[name=email]").attr("readonly",false);
+						$("#mailBtn").hide();
+						$("#mailCheck").show();
+					});
+				});
+			</script>
+			<!-- Page Content  -->
+			<div id="content" class="border border-light p-4 p-md-5">
+
+
+
+				<h2>개인정보 수정</h2>
+				<form action="/healthner/member/memberModify" id="memberModify"
+					method="post" onsubmit='return check()'>
+					<input type='hidden' id='modifyFullMail' name='modifyFullMail'>
+					<div class="wrapper">
+
+						<table>
+							<tr>
+								<th><label for="memberId">아이디</label></th>
+								<td style="width: 500px;"><input type="text"
+									name="memberId" id="memberId" class="form-control"
+									value="${sessionScope.member.memberId }" readonly> 
+								</td>
+							</tr>
+							<tr>
+								<th><label for="memberPw">비밀번호</label></th>
+								<td>
+									<button type="button" data-toggle="modal"
+										data-target="#changePw" onclick="changePw()"
+										class="btn btn-dark btn-lg "
+										style="color: rgb(163, 163, 163);">비밀번호 수정</button> 
+								</td>
+							</tr>
+							<tr>
+								<th>
+								<label for="memberName">이름</label></th>
+								<td> <input type="text" name="memberName"
+									id="memberName" class="form-control"
+									value="${sessionScope.member.memberName }"readonly required> 
+								<span id="nameMsg"></span></td>
+							</tr>
+							<tr>
+								<th>
+								<label for="memberNick">닉네임</label></th>
+								<td><span></span><input type="text" id="memberNick"
+									class="form-control" style="width: 200px;" name="memberNick"
+									value="${sessionScope.member.memberNick }" readonly required> 
+								</td>
+							</tr>
+							<tr>
+								<th>
+								<label for="phone">전화번호</label></th>
+								<td> <input type="text" id="phone" name="phone"
+									class="form-control" value="${sessionScope.member.phone }"
+									readonly required> 
+								<span id="phoneMsg"></span></td>
+								</td>
+							</tr>
+							<tr>
+								<th><label for="mail1">이메일</label></th>
+								<td>
+									<button type="button" id="mailBtn" class="btn btn-dark">이메일
+										변경</button>
+									<input type="text" name="email" id=""
+									value="${sessionScope.member.email}" class="form-control" />
+									 <input type="text" id="mailCode"
+									style="display: none; width: 150px;" class="form-conntrol"> <input
+									type="text" id="input"
+									style="width: 80px; border: none; display: none;">
+									<button type="button" class="btn btn-dark" id="mailCheck" style="display: none;">메일확인</button>
+									<input type="text" name="" id="confirmCode" class="form-control" width="180px"><button type="button">인증하기</button>
+								</td>
+							</tr>
+							<tr style="border-bottom: 1px solid black;">
+								<th><label for="addrSearch">주소</label> </th>
+								<td>
+									<button type="button" id="addrSearch" class="btn btn-dark">주소검색</button>
+									 <input type="text" id="postCode"
+									name="postCode" class="form-control"
+									placeholder="${sessionScope.member.zip}" readonly required>
+									 <input type="text" id="roadAddr" name="roadAddr"
+									class="form-control"
+									placeholder="${sessionScope.member.roadAddr}" readonly required>
+									<input id="detailAddr" name="detailAddr" class="form-control"
+									type="text" placeholder="${sessionScope.member.detAddr}"
+									required> <span id="addrMsg"></span></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="text-align: center;">
+									<button type="submit" id="modify"
+										class="btn btn-dark btn-block">수정하기</button>
+									<button type="button" id="cancel"
+										class="btn btn-dark btn-block">메인페이지로</button></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
 		</div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="changePw" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal fade" id="changePw" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
-			  <div class="modal-content bg-dark" >
-				<div class="modal-header">
-				  <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">비밀번호 수정</h5>
-				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				  </button>
-				</div>
-				<div class="modal-body">
-					<p id="modalBody">
+				<div class="modal-content bg-dark">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle"
+							style="color: white;">비밀번호 수정</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p id="modalBody">
 						<div id="check">
 							<div class="form-row">
 
-								<input type="password" name="oldMemberPw" class="form-control" id="">
+								<input type="password" name="oldMemberPw" class="form-control"
+									id="">
 							</div>
 							<br>
-							<div class="form-row" >
-								<button type="button" onclick="checkPw();" class="btn btn-primary">비밀번호 확인</button>
+							<div class="form-row">
+								<button type="button" onclick="checkPw();"
+									class="btn btn-primary">비밀번호 확인</button>
 							</div>
 						</div>
 						<div style="display: none;" id="change">
-							<form action="/healthner/member/changePw.do" onsubmit="return changePw()"  method="post">
+							<form action="/healthner/member/changePw.do"
+								onsubmit="return changePw()" method="post">
 								<div class="form-row" style="color: white;">
-									새 비밀번호<span></span>
-									<input type="password" class="form-control" name="memberPw" id="memberPw">
+									새 비밀번호<span></span> <input type="password" class="form-control"
+										name="memberPw" id="memberPw">
 								</div>
 								<div class="form-row" style="color: white;">
-									비밀번호 확인<span></span>
-									<input type="password" name="chkPw" class="form-control" id="checkPw">
+									비밀번호 확인<span></span> <input type="password" name="chkPw"
+										class="form-control" id="checkPw">
 								</div>
 								<br>
 								<div class="form-row">
-									<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.member.memberNo}">
-									<input type="submit" class="btn btn-primary" value="변경">
+									<input type="hidden" name="memberNo" id="memberNo"
+										value="${sessionScope.member.memberNo}"> <input
+										type="submit" class="btn btn-primary" value="변경">
 								</div>
 							</form>
 
 						</div>
 
-					</p>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
 				</div>
-				<div class="modal-footer">
-				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			  </div>
 			</div>
 	</section>
 
 
-	
+
 
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

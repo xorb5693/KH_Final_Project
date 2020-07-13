@@ -162,5 +162,7 @@
 			expire_date = sysdate+365
 		where member_no = #{memberNo}	
 	</update>
-	
+	<insert id="meeting" parameterType="ms" >
+		insert into meeting_schedule values(meeting_schedule_seq.nextval, #{name},#{phone},#{email},0,#{bmi})
+	</insert>
 </mapper>

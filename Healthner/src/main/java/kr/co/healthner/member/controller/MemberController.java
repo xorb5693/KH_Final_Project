@@ -33,6 +33,7 @@ import kr.co.healthner.member.model.vo.MemberMappingVO;
 import kr.co.healthner.member.model.vo.MenuCommentVO;
 import kr.co.healthner.member.model.vo.NutritionTableVO;
 import kr.co.healthner.trainer.model.service.TrainerServiceImpl;
+import kr.co.healthner.vo.MeetingScheduleVO;
 import kr.co.healthner.vo.TrainerCommentVO;
 
 @Controller
@@ -108,6 +109,13 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/changeMail.do")
+	public String changeMail(Member m, HttpSession session,HttpServletRequest request) {
+		long timeout = System.currentTimeMillis()/1000;
+		mailService.sendMail(m, request, timeout);
+		return "sent";
 	}
 	
 	@RequestMapping("/join.do")
@@ -473,6 +481,12 @@ public class MemberController {
 	public String paymentComplete(Member m,int amount) {
 		int result = service.paymentComplete(m,amount);
 		
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/registerMeeting.do")
+	public String registerMeeting(MeetingScheduleVO meeting) {	
+		int result = service.registerMeeting(meeting);
 		return "redirect:/";
 	}
 	
