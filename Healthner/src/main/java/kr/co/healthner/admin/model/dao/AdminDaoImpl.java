@@ -230,5 +230,10 @@ public class AdminDaoImpl {
 	public List banListCheck() {
 		return sqlSession.selectList("admin.banListCheck");
 	}
+	// 혜진_200710_신고글 관리_상세보기 modal_조회
+	public Report reportedDetail(Report r) {
+		return sqlSession.selectOne("admin.reportedDetail", r);
+		
+	}
 	
 }

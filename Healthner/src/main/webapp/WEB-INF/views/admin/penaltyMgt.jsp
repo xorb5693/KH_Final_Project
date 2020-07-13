@@ -77,7 +77,7 @@
 			};
 			$
 					.ajax({
-						url : "/penaltylist.do",
+						url : "/healthner/admin/penaltylist.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -172,7 +172,7 @@
 			if (confirm("정보를 삭제 하시겠습니까?")) {
 				jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					url : "/deletePenalty.do",
+					url : "/healthner/admin/deletePenalty.do",
 					type : "post",
 					data : {
 						penaltyArr : penaltyArr
@@ -204,7 +204,7 @@
 			if (confirm("선택한 회원의 권한을 정지 하시겠습니까?")) {
 				jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					url : "/givePenalty.do",
+					url : "/healthner/admin/givePenalty.do",
 					type : "post",
 					data : {
 						penaltyArr : penaltyArr

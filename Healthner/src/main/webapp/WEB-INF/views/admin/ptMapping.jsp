@@ -100,7 +100,7 @@ body {
 			};
 			$
 					.ajax({
-						url : "/ptTrainerList.do",
+						url : "/healthner/admin/ptTrainerList.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -114,7 +114,8 @@ body {
 							//(1) 트레이너 정보 출력
 							for (var i = 0; i < data.listpt.length; i++) {
 								html += "<tr class='contentsRow'>"
-								html += "<td id='cnt'>" + (i + 1) + "</td>";
+								html += "<td id='cnt'>" + data.listpt[i].rnum
+										+ "</td>";
 								if (data.listpt[i].trainerProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 								} else {
@@ -182,38 +183,40 @@ body {
 
 		//혜진_200706_삭제 누르면 컨펌창으로 확인 받고 삭제처리
 		function deletePT(mpSeq) {
-			confirm("해당 데이터를 삭제하시겠습니까?");
-			$.ajax({
-				url : '/mappingDelete.do',
-				type : "post",
-				data : {
-					mpSeq : mpSeq
-				},
-				dataType : "json",
-				success : function(data) {
-					if (data > 0) {
-						window.location.reload();
+			if (confirm("해당 데이터를 삭제하시겠습니까?")) {
+				$.ajax({
+					url : '/healthner/admin/mappingDelete.do',
+					type : "post",
+					data : {
+						mpSeq : mpSeq
+					},
+					dataType : "json",
+					success : function(data) {
+						alert("삭제가 완료되었습니다.");
+						if (data > 0) {
+							window.location.reload();
+						}
 					}
-				}
-			});
+				});
+			}
 		}
-		
-		function modifyPT(mpSeq){
+
+		function modifyPT(mpSeq) {
 			$("#modal").show(mpSeq);
 			$.ajax({
-				url : '/mappingCheck.do',
+				url : '/healthner/admin/mappingCheck.do',
 				type : "post",
 				data : {
 					mpSeq : mpSeq
 				},
 				dataType : "json",
 				success : function(data) {
-						$("#fixMember").children("span").html(data.memberName);
-						$("#fixMember").children("input").val(data.memberNo);
-						$("#fixTrainer").children("span").html(data.trainerName);
-						$("#fixTrainer").children("input").val(data.trainerNo);
-						$("#PTmax").val(data.PTmax);
-						$("#PTleft").val(data.PTleft);
+					$("#fixMember").children("span").html(data.memberName);
+					$("#fixMember").children("input").val(data.memberNo);
+					$("#fixTrainer").children("span").html(data.trainerName);
+					$("#fixTrainer").children("input").val(data.trainerNo);
+					$("#PTmax").val(data.PTmax);
+					$("#PTleft").val(data.PTleft);
 				}
 			});
 		}
@@ -320,6 +323,7 @@ table {
 				$("#PTmax").val("");
 				$("#PTleft").val("");
 				$("#modal").show();
+				$("input[name=searchWord]").val("");
 			});
 		});
 		//(2) 모달창 끄기
@@ -345,7 +349,7 @@ table {
 									};
 									$
 											.ajax({
-												url : '/mappingDetail.do',
+												url : '/healthner/admin/mappingDetail.do',
 												type : 'post',
 												data : param,
 												dataType : "json",
@@ -355,7 +359,7 @@ table {
 													for (var i = 0; i < data.list.length; i++) {
 														html += "<tr class='contentsRow' ondblclick='inputMember(this);'>";
 														html += "<td>"
-																+ (i + 1)
+																+ data.list[i].rnum
 																+ "</td>";
 														if (data.list[i].memberProfile == " ") {
 															html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
@@ -363,7 +367,8 @@ table {
 															html += "<td><img src='/resources/profile/"+data.list[i].memberProfile+"' class='small-img'></td>";
 														}
 														html += "<td>"
-																+ data.list[i].memberId + "<input type='hidden' id='modal-memberNo' value='"+data.list[i].memberNo+"'>"
+																+ data.list[i].memberId
+																+ "<input type='hidden' id='modal-memberNo' value='"+data.list[i].memberNo+"'>"
 																+ "</td>";
 														html += "<td>"
 																+ data.list[i].memberName
@@ -394,19 +399,23 @@ table {
 								}
 							});
 		});
-		//(4) 더블 클릭 시 회원이름, 트레이너 이름 칸으로 값 전달
+		//(4-1) select문 선택 시, 검색 창 clear
+		$(function() {
+			$("select[name=modal-memberType]").change(function() {
+				$("input[name=searchWord]").val("");
+			});
+		});
+		//(4-2) 더블 클릭 시 회원이름, 트레이너 이름 칸으로 값 전달
 		function inputMember(obj) {
 			var name = $(obj).children().eq(3).html();
 			var memberNo = $(obj).children().eq(2).children("input").val();
 			var memberType = $("select[name=modal-memberType]").val();
 			if (memberType == 1) {
 				$("#fixMember").children("span").html(name);
-				$("#fixMember").children("input").val(
-						memberNo);
+				$("#fixMember").children("input").val(memberNo);
 			} else if (memberType == 3) {
 				$("#fixTrainer").children("span").html(name);
-				$("#fixTrainer").children("input").val(
-						memberNo);
+				$("#fixTrainer").children("input").val(memberNo);
 			}
 		}
 		//(5) 더블 클릭 시, 담긴 회원 이름과 트레이너 이름 각각 삭제
@@ -415,38 +424,42 @@ table {
 		}
 		//(6) mapping을 등록/수정
 		function inputNewMapping() {
-			//0 이상,해당 테이블 공란 검사 추가할 것
-			if ($("#PTmax").val() < $("#PTleft").val()) {
-				alert("가능한 PT 최대 횟수보다 잔여 횟수가 많습니다.\n다시 입력해주세요.");
-				$("#PTleft").val("");
-			} else {
-				confirm("매칭 정보를 등록하시겠습니까?");
-				var PTmax = $("#PTmax").val();
-				var PTleft = $("#PTleft").val();
-				var memberNo = $("#fixMember").children("input").val();
-				var trainerNo = $("#fixTrainer").children("input").val();
-				console.log(PTmax, PTleft, memberNo, trainerNo);
-				var param = {
-					PTmax : PTmax,
-					PTleft : PTleft,
-					memberNo : memberNo,
-					trainerNo : trainerNo
-				};
-				$.ajax({
-					url : "/inputNewMapping.do",
-					data : param,
-					type : 'post',
-					dataType : 'json',
-					success : function(data) {
-						if(data>0){
-							closeModal();
-							alert("입력이 완료되었습니다.");
-							location.reload();
-						}else{
-							alert("실패하였습니다.\n다시 시도해주십시오.'");
-						}
+			var PTmax = $("#PTmax").val();
+			var PTleft = $("#PTleft").val();
+			var memberNo = $("#fixMember").children("input").val();
+			var trainerNo = $("#fixTrainer").children("input").val();
+			if ($("#PTmax").val() > 0 && PTleft >= 0 && memberNo != "" && trainerNo != "") {
+				if (PTmax < PTleft) {
+					alert("가능한 PT 최대 횟수보다 잔여 횟수가 많습니다.\n다시 입력해주세요.");
+					$("#PTmax").val("");
+					$("#PTleft").val("");
+				} else if (PTmax >= PTleft) {
+					if (confirm("매칭 정보를 등록하시겠습니까?")) {
+						var param = {
+							PTmax : PTmax,
+							PTleft : PTleft,
+							memberNo : memberNo,
+							trainerNo : trainerNo
+						};
+						$.ajax({
+							url : "/healthner/admin/inputNewMapping.do",
+							data : param,
+							type : 'post',
+							dataType : 'json',
+							success : function(data) {
+								if (data > 0) {
+									closeModal();
+									alert("입력이 완료되었습니다.");
+									location.reload();
+								} else {
+									alert("실패하였습니다.\n다시 시도해주십시오.'");
+								}
+							}
+						});
 					}
-				});
+				}
+			}else {
+				alert("누락된 정보가 있습니다. \n전체 mapping 정보를 채워주십시오.")
 			}
 		}
 	</script>

@@ -22,4 +22,5 @@ public class Member {
 	private String expireDate;
 	private String phone;
 	private int emailVerification;
+	private int rnum;
 }

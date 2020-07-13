@@ -17,6 +17,7 @@ public class Report {
 	private String categoryName;
 	private String reportDetail;
 	private String boardTitle;
+	private String boardContent;
 	private String commentContent;
 	private int reportCnt;
 	private String searchWord;

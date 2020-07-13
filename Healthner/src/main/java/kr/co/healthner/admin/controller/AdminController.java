@@ -4,17 +4,17 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import kr.co.healthner.admin.model.service.AdminServiceImpl;
 import kr.co.healthner.admin.model.vo.MeetingSchedule;
 import kr.co.healthner.admin.model.vo.PTmapping;
+import kr.co.healthner.admin.model.vo.Report;
 import kr.co.healthner.admin.model.vo.TotalpageList;
 import kr.co.healthner.mail.model.vo.MailData;
 import kr.co.healthner.mail.model.vo.MailVO;
@@ -34,57 +35,125 @@ import kr.co.healthner.vo.ProductVO;
 import kr.co.healthner.vo.PurchaseVO;
 
 @Controller
-//@RequestMapping("/healthner/admin")
+@RequestMapping("/healthner/admin")
 public class AdminController {
 	@Autowired
 	@Qualifier("adminService")
 	private AdminServiceImpl service;
 
+	//혜진_200712_로그아웃
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 	// 혜진_200622_관리자 메인 페이지로 이동(홈에서 이동)
 	@RequestMapping("/adminMain.do")
-	public String trainerIntro() {
-		return "admin/adminMain";
+	public String trainerIntro(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/adminMain";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200623_관리자 페이지에서 1번 회원 관리 페이지로 이동_회원 정보 조회/카드 정보 관리 페이지
 	@RequestMapping("/memberMgt.do")
-	public String memberMgt() {
-		return "admin/memberMgt";
+	public String memberMgt(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/memberMgt";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200624_관리자 페이지에서 2번 트레이너 관리페이지로 이동
 	@RequestMapping("/trainerMgt.do")
-	public String trainerMgt() {
-		return "admin/trainerMgt";
+	public String trainerMgt(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/trainerMgt";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200624_관리자 페이지에서 3번 PT관리 페이지로 이동
 	@RequestMapping("/ptMapping.do")
-	public String ptMapping() {
-		return "admin/ptMapping";
+	public String ptMapping(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/ptMapping";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200624_관리자 페이지에서 4번 신고관리 페이지로 이동
 	@RequestMapping("/reportMgt.do")
-	public String reportMgt() {
-		return "admin/reportMgt";
+	public String reportMgt(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/reportMgt";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200624_관리자 페이지에서 5번 회원 자격 정지 페이지로 이동
 	@RequestMapping("/penaltyMgt.do")
-	public String penaltyMgt() {
-		return "admin/penaltyMgt";
+	public String penaltyMgt(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/penaltyMgt";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200624_관리자 페이지에서 6번 상품관리 페이지로 이동
 	@RequestMapping("/productMgt.do")
-	public String productMgt(Model model, int reqPage) {
-
+	public String productMgt(Model model, int reqPage, HttpSession session) {
 		ShopPageDate data = service.productData(reqPage);
 		model.addAttribute("list", data.getList());
 		model.addAttribute("pageNavi", data.getPageNavi());
-
-		return "admin/productMgt";
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/productMgt";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200624_관리자 페이지에서 7번 쪽지함 페이지로 이동
@@ -102,15 +171,33 @@ public class AdminController {
 
 	// 혜진_200624_관리자 페이지에서 8번 예약 문의 관리 페이지로 이동
 	@RequestMapping("/inquiryMgt.do")
-	public String inquiryMgt() {
-		return "admin/inquiryMgt";
+	public String inquiryMgt(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/inquiryMgt";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 혜진_200626_관리자 페이지_회원관리 메뉴_카드 웹소켓용 팝업 이동
 	@RequestMapping("/addCard.do")
-	public String memberList(String memberId, Model model) {
+	public String memberList(String memberId, Model model, HttpSession session) {
 		model.addAttribute("memberId", memberId);
-		return "admin/memberDetail";
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/memberDetail";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 //---------------------------------------------------------------------------------------- (상단)이동/(하단)function
@@ -239,9 +326,17 @@ public class AdminController {
 
 	// 태규_200708_물품 등록 페이지 이동
 	@RequestMapping("/productInsertFrm.do")
-	public String productInsertFrm() {
-
-		return "admin/productInsertFrm";
+	public String productInsertFrm(HttpSession session) {
+		Member m = (Member) session.getAttribute("member");
+		if (m != null) {
+			if (m.getMemberId().equals("admin")) {
+				return "admin/productInsertFrm";
+			}else {
+				return "admin/failNotice";
+			}
+		} else {
+			return "admin/failNotice";
+		}
 	}
 
 	// 태규_200708_물품 등록
@@ -498,5 +593,13 @@ public class AdminController {
 	public int givePenalty(int[] penaltyArr) {
 		int result = service.givePenalty(penaltyArr);
 		return result;
+	}
+
+	// 혜진_200710_신고글 관리_상세보기 modal_조회
+	@RequestMapping(value = "/reportedDetail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Report reportedDetail(int writeType, int writeNo) {
+		Report r = service.reportedDetail(writeType, writeNo);
+		return r;
 	}
 }

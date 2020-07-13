@@ -552,4 +552,14 @@ public class AdminServiceImpl {
 		}
 		return result;
 	}
+	
+	// 혜진_200710_신고글 관리_상세보기 modal_조회
+	public Report reportedDetail(int writeType, int writeNo) {
+		Report r = new Report();
+		r.setWriteNo(writeNo);
+		r.setWriteType(writeType);
+		r = dao.reportedDetail(r);
+		r.setWriteType(writeType);
+		return r;
+	}
 }
