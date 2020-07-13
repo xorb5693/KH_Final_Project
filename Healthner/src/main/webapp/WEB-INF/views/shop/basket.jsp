@@ -154,9 +154,9 @@ h1 {
 										test="${list[0].memberNo == sessionScope.member.memberNo }">
 										<c:forEach items="${pv }" var="m">
 											<script>
-									array.push(${m.price });
-									array2.push(${m.stock});
-									array3.push(${m.pno});
+											array.push(${m.price });
+											array2.push(${m.stock});
+											array3.push(${m.pno});
 								</script>
 
 											<tr>

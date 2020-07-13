@@ -312,5 +312,22 @@ public class ShopService {
 		
 		return data;
 	}
+
+	public int modifyBuyProduct(ArrayList<BuyProductVO> list) {
+		// TODO Auto-generated method stub
+		try {
+			for (BuyProductVO buy: list) {
+				dao.modifyBuyProduct(buy);
+			}
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	
+
+	
 			
 }
