@@ -146,8 +146,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/memberModify.do")
-	public String memberModify(Member m) {
+	public String memberModify(Member m,HttpSession session) {
 		int result = service.modifyMember(m);
+		Member member = (Member)session.getAttribute("member");
+		member.setRoadAddr(m.getRoadAddr());
+		member.setDetAddr(m.getDetAddr());
+		member.setZip(m.getZip());
+		member.setMemberNick(m.getMemberNick());
+		
 		return "redirect:/";
 	}
 	
