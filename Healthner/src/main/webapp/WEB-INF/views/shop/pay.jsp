@@ -27,7 +27,7 @@
 				</div>
 			</div>
 		</section>
-		<div class="content">${p.totalPrice }</div>
+		<%-- <div class="content">${p.totalPrice }</div> --%>
 		<script>
 			$(function() {
 				/* var price = $("#pay span").html(); */

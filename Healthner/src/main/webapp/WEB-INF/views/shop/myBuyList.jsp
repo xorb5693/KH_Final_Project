@@ -105,23 +105,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<section class="hero-wrap"
-		style="background-image: url('/resources/images/bg_1.jpg');">
-		<div class="overlay"></div>
-		<div class="container">
-            <div
-                class="row no-gutters slider-text align-items-center justify-content-center">
-                <div class="col-md-9 ftco-animate text-center pt-md-5 pt-5">
-                    <br> <br>
-                    <h1 class="mb-3 bread">SHOP</h1>
-                    <p class="breadcrumbs">
-                        <span class="mr-2"><a href="/healthner/shop/basketList.do?memberNo=${sessionScope.member.memberNo}">장바구니보기</a></span>
-                        <span class="mr-2"><a href="/healthner/shop/myBuyList.do?reqPage=1">My Buy List</a></span> 
-                    </p>
-                </div>
-            </div>
-		</div>
-	</section>
+    <jsp:include page="/WEB-INF/views/common/headerForShop.jsp" />
 	<section class="ftco-section ftco-about">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">

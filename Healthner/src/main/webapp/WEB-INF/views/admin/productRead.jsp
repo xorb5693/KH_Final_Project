@@ -99,7 +99,7 @@
     <!--  태규_200708_페이지 제작  -->
     <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Product Info</h2>
-        <button onclick="location.href = '/productModifyFrm.do?pno=${product.pno}'" class="btn btn-primary" style="float: right; width: 100px;">수정하기</button>
+        <button onclick="location.href = '/healthner/admin/productModifyFrm.do?pno=${product.pno}'" class="btn btn-primary" style="float: right; width: 100px;">수정하기</button>
         <br><br>
         <table class="table">
             <tbody>
