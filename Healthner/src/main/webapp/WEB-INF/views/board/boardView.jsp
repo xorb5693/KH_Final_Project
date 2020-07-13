@@ -200,6 +200,7 @@
 					<form action="/healthner/report/insertReport.do" method="post"
 						id="inputReviewBox">
 						<div class="form-group">
+						<input type="hidden" name="boardNo" value="${b.boardNo }">
 							<div class="form-group" id="report-ability-wrapper">
 								<span class="field-label-header">무분별한 신고는 도히려 정지당할수 있습니다.</span><br>
 								<span class="field-label-info"></span>
