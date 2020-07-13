@@ -178,6 +178,16 @@
 				</div>
 			</nav>
 
+			<script>
+				$(function(){
+
+					$("#mailBtn").click(function(){
+						$("input[name=email]").attr("readonly",false);
+						$("#mailBtn").hide();
+						$("#mailCheck").show();
+					});
+				});
+			</script>
 			<!-- Page Content  -->
 			<div id="content" class="border border-light p-4 p-md-5">
 
@@ -233,18 +243,18 @@
 							</tr>
 							<tr>
 								<th><label for="mail1">이메일</label></th>
-								<td><input type="hidden" id="fullMail" name="fullMail">
-									<input type="text" name="email" id=""
-									value="${sessionScope.member.email}" class="form-control" />
+								<td>
 									<button type="button" id="mailBtn" class="btn btn-dark">이메일
 										변경</button>
+									<input type="text" name="email" id=""
+									value="${sessionScope.member.email}" class="form-control" />
 									 <input type="text" id="mailCode"
-									style="display: none; width: 150px;"> <input
+									style="display: none; width: 150px;" class="form-conntrol"> <input
 									type="text" id="input"
 									style="width: 80px; border: none; display: none;">
-									<button type="button" id="mailResult" style="display: none;">메일확인</button>
-									<span id="mail1Msg" style="display: none;" class="form-control"></span>
-									<span id="mailMsg"></span></td>
+									<button type="button" class="btn btn-dark" id="mailCheck" style="display: none;">메일확인</button>
+									<input type="text" name="" id="confirmCode" class="form-control" width="180px"><button type="button">인증하기</button>
+								</td>
 							</tr>
 							<tr style="border-bottom: 1px solid black;">
 								<th><label for="addrSearch">주소</label> </th>

@@ -111,6 +111,13 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping("/changeMail.do")
+	public String changeMail(Member m, HttpSession session,HttpServletRequest request) {
+		long timeout = System.currentTimeMillis()/1000;
+		mailService.sendMail(m, request, timeout);
+		return "sent";
+	}
+	
 	@RequestMapping("/join.do")
 	public String insertMember(Member m,HttpServletRequest request,Model model, MultipartFile file) {
 		// send mail
