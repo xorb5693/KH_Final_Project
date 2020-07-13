@@ -192,7 +192,7 @@
 				<div class="modal-body">
 
 
-					<div class="form-group" id="modal-content"></div>
+					<div class="form-group" id="modal-content">
 					<form action="/healthner/report/insertReport.do" method="post"
 						id="inputReviewBox">
 						<div class="form-group">
@@ -212,7 +212,7 @@
 							<input type="radio" value="10" name="rr" class="rr">불법광고/영리목적<br>
 							<input type="radio" value="12" name="rr" class="rr">기타<br>
 							<textarea class="form-control" id="message-text"
-								name="reportDetail" placeholder="상세사유를 적어주세요"></textarea>
+								name="reportDetail" placeholder="상세사유를 적어주세요" required></textarea>
 						</div>
 				</div>
 				<div class="modal-footer">
@@ -221,6 +221,7 @@
 					<button type="submit" class="btn btn-primary" id="radioButton">신고하기</button>
 
 					</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -260,8 +261,13 @@
 			$(obj).parents('form').remove();
 		}
 		function deleteComment(commentNo, ref) {
+			var con_test = confirm("삭제하시겠습니까?");
+			if(con_test == true){				
 			location.href = "/healthner/board/commentDelete.do?commentNo="
 					+ commentNo + "&ref=" + ref;
+			}else{
+				
+			}
 		}
 		function modifyComment(obj, commentNo, Ref) {
 			$(obj).prev().hide();
@@ -327,10 +333,6 @@
 		function reportBoard(boardType, boardNo, boardWriter, memberNo) {
 			var modal = $("#modal-content");
 			modal.find("p").remove();
-			modal.append("<p>신고 글 타입 : " + boardType + "</p>");
-			modal.append("<p>신고 글 번호 : " + boardNo + "</p>");
-			modal.append("<p>해당 글쓴이 : " + boardWriter + "</p>");
-			modal.append("<p>신고 하는사람 : " + memberNo + "</p>");
 			$("#report-ability-wrapper")
 					.append(
 							"<input type='hidden' name='writeType' value='"+boardType+"'>");
@@ -348,10 +350,6 @@
 		function reportComment(commentType, commentNo, commentWriter, memberNo) {
 			var modal = $("#modal-content");
 			modal.find("p").remove();
-			modal.append("<p>신고 글 타입 : " + commentType + "</p>");
-			modal.append("<p>신고 글 번호 : " + commentNo + "</p>");
-			modal.append("<p>해당 글쓴이 : " + commentWriter + "</p>");
-			modal.append("<p>신고 하는사람 : " + memberNo + "</p>");
 			$("#report-ability-wrapper")
 					.append(
 							"<input type='hidden' name='writeType' value='"+commentType+"'>");

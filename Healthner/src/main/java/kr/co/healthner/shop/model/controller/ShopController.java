@@ -83,7 +83,7 @@ public class ShopController {
 		int result = service.insertBasket(bk);
 		if(result>0) {
 			System.out.println("장바구니등록성공");
-			return "shop/shop";
+			return "redirect:/healthner/shop/basketList.do?memberNo="+memberNo;
 		}else {
 			System.out.println("장부긴실패");
 			return "shop/shop";

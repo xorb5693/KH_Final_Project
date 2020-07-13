@@ -83,7 +83,7 @@
 						<!-- gallery-wrap .end// -->
 					</aside>
 					<aside class="col-sm-7">
-					<form action="/healthner/shop/basketList.do?reqPage=1" method="post">
+					<form action="/healthner/shop/basket.do?reqPage=1" method="post">
 						<article class="card-body p-5">
 							<input type="hidden" value="${p.pno }" name="pno">
 							<input type="hidden" value="${sessionScope.member.memberNo }" name="memberNo">
