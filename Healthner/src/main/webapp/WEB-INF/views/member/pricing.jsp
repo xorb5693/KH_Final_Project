@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="/resources/images/favicon.png" />
 </head>
 <body>
     <script>

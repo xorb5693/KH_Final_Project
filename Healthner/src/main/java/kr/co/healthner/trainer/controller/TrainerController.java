@@ -43,9 +43,11 @@ public class TrainerController {
 		member = (Member)session.getAttribute("member");
 		String id = member.getMemberId();
 		System.out.println("세션아이디 : "+id);
-		TrainerVO list = service.selectOneTrainer(id);		
+		TrainerVO list = service.selectOneTrainer(id);
+		ArrayList<ProfessionalCategoryVO> categorys = service.selectCategoryList();
 		System.out.println(list);
 		model.addAttribute("list", list);
+		model.addAttribute("categorys", categorys);
 		return "trainer/trainerInputFrm";
 	}
 	

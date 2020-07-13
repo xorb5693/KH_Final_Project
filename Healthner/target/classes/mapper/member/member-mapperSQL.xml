@@ -147,4 +147,20 @@
 			det_Addr = #{detAddr}
 		where member_no = #{memberNo}
 	</update>
+	<update id="paymentComplete" parameterType="member">
+		update member set
+			expire_date = sysdate+30
+		where member_no = #{memberNo}
+	</update>
+	<update id="oneDayPay" parameterType="member">
+		update member set
+			expire_date = sysdate+1
+		where member_no = #{memberNo}	
+	</update>
+	<update id="oneYear" parameterType="member">
+		update member set
+			expire_date = sysdate+365
+		where member_no = #{memberNo}	
+	</update>
+	
 </mapper>
