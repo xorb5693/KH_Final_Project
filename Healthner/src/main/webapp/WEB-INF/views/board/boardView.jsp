@@ -146,6 +146,7 @@
 								<c:if
 									test="${ncc.commentLevel eq 2 && nc.commentNo eq ncc.commentRef}">
 									<ul class="commentList">
+									<c:if test="${not empty sessionScope.member }">
 										<li style="width: 5%; text-align: center"><span>└─</span>
 										<li style="width: 10%; text-align: center"><span>${ncc.memberNick }</span>
 										</li>
@@ -160,12 +161,15 @@
 													onclick="modifyComment(this,'${ncc.commentNo}','${ncc.ref}')">수정</a>
 												<a href="javascript:void(0)"
 													onclick="deleteComment('${ncc.commentNo}','${ncc.ref}')">삭제</a>
+													</c:if>
+													
 												<button type="button"
 													onclick="reportComment('2','${ncc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
 													class="btn" data-toggle="modal"
 													style="border: 1px solid #999" data-target="#exampleModal"
 													data-whatever="@mdo">신고하기</button>
-											</c:if></li>
+											</li>
+											</c:if>
 									</ul>
 								</c:if>
 							</c:forEach>
@@ -229,7 +233,7 @@
 	<script>
 		function insertComment(obj, commentNo, boardNo, memberNo) {
 			$(obj).parent().hide();
-			alert(boardNo);
+			
 			var $form = $("<form action='/healthner/board/boardCommentInsert.do' method='post'></form>");
 			var $ul = $("<ul class='commentList'></ul>");
 			$form
