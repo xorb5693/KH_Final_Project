@@ -197,20 +197,43 @@ public class AdminDaoImpl {
 		
 		return sqlSession.selectList("admin.selectPurchaseList", map);
 	}
-	//혜진_200709_
-
+	// 혜진_200710_회원 정지 관리 페이지_전체 게시물 갯수
+	public int penaltyTotalCount(Report r) {
+		return sqlSession.selectOne("admin.penaltyTotalCount", r);
+	}
+	// 혜진_200710_회원 정지 관리 페이지_내용 조회
+	public List penaltylist(Report r) {
+		return sqlSession.selectList("admin.penaltylist", r);
+	}
+	// 혜진_200710_회원 정지 관리 페이지_선택 다중 삭제
+	public int deletePenalty(int[] penaltyArr) {
+		return sqlSession.delete("admin.deletePenalty",penaltyArr);
+	}
+	// 태규
 	public PurchaseVO selectPurchase(int buyNo) {
-		
 		return sqlSession.selectOne("shop.selectPurchase", buyNo);
 	}
-
+	// 태규
 	public List<BuyProductVO> selectBuyProductList(int buyNo) {
-		
 		return sqlSession.selectList("shop.selectBuyProductList", buyNo);
 	}
-
+	// 태규
 	public int modifyInvoiceNumber(PurchaseVO purchase) {
-		
 		return sqlSession.update("admin.modifyInvoiceNumber", purchase);
+
 	}
+	// 혜진_200710_회원 정지 관리 페이지_글작성 권한 정지
+	public int givePenalty(int penaltyArr) {
+		return sqlSession.insert("admin.givePenalty", penaltyArr);
+	}
+	// 혜진_200710_회원 정지 관리 페이지_권한이 정지된 회원 표시
+	public List banListCheck() {
+		return sqlSession.selectList("admin.banListCheck");
+	}
+	// 혜진_200710_신고글 관리_상세보기 modal_조회
+	public Report reportedDetail(Report r) {
+		return sqlSession.selectOne("admin.reportedDetail", r);
+		
+	}
+	
 }

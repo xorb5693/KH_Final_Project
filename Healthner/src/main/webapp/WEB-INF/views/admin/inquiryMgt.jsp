@@ -49,7 +49,7 @@
 				보 기</button>
       </div>
       <script>
-		//혜진_200709_ajax로 DB에서 신고글 데이터 불러오기
+		//혜진_200709_ajax로 DB에서 예약목록 데이터 불러오기
 		function recent(){
 			show_meetinglist(1,1,0);
 		}
@@ -65,7 +65,7 @@
 				sorting:sorting
 			};
 			$.ajax({
-						url : "/meetinglist.do",
+						url : "/healthner/admin/meetinglist.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -137,19 +137,22 @@
 		
 		//혜진_200710_완료 클릭 시, 응답 완료 상태로 변경
 		function finResponse(obj){
+			if(confirm("해당 예약을 응답 완료 상태로 변경하시겠습니까?")){
 			var meetingSeq = $(obj).parent().parent().children().eq(0).children().eq(1).val();
 			console.log(meetingSeq);
 			var responseFin = 1;
 			var param = {meetingSeq: meetingSeq, responseFin: responseFin}
 			$.ajax({
-				url: "/finResponse.do",
+				url: "/healthner/admin/finResponse.do",
 				data: param,
 				Type: "post",
 				dataType: "json",
 				success: function(data){
+					alert("변경이 완료되었습니다.");
 					location.reload();
 				}
 			});
+			}
 		}
 		
 		//혜진_200710_선택하여 삭제 버튼 클릭 시, 다중 삭제
@@ -166,7 +169,7 @@
 			if (confirm("정보를 삭제 하시겠습니까?")) {
 				 jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					url : "/deleteMeeting.do",
+					url : "/healthner/admin/deleteMeeting.do",
 					type : "post",
 					data : {meetingSeqArr: meetingSeqArr},
 					dataType : "json",

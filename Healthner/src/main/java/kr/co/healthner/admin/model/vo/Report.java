@@ -17,9 +17,16 @@ public class Report {
 	private String categoryName;
 	private String reportDetail;
 	private String boardTitle;
+	private String boardContent;
 	private String commentContent;
 	private int reportCnt;
 	private String searchWord;
 	private int start;
 	private int end;
+	private int sorting;
+	private int boardCnt;
+	private int commentCnt;
+	private int totalReportRec;
+	private int memberType;
+	private int inBanListCheck;
 }

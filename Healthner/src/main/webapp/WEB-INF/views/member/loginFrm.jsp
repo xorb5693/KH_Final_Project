@@ -15,6 +15,12 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
+	<c:if test="${not empty sessionScope.member}">
+		<script>
+			location.href="/";
+		</script>
+	</c:if>
+
 	<!-- END nav -->
 	<script>
 		$(document).ready(function() {

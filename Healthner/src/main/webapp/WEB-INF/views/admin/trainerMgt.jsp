@@ -81,7 +81,7 @@ body {
 			};
 			$
 					.ajax({
-						url : "/trainerlist.do",
+						url : "/healthner/admin/trainerlist.do",
 						type : "post",
 						data : param,
 						dataType : "json",
@@ -93,7 +93,7 @@ body {
 							var html = "";
 							for (var i = 0; i < data.list.length; i++) {
 								html += "<tr class='contentsRow'>"
-								html += "<td id='cnt'>" + (i + 1) + "</td>";
+								html += "<td id='cnt'>" + data.list[i].rnum + "</td>";
 								if (data.list[i].memberProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 								} else {
@@ -152,35 +152,39 @@ body {
 		//혜진_200630_승인 버튼 클릭 시 회원 타입 변경
 		function approve(obj){
 			var memberId = $(obj).parent().parent().children().eq(2).html();
+			if(confirm("해당 트레이너 가입을 허가 하시겠습니까?")){
 			$.ajax({
-				url: "/approveTrainer.do",
+				url: "/healthner/admin/approveTrainer.do",
 				type : "post",
 				data : {memberId: memberId},
 				success: function(data){
-					alert(data);
+					alert("트레이너 등업이 완료되었습니다.");
 				},
 				error: function(data){
 					console.log("데이터 처리 실패");
 				}
 			});
 			location.reload(true);
+			}
 		}
 		
 		//혜진_200630_승인 버튼 클릭 시 회원 삭제
 		function reject(obj){
 			var memberId = $(obj).parent().parent().children().eq(2).html();
+			if(confirm("해당 트레이너 가입 신청을 삭제 하시겠습니까?")){
 			$.ajax({
-				url: "/rejectTrainer.do",
+				url: "/healthner/admin/rejectTrainer.do",
 				type : "post",
 				data : {memberId: memberId},
 				success: function(data){
-					alert(data);
+					alert("등업 신청 삭제를 완료하였습니다");
 				},
 				error: function(data){
 					console.log("데이터 처리 실패");
 				}
 			});
 			location.reload(true);
+			}
 		}
 		
 	</script>
