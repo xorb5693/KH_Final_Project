@@ -395,4 +395,20 @@ public class MemberServiceImpl {
 		public int registerMeeting(MeetingScheduleVO meeting) {
 			return dao.registerMeeting(meeting);
 		}
+
+
+		public int changeEmail(Member m) {
+			return dao.changeMail(m);
+		}
+
+
+		public int modifyMember(Member m) {
+			return dao.modifyMember(m);
+		}
+
+
+		public int changeProfile(Member m) {
+			return dao.changeProfile(m);
+			
+		}
 }

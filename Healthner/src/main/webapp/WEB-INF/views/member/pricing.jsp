@@ -57,11 +57,14 @@
 							<h2 class="heading">하루 트레이닝</h2>
 							<span class="price"><sup>&#8361;</sup> <span class="number" style="font-size: 3.3em;">15,000</span></span>
 							<span class="excerpt d-block">하루 무제한 이용권</span> 
-							<c:if test="${not empty sessionScope.member}">
-								<a href="/healthner/member/payment.do?amount=15000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
 							<c:if test="${empty sessionScope.member}">
 								<a href="/healthner/member/loginFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=15000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessinoScope.member.expireDate}">
+								<a href="/healthner/member/mypageFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
 
 							<h3 class="heading-2 mb-4">Enjoy All The Features</h3>
@@ -82,11 +85,14 @@
 							<span class="price"><sup>&#8361;</sup> <span class="number" style="font-size: 3.3em;">30,000</span></span>
 							<span class="excerpt d-block">이용권 결제</span> 
 							
-							<c:if test="${not empty sessionScope.member}">
-								<a href="/healthner/member/payment.do?amount=30000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
 							<c:if test="${empty sessionScope.member}">
 								<a href="/healthner/member/loginFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=30000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessinoScope.member.expireDate}">
+								<a href="/healthner/member/mypageFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
 							
 							<h3 class="heading-2 mb-4">Enjoy All The Features</h3>
@@ -106,11 +112,14 @@
 							<h2 class="heading">일년 이용권</h2>
 							<span class="price"><sup>&#8361;</sup> <span class="number" style="font-size: 3.3em;">125,000</span></span>
 							<span class="excerpt d-block">All features are included</span> 
-							<c:if test="${not empty sessionScope.member}">
-								<a href="/healthner/member/payment.do?amount=125000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
-							</c:if>
 							<c:if test="${empty sessionScope.member}">
 								<a href="/healthner/member/loginFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and empty sessionScope.member.expireDate}">
+								<a href="/healthner/member/payment.do?amount=125000" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
+							</c:if>
+							<c:if test="${not empty sessionScope.member and not empty sessinoScope.member.expireDate}">
+								<a href="/healthner/member/mypageFrm.do" class="btn btn-primary d-block px-2 py-4 mb-4">Get Started</a>
 							</c:if>
 							
 							<h3 class="heading-2 mb-4">Enjoy All The Features</h3>

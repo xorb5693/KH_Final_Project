@@ -236,7 +236,7 @@
     	m.member_id as reportedId,
     	m.member_nick as reportedName,
    	 	r.write_type as writeType,
-    	b.board_title as boar8dTitle
+    	b.board_title as boardTitle
 	from report r
 	join member m on (m.member_no = r.reported_no)
 	join member t on (t.member_no = r.member_no)

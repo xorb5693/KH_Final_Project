@@ -165,4 +165,15 @@
 	<insert id="meeting" parameterType="ms" >
 		insert into meeting_schedule values(meeting_schedule_seq.nextval, #{name},#{phone},#{email},0,#{bmi})
 	</insert>
+	<update id="emailChange" parameterType="member">
+		update member set email = #{email} where member_no = #{memberNo}
+	</update>
+	<update id="modifyMember" parameterType="member">
+		update member 
+			set member_nick = #{memberNick},zip = #{zip}, road_addr=#{roadAddr},det_addr = #{detAddr} 
+		where member_no = #{memberNo}
+	</update>
+	<update id="changeProfile" parameterType="member">
+		update member set member_profile = #{memberProfile} where member_no = #{memberNo}
+	</update>
 </mapper>

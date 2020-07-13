@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -111,11 +113,48 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/changeMail.do")
-	public String changeMail(Member m, HttpSession session,HttpServletRequest request) {
+	@ResponseBody
+	@RequestMapping(value="/changeMail.do",produces = "html/text;charset=utf-8")
+	public String changeMail(String email, HttpSession session,HttpServletRequest request,Model model) {
 		long timeout = System.currentTimeMillis()/1000;
-		mailService.sendMail(m, request, timeout);
-		return "sent";
+		//random code generator
+		Random r = new Random();
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<6;i++) {
+			sb.append(r.nextInt(10));
+		}
+		Member member = (Member)session.getAttribute("member");
+		mailService.sendConfirmMail(email,member, request, timeout,sb);
+		model.addAttribute("timeout", timeout);
+		model.addAttribute("code", sb.toString());
+		return sb.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/changeMailFinal.do", produces = "html/text;charset=utf-8")
+	public String finalChangeMail(String emailChange, HttpSession session) {
+		Member m = (Member)session.getAttribute("member");
+		m.setEmail(emailChange);
+		session.setAttribute("member", m);
+		int result = service.changeEmail(m);
+		if(result>0) {
+			return "0";			
+		}else {
+			return "1";
+		}
+				
+	}
+	
+	@RequestMapping("/memberModify.do")
+	public String memberModify(Member m,HttpSession session) {
+		int result = service.modifyMember(m);
+		Member member = (Member)session.getAttribute("member");
+		member.setRoadAddr(m.getRoadAddr());
+		member.setDetAddr(m.getDetAddr());
+		member.setZip(m.getZip());
+		member.setMemberNick(m.getMemberNick());
+		
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/join.do")
@@ -156,6 +195,40 @@ public class MemberController {
 		// insert Member
 		int result = service.insertMember(m);
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/updateProfile.do")
+	public String updateProfile(MultipartFile file,HttpSession session,HttpServletRequest request) {
+			Member m = (Member)session.getAttribute("member");
+			// 	upload profile Image		
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/profile/"); // 저장 경로
+			File oldFile = new File(m.getMemberProfile());
+			oldFile.delete();
+			
+			// 업로드한 파일의 실제 파일명
+			String originalFilename = file.getOriginalFilename(); 
+			// 확장자를 제되한 파일명
+			String onlyFilename = originalFilename.substring(0,originalFilename.lastIndexOf("."));
+			// 확장자 -> txt
+			String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+			String filepath = onlyFilename+"_"+System.currentTimeMillis()+extension;
+			String fullpath = savePath + filepath;
+			if(!file.isEmpty()) {
+				try {
+					byte [] bytes = file.getBytes();
+					BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fullpath)));
+					bos.write(bytes);
+					bos.close();
+					System.out.println("파일 업로드 완료");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			m.setMemberProfile(filepath);
+			
+			int result = service.changeProfile(m);
+			return "member/mypage";
 	}
 	
 	@ResponseBody

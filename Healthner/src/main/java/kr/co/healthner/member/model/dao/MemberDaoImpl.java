@@ -229,4 +229,16 @@ public class MemberDaoImpl {
 		return sqlSession.insert("member.meeting", meeting);
 	}
 
+	public int changeMail(Member m) {
+		return sqlSession.update("member.emailChange", m);
+	}
+
+	public int modifyMember(Member m) {
+		return sqlSession.update("member.modifyMember", m);
+	}
+
+	public int changeProfile(Member m) {
+		return sqlSession.update("member.changeProfile",m);
+	}
+
 }

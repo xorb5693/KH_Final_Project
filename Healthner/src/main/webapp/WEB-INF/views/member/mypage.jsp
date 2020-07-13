@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>MY PAGE</title>
 <link rel="icon" href="/resources/images/favicon.png">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<c:if test="${empty sessionScope.member}">
@@ -42,14 +43,73 @@
 		</script>
 	</c:if>
 
-
+	<style>
+		#changingProfile :hover{
+			cursor: pointer;
+		}
+	</style>
 	<script>
 		$(function() {
 			$("#changePw").on('hidden.bs.modal', function() {
 				$("#check").show();
 				$("#change").hide();
 			});
+
+			// 주소 입력
+			$("#address").click(function () {
+          new daum.Postcode({
+            oncomplete: function (data) {
+              var addr = ""; // 주소 변수
+              var extraAddr = ""; // 참고항목 변수
+
+              if (data.userSelectedType === "R") {
+                addr = data.roadAddress;
+              } else {
+                addr = data.jibunAddress;
+              }
+
+              if (data.userSelectedType === "R") {
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+                  extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if (data.buildingName !== "" && data.apartment === "Y") {
+                  extraAddr +=
+                    extraAddr !== ""
+                      ? ", " + data.buildingName
+                      : data.buildingName;
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if (extraAddr !== "") {
+                  extraAddr = " (" + extraAddr + ")";
+                }
+              }
+
+              $("input[name=zip]").val(data.zonecode);
+              $("input[name=roadAddr]").val(addr);
+              // 커서를 상세주소 필드로 이동한다.
+			  
+              $("input[name=detAddr]").attr("readonly",false);
+			  $("input[name=detAddr]").focus();
+            },
+          }).open();
+        });
+	});
+
+		$(function(){
+			$("#modify").click(function(){
+				$("#subBtn").hide();
+				$("#finalBtn").show();
+				$("input[name=memberNick]").attr("readonly",false).focus();
+				$("#address").show();
+
+			});
 		});
+
+
+		// 회원 탈퇴
 		function quit() {
 			if (confirm("회원탈퇴 하시겠습니까")) {
 				$.ajax({
@@ -108,9 +168,7 @@
 			}
 			return true;
 		}
-		function changeAddr() {
-			location.href = "/healthner/member/changeAddrFrm.do";
-		}
+		
 		function changeMail() {
 		}
 		function purchaseLog() {
@@ -119,19 +177,20 @@
 		function purchaseMember() {
 			location.href = "/healthner/member/pricing.do";
 		}
-		function checkExpire() {
-		}
+		
 	</script>
-	<section>
+	
+	<section class="ftco-section ftco-about">
+		<div class="container">
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
-					<div class="bordered" style="width: 300px; height: 300px;">
-						<a href="/healthner/member/changeProfilePic.do"> <img
+					<div class="bordered" id="changingProfile" style="width: 300px; height: 300px;">
+						<img
 							src="/resources/profile/${sessionScope.member.memberProfile}"
-							style="width: 300px; height: 300px;"
+							style="width: 300px; height: 300px;" data-toggle="modal"
+							data-target="#changeProfile" 
 							onerror="this.src='/resources/profile/noprofile.png'">
-						</a>
 						<!-- background-image: url(/resources/profile/${sessionScope.member.memberProfile}), url(/resources/profile/noprofile.png);background-size: contain;background-repeat: no-repeat;" -->
 					</div>
 
@@ -183,9 +242,97 @@
 
 					$("#mailBtn").click(function(){
 						$("input[name=email]").attr("readonly",false);
+						$("input[name=email]").val("").focus();
 						$("#mailBtn").hide();
 						$("#mailCheck").show();
 					});
+					$("#mailCheck").click(function(){
+						var email = $("input[name=email]").val();
+						$.ajax({
+							method: "get",
+							url: "/healthner/member/changeMail.do",
+							data: {email:email},
+							success: function(data){
+								if(data!=""){
+									$("#confirm").show();
+									$("#mailCheck").hide();
+									$("#code").show();
+									$("#resultCode").val(data);
+								}else{
+									alert("도중에 에러가 발생했습니다 관리자를 연락해주세요");
+								}
+							}
+						})
+					});
+					$("#confirm").click(function(){
+						var code = $("input[name=code]").val();
+						var confirm = $("#resultCode").val();
+						var emailChange = $("input[name=email]").val();
+						if(code == confirm){
+							$.ajax({
+								url: "/healthner/member/changeMailFinal.do",
+								method: "get",
+								data: { emailChange:emailChange },
+								success: function(data){
+									if(data =="0" ){
+										alert("이메일 수정 완료");
+										location.reload();
+									}else{
+										alert("이메일 수정 실패");
+									}
+								}
+							});
+						}else{
+							alert("코드가 다릅니다");
+						}
+					});
+					// 닉네임 조건
+					$("input[name=memberNick]").keyup(function () {
+					var memberNick = $("input[name=memberNick]").val();
+					var regEx = /[A-Za-z0-9가-힣]{3,12}/;
+					if (!regEx.test(memberNick)) {
+						$(this)
+						.prev("span")
+						.css("color", "red")
+						.html("최소 3글자를 이용해주세요");
+					} else {
+						$.ajax({
+						url: "/healthner/member/checkNick.do",
+						method: "get",
+						data: { memberNick: memberNick },
+						success: function (data) {
+							if (data == "0" || memberNick == $("input[name=oldNick]").val()) {
+							$("input[name=memberNick]")
+								.prev("span")
+								.html("사용가능")
+								.css("color", "green");
+							$("input[name=memberNick]").attr("qualify", "true");
+							} else {
+							$("input[name=memberNick]")
+								.prev("span")
+								.css("color", "red")
+								.html("이미 사용중인 이름입니다");
+							$("input[name=memberNick]").attr("qualify", "false");
+							}
+						},
+						});
+					}
+					});
+
+					//submit
+					$("#finalChk").click(function(){
+						var memberNick = $("input[name=memberNick]").attr("qualify");
+						var detAddr = $("input[name=detAddr]").attr("qualify");
+						if(memberNick != "true"){
+							alert("닉네임을 다시 확인해주세요");
+							return;
+						}
+						if(detAddr == ""){
+							alert("주소를 확인해주세요");
+						}
+						$("#memberModify").submit();
+					});
+
 				});
 			</script>
 			<!-- Page Content  -->
@@ -194,12 +341,22 @@
 
 
 				<h2>개인정보 수정</h2>
-				<form action="/healthner/member/memberModify" id="memberModify"
-					method="post" onsubmit='return check()'>
+				<form action="/healthner/member/memberModify.do" id="memberModify"
+					method="post" >
 					<input type='hidden' id='modifyFullMail' name='modifyFullMail'>
 					<div class="wrapper">
 
 						<table>
+							<c:if test="${not empty sessionScope.member.expireDate}">
+								<tr>
+									<td>
+										<span >이용권 만료일</span>
+									</td>
+									<td>
+										<span>${sessionScope.member.expireDate}</span>
+									</td>
+								</tr>
+							</c:if>
 							<tr>
 								<th><label for="memberId">아이디</label></th>
 								<td style="width: 500px;"><input type="text"
@@ -230,6 +387,7 @@
 								<td><span></span><input type="text" id="memberNick"
 									class="form-control" style="width: 200px;" name="memberNick"
 									value="${sessionScope.member.memberNick }" readonly required> 
+									<input type="hidden" name="oldNick" value="${sessionScope.member.memberNick}">
 								</td>
 							</tr>
 							<tr>
@@ -247,43 +405,55 @@
 									<button type="button" id="mailBtn" class="btn btn-dark">이메일
 										변경</button>
 									<input type="text" name="email" id=""
-									value="${sessionScope.member.email}" class="form-control" />
-									 <input type="text" id="mailCode"
-									style="display: none; width: 150px;" class="form-conntrol"> <input
-									type="text" id="input"
-									style="width: 80px; border: none; display: none;">
+									value="${sessionScope.member.email}" class="form-control" readonly />
+									
 									<button type="button" class="btn btn-dark" id="mailCheck" style="display: none;">메일확인</button>
-									<input type="text" name="" id="confirmCode" class="form-control" width="180px"><button type="button">인증하기</button>
+									<input type="text" name="code" id="code" style="display: none;" class="form-control">
+									<input type="hidden" name="code" id="resultCode" value="">
+									<input type="button" value="인증하기" id="confirm" style="display: none;" class="btn btn-dark">
 								</td>
 							</tr>
 							<tr style="border-bottom: 1px solid black;">
 								<th><label for="addrSearch">주소</label> </th>
 								<td>
-									<button type="button" id="addrSearch" class="btn btn-dark">주소검색</button>
-									 <input type="text" id="postCode"
-									name="postCode" class="form-control"
+									<button type="button" id="address" class="btn btn-dark" style="display: none;">주소검색</button>
+									 <input type="text" id="zip"
+									name="zip" class="form-control"
 									placeholder="${sessionScope.member.zip}" readonly required>
 									 <input type="text" id="roadAddr" name="roadAddr"
 									class="form-control"
 									placeholder="${sessionScope.member.roadAddr}" readonly required>
-									<input id="detailAddr" name="detailAddr" class="form-control"
+									<input id="detAddr" name="detAddr" class="form-control"
 									type="text" placeholder="${sessionScope.member.detAddr}"
-									required> <span id="addrMsg"></span></td>
+									required readonly> <span id="addrMsg"></span>
+									<input type="hidden" name="memberNo" id="memberNo"
+										value="${sessionScope.member.memberNo}"> 
+								</td>
 							</tr>
-							<tr>
+							<tr style="display: none;" id="finalBtn">
 								<td colspan="2" style="text-align: center;">
-									<button type="submit" id="modify"
-										class="btn btn-dark btn-block">수정하기</button>
+									<button type="button" id="finalChk"
+										class="btn btn-dark btn-block" >수정하기</button>
 									<button type="button" id="cancel"
 										class="btn btn-dark btn-block">메인페이지로</button></td>
 							</tr>
 						</table>
 					</div>
 				</form>
+				<table id="subBtn"  style="width: 602px;">
+					<tr >
+						<td colspan="2" style="text-align: center;" >
+							<button type="button" id="modify"
+								class="btn btn-dark btn-block">수정하기</button>
+							<button type="button" id="cancel"
+								class="btn btn-dark btn-block">메인페이지로</button></td>
+					</tr>
+
+				</table>
 			</div>
 		</div>
 
-		<!-- Modal -->
+		<!-- Modal for changePw -->
 		<div class="modal fade" id="changePw" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
@@ -325,7 +495,7 @@
 								<div class="form-row">
 									<input type="hidden" name="memberNo" id="memberNo"
 										value="${sessionScope.member.memberNo}"> <input
-										type="submit" class="btn btn-primary" value="변경">
+										type="submit" class="btn btn-primary">
 								</div>
 							</form>
 
@@ -339,6 +509,41 @@
 					</div>
 				</div>
 			</div>
+		</div>
+			<!-- Modal for profilePic -->
+		<div class="modal fade" id="changeProfile" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content bg-dark">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle"
+							style="color: white;">사진 수정</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p id="modalBody">
+						<div>
+							<div class="form-row">
+								<form action="/healthner/member/updateProfile.do" enctype="multipart/form-data" method="post">
+									<input type="file" name="file" id="">
+									<input type="submit" class="btn btn-dark" value="바꾸기">
+								</form>
+							</div>
+						</div>
+
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
 	</section>
 
 

@@ -9,7 +9,7 @@ prefix="c"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title>About</title>
     <link rel="icon" href="/resources/images/favicon.png">
   </head>
   <body>
@@ -75,18 +75,10 @@ prefix="c"%>
               <div class="heading-section mb-4">
                 <span class="subheading">Welcome</span>
                 <h2 class="mb-1">
-                  Welcome to <span>Endurance</span> Crossfit Gym
+                  환영합니다 <br> <span> 헬트너쉽 </span> <br> 너는 내가 책임 GYM
                 </h2>
               </div>
-              <p>
-                A small river named Duden flows by their place and supplies it
-                with the necessary regelialia. It is a paradisematic country, in
-                which roasted parts of sentences fly into your mouth. Far far
-                away, behind the word mountains, far from the countries Vokalia
-                and Consonantia, there live the blind texts. Separated they live
-                in Bookmarksgrove right at the coast of the Semantics, a large
-                language ocean.
-              </p>
+              <p>헬트너쉽과 함께 당신의 피트니스 스토리를 만들어보세요. 더 즐겁고 더 에너지 넘치는 일상을 위해 삶을 더욱 효율적으로 즐길 수 있는 ‘복합 피트니스 문화 플랫폼’으로 활기찬 라이프스타일을 제시하고자 합니다.</p>
               <p>
                 <a href="#" class="btn btn-primary p-3">Join us</a>
               </p>
@@ -95,9 +87,32 @@ prefix="c"%>
         </div>
       </div>
     </section>
+    <section>
+      <div class="container pt-md-5 pt-5">
+        <div class="row">
+          <div class="col-md-6">
+            <!-- google map api -->
+            <div id="kakaomap" style="width: 500px; height: 400px;margin: 50px;"></div>
 
-    <!-- google map api -->
-    <div id="kakaomap" style="width: 500px; height: 400px;"></div>
+          </div>
+          <div class="col-md-6 pl-md-5 ftco-animate d-flex align-items-center">
+					<div class="text pt-4 pt-md-0">
+					  <div class="heading-section mb-4">
+						<span class="subheading">오시는길</span>
+						<h2 class="mb-1">
+						  어서오세요 <br> <span> 헬트너쉽 </span> <br> 너는 내가 책임 GYM
+						</h2>
+					  </div>
+					  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+					  
+					</div>
+				  </div>
+          
+        </div>
+
+      </div>
+
+    </section>
 
     <script
       type="text/javascript"
@@ -124,7 +139,7 @@ prefix="c"%>
       marker.setMap(map);
 
       var iwContent =
-          '<div style="height:60px;padding:5px;width:90px;">헬트너십 <br><a class="btn btn-primary btn-sm" href="https://map.kakao.com/link/map/Healthner,37.53319, 126.89637" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Healthner,37.53319, 126.89637" class="btn btn-primary btn-sm" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          '<div style="height:60px;padding:5px;width:150px;">헬트너십 <br><a class="btn btn-primary btn-block" href="https://map.kakao.com/link/map/Healthner,37.53319, 126.89637" target="_blank">큰지도보기</a> </div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwPosition = new kakao.maps.LatLng(37.53319, 126.89637); //인포윈도우 표시 위치입니다
 
       // 인포윈도우를 생성합니다
