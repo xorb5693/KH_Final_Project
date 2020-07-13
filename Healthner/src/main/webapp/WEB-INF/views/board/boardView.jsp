@@ -58,8 +58,8 @@
 
 					<div>
 						<div>
-							제목<span><strong>${b.boardTitle }</strong></span><span
-								style="float: right;"><span>${b.boardDate }</span></span>
+							제목 : <span><strong class="tg-black">${b.boardTitle }</strong></span><span
+								style="float: right;"><span class="tg-black">${b.boardDate }</span></span>
 						</div>
 						<hr>
 						<div>
@@ -115,12 +115,12 @@
 						<c:forEach items="${list }" var="nc">
 							<c:if test="${nc.commentLevel eq 1 }">
 								<ul class="commentList">
-									<li style="width: 10%; text-align: center"><span>${nc.memberNick }</span>
+									<li style="width: 10%; text-align: center"><span class="tg-black">${nc.memberNick }</span>
 									</li>
-									<li style="width: 50%; text-align: center"><span>${nc.commentContent }</span>
+									<li style="width: 50%; text-align: center"><span class="tg-black">${nc.commentContent }</span>
 										<input type="text" class="form-control" name="commentContent"
 										value="${nc.commentContent }" style="display: none"></li>
-									<li style="width: 10%; text-align: center"><span>${nc.commentDate }</span>
+									<li style="width: 10%; text-align: center"><span class="tg-black">${nc.commentDate }</span>
 									</li>
 									<li style="width: 30%; text-align: center"><c:if
 											test="${not empty sessionScope.member }">
@@ -148,12 +148,12 @@
 									<ul class="commentList">
 									<c:if test="${not empty sessionScope.member }">
 										<li style="width: 5%; text-align: center"><span>└─</span>
-										<li style="width: 10%; text-align: center"><span>${ncc.memberNick }</span>
+										<li style="width: 10%; text-align: center"><span class="tg-black">${ncc.memberNick }</span>
 										</li>
-										<li style="width: 60%; text-align: center"><span>${ncc.commentContent }</span>
+										<li style="width: 60%; text-align: center"><span class="tg-black">${ncc.commentContent }</span>
 											<input type="text" class="form-control" name="commentContent"
 											value="${ncc.commentContent }" style="display: none"></li>
-										<li style="width: 10%; text-align: center"><span>${ncc.commentDate }</span>
+										<li style="width: 10%; text-align: center"><span class="tg-black">${ncc.commentDate }</span>
 										</li>
 										<li style="width: 15%; text-align: center"><c:if
 												test="${ not empty sessionScope.member && sessionScope.member.memberNo eq ncc.commentWriter}">
@@ -164,7 +164,7 @@
 													</c:if>
 													
 												<button type="button"
-													onclick="reportComment('2','${ncc.commentNo}','${nc.commentWriter}','${sessionScope.member.memberNo}');"
+													onclick="reportComment('2','${ncc.commentNo}','${ncc.commentWriter}','${sessionScope.member.memberNo}');"
 													class="btn" data-toggle="modal"
 													style="border: 1px solid #999" data-target="#exampleModal"
 													data-whatever="@mdo">신고하기</button>
@@ -200,6 +200,7 @@
 					<form action="/healthner/report/insertReport.do" method="post"
 						id="inputReviewBox">
 						<div class="form-group">
+						<input type="hidden" name="boardNo" value="${b.boardNo }">
 							<div class="form-group" id="report-ability-wrapper">
 								<span class="field-label-header">무분별한 신고는 도히려 정지당할수 있습니다.</span><br>
 								<span class="field-label-info"></span>

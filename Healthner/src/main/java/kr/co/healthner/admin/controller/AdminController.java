@@ -41,13 +41,13 @@ public class AdminController {
 	@Qualifier("adminService")
 	private AdminServiceImpl service;
 
-	//혜진_200712_로그아웃
+	// 혜진_200712_로그아웃
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
+
 	// 혜진_200622_관리자 메인 페이지로 이동(홈에서 이동)
 	@RequestMapping("/adminMain.do")
 	public String trainerIntro(HttpSession session) {
@@ -55,7 +55,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/adminMain";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -70,7 +70,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/memberMgt";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -85,7 +85,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/trainerMgt";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -100,7 +100,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/ptMapping";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -115,7 +115,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/reportMgt";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -130,7 +130,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/penaltyMgt";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -148,7 +148,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/productMgt";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -176,7 +176,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/inquiryMgt";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -192,7 +192,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/memberDetail";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -331,7 +331,7 @@ public class AdminController {
 		if (m != null) {
 			if (m.getMemberId().equals("admin")) {
 				return "admin/productInsertFrm";
-			}else {
+			} else {
 				return "admin/failNotice";
 			}
 		} else {
@@ -403,6 +403,14 @@ public class AdminController {
 	@ResponseBody
 	public int inputNewMapping(int PTmax, int PTleft, int memberNo, int trainerNo) {
 		int result = service.inputNewMapping(PTmax, PTleft, memberNo, trainerNo);
+		return result;
+	}
+
+	// 혜진_200713_mapping업데이트
+	@RequestMapping("/updateNewMapping.do")
+	@ResponseBody
+	public int updateNewMapping(int PTmax, int PTleft, int memberNo, int trainerNo, int mappingSeq) {
+		int result = service.updateNewMapping(PTmax, PTleft, memberNo, trainerNo, mappingSeq);
 		return result;
 	}
 
@@ -602,9 +610,9 @@ public class AdminController {
 		Report r = service.reportedDetail(writeType, writeNo);
 		return r;
 	}
-	
+
 	// 혜진_200713_신고글 관리_상세보기 modal_reportlist 조회
-	@RequestMapping(value="/reportedDetailList.do", produces="application/json; charset=utf-8")
+	@RequestMapping(value = "/reportedDetailList.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String reportedDetailList(int writeType, int writeNo, int start) {
 		TotalpageList tl = service.reportedDetailList(writeType, writeNo, start);

@@ -32,5 +32,9 @@
 	<select id="noticeSearchCount" parameterType="String" resultType="int">
 		select count(*) as cnt from notice where notice_title like '%'||#{searchTitle}||'%'
 	</select>
+	
+	<select id="selectBanList" parameterType="_int" resultType="_int">
+		select count(*) from ban_list where member_no=#{_parameter}
+	</select>
   
 </mapper>

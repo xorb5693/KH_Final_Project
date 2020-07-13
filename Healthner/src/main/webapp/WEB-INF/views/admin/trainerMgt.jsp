@@ -97,7 +97,7 @@ body {
 								if (data.list[i].memberProfile == " ") {
 									html += "<td><img src='/resources/profile/noprofile.png' class='small-img'></td>";
 								} else {
-									html += "<td><img src='/resources/profile/"+data.list[i].memberProfile+"' class='small-img'></td>";
+									html += "<td><img src='/resources/profile/"+data.list[i].memberProfile+"' class='small-img' class='small-img' onerror='error(this);'></td>";
 								}
 								html += "<td id='memberId'>" + data.list[i].memberId + "</td>";
 								html += "<td>" + data.list[i].memberName + "</td>";
@@ -187,6 +187,10 @@ body {
 			}
 		}
 		
+		//혜진_200713_사진 에러 시, 에러 화면 처리
+		function error(obj){
+			$(obj).attr("src","/resources/profile/imageError.jpg");
+		}
 	</script>
 	<script type="text/javascript"
 		src="http://code.jquery.com/jquery-3.3.1.js"></script>

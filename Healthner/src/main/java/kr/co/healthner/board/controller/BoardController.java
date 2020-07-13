@@ -1,6 +1,5 @@
 package kr.co.healthner.board.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,15 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
 
 import kr.co.healthner.board.model.service.BoardService;
 import kr.co.healthner.board.model.vo.BoardPageDate;
 import kr.co.healthner.member.model.vo.Member;
-import kr.co.healthner.notice.model.vo.Notice;
-import kr.co.healthner.notice.model.vo.NoticePageDate;
 import kr.co.healthner.vo.BoardCommentVO;
 import kr.co.healthner.vo.BoardVO;
 
@@ -113,12 +107,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/boardCommentInsert.do")
-	public String boardCommentInsert(BoardCommentVO bc, int boardNo) {
+	public String boardCommentInsert(HttpSession session, Model model, BoardCommentVO bc, int boardNo) {
 //		System.out.println("테스트용");
 //		System.out.println("글쓴이 : "+bc.getCommentWriter());
 //		System.out.println(bc.getRef());
 //		System.out.println(bc.getCommentLevel());
 //		System.out.println(bc.getCommentRef());
+		
+		Member m = (Member)session.getAttribute("member");
+		int check = service.selectBanList(m.getMemberNo());
+		
+		if (check != 0) {
+			model.addAttribute("msg", "글쓰기 권한이 정지되었습니다.");
+			model.addAttribute("loc", "/healthner/board/boardView.do?boardNo="+boardNo);
+			return "common/msg";
+		}
 		
 		int result = service.commentInsert(bc);
 		if(result>0) {

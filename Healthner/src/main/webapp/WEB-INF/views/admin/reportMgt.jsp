@@ -38,10 +38,12 @@
 				<option value=2>댓글</option>
 			</select> <select name="reportCat">
 				<option value=0>신고 사유</option>
-				<option value=1>욕설</option>
-				<option value=2>부적절한 내용</option>
-				<option value=3>광고</option>
-				<option value=4>기타</option>
+				<option value=2>욕설/인신공격</option>
+				<option value=4>도배성글/댓글반복</option>
+				<option value=6>음란성/선정성</option>
+				<option value=8>개인정보노출/사생활침해</option>
+				<option value=10>불법광고/영리목적</option>
+				<option value=12>기타</option>
 			</select> <input type="text" id="searchWord" placeholder="게시글 제목을 입력하세요.">
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"
 				onclick="show_reportlist(1,1);">
@@ -87,6 +89,7 @@
 						data : param,
 						dataType : "json",
 						success : function(data) {
+							console.log(data);
 							if (btnNum == 1) {
 								$(".contentsRow").html("");
 							}
@@ -119,7 +122,7 @@
 							}
 							$("#parentTB").children("tbody").append(html);
 							//혜진_200630_더보기 버튼에 현재 count 정보와 데이터 길이 저장
-							$(".more-btn").val(Number(start) + 5);
+							$(".more-btn").val(Number(start) + 10);
 							$(".more-btn").attr(
 									"currentCount",
 									Number($(".more-btn").attr("currentCount"))

@@ -38,7 +38,7 @@
 	<select id="oneMemberSearch" parameterType="string" resultType="member">
 		select
 			member_no as memberNo,
-			member_profile as memberProfile,
+			NVL(member_Profile, ' ') as memberProfile,
 			member_id as memberId,
 			member_name as memberName,
 			member_nick as memberNick,
@@ -208,6 +208,11 @@
 	<insert id="inputNewMapping" parameterType="pt">
 	insert into member_mapping values (member_mapping_seq.nextval,#{memberNo},#{trainerNo},#{PTleft},#{PTmax},null)
 	</insert>
+	<!-- 혜진_200713_mapping업데이트 -->
+	<update id="updateNewMapping" parameterType="pt">
+	update member_mapping set member_no=#{memberNo}, trainer_no=#{trainerNo}, training_cnt=#{PTleft}, training_maxcnt=#{PTmax}
+	where mapping_seq = #{mappingSeq}
+	</update>
 	<!-- 혜진_200707_mapping 데이터 수정 -->
 	<select id="mappingCheck" parameterType="_int" resultType="pt">
 	select
@@ -231,7 +236,7 @@
     	m.member_id as reportedId,
     	m.member_nick as reportedName,
    	 	r.write_type as writeType,
-    	b.board_title as boar8dTitle
+    	b.board_title as boardTitle
 	from report r
 	join member m on (m.member_no = r.reported_no)
 	join member t on (t.member_no = r.member_no)

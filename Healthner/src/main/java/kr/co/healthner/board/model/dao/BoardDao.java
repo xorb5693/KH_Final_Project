@@ -78,4 +78,9 @@ public class BoardDao {
 		return sqlSession.selectList("board.boardSearchList",map);
 	}
 
+	public int selectBanList(int memberNo) {
+		
+		return sqlSession.selectOne("notice.selectBanList", memberNo);
+	}
+
 }
