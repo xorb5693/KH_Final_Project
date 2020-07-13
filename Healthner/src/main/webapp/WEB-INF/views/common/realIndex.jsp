@@ -590,13 +590,38 @@
 				$("input[name=phone]").attr("qualify", "true");
 			}
 			});
+			// 이메일
+			$("input[name=email]").keyup(function () {
+				var regEx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+				var email = $(this).val();
+				if (!regEx.test(email)) {
+					$(this)
+					.prev()
+					.css("color", "red")
+					.html("이메일을 다시 확인해주세요");
+					$("input[name=email]").attr("qualify", "false");
+				} else {
+					$(this).prev().hide();
+					$("input[name=email]").attr("qualify", "true");
+				}
+			});
 		});
 		function checkForm(){
+			var name = $("input[name=name]").attr("qualify");
+			var email = $("input[name=email]").attr("qualify");
+			var phone = $("input[name=phone]").attr("qualify");
+			if(!name=="true"){
+				alert("이름을 다시 확인해주세요");
+				return false;
+			}else if(!email=="true"){
+				alert("이메일을 확인해주세요");
+				return false;
+			}
+			alert("빠른 시일내에 연락 드리겠습니다~");
+			return true;
 
 		}
-		function registerMem(){
-
-		}
+		
 		$(function(){
 			$("#emailChk").click(function(){
 				if($("#email").is(":checked")){
@@ -676,8 +701,8 @@
 									<input type="text" class="form-control" name="phone" id="" required>
 								</div>
 								<div class="row" style="color: white;">
-									이메일(선택) <input type="checkbox" name="emailChk" id="emailChk">
-									<input type="text" class="form-control" name="email" id="emailTag" style="display: none;">
+									이메일(선택) 
+									<input type="text" class="form-control" name="email" id="emailTag" >
 								</div>
 								<div class="row">
 									<input type="submit" class="btn btn-primary" value="예약신청하기">

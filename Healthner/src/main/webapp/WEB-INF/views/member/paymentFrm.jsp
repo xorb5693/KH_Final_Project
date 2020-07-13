@@ -92,6 +92,7 @@ prefix="c"%>
                     id="성"
                     value="${sessionScope.member.memberName}"
                     required
+                    readonly
                   />
                   <div class="invalid-feedback" style="color: white;">성 입력 필수</div>
                 </div>
@@ -108,6 +109,7 @@ prefix="c"%>
                     id="username"
                     value="${member.memberId}"
                     required
+                    readonly
                   />
                   <div class="invalid-feedback" style="width: 100%;"></div>
                 </div>
@@ -120,7 +122,8 @@ prefix="c"%>
                   type="email"
                   class="form-control"
                   id="email"
-                  placeholder="${member.email}"
+                  value="${member.email}"
+                  readonly
                 />
                 <div class="invalid-feedback" style="color: white;">이메일을 다시 확인해주세요</div>
               </div>
@@ -130,7 +133,7 @@ prefix="c"%>
                   type="text"
                   class="form-control"
                   id="addr"
-                  placeholder="${member.detAddr}"
+                  value="${member.detAddr}"
                   readonly
                 />
                 <input type="hidden" name="zip" id="zip" value="${sessionScope.member.zip}">
