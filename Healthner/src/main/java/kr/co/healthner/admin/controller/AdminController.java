@@ -602,4 +602,12 @@ public class AdminController {
 		Report r = service.reportedDetail(writeType, writeNo);
 		return r;
 	}
+	
+	// 혜진_200713_신고글 관리_상세보기 modal_reportlist 조회
+	@RequestMapping(value="/reportedDetailList.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String reportedDetailList(int writeType, int writeNo, int start) {
+		TotalpageList tl = service.reportedDetailList(writeType, writeNo, start);
+		return new Gson().toJson(tl);
+	}
 }

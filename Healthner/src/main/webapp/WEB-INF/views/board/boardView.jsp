@@ -47,12 +47,12 @@
 				<h1 class="bread" style="font-style: italic; font-weight: 900;">Board
 					View</h1>
 				<br>
-				<%-- <c:if test="${sessionScope.member.memberNo==${b.boardWriter }"> --%>
+				<c:if test="${sessionScope.member.memberNo eq b.boardWriter}">
 				<a style="float: right;"
 					href="/healthner/board/boardModify.do?boardNo=${b.boardNo }">내용수정</a>
 				<a style="float: right; padding-right: 10px;"
 					href="/healthner/board/boardDelete.do?boardNo=${b.boardNo }">글삭제</a>
-				<%-- </c:if> --%>
+				</c:if>
 				<br>
 				<div class="content wraper col-md-12" style="overflow:hidden;">
 
@@ -63,7 +63,7 @@
 						</div>
 						<hr>
 						<div>
-							글쓴이 ${b.boardWriter }<span style="float: right;"><button
+							글쓴이 ${b.memberNick }<span style="float: right;"><button
 									type="button"
 									onclick="reportBoard('1','${b.boardNo}','${b.boardWriter}','${sessionScope.member.memberNo}');"
 									class="btn" data-toggle="modal" style="border: 1px solid #999"
@@ -115,7 +115,7 @@
 						<c:forEach items="${list }" var="nc">
 							<c:if test="${nc.commentLevel eq 1 }">
 								<ul class="commentList">
-									<li style="width: 10%; text-align: center"><span>${nc.commentWriter }</span>
+									<li style="width: 10%; text-align: center"><span>${nc.memberNick }</span>
 									</li>
 									<li style="width: 50%; text-align: center"><span>${nc.commentContent }</span>
 										<input type="text" class="form-control" name="commentContent"
@@ -147,7 +147,7 @@
 									test="${ncc.commentLevel eq 2 && nc.commentNo eq ncc.commentRef}">
 									<ul class="commentList">
 										<li style="width: 5%; text-align: center"><span>└─</span>
-										<li style="width: 10%; text-align: center"><span>${ncc.commentWriter }</span>
+										<li style="width: 10%; text-align: center"><span>${ncc.memberNick }</span>
 										</li>
 										<li style="width: 60%; text-align: center"><span>${ncc.commentContent }</span>
 											<input type="text" class="form-control" name="commentContent"

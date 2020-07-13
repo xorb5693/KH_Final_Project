@@ -12,6 +12,7 @@ public class Report {
 	private String reportedName;
 	private int memberNo;
 	private String memberId;
+	private String memberNick;
 	private String reportName;
 	private int reportCat;
 	private String categoryName;

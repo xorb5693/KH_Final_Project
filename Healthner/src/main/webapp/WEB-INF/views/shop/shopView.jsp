@@ -47,21 +47,20 @@
 <body>
 	<div class="wraper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
-
-
-
-
 		<jsp:include page="/WEB-INF/views/common/headerForShop.jsp"/>
+		<section class="ftco-section bg-light">
+		<div class="container">
+		
 		<div class="content">
-
+<h1 class="bread" style="font-style:italic; font-weight:900;">Product View</h1><br><br>
 			<div class="card">
 				<div class="row">
 					<aside class="col-sm-5 border-right">
 						<article class="gallery-wrap">
 							<div class="img-big-wrap">
 								<div>
-								<img src="${p.thumbnail }" width="250px" height="250px">
+								<img src="${p.thumbnail }" onerror="this.src='/resources/images/favicon.png'; this.onerror=null;" width="100%"
+										height="225">
 								</div>
 							</div>
 							<!-- slider-product.// -->
@@ -84,7 +83,7 @@
 						<!-- gallery-wrap .end// -->
 					</aside>
 					<aside class="col-sm-7">
-					<form action="/healthner/shop/basket.do" method="post">
+					<form action="/healthner/shop/basketList.do?reqPage=1" method="post">
 						<article class="card-body p-5">
 							<input type="hidden" value="${p.pno }" name="pno">
 							<input type="hidden" value="${sessionScope.member.memberNo }" name="memberNo">
@@ -104,17 +103,38 @@
 							</dl>
 							<dl class="param param-feature">
 								<dt>1번카테고리</dt>
-								<dd>${p.category }</dd>
+								<c:if test="${p.category eq 1}">
+									<dd>국내상품</dd>
+								</c:if>
+								<c:if test="${p.category eq 2}">
+									<dd>해외상품</dd>
+								</c:if>
 							</dl>
 							<!-- item-property-hor .// -->
 							<dl class="param param-feature">
-								<dt>2번카테로기</dt>
-								<dd>${p.category2 }</dd>
+								<dt>2번카테고리</dt>
+								<c:if test="${p.category2 eq 1}">
+									<dd>운동기구</dd>
+								</c:if>
+								<c:if test="${p.category2 eq 2}">
+									<dd>보조식품</dd>
+								</c:if>
+								<c:if test="${p.category2 eq 3}">
+									<dd>의류</dd>
+								</c:if>
 							</dl>
 							<!-- item-property-hor .// -->
 							<dl class="param param-feature">
 								<dt>3번카테고리</dt>
-								<dd>${p.category3 }</dd>
+								<c:if test="${p.category3 eq 1}">
+									<dd>공용</dd>
+								</c:if>
+								<c:if test="${p.category3 eq 2}">
+									<dd>남성</dd>
+								</c:if>
+								<c:if test="${p.category3 eq 3}">
+									<dd>여성</dd>
+								</c:if>
 							</dl>
 							<!-- item-property-hor .// -->
 
@@ -193,8 +213,22 @@
 
 
 		</div>
-
-
+		
+		</div>
+		</section>
+		
+		<div>
+			
+		<section class="ftco-section bg-light">
+		<div class="container">
+		
+		<h1 class="bread" style="font-style:italic; font-weight:900;">Product Detail</h1><br><hr><br>
+			${p.pcontent }
+		
+		</div>
+		
+		</section>
+		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 <script>

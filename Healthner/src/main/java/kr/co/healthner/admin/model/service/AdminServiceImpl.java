@@ -562,4 +562,21 @@ public class AdminServiceImpl {
 		r.setWriteType(writeType);
 		return r;
 	}
+	
+	// 혜진_200713_신고글 관리_상세보기 modal_reportlist 조회
+	public TotalpageList reportedDetailList(int writeType, int writeNo, int start) {
+		Report r = new Report();
+		r.setWriteNo(writeNo);
+		r.setWriteType(writeType);
+		int totalCount = dao.reportedDetailListTotal(r);
+		int length = 5;
+		int end = start + length -1;
+		r.setStart(start);
+		r.setEnd(end);
+		ArrayList<Report> listrp = (ArrayList<Report>)dao.reportedDetailList(r);
+		TotalpageList tl = new TotalpageList();
+		tl.setListrp(listrp);
+		tl.setTotalCount(totalCount);
+		return tl;
+	}
 }

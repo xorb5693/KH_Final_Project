@@ -50,7 +50,7 @@
 								<c:if test="${n.boardType eq 0 }">
 									<tr>
 										<th scope="row">${n.boardNo }</th>
-										<td>${n.boardWriter }</td>
+										<td>${n.memberNick }</td>
 										<td><a
 											href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
 										<td>${n.boardDate }</td>
@@ -63,7 +63,7 @@
 								<c:if test="${n.boardType eq 1 }">
 									<tr>
 										<th scope="row">${n.boardNo }</th>
-										<td>${n.boardWriter }</td>
+										<td>${n.memberNick }</td>
 										<td><a
 											href="/healthner/board/boardView.do?boardNo=${n.boardNo}">${n.boardTitle }</a></td>
 										<td>${n.boardDate }</td>

@@ -53,13 +53,13 @@ public class BoardService {
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage -1) / pageNaviSize) * pageNaviSize +1;
 		if (pageNo != 1) {
-			pageNavi += "<a class='btn' href='boardList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
+			pageNavi += "<a class='btn' href='/healthner/board/boardList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
 		}
 		for (int i = 0; i<pageNaviSize;i++) {
 			if (reqPage == pageNo) {
 				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/boardList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='btn' href='/healthner/board//boardList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
@@ -67,7 +67,7 @@ public class BoardService {
 			}
 		}
 		if (pageNo < totalPage) {
-			pageNavi += "<a class='btn' href='/boardList.do?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/healthner/board//boardList.do?reqPage="+pageNo+"'>다음</a>";
 		}
 		
 		BoardPageDate npd = new BoardPageDate();
@@ -156,13 +156,13 @@ public class BoardService {
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage -1) / pageNaviSize) * pageNaviSize +1;
 		if (pageNo != 1) {
-			pageNavi += "<a class='btn' href='boardList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
+			pageNavi += "<a class='btn' href='/healthner/board/boardList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
 		}
 		for (int i = 0; i<pageNaviSize;i++) {
 			if (reqPage == pageNo) {
 				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/boardList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='btn' href='/healthner/board//boardList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
@@ -170,7 +170,7 @@ public class BoardService {
 			}
 		}
 		if (pageNo < totalPage) {
-			pageNavi += "<a class='btn' href='/boardList.do?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/healthner/board//boardList.do?reqPage="+pageNo+"'>다음</a>";
 		}
 		npd.setList((ArrayList<BoardVO>)list);
 		npd.setPageNavi(pageNavi);
