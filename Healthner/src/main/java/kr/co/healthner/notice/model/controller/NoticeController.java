@@ -1,8 +1,5 @@
 package kr.co.healthner.notice.model.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
@@ -17,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
-import kr.co.healthner.board.model.vo.BoardPageDate;
+import kr.co.healthner.member.model.vo.Member;
 import kr.co.healthner.notice.model.service.NoticeService;
 import kr.co.healthner.notice.model.vo.Notice;
 import kr.co.healthner.notice.model.vo.NoticePageDate;
@@ -141,9 +138,21 @@ public class NoticeController {
 	}
 	
 	
-	@RequestMapping(value="/boardWriteFrm") public String boardWriteFrm() {
-		return "board/boardWrite"; 
+	@RequestMapping(value="/boardWriteFrm") 
+	public String boardWriteFrm(HttpSession session, Model model) {
+		
+		Member m = (Member)session.getAttribute("member");
+		int check = service.selectBanList(m.getMemberNo());
+		System.out.println(check);
+		
+		if (check != 0) {
+			model.addAttribute("msg", "글쓰기 권한이 정지되었습니다.");
+			model.addAttribute("loc", "/healthner/notice/notice.do?reqPage=1");
+			return "common/msg";
 		}
+		
+		return "board/boardWrite"; 
+	}
 	
 	@RequestMapping(value="/noticeSearchTitle.do")
 	public String noticeSearchTitle(String searchTitle , Model model , int reqPage) {

@@ -89,6 +89,7 @@
 						data : param,
 						dataType : "json",
 						success : function(data) {
+							console.log(data);
 							if (btnNum == 1) {
 								$(".contentsRow").html("");
 							}

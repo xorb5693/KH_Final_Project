@@ -55,6 +55,11 @@ public class NoticeDao {
 		return sqlSession.selectOne("notice.noticeSearchCount",searchTitle);
 	}
 
+	public int selectBanList(int memberNo) {
+		
+		return sqlSession.selectOne("notice.selectBanList", memberNo);
+	}
+
 	
 
 }

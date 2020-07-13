@@ -17,10 +17,10 @@ public class ReportController {
 	private ReportService service;
 	
 	@RequestMapping(value="/insertReport.do")
-	public String insertReport(ReportVO rv) {
+	public String insertReport(ReportVO rv, int boardNo) {
 		System.out.println(rv.getWriteType());
 		int result = service.insertReport(rv);
-		int boardNo = rv.getWriteNo();
+		
 		if(result>0) {
 			System.out.println("report등록 성공");
 		}else {

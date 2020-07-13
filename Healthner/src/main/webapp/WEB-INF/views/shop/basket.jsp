@@ -161,7 +161,7 @@ h1 {
 
 											<tr>
 												<input type="hidden" name="pno" value="${m.pno }">
-												<td><img src="${m.thumbnail }" width='100px'
+												<td><img src="/resources/upload/thumbnail/${m.thumbnail }" width='100px'
 													height='80px' /></td>
 												<td>${m.pname }</td>
 												<td></td>
