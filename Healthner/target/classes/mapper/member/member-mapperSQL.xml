@@ -149,17 +149,17 @@
 	</update>
 	<update id="paymentComplete" parameterType="member">
 		update member set
-			expire_date = sysdate+30
+			expire_date = sysdate+(INTERVAL '30' DAY)
 		where member_no = #{memberNo}
 	</update>
 	<update id="oneDayPay" parameterType="member">
 		update member set
-			expire_date = sysdate+1
+			expire_date = sysdate + (INTERVAL '1' DAY)
 		where member_no = #{memberNo}	
 	</update>
 	<update id="oneYear" parameterType="member">
 		update member set
-			expire_date = sysdate+365
+			expire_date = sysdate+(INTERVAL '365' DAY)
 		where member_no = #{memberNo}	
 	</update>
 	<insert id="meeting" parameterType="ms" >

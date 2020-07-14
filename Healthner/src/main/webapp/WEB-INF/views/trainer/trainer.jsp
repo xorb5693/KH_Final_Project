@@ -188,7 +188,7 @@
 				console.log(introPlace);
 				$("#readImage2")
 						.attr("src", "/resources/profile/" + imagePlace);
-				$("#readIntro").html("<span class='tg-black'>" + introPlace + "<span>");
+				$("#readIntro").html("<span class='tg-black text'>" + introPlace + "<span>");
 
 			}
 

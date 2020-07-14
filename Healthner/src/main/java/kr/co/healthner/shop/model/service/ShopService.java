@@ -50,13 +50,13 @@ public class ShopService {
 		int pageNaviSize = 9;
 		int pageNo = ((reqPage -1) / pageNaviSize) * pageNaviSize +1;
 		if (pageNo != 1) {
-			pageNavi += "<a class='btn' href='noticeList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
+			pageNavi += "<a class='btn' href='/healthner/shop/shop.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
 		}
 		for (int i = 0; i<pageNaviSize;i++) {
 			if (reqPage == pageNo) {
 				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/healthner/shop/shop?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='btn' href='/healthner/shop/shop.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
@@ -64,7 +64,7 @@ public class ShopService {
 			}
 		}
 		if (pageNo < totalPage) {
-			pageNavi += "<a class='btn' href='/healthner/shop/shop?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/healthner/shop/shop.do?reqPage="+pageNo+"'>다음</a>";
 		}
 		
 		ShopPageDate spd = new ShopPageDate();
@@ -109,13 +109,13 @@ public class ShopService {
 		int pageNaviSize = 9;
 		int pageNo = ((reqPage -1) / pageNaviSize) * pageNaviSize +1;
 		if (pageNo != 1) {
-			pageNavi += "<a class='btn' href='/healthner/shop/shop?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
+			pageNavi += "<a class='btn' href='/healthner/shop/productSearchList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
 		}
 		for (int i = 0; i<pageNaviSize;i++) {
 			if (reqPage == pageNo) {
 				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/healthner/shop/shop?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='btn' href='/healthner/shop/productSearchList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
@@ -123,7 +123,7 @@ public class ShopService {
 			}
 		}
 		if (pageNo < totalPage) {
-			pageNavi += "<a class='btn' href='/healthner/shop/shop?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/healthner/shop/productSearchList.do?reqPage="+pageNo+"'>다음</a>";
 		}
 		
 		ShopPageDate spd = new ShopPageDate();
@@ -167,13 +167,13 @@ public class ShopService {
 		int pageNaviSize = 9;
 		int pageNo = ((reqPage -1) / pageNaviSize) * pageNaviSize +1;
 		if (pageNo != 1) {
-			pageNavi += "<a class='btn' href='/healthner/shop/shop.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
+			pageNavi += "<a class='btn' href='/healthner/shop/productSearchList.do?reqPage=" + (pageNo - pageNaviSize) + "'>이전</a>";
 		}
 		for (int i = 0; i<pageNaviSize;i++) {
 			if (reqPage == pageNo) {
 				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/healthner/shop/shop.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='btn' href='/healthner/shop/productSearchList.do?reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
@@ -181,7 +181,7 @@ public class ShopService {
 			}
 		}
 		if (pageNo < totalPage) {
-			pageNavi += "<a class='btn' href='/healthner/shop/shop?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/healthner/shop/productSearchList.do?reqPage="+pageNo+"'>다음</a>";
 		}
 		
 		ShopPageDate spd = new ShopPageDate();

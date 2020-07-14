@@ -61,22 +61,66 @@
 								<div class="row">
 								<div class="col-md-2">
 									<select class="selectpicker show-tick" style="width: 100%" size="3" name="category">
-										<option value="1" selected>국내제품
-										<option value="2">해외제품
+										<c:if test="${category eq 1 }">
+											<option value="1" selected>국내제품</option>
+											<option value="2">해외제품</option>
+										</c:if>
+										<c:if test="${category eq 2 }">
+											<option value="1">국내제품</option>
+											<option value="2 selected">해외제품</option>
+										</c:if>
+										<c:if test="${empty category }">
+											<option value="1" selected>국내제품</option>
+											<option value="2">해외제품</option>
+										</c:if>
 									</select> 
 								</div>
 								<div class="col-md-2">
 									<select class="selectpicker show-tick" style="width: 100%" size="3" name="category2">
-										<option value="1" selected>운동기구
-										<option value="2">보조식품
-										<option value="3">의류
+										<c:if test="${category2 eq 1 }">
+											<option value="1" selected>운동기구</option>
+											<option value="2">보조식품</option>
+											<option value="3">의류</option>
+										</c:if>
+										<c:if test="${category2 eq 2 }">
+											<option value="1">운동기구</option>
+											<option value="2" selected>보조식품</option>
+											<option value="3">의류</option>
+										</c:if>
+										<c:if test="${category2 eq 3 }">
+											<option value="1">운동기구</option>
+											<option value="2">보조식품</option>
+											<option value="3" selected>의류</option>
+										</c:if>
+										<c:if test="${empty category2 }">
+											<option value="1" selected>운동기구</option>
+											<option value="2">보조식품</option>
+											<option value="3">의류</option>
+										</c:if>
 									</select> 
 								</div>
 								<div class="col-md-2">
 									<select class="selectpicker show-tick" style="width: 100%" size="3" name="category3">
-										<option value="1" selected>공용
-										<option value="2">남성
-										<option value="3">여성
+										<c:if test="${category3 eq 1 }">
+											<option value="1" selected>공용</option>
+											<option value="2">남성</option>
+											<option value="3">여성</option>
+										</c:if>
+										<c:if test="${category3 eq 2 }">
+											<option value="1">공용</option>
+											<option value="2" selected>남성</option>
+											<option value="3">여성</option>
+										</c:if>
+										<c:if test="${category3 eq 3 }">
+											<option value="1">공용</option>
+											<option value="2">남성</option>
+											<option value="3" selected>여성</option>
+										</c:if>
+										<c:if test="${empty category3 }">
+											<option value="1" selected>공용</option>
+											<option value="2">남성</option>
+											<option value="3">여성</option>
+										</c:if>
 									</select> 
 								</div>	
 									<input type="hidden" name="reqPage" value="1">
@@ -84,7 +128,7 @@
 									<!-- pno , pname , pcontent , price , stock , category , category2 , category3 , thumbnail -->
 									
 									<div class="col-md-4">
-										<input type="text" name="pname" class="pname form-control" style="width:100%; margin-top: 7.7px;" value="${keyword}">
+										<input type="text" name="pname" class="pname form-control" style="width:100%; margin-top: 7.7px;" value="${pname}">
 									</div>
 									
 									<div class="col-md-2" style="vertcal-align:middle">

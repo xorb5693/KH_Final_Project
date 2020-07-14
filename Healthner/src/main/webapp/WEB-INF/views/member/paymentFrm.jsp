@@ -70,7 +70,7 @@ prefix="c"%>
                   placeholder="프로모션 코드"
                 />
                 <div class="input-group-append">
-                  <button type="submit" class="btn btn-secondary">Redeem</button>
+                  <button type="submit" class="btn btn-secondary" disabled>Redeem</button>
                 </div>
               </div>
             </form>
@@ -98,7 +98,7 @@ prefix="c"%>
                 </div>
               </div>
               <div class="mb-3">
-                <label for="username" style="color: white;">ID</label>
+                <label for="membername" style="color: white;">ID</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">@</span>
@@ -106,7 +106,7 @@ prefix="c"%>
                   <input
                     type="text"
                     class="form-control"
-                    id="username"
+                    id="membername"
                     value="${member.memberId}"
                     required
                     readonly
@@ -167,16 +167,25 @@ prefix="c"%>
           d.getMinutes() +
           "" +
           d.getSeconds();
+          var name;
+          
+          if(price == 15000) {
+              name = "하루 이용권";
+          } else if(price == 30000) {
+              name = "한달 이용권";
+          } else if (price == 125000) {
+              name = "일년 이용권";
+          }
         IMP.init("imp57751904");
         IMP.request_pay(
           {
             merchant_uid: "Healthner_" + date,
-            name: "한달 이용권",
+            name: name,
             amount: price,
-            buyer_email: "${sessionScope.user.email}",
-            buyer_name: "${sessionScope.user.userName}",
-            buyer_tel: "${sessionScope.user.phone}",
-            buyer_addr: "Kairos.co",
+            buyer_email: "${sessionScope.member.email}",
+            buyer_name: "${sessionScope.member.memberName}",
+            buyer_tel: "${sessionScope.member.phone}",
+            buyer_addr: "Healthner.co",
             buyer_postcode: "01234",
           },
           function (rsp) {
