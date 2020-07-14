@@ -167,11 +167,20 @@ prefix="c"%>
           d.getMinutes() +
           "" +
           d.getSeconds();
+          var name;
+          
+          if(price == 15000) {
+              name = "하루 이용권";
+          } else if(price == 30000) {
+              name = "한달 이용권";
+          } else if (price == 125000) {
+              name = "일년 이용권";
+          }
         IMP.init("imp57751904");
         IMP.request_pay(
           {
             merchant_uid: "Healthner_" + date,
-            name: "한달 이용권",
+            name: name,
             amount: price,
             buyer_email: "${sessionScope.member.email}",
             buyer_name: "${sessionScope.member.memberName}",

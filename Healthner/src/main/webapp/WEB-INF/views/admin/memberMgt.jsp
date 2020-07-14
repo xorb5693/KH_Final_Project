@@ -172,6 +172,11 @@ span {
 h4 {
 	text-align: center;
 }
+    
+    .contentsRow:hover {
+        background-color: #fcd307;
+        cursor: pointer
+    }
 
 </style>
 <body>
@@ -325,7 +330,7 @@ h4 {
 		function addCard(obj) {
 			var memberId = $(obj).children().eq(2).html();
 			var url = "/healthner/admin/addCard.do?memberId=" + memberId;
-			var option = "width = 500, height = 500, top = 100, left = 200, location = no";
+			var option = "width=500px, height=700px, top = 100, left = 200, location = no";
 			window.open(url, null, option);
 		}
 

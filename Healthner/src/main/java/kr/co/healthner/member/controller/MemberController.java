@@ -552,6 +552,8 @@ public class MemberController {
 	
 	@RequestMapping("/paymentComplete.do")
 	public String paymentComplete(Member m,int amount) {
+		
+		System.out.println(amount);
 		int result = service.paymentComplete(m,amount);
 		
 		return "redirect:/";
