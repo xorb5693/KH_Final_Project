@@ -20,6 +20,9 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet" href="/admin/css/style.css">
 <style>
 form>button {
@@ -110,6 +113,9 @@ form>button {
 	padding: 5px;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 }
+h4{
+	text-align:center;
+}
 </style>
 </head>
 
@@ -119,11 +125,11 @@ form>button {
 
 	<!-- Page Content  -->
 	<div id="content" class="p-4 p-md-5 pt-5">
+		<b><h4 style="font-family: 'Montserrat Subrayada', sans-serif; margin-bottom: 60px; margin-top: 20px;">
+		RECEIVED MAIL</h4></b>
 		<h5>
-			Receive Mail List / <a href="/healthner/admin/sendMail.do?reqPage=1">Send Mail
-				List</a>
+			Received Mail / <a href="/healthner/admin/sendMail.do?reqPage=1">Sent Mail</a>
 		</h5>
-		<h2 class="mb-4">Receive Mail List</h2>
 		<form action="/healthner/admin/adminDeleteMail.do" method="get">
 			<input type="hidden" name="readType" value="0">
 			<button type="button" id="modal" style="width: 100px;"

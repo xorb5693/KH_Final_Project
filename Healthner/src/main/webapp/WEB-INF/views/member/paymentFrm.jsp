@@ -98,7 +98,7 @@ prefix="c"%>
                 </div>
               </div>
               <div class="mb-3">
-                <label for="username" style="color: white;">ID</label>
+                <label for="membername" style="color: white;">ID</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">@</span>
@@ -106,7 +106,7 @@ prefix="c"%>
                   <input
                     type="text"
                     class="form-control"
-                    id="username"
+                    id="membername"
                     value="${member.memberId}"
                     required
                     readonly
@@ -173,10 +173,10 @@ prefix="c"%>
             merchant_uid: "Healthner_" + date,
             name: "한달 이용권",
             amount: price,
-            buyer_email: "${sessionScope.user.email}",
-            buyer_name: "${sessionScope.user.userName}",
-            buyer_tel: "${sessionScope.user.phone}",
-            buyer_addr: "Kairos.co",
+            buyer_email: "${sessionScope.member.email}",
+            buyer_name: "${sessionScope.member.memberName}",
+            buyer_tel: "${sessionScope.member.phone}",
+            buyer_addr: "Healthner.co",
             buyer_postcode: "01234",
           },
           function (rsp) {
