@@ -18,17 +18,155 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet" href="/admin/css/style.css">
 </head>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.3.1.js"></script>
+	<style>
+button {
+	border: none;
+	margin: 0 auto;
+	width: 100%;
+}
+
+table {
+	width: 100%;
+	margin-bottom: 1rem;
+	color: #212529;
+}
+
+table th, table td {
+	padding: 0.5rem;
+	border-top: 1px solid #dee2e6;
+	text-align: center;
+	height: 50px;
+}
+
+body {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.small-img {
+	margin: 0 auto;
+	width: 70px;
+}
+
+.admin-btn {
+	width: 80px;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #fff;
+	border-weight: bold;
+	background-color: #fcd307;
+	border-color: #fcd307;
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+	display: inline-block;
+	float: right;
+	margin: 5px;
+	margin-bottom:20px;
+	border-radius: 5px;
+}
+
+.admin-btn:hover {
+	color: #fff;
+	background-color: #33290e;
+	border-color: #33290e;
+}
+
+#profile {
+	width: 75px;
+}
+
+.search-box {
+	width: 100%;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+#searchWord{
+	width: 300px;
+	height: 35px;
+	margin-top: 5px;
+	margin-right: 10px;
+}
+.right-searchbox{
+	float:right;
+}
+.checkbox-span{
+	font-size: 1.1em;
+}
+.finish-btn:hover{
+background-color: #33290e;
+color:#fff;
+border: 1px solid transparent;
+}
+.finish-btn{
+width: 65px;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #212529;
+	border-weight: bold;
+	background-color: #fff;
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid #212529;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+	display: inline-block;
+}
+#searchBox{
+	float: right;
+}
+select[name=responseFin]{
+	margin-top: 6;
+    line-height: 40px;
+    height: 38;
+    margin-right: 8;
+    width: 100;
+    border: 0.5px solid gray;
+    border-radius: 5px;
+}
+span{
+	font-size: 1.2em;
+	margin-right: 10px;
+}
+#boxforselect{
+	margin-top:10px;
+	display: inline-block;
+	margin-left: 32;
+}
+h4{
+	text-align:center;
+}
+</style>
 <body>
 	<!-- 혜진_200624_메뉴바 삽입 -->
 	<jsp:include page="/WEB-INF/views/admin/menubar.jsp" />
 
 	<!-- Page Content  -->
 	<div id="content" class="p-4 p-md-5 pt-5">
-		<h6>신고글 관리</h6>
+		<b><h4 style="font-family: 'Montserrat Subrayada', sans-serif; margin-bottom: 60px; margin-top: 20px;">
+		Report Management</h4></b>
 		<div class="search-box">
 			<!-- 혜진_200708_검색창 제작 -->
 			<span>전체 선택</span><input type="checkbox" name="selectAll"> <select
@@ -52,7 +190,7 @@
 				onclick="deleteAction();">
 		</div>
 		<div class="reportTb">
-			<table border="1" id="parentTB">
+			<table id="parentTB">
 				<tr class="titleRow">
 					<th>선택</th>
 					<th>No</th>
@@ -246,13 +384,13 @@ table {
 		<div class="search-modal-content">
 			신고 내용 상세 보기
 			<div class="reportDetail-box">
-				<table border="1" id="reportContent">
+				<table id="reportContent">
 					<tr>
 						<th>게시글 일부 내용</th>
 					</tr>
 				</table>
 			</div>
-			<div id="memberInfo-box">
+			<div id="memberInfo-box" style="overflow:auto;">
 				<table id="reportComment" border="1">
 					<tr>
 						<th>No</th>
