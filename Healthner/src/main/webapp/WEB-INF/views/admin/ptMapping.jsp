@@ -8,7 +8,6 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
 	rel="stylesheet">
@@ -96,10 +95,12 @@ body {
 	margin-bottom: 20px;
 }
 #searchWord{
-	width: 300px;
+	width: 200px;
 	height: 35px;
 	margin-top: 5px;
 	margin-right: 10px;
+	border: 0.5px solid gray;
+	border-radius: 5px;
 }
 .right-searchbox{
 	float:right;
@@ -136,14 +137,15 @@ width: 65px;
 #searchBox{
 	float: right;
 }
-select[name=responseFin]{
-	margin-top: 6;
-    line-height: 40px;
-    height: 38;
-    margin-right: 8;
-    width: 100;
+select{
+	margin-top: 6px;
+    line-height: 35px;
+    height: 35px;
+    margin-right: 8px;
+    width: 100px;
     border: 0.5px solid gray;
     border-radius: 5px;
+    padding-left:2px;
 }
 span{
 	font-size: 1.2em;
@@ -157,6 +159,44 @@ span{
 h4{
 	text-align:center;
 }
+
+.bottom-btn {
+	width: 120px;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #fff;
+	border-weight: bold;
+	background-color: #fcd307;
+	border-color: #fcd307;
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+	display: inline-block;
+	float: center;
+	margin: 5px;
+	margin-top: 25px;
+	border-radius: 5px;
+}
+
+.bottom-btn:hover {
+	color: #fff;
+	background-color: #33290e;
+	border-color: #33290e;
+}
+
+.bottom-btn-box{
+	margin: 0 auto;
+	text-align: center;
+}
 </style>
 <body>
 	<!-- 혜진_200701_메뉴바 삽입 -->
@@ -166,35 +206,36 @@ h4{
 	<div id="content" class="p-4 p-md-5 pt-5">
 		<b><h4 style="font-family: 'Montserrat Subrayada', sans-serif; margin-bottom: 60px; margin-top: 20px;">
 		Personal Training Matching</h4></b>
-		<!-- 혜진_200701_MAPPING 검색 조회 box_회원/트레이너 검색, 아이디/이름/닉네임 입력, PT잔여순 정렬, 검색버튼  -->
-		<div class="search-box">
+			<!-- (2) 잔여순 정렬 -->
+			<div id="searchBox">
+			<div id="boxforselect">
+			<span>PT 잔여순 정렬</span><input type="checkbox" value="ptleft" name="ptleft">&nbsp;&nbsp;</div>
+			<!-- 혜진_200701_MAPPING 검색 조회 box_회원/트레이너 검색, 아이디/이름/닉네임 입력, PT잔여순 정렬, 검색버튼  -->
 			<select name="memberType">
 				<option value="3">트레이너</option>
 				<option value="1">회원</option>
 			</select>
 			<!-- (1) 이름 입력 -->
 			<input type="text" id="searchWord" placeholder="검색할 이름을 입력하세요.">
-			<!-- (2) 잔여순 정렬 -->
-			PT 잔여순 정렬<input type="checkbox" value="ptleft" name="ptleft">
+			<!-- (4)추가 버튼-->
+			<input type="button" value="추  가" class="admin-btn" id="admin-add">
 			<!-- (3)검색 버튼 -->
 			<input type="button" value="검  색" class="admin-btn" id="admin-search"
 				onclick="show_memberlist(1,1);">
-			<!-- (4)추가 버튼-->
-			<input type="button" value="추  가" class="admin-btn" id="admin-add">
 		</div>
 		<div class="mappingTB">
 			<table id="mappingPTtable">
 				<tr class="titleRow">
 					<th>No</th>
-					<th>트레이너 프로필</th>
-					<th>트레이너 이름</th>
-					<th>주특기 1</th>
-					<th>주특기 2</th>
-					<th>주특기 3</th>
-					<th>회원 프로필</th>
-					<th>회원 이름</th>
-					<th>이용권 만기일</th>
-					<th>PT 잔여회차</th>
+					<th>트레이너<br>프로필</th>
+					<th>트레이너<br>이름</th>
+					<th>주특기<br>1</th>
+					<th>주특기<br>2</th>
+					<th>주특기<br>3</th>
+					<th>회원<br>프로필</th>
+					<th>회원<br>이름</th>
+					<th>이용권<br>만기일</th>
+					<th>PT<br>잔여<br>회차</th>
 					<th>수정</th>
 					<th>삭제</th>
 				</tr>
@@ -269,9 +310,9 @@ h4{
 										+ "</td>";
 								html += "<td>" + data.listpt[i].trainingLeft
 										+ "</td>";
-								html += "<td><input type='button' class='admin-btn' value='수 정' onclick='modifyPT(this.id);' id='"
+								html += "<td><input type='button' class='finish-btn' value='수 정' onclick='modifyPT(this.id);' id='"
 										+ data.listpt[i].mappingSeq + "'></td>";
-								html += "<td><input type='button' class='admin-btn' value='삭 제' onclick='deletePT(this.id);' id='"
+								html += "<td><input type='button' class='finish-btn' value='삭 제' onclick='deletePT(this.id);' id='"
 										+ data.listpt[i].mappingSeq + "'></td>";
 								html += "</tr>"
 							}
@@ -376,7 +417,7 @@ h4{
 	padding: 20px;
 	border: 1px solid #888;
 	width: 60%; /* Could be more or less, depending on screen size */
-	height: 500px;
+	height: 80%;
 }
 
 #memberInfo-box {
@@ -397,12 +438,12 @@ table {
 	<!--모달창 본문-->
 	<div id="modal" class="searchModal">
 		<div class="search-modal-content">
-			<div class="searchbar">
+			<div id="searchBox" style="margin-top:15px; margin-bottom: 5px;">
 				<input type="hidden" id="btnInfo" value=""> <select
 					name="modal-memberType">
 					<option value=1>회원</option>
 					<option value=3>트레이너</option>
-				</select> <input type="text" placeholder="아이디/이름 입력" name="searchWord">
+				</select> <input type="text" placeholder="아이디/이름 입력" name="searchWord" id="searchWord">
 				<input type="button" class="admin-btn" id="modal-search" value="검색">
 			</div>
 			<div id="memberInfo-box" style="overflow:auto;">
@@ -431,15 +472,17 @@ table {
 						type="hidden" value="" id="fixMemberNo"><span></span></td>
 					<td id="fixTrainer" ondblclick="outputMember(this);"><input
 						type="hidden" value="" id="fixTrainerNo"><span></span></td>
-					<td><input type="text" id="PTmax" placeholder=0
+					<td><input type="text" id="PTmax searchWord" placeholder=0
 						style="text-align: right;"></td>
-					<td><input type="text" id="PTleft" placeholder=0
+					<td><input type="text" id="PTleft searchWord" placeholder=0
 						style="text-align: right;"></td>
 				</tr>
 			</table>
-			<input type="submit" class=admin-btn value="등 록"
+			<div class="bottom-btn-box">
+			<input type="submit" class="bottom-btn" value="등 록"
 				onclick="inputNewMapping();"> <input type="button"
-				class="admin-btn" value="닫 기" onClick="closeModal();">
+				class="bottom-btn" value="닫 기" onClick="closeModal();">
+				</div>
 		</div>
 	</div>
 	<!-- 추가버튼 클릭 시, 모달창 켜기 -->

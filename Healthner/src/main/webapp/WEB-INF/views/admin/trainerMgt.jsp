@@ -92,6 +92,8 @@ body {
 	height: 35px;
 	margin-top: 5px;
 	margin-right: 10px;
+	border: 0.5px solid gray;
+	border-radius: 5px;
 }
 .right-searchbox{
 	float:right;
@@ -128,14 +130,15 @@ width: 65px;
 #searchBox{
 	float: right;
 }
-select[name=responseFin]{
-	margin-top: 6;
-    line-height: 40px;
-    height: 38;
-    margin-right: 8;
-    width: 100;
+select[name=memberType]{
+	margin-top: 6px;
+    line-height: 35px;
+    height: 35px;
+    margin-right: 8px;
+    width: 100px;
     border: 0.5px solid gray;
     border-radius: 5px;
+    padding-left:2px;
 }
 span{
 	font-size: 1.2em;
@@ -158,7 +161,7 @@ h4{
 	<div id="content" class="p-4 p-md-5 pt-5">
 		<b><h4 style="font-family: 'Montserrat Subrayada', sans-serif; margin-bottom: 60px; margin-top: 20px;">
 		Trainer Management</h4></b>
-		<div class="search-box">
+		<div id="searchBox">
 		<!-- 혜진_200630_검색창 제작 -->
 			<input type="text" id="searchWord" placeholder="아이디/이름/닉네임을 입력하세요.">
 			<select name="memberType">
@@ -173,12 +176,11 @@ h4{
 			<table>
 				<tr class="titleRow">
 					<th>No</th>
-					<th>프로필 이미지</th>
-					<th>회원 아이디</th>
-					<th>회원 이름</th>
-					<th>회원 닉네임</th>
+					<th>프로필<br>이미지</th>
+					<th>회원<br>아이디</th>
+					<th>회원<br>이름</th>
 					<th>나이</th>
-					<th>전화번호</th>
+					<th>전화<br>번호</th>
 					<th>이메일</th>
 					<th>주소</th>
 					<th>가입일</th>
@@ -225,19 +227,18 @@ h4{
 								}
 								html += "<td id='memberId'>" + data.list[i].memberId + "</td>";
 								html += "<td>" + data.list[i].memberName + "</td>";
-								html += "<td>" + data.list[i].memberNick + "</td>";
 								html += "<td>" + data.list[i].age + "</td>";
 								html += "<td>" + data.list[i].phone + "</td>";
 								html += "<td>" + data.list[i].email + "</td>";
 								html += "<td>" + data.list[i].roadAddr + data.list[i].detAddr + "</td>";
 								html += "<td>" + data.list[i].enrollDate + "</td>";
 								if(data.list[i].memberLevel==2){
-									html += "<td><input type='button' value='승 인' onclick='approve(this);'></td>";
+									html += "<td><input type='button' value='승 인' onclick='approve(this);' class='finish-btn'></td>";
 								} else{
 									html+= "<td>승인</td>"
 								}
 								if(data.list[i].memberLevel==2){
-									html += "<td><input type='button' value='삭 제' onclick='reject(this)'></td>";
+									html += "<td><input type='button' value='삭 제' onclick='reject(this)' class='finish-btn'></td>";
 								} else{
 									html+= "<td>-</td>"
 								}

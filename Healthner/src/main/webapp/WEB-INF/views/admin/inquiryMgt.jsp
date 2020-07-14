@@ -94,6 +94,8 @@ body {
 	height: 35px;
 	margin-top: 5px;
 	margin-right: 10px;
+	border: 0.5px solid gray;
+	border-radius: 5px;
 }
 .right-searchbox{
 	float:right;

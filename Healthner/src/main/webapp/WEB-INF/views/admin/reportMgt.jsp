@@ -97,10 +97,12 @@ body {
 	margin-bottom: 20px;
 }
 #searchWord{
-	width: 300px;
+	width: 200px;
 	height: 35px;
 	margin-top: 5px;
 	margin-right: 10px;
+	border: 0.5px solid gray;
+	border-radius: 5px;
 }
 .right-searchbox{
 	float:right;
@@ -137,14 +139,15 @@ width: 65px;
 #searchBox{
 	float: right;
 }
-select[name=responseFin]{
-	margin-top: 6;
-    line-height: 40px;
-    height: 38;
-    margin-right: 8;
-    width: 100;
+select{
+	margin-top: 6px;
+    line-height: 36px;
+    height: 36px;
+    margin-right: 10px;
+    width: 120px;
     border: 0.5px solid gray;
     border-radius: 5px;
+    padding-left:2px;
 }
 span{
 	font-size: 1.2em;
@@ -167,9 +170,12 @@ h4{
 	<div id="content" class="p-4 p-md-5 pt-5">
 		<b><h4 style="font-family: 'Montserrat Subrayada', sans-serif; margin-bottom: 60px; margin-top: 20px;">
 		Report Management</h4></b>
-		<div class="search-box">
+		
 			<!-- 혜진_200708_검색창 제작 -->
-			<span>전체 선택</span><input type="checkbox" name="selectAll"> <select
+			<div id="boxforselect">
+		<input type="checkbox" name="selectAll">&nbsp;&nbsp;&nbsp;<span>전체 선택</span></div>
+		<div id="searchBox">
+		 <select
 				name="writeType">
 				<option value=0>게시물 종류</option>
 				<option value=1>게시글</option>
@@ -194,11 +200,11 @@ h4{
 				<tr class="titleRow">
 					<th>선택</th>
 					<th>No</th>
-					<th>신고된 회원 아이디</th>
-					<th>신고된 회원 닉네임</th>
+					<th>신고된<br>회원 아이디</th>
+					<th>신고된<br>회원 닉네임</th>
 					<th>게시물 타입</th>
-					<th>게시글 제목/내용</th>
-					<th>누적 신고 수</th>
+					<th>게시글<br>제목/내용</th>
+					<th>누적<br>신고 수</th>
 					<th>내용 확인</th>
 				</tr>
 			</table>
@@ -255,7 +261,7 @@ h4{
 								}
 								html += "<td>" + data.listrp[i].reportCnt
 										+ "</td>";
-								html += "<td><input type='button' value='확 인' class='admin-btn' onclick='openModal(this);'></td>";
+								html += "<td><input type='button' value='확 인' class='finish-btn' onclick='openModal(this);'></td>";
 								html += "</tr>";
 							}
 							$("#parentTB").children("tbody").append(html);

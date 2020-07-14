@@ -131,6 +131,71 @@ body {
 	display: inline-block;
 	
 }
+.finish-btn:hover {
+	background-color: #33290e;
+	color: #fff;
+	border: 1px solid transparent;
+}
+
+.finish-btn {
+	width: 65px;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #212529;
+	border-weight: bold;
+	background-color: #fff;
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid #212529;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+	display: inline-block;
+}
+
+.bottom-btn {
+	width: 120px;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #fff;
+	border-weight: bold;
+	background-color: #fcd307;
+	border-color: #fcd307;
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+	display: inline-block;
+	float: center;
+	margin: 5px;
+	margin-top: 120px;
+	border-radius: 5px;
+}
+
+.bottom-btn:hover {
+	color: #fff;
+	background-color: #33290e;
+	border-color: #33290e;
+}
+
+.bottom-btn-box{
+	margin: 0 auto;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -323,15 +388,17 @@ body {
 			<th>카드키</th>
 			<td id="card" style="width: 180px;" colspan="2"></td>
 			<td><input type="reset" value="삭  제" onclick="inputDelete();"
-				class="admin-btn"></td>
+				class="finish-btn"></td>
 		</tr>
 	</table>
 	<!-- 태규_200702_저장버튼 삭제 -->
 	<!-- 혜진_200630_닫기 버튼 기능 활성화 -->
 	<!-- 혜진_200101_부모창 새로고침 기능 추가 -->
+	<div class="bottom-btn-box">
 	<input type="button" value="닫  기"
 		onclick="window.close(); opener.parent.location.reload();"
-		class="pop-up-btn">
+		class="bottom-btn">
+		</div>
 
 </body>
 </html>
