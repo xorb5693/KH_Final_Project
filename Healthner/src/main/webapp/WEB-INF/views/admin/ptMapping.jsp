@@ -197,6 +197,10 @@ h4{
 	margin: 0 auto;
 	text-align: center;
 }
+
+table {
+	table-layout: fixed;
+}
 </style>
 <body>
 	<!-- 혜진_200701_메뉴바 삽입 -->
@@ -380,6 +384,7 @@ h4{
 				},
 				dataType : "json",
 				success : function(data) {
+					/* console.log(data); */
 					$("#fixMember").children("span").html(data.memberName);
 					$("#fixMember").children("input").val(data.memberNo);
 					$("#fixTrainer").children("span").html(data.trainerName);
@@ -388,6 +393,8 @@ h4{
 					$("#PTleft").val(data.PTleft);
 					$("#btnInfo").val(2);
 					$("#mappingSeq").val(mpSeq);
+					console.log($("#PTmax").val());
+					console.log($("#PTleft").val());
 				}
 			});
 		}
@@ -422,7 +429,7 @@ h4{
 
 #memberInfo-box {
 	width: 100%;
-	height: 300px;
+	height: 400px;
 	border: 1px solid black;
 }
 
@@ -449,14 +456,14 @@ table {
 			<div id="memberInfo-box" style="overflow:auto;">
 				<table id="memberInfo" border="1">
 					<tr>
-						<th>No</th>
-						<th>프로필</th>
-						<th>아이디</th>
-						<th>이름</th>
-						<th>나이</th>
-						<th>전화번호</th>
-						<th>이메일</th>
-						<th>주소</th>
+						<th style="width: 5%">No</th>
+						<th style="width: 10%">프로필</th>
+						<th style="width: 10%">아이디</th>
+						<th style="width: 8%">이름</th>
+						<th style="width: 6%">나이</th>
+						<th style="width: 11%">전화번호</th>
+						<th style="width: 20%">이메일</th>
+						<th style="width: 30%">주소</th>
 					</tr>
 				</table>
 			</div>
@@ -472,9 +479,9 @@ table {
 						type="hidden" value="" id="fixMemberNo"><span></span></td>
 					<td id="fixTrainer" ondblclick="outputMember(this);"><input
 						type="hidden" value="" id="fixTrainerNo"><span></span></td>
-					<td><input type="text" id="PTmax searchWord" placeholder=0
+					<td><input type="text" id="PTmax" placeholder=0
 						style="text-align: right;"></td>
-					<td><input type="text" id="PTleft searchWord" placeholder=0
+					<td><input type="text" id="PTleft" placeholder=0
 						style="text-align: right;"></td>
 				</tr>
 			</table>
@@ -603,9 +610,9 @@ table {
 		function inputNewMapping() {
 			var mappingSeq = $("#mappingSeq").val();
 			console.log("1:"+mappingSeq);
-			var PTmax = $("#PTmax").val();
+			var PTmax = Number($("#PTmax").val());
 			console.log("2:"+PTmax);
-			var PTleft = $("#PTleft").val();
+			var PTleft = Number($("#PTleft").val());
 			console.log("3:"+PTleft);
 			var memberNo = $("#fixMember").children("input").val();
 			console.log("4:"+memberNo);
@@ -614,6 +621,8 @@ table {
 			console.log("버튼:"+$("#btnInfo").val());
 			if ($("#PTmax").val() > 0 && PTleft >= 0 && memberNo != ""
 					&& trainerNo != "") {
+				console.log(PTleft);
+				console.log(PTmax);
 				if (PTmax < PTleft) {
 					alert("가능한 PT 최대 횟수보다 잔여 횟수가 많습니다.\n다시 입력해주세요.");
 					$("#PTmax").val("");

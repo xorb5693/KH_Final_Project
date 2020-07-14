@@ -77,15 +77,15 @@
 								</div>
 								<div class="col-md-2">
 									<select class="selectpicker show-tick" style="width: 100%" size="3" name="category2">
-										<c:if test="${category1 eq 1 }">
+										<c:if test="${category2 eq 1 }">
 											<option value="1" selected>운동기구</option>
 											<option value="2">보조식품</option>
 											<option value="3">의류</option>
 										</c:if>
 										<c:if test="${category2 eq 2 }">
 											<option value="1">운동기구</option>
-											<option value="2">보조식품</option>
-											<option value="3" selected>의류</option>
+											<option value="2" selected>보조식품</option>
+											<option value="3">의류</option>
 										</c:if>
 										<c:if test="${category2 eq 3 }">
 											<option value="1">운동기구</option>

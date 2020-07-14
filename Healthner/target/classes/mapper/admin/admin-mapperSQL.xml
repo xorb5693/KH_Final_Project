@@ -224,7 +224,7 @@
 		mp.training_maxcnt as PTmax
 	from member_mapping mp
 	join member m on (m.member_no = mp.member_no)
-	join member t on (t.member_no = mp.member_no)
+	join member t on (t.member_no = mp.trainer_no)
 	where mapping_seq = #{mpSeq}
 	</select>
 	<!-- 혜진_200708_신고글 조회 -->

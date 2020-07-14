@@ -29,16 +29,20 @@ table {
 	color: #212529;
 }
 
+table {
+	table-layout: fixed;
+}
+
 table th, table td {
 	padding: 0.5rem;
 	border-top: 1px solid #dee2e6;
 	text-align: center;
-	width: 33%;
+	
 	height: 40px;
 	font-size: 1.1em;
 }
-table th{
-	border-right: 1px solid #dee2e6;
+table th, table td{
+	border: 1px solid #dee2e6;
 }
 body {
 	font-family: 'Nanum Gothic', sans-serif;
@@ -82,10 +86,6 @@ body {
 	color: #fff;
 	background-color: #6e6d6d;
 	border-color: #6e6d6d;
-}
-
-#profile {
-	width: 75px;
 }
 
 .search-box {
@@ -182,7 +182,7 @@ body {
 	display: inline-block;
 	float: center;
 	margin: 5px;
-	margin-top: 120px;
+	margin-top: 50px;
 	border-radius: 5px;
 }
 
@@ -355,39 +355,39 @@ body {
 			$(obj).attr("src", "/resources/profile/imageError.jpg");
 		}
 	</script>
-	<h5>회원 정보 상세 보기</h5>
+	<h2>회원 정보 상세 보기</h2>
 	<!-- 혜진_200630_삭제 버튼, 저장 버튼 클릭 시 카드키 정보 수정 -->
 	<table>
 		<tr>
-			<th colspan="2">프로필 이미지</th>
-			<th>회원 아이디</th>
-			<td id="memberId">${memberId }</td>
+			<th colspan="2" style="width: 45%;">프로필 이미지</th>
+			<th style="width: 30%;">회원 아이디</th>
+			<td id="memberId" style="width: 25%;">${memberId }</td>
 		</tr>
 		<tr>
-			<td colspan="2" rowspan="3" id="profile"></td>
-			<th>회원 이름</th>
-			<td id="memberName"></td>
+			<td colspan="2" rowspan="3" id="profile" style="width: 45%;"></td>
+			<th style="width: 30%;">회원 이름</th>
+			<td id="memberName" style="width: 25%;"></td>
 		</tr>
 		<tr>
-			<th>회원 닉네임</th>
-			<td id="memberNick"></td>
+			<th style="width: 30%;">회원 닉네임</th>
+			<td id="memberNick" style="width: 25%;"></td>
 		</tr>
 		<tr>
-			<th>이용권 만료일</th>
-			<td id="expireDate" style="width: 150px;"></td>
+			<th style="width: 25%;">이용권 만료일</th>
+			<td id="expireDate" style="width: 25%;"></td>
 		</tr>
 		<tr>
-			<th>전화번호</th>
-			<td colspan="3" id="phone"></td>
+			<th style="width: 25%;">전화번호</th>
+			<td colspan="3" id="phone" style="width: 75%;"></td>
 		</tr>
 		<tr>
-			<th>이메일</th>
-			<td colspan="3" id="email"></td>
+			<th style="width: 25%;">이메일</th>
+			<td colspan="3" id="email" style="width: 75%;"></td>
 		</tr>
 		<tr>
-			<th>카드키</th>
-			<td id="card" style="width: 180px;" colspan="2"></td>
-			<td><input type="reset" value="삭  제" onclick="inputDelete();"
+			<th style="width: 25%;">카드키</th>
+			<td id="card" style="width: 180px;" colspan="2" style="width: 60%;"></td>
+			<td style="width: 15%;"><input type="reset" value="삭  제" onclick="inputDelete();"
 				class="finish-btn"></td>
 		</tr>
 	</table>
