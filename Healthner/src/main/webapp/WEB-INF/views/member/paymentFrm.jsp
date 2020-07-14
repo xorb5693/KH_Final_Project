@@ -70,7 +70,7 @@ prefix="c"%>
                   placeholder="프로모션 코드"
                 />
                 <div class="input-group-append">
-                  <button type="submit" class="btn btn-secondary">Redeem</button>
+                  <button type="submit" class="btn btn-secondary" disabled>Redeem</button>
                 </div>
               </div>
             </form>

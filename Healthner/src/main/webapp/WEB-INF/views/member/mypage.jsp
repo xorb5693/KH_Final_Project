@@ -419,12 +419,12 @@
 									<button type="button" id="address" class="btn btn-dark" style="display: none;">주소검색</button>
 									 <input type="text" id="zip"
 									name="zip" class="form-control"
-									placeholder="${sessionScope.member.zip}" readonly required>
+									value="${sessionScope.member.zip}" readonly required>
 									 <input type="text" id="roadAddr" name="roadAddr"
 									class="form-control"
-									placeholder="${sessionScope.member.roadAddr}" readonly required>
+									value="${sessionScope.member.roadAddr}" readonly required>
 									<input id="detAddr" name="detAddr" class="form-control"
-									type="text" placeholder="${sessionScope.member.detAddr}"
+									type="text" value="${sessionScope.member.detAddr}"
 									required readonly> <span id="addrMsg"></span>
 									<input type="hidden" name="memberNo" id="memberNo"
 										value="${sessionScope.member.memberNo}"> 
