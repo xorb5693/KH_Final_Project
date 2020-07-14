@@ -120,7 +120,6 @@
 								<div style="width:150px">
 									<select name="searchType" class="form-control">
 										<option class="sel" name="boardTitle" value="boardTitle">제목</option>
-										<option class="sel" name="boardWriter" value="boardWriter">글쓴이</option>
 									</select>
 								</div>
 								

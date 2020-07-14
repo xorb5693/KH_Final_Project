@@ -52,6 +52,9 @@ public class ShopController {
 		System.out.println(category2);
 		System.out.println(category3);
 		System.out.println(pname);
+		model.addAttribute("category", category);
+		model.addAttribute("category2", category2);
+		model.addAttribute("category3", category3);
 		if(pname==null) {
 			ShopPageDate spb = service.searchProductList2(reqPage,category,category2,category3);
 			model.addAttribute("list",spb.getList());
@@ -59,6 +62,7 @@ public class ShopController {
 			return "shop/shop";
 		}else {
 			ShopPageDate spb = service.searchProductList(reqPage,category,category2,category3,pname);
+			model.addAttribute("pname", pname);
 			model.addAttribute("list",spb.getList());
 			model.addAttribute("navi",spb.getPageNavi());
 			return "shop/shop";
